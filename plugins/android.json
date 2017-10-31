@@ -1,0 +1,56 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "com-sarriaroman-photoviewer": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "cordova-plugin-fullscreen": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "cordova-plugin-googlemaps": {
+            "API_KEY_FOR_ANDROID": "AIzaSyAtUoEPdkAj1sA_t0tolgBJlg_rM1es1iI",
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "cordova-plugin-sqlite-2": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        }
+    },
+    "dependent_plugins": {
+        "com.googlemaps.ios": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        }
+    }
+}

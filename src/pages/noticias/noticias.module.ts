@@ -1,0 +1,18 @@
+import { NgModule } from '@angular/core';
+import { IonicPageModule } from 'ionic-angular';
+import { NoticiasPage } from './noticias';
+import { SharedModule } from '../../app/shared.module';
+
+@NgModule({
+    declarations: [
+        NoticiasPage
+    ],
+    imports: [
+        IonicPageModule.forChild(NoticiasPage),
+        SharedModule
+    ],
+    exports: [
+        NoticiasPage
+    ],
+})
+export class NoticiasPageModule { }

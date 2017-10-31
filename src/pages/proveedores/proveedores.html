@@ -1,0 +1,55 @@
+<ion-header>
+    <ion-navbar center>
+        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />
+        <button ion-button menuToggle right>
+            <div class="navicon-button x">
+                <div class="navicon"></div>
+            </div>
+    	</button>
+    </ion-navbar>
+</ion-header>
+<ion-content class="contentInterior">
+    <ion-grid>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <h1 class="text-center uppercase">Proveedores</h1>
+            </ion-col>
+        </ion-row>
+        <ion-row padding-right padding-left justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <form (ngSubmit)="searchSubmit()">
+                    <ion-searchbar class="buscador" animated="true" cancelButtonText="Cancelar" showCancelButton="false" placeholder="Buscar Proveedores" type="text" (ionInput)="searchFn($event)" (search)="searchSubmit($event)"></ion-searchbar>
+                    <button class="button button-clear" type="submit">Buscar Proveedores</button>
+                </form>
+            </ion-col>
+        </ion-row>
+        <div class="bloqueBlancoNoPadding no-padding">
+            <ion-row padding-right padding-left justify-content-around>
+                <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                    <button class="inContent minPadding fullWidth" ion-button round large>Mi Lista</button>
+                </ion-col>
+                <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                    <button class="inContent minPadding fullWidth" ion-button round large [disabled]="!revisados">Últimos revisados</button>
+                </ion-col>
+            </ion-row>
+        </div>
+    </ion-grid>
+    <ion-list class="proveedores" *ngFor="let proveedor of proveedoresFiltered">
+        <ion-item class="proveedor" padding-top padding-bottom (click)="openPage('ProveedorPage', proveedor);">
+            <ion-row padding-right padding-left justify-content-around>
+                <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                    <div class="logoProveedor text-center center" *ngIf="proveedor.doc._attachments">
+                        <div *ngFor="let attachment of proveedor.doc._attachments | keys; index as i">
+                            <img width="100%" src="{{cfg.apiUrl}}/proveedores/{{proveedor.doc._id}}/{{attachment.key}}" *ngIf="i==0" />
+                        </div>
+                    </div>
+                </ion-col>
+                <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                    <h2 class="titleProveedor">
+                        {{proveedor.doc.nombre}}
+                    </h2>
+                </ion-col>
+            </ion-row>
+        </ion-item>
+    </ion-list>
+</ion-content>

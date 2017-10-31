@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-navbar center>
+        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />
+        <button ion-button menuToggle right>
+            <div class="navicon-button x">
+                <div class="navicon"></div>
+            </div>
+    	</button>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <ion-card *ngIf="user">
+
+        <ion-row>
+            <ion-col col-25>Nombre:</ion-col>
+            <ion-col col-75>{{ user.name }}</ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-25>Email:</ion-col>
+            <ion-col col-75>{{ user.email }}</ion-col>
+        </ion-row>
+
+    </ion-card>
+
+
+</ion-content>

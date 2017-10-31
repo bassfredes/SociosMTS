@@ -1,0 +1,18 @@
+page-noticia-detalle {
+    .noticias {
+        box-shadow: none;
+        padding: 0;
+        .detalles {
+            padding: 0;
+        }
+    }
+    .bloqueBlanco {
+        padding: 0;
+        margin-bottom: 10px;
+    }
+    .attachments {
+        .item-block {
+            box-shadow: none;
+        }
+    }
+}

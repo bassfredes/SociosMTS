@@ -1,0 +1,10 @@
+page-welcome {
+    #mapa {
+        display: block;
+        width: 100%;
+        height: 340px;
+    }
+    ion-content.contentInterior {
+        background: color($fondos, light);
+    }
+}

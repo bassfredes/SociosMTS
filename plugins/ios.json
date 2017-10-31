@@ -1,0 +1,60 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-camera": {
+            "CAMERA_USAGE_DESCRIPTION": " ",
+            "PHOTOLIBRARY_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        },
+        "cordova-plugin-sqlite-2": {
+            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        },
+        "cordova-plugin-fullscreen": {
+            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        },
+        "com-sarriaroman-photoviewer": {
+            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        },
+        "cordova-plugin-googlemaps": {
+            "API_KEY_FOR_IOS": "AIzaSyDZ-3R98e0u_1uy2N4x6cDl1qU4JuvSXsI",
+            "LOCATION_WHEN_IN_USE_DESCRIPTION": "Show your location on the map",
+            "LOCATION_ALWAYS_USAGE_DESCRIPTION": "Trace your location on the map",
+            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        },
+        "com.googlemaps.ios": {
+            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        }
+    }
+}

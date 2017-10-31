@@ -1,0 +1,143 @@
+page-proveedor {
+    h1 {
+        margin-top: 0.5rem;
+    }
+
+    h3 {
+        .separadorVertical {
+            width: 1px;
+            background: color($colors, dark);
+            height: 2.5rem;
+            display: inline-block;
+            position: relative;
+            top: 0.5rem;
+            margin: 0 1rem;
+        }
+
+        .ranking {
+            font-weight: $black;
+            font-size: 2.5rem;
+            line-height: 3rem;
+            position: relative;
+            top: 0.2rem;
+            margin: 0 0.5rem;
+        }
+
+        .large {
+            font-size: 3rem;
+            line-height: 3rem;
+            position: relative;
+            font-weight: $medium;
+            top: 0.2rem;
+            color: color($colors, negro);
+        }
+
+        .neutro {
+            color: color($indicadores, neutro);
+        }
+
+        .positivo {
+            color: color($indicadores, positivo);
+        }
+
+        .negativo {
+            color: color($indicadores, negativo);
+        }
+    }
+
+    .containerProveedores {
+        background: color($colors, ultralight);
+        max-height: 220px;
+        min-height: 220px;
+        display: none;
+    }
+
+    .containerProveedores.active {
+        display: block;
+    }
+
+    ion-list.proveedores {
+        margin-bottom: 0;
+
+        .logoProveedor {
+            img {
+                max-width: 120px;
+            }
+        }
+
+        ion-item {
+            border: none !important;
+            padding: 0 !important;
+            background: none;
+            letter-spacing: normal;
+
+            .item-inner {
+                padding: 0 !important;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+                font-family: 'Montserrat';
+                font-weight: $light;
+                color: color($colors, dark);
+            }
+
+            ion-label {
+                margin: 0;
+            }
+        }
+    }
+
+    .dropdownProveedor.button[icon-only] {
+        height: 2.3em;
+        padding: 0 !important;
+        background: none;
+        color: color($colors, dark);
+        box-shadow: none;
+
+        .icon {
+            display: none;
+        }
+
+        .icon.active {
+            display: block;
+        }
+    }
+
+    .periodoChart {
+        position: relative;
+    }
+
+    .chartNPS {
+        .legendChart .centeredChart {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 80%;
+            height: auto;
+            text-align: center;
+            font-family: 'CircularStd';
+            font-size: 4.1rem;
+            margin-top: -2.7rem;
+            padding-right: 7rem;
+            letter-spacing: normal;
+            color: color($colors, texto);
+        }
+
+        .legendChart .stadisticsChart {
+            position: absolute;
+            top: 50%;
+            left: 70%;
+            width: 30%;
+            height: auto;
+            font-family: 'CircularStd';
+            font-size: 1.9rem;
+            margin-top: -1.2rem;
+            text-transform: capitalize;
+            letter-spacing: normal;
+            text-align: left;
+            color: color($colors, texto);
+            font-weight: $book;
+        }
+    }
+}

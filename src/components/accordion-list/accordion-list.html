@@ -1,0 +1,26 @@
+<ion-list class="accordion-list">
+    <ion-list-header no-lines no-padding [class.headerNoDesplegable]="desplegable=='false'" [class.conSubtitle]="subtitle" [class.conFecha]="fecha" [class.conValorIndicador]="valorIndicador">
+        <button ion-item detail-none [style.background]="headerColor" [style.color]="textColor" (click)="toggleAccordion()" class="accordion-header" [class.active]="expanded">
+            <span class="title">{{ title }}</span>
+            <span *ngIf="fecha" class="fecha">{{ fecha }}</span>
+            <span *ngIf="subtitle" class="subtitle">{{ subtitle }}</span>
+            <span *ngIf="valorIndicador" class="valorIndicador">{{ valorIndicador }} %</span>
+            <i item-right class="fa fa-chevron-down" aria-hidden="true"></i>
+            <i item-right class="fa fa-chevron-up" aria-hidden="true"></i>
+        </button>
+        <section #accordionContent [style.background]="contentColor" [class.active]="expanded" class="accordion-content">
+            <ng-content></ng-content>
+        </section>
+    </ion-list-header>
+    <div class="text-center" *ngIf="button">
+        <button margin-bottom class="btn-primary" margin-top center ion-button large (click)="toggleAccordionButton()">
+            <span *ngIf="primerTexto">Ocultar detalles</span>
+            <span *ngIf="segundoTexto">Mostrar detalles</span>
+        </button>
+    </div>
+    <div class="text-center" *ngIf="masMeses">
+        <button id="{{masMesesButton}}" margin-bottom class="btn-primary" margin-top center ion-button large>
+            <span *ngIf="primerTexto">Mostrar más meses</span>
+        </button>
+    </div>
+</ion-list>

@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-navbar center>
+        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />
+        <button ion-button menuToggle right>
+            <div class="navicon-button x">
+                <div class="navicon"></div>
+            </div>
+    	</button>
+    </ion-navbar>
+</ion-header>
+<ion-content padding class="contentInterior">
+    <ion-list no-lines class="noticias">
+        <button ion-item *ngFor="let noticia of noticias" class="no-padding" (click)="openPage('NoticiaDetallePage', noticia);" detail-push>
+            <div class="imageNoticia" *ngIf="noticia.doc._attachments">
+                <div *ngFor="let attachment of noticia.doc._attachments | keys; index as i">
+                    <img width="100%" src="{{cfg.apiUrl}}/noticias/{{noticia.doc._id}}/{{attachment.key}}" *ngIf="i==0" />
+                </div>
+            </div>
+            <div class="detalles">
+                <h2 text-wrap>{{noticia.doc.title}}</h2>
+                <div class="dates">
+                    <span class="since">{{noticia.doc.updated_at | amLocale:'es' | amTimeAgo}}</span><span class="date">{{noticia.doc.updated_at | date : "dd ' ' MMMM ' ' yyyy"}}</span>
+                </div>
+                <div class="bajada" text-wrap>
+                    <p>{{noticia.doc.body | words : 15 }}</p>
+                    <a class="more" href="#">Leer más</a>
+                </div>
+            </div>
+        </button>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

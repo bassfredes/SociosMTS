@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-navbar center hideBackButton="true">
+        <img class="logoHeaderv1" width="71" src="assets/images/logoHeaderV1@2.png" />
+        <button ion-button menuToggle right>
+    		<ion-icon name="menu"></ion-icon>
+    	</button>
+    </ion-navbar>
+</ion-header>
+<ion-content padding class="contentInterior has-footer">
+	<ion-grid>
+		<ion-row>
+			<ion-col col-12>
+                <div class="bloqueBlanco firstElement">
+                    <h2 class="small">Tu ferretería más cercana es:</h2>
+                </div>
+                <div id="mapa"></div>
+                <ion-row>
+        			<ion-col col-12>
+                        <div margin-top></div>
+                    </ion-col>
+        		</ion-row>
+                <h1 class="welcome">Ingresa a la app MTS</h1>
+                <div class="text-center">
+                    <button margin-top center ion-button round large (click)="goToHome()">Ingresar</button>
+                </div>
+            </ion-col>
+		</ion-row>
+    </ion-grid>
+</ion-content>

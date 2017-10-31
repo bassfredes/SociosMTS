@@ -1,0 +1,1075 @@
+// http://ionicframework.com/docs/v2/theming/
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+$black: 900;
+$bold: 700;
+$semiBold: 600;
+$medium: 500;
+$regular: 400;
+$book: 300;
+$light: 100;
+$alturaHeader: 59px;
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../assets/fonts/Montserrat/Montserrat-Light.eot?#iefix') format('embedded-opentype'), url('../assets/fonts/Montserrat/Montserrat-Light.otf') format('opentype'), url('../assets/fonts/Montserrat/Montserrat-Light.woff') format('woff'), url('../assets/fonts/Montserrat/Montserrat-Light.ttf') format('truetype'), url('../assets/fonts/Montserrat/Montserrat-Light.svg#Montserrat-Light') format('svg');
+    font-weight: $light;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../assets/fonts/Montserrat/Montserrat-SemiBold.eot?#iefix') format('embedded-opentype'), url('../assets/fonts/Montserrat/Montserrat-SemiBold.otf') format('opentype'), url('../assets/fonts/Montserrat/Montserrat-SemiBold.woff') format('woff'), url('../assets/fonts/Montserrat/Montserrat-SemiBold.ttf') format('truetype'), url('../assets/fonts/Montserrat/Montserrat-SemiBold.svg#Montserrat-SemiBold') format('svg');
+    font-weight: $semiBold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../assets/fonts/Montserrat/Montserrat-Regular.eot?#iefix') format('embedded-opentype'), url('../assets/fonts/Montserrat/Montserrat-Regular.otf') format('opentype'), url('../assets/fonts/Montserrat/Montserrat-Regular.woff') format('woff'), url('../assets/fonts/Montserrat/Montserrat-Regular.ttf') format('truetype'), url('../assets/fonts/Montserrat/Montserrat-Regular.svg#Montserrat-Regular') format('svg');
+    font-weight: $regular;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CircularStd';
+    src: url('../assets/fonts/CircularStd/CircularStd-Book.eot?#iefix') format('embedded-opentype'), url('../assets/fonts/CircularStd/CircularStd-Book.otf') format('opentype'), url('../assets/fonts/CircularStd/CircularStd-Book.woff') format('woff'), url('../assets/fonts/CircularStd/CircularStd-Book.ttf') format('truetype'), url('../assets/fonts/CircularStd/CircularStd-Book.svg#CircularStd-Book') format('svg');
+    font-weight: $book;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CircularStd';
+    src: url('../assets/fonts/CircularStd/CircularStd-Medium.eot?#iefix') format('embedded-opentype'), url('../assets/fonts/CircularStd/CircularStd-Medium.otf') format('opentype'), url('../assets/fonts/CircularStd/CircularStd-Medium.woff') format('woff'), url('../assets/fonts/CircularStd/CircularStd-Medium.ttf') format('truetype'), url('../assets/fonts/CircularStd/CircularStd-Medium.svg#CircularStd-Medium') format('svg');
+    font-weight: $medium;
+    font-style: normal;
+}
+
+html {
+    @include font-size-map($html-font-size);
+}
+
+p {
+    font-family: 'CircularStd';
+    @include font-size-map($paragraph-font-size);
+    color: color($colors, texto);
+    font-weight: $book;
+}
+
+a {
+    text-decoration: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.loadingOn {
+    display: block;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: color($colors, primary);
+    z-index: 100;
+}
+
+h1 {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    color: #777777;
+    font-size: 1.6rem;
+    line-height: 2.5rem;
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+h1:before {
+    content: "";
+    height: 4px;
+    width: 25px;
+    margin-left: -13px;
+    background: color($colors, primary);
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    top: auto;
+}
+
+h1.welcome {
+    font-family: 'Montserrat';
+    font-weight: $semiBold;
+    color: color($colors, light);
+    font-size: 3.5rem;
+    line-height: 3.5rem;
+    position: relative;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+h1.welcome:before {
+    content: "";
+    height: 4px;
+    width: 25px;
+    background: color($colors, primary);
+    position: absolute;
+    left: -26px;
+    top: -15px;
+    bottom: auto;
+}
+
+h2 {
+    font-family: 'CircularStd';
+    font-weight: $medium;
+    font-size: 2.4rem;
+    line-height: 2.4rem;
+}
+
+h2.small {
+    font-size: 2rem;
+    line-height: 2rem;
+}
+
+.noTransform {
+    text-transform: none;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.no-margin {
+    margin: 0 !important;
+}
+
+.normalLetter {
+    letter-spacing: normal;
+}
+@-webkit-keyframes autofill {
+    to {
+        color: #252525;
+        background: transparent;
+    }
+}
+
+input:-webkit-autofill,
+select:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+}
+
+.bloqueBlanco {
+    background: color($colors, blanco);
+    padding: 2.4rem 26px 1.6rem;
+    margin-left: -26px;
+    margin-right: -26px;
+}
+
+.bloqueBlanco.firstElement {
+    margin-top: -27px;
+}
+
+.bloqueBlancoNoPadding {
+    background: color($colors, blanco);
+    padding: 2.4rem 26px 1.6rem;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+ion-header ion-icon.back-button-icon.icon {
+    color: color($colors, blanco);
+}
+
+.menu-inner {
+    width: 100%;
+    top: $alturaHeader;
+}
+
+ion-menu[role="navigation"] .show-backdrop {
+    background: none;
+}
+
+ion-menu[role="navigation"] .menu-inner,
+ion-menu[role="navigation"] .menu-inner ion-content {
+    background: color($colors, negro);
+}
+
+ion-menu[role="navigation"] .menu-inner {
+    ion-list {
+        margin: 0 16px;
+    }
+
+    .item {
+        padding-left: 0;
+        color: color($colors, blanco);
+        background: none;
+        border: none;
+        font-size: 2.2rem;
+        line-height: 2.1rem;
+        font-weight: $medium;
+        font-family: 'CircularStd';
+
+        .item-inner {
+            background: none;
+            padding: 0;
+            border: none;
+
+            ion-label {
+                text-align: right;
+                margin: 1.1rem 0.8rem 1.1rem 0;
+            }
+        }
+    }
+}
+
+.lastUpdate {
+    background: color($colors, negro);
+    color: color($colors, blanco);
+    bottom: $alturaHeader;
+    text-align: center;
+    padding: 0.5rem;
+    font-family: 'CircularStd';
+    font-weight: $book;
+    font-size: 1.3rem;
+}
+
+.logoHeaderv1 {
+    margin: 0 auto;
+    display: block;
+}
+
+.logoHeaderv2 {
+    margin: 0 auto;
+    display: block;
+}
+
+.text-center {
+    text-align: center;
+}
+
+ion-header {
+    min-height: calc(#{$alturaHeader} + 1px);
+}
+
+ion-header ion-navbar {
+    height: calc(#{$alturaHeader} + 1px);
+}
+
+ion-header ion-navbar .toolbar-background {
+    background: color($colors, negro);
+    border: none;
+}
+
+ion-header .back-button.show-back-button {
+    display: block;
+    position: absolute;
+    left: 1em;
+    height: 5rem;
+}
+
+ion-header .bar-button-menutoggle {
+    display: block;
+    position: absolute;
+    height: 5rem;
+}
+
+ion-header .bar-button-menutoggle[right] {
+    right: 0;
+}
+/* HEADER */
+/* MENU */
+$duration: 0.3s;
+$size: 100%;
+$toggled-size: 1;
+$bg: #274380;
+$nav-bg: #000;
+$content-bg: #FFF;
+
+.navicon-button {
+    display: inline-block;
+    position: relative;
+    padding: 0.2em 1.5em;
+    transition: $duration/2;
+    cursor: pointer;
+    user-select: none;
+    opacity: 1;
+
+    .navicon:after,
+    .navicon:before {
+        transition: $duration/2;
+    }
+
+    &:hover {
+        transition: $duration;
+        opacity: 1;
+
+        .navicon:after,
+        .navicon:before {
+            transition: $duration/2;
+        }
+
+        .navicon:before {
+            top: 0.825rem;
+        }
+
+        .navicon:after {
+            top: -.825rem;
+        }
+    }
+}
+
+.navicon {
+    position: relative;
+    width: 1em;
+    height: 0.1em;
+    background: $content-bg;
+    transition: $duration;
+    border-radius: 2.5rem;
+
+    &:after,
+    &:before {
+        display: block;
+        content: "";
+        height: 0.1em;
+        width: 2em;
+        background: $content-bg;
+        position: absolute;
+        z-index: -1;
+        transition: $duration $duration/2;
+        border-radius: 1rem;
+        display: block;
+    }
+
+    &:after {
+        width: 1.5em;
+    }
+
+    &:before {
+        top: 0.8rem;
+    }
+
+    &:after {
+        top: -.8rem;
+    }
+}
+
+.open:not(.steps) .navicon:after,
+.open:not(.steps) .navicon:before {
+    top: 0 !important;
+}
+
+.open .navicon:after,
+.open .navicon:before {
+    transition: $duration;
+    width: 2em;
+}
+
+.open {
+    transform: scale($toggled-size);
+}
+
+.open.x {
+    .navicon {
+        background: transparent;
+
+        &:before {
+            transform: rotate(-45deg);
+        }
+
+        &:after {
+            transform: rotate(45deg);
+        }
+    }
+}
+
+ion-menu {
+    ion-list.indicadores {
+        .item {
+            ion-label.label {
+                margin: 0;
+
+                > .title {
+                    color: color($indicadores, title);
+                }
+            }
+        }
+
+        .item.indicador {
+            min-height: 1.9rem;
+
+            ion-label.label {
+                font-size: 1.8rem;
+                margin: 0.5rem 0.8rem 0.5rem 0;
+
+                > .title {
+                    color: color($colors, blanco);
+                }
+
+                > .valor {
+                    color: color($indicadores, title);
+                }
+            }
+        }
+    }
+}
+/* MENU */
+/* BOTONES */
+.fullWidth {
+    width: 100%;
+}
+
+.button:not(.button-clear) {
+    height: 2.3em;
+    padding: 0 5rem;
+}
+
+.button.minPadding:not(.button-clear) {
+    padding: 0 0.5rem;
+}
+
+.button-inner {
+    font-family: 'Montserrat';
+    font-weight: $semiBold;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+}
+
+.button.button-clear {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+}
+
+.btn-primary {
+    width: 80%;
+    background: #38394a;
+    background: -moz-linear-gradient(top, #38394a 0%, #2c2d3e 100%);
+    background: -webkit-linear-gradient(top, #38394a 0%,#2c2d3e 100%);
+    background: linear-gradient(to bottom, #38394a 0%,#2c2d3e 100%);
+    transition: all 0.3s ease-out;
+}
+
+.normalText,
+.normalText .button-inner {
+    font-family: 'Montserrat';
+    font-weight: $light;
+    color: color($colors, dark);
+    text-decoration: underline;
+}
+
+.inContent {
+    font-family: 'CircularStd';
+    border-radius: 5px;
+    font-size: 1.8rem;
+    transition: all 0.3s ease-out;
+    background: #e30d20;
+    background: -moz-linear-gradient(top, #e30d20 0%, #9f031b 100%);
+    background: -webkit-linear-gradient(top, #e30d20 0%,#9f031b 100%);
+    background: linear-gradient(to bottom, #e30d20 0%,#9f031b 100%);
+}
+.inContent.active {
+    background: #e30d20;
+    background: -moz-linear-gradient(top, #e30d20 0%, #9f031b 100%);
+    background: -webkit-linear-gradient(top, #e30d20 0%,#9f031b 100%);
+    background: linear-gradient(to bottom, #e30d20 0%,#9f031b 100%);
+}
+.inContent.inactive {
+    background: #D8D8D8;
+    color: color($colors, midlight);
+}
+.inContent[disabled] {
+    background: #D8D8D8;
+    color: color($colors, texto);
+}
+/* BOTONES */
+/* FORMS */
+form ion-item {
+    font-family: 'Montserrat';
+    font-weight: $light;
+    font-size: 1.5rem;
+}
+
+form ion-item.item-input {
+    padding-left: 0;
+}
+/* FORMS */
+/* SELECT */
+ion-select.sinLabel {
+    width: 100%;
+    max-width: 100%;
+}
+/* SELECT */
+/* ACCORDIONS */
+.contentInterior accordion-list.no-margin > ion-list {
+    margin: 0 !important;
+}
+
+.contentInterior accordion-list .accordion-header {
+    text-transform: uppercase;
+    font-size: 2rem;
+    line-height: 75px;
+    border-top: 4px solid #151515;
+    background: #e2e2e2;
+    background: -moz-linear-gradient(top, #e2e2e2 0%, #c9c9c9 100%);
+    background: -webkit-linear-gradient(top, #e2e2e2 0%,#c9c9c9 100%);
+    background: linear-gradient(to bottom, #e2e2e2 0%,#c9c9c9 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=  '#e2e2e2', endColorstr='#c9c9c9',GradientType=0 );
+}
+
+.contentInterior accordion-list .accordion-header ion-label {
+    font-size: 2.5rem;
+    line-height: 7.5rem;
+    font-weight: $medium;
+    font-family: 'CircularStd';
+    text-transform: none;
+}
+
+.contentInterior accordion-list.neutro ion-list-header .accordion-header {
+    background: color($indicadores, neutro);
+
+    .title,
+    .valorIndicador {
+        color: color($colors, blanco);
+    }
+}
+
+.contentInterior accordion-list.positivo ion-list-header .accordion-header {
+    background: color($indicadores, positivo);
+
+    .title,
+    .valorIndicador {
+        color: color($colors, blanco);
+    }
+
+    .fecha:before {
+        margin-right: 0.5rem;
+        color: color($colors, negro);
+        content: "\f062";
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+.contentInterior accordion-list.negativo ion-list-header .accordion-header {
+    background: color($indicadores, negativo);
+
+    .title,
+    .valorIndicador {
+        color: color($colors, blanco);
+    }
+
+    .fecha:before {
+        margin-right: 0.5rem;
+        color: color($colors, negro);
+        content: "\f063";
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+.contentInterior accordion-list ion-list-header .fecha,
+.contentInterior accordion-list ion-list-header .subtitle,
+.contentInterior accordion-list ion-list-header .title {
+    display: block;
+}
+
+.contentInterior accordion-list ion-list-header.conSubtitle .title {
+    font-size: 2.3rem;
+    line-height: 2.4rem;
+    padding-top: 1.3rem;
+}
+
+.contentInterior accordion-list ion-list-header.conSubtitle .subtitle {
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+    padding-bottom: 1.3rem;
+}
+
+.contentInterior accordion-list ion-list-header.conFecha .fecha {
+    color: color($colors, negro);
+    font-size: 1.8rem;
+    line-height: 7.5rem;
+    padding-bottom: 0;
+    position: absolute;
+    top: 0;
+    left: 8rem;
+}
+
+.contentInterior accordion-list ion-list-header.conValorIndicador .valorIndicador {
+    font-size: 3.5rem;
+    line-height: 7.5rem;
+    padding-bottom: 0;
+    position: absolute;
+    top: 0;
+    right: 2rem;
+}
+/* ACCORDIONS */
+/* SLIDES */
+.swiper-pagination-bullet {
+    background-color: #FFF;
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #222;
+}
+
+.no-padding-top .scroll-content {
+    padding-top: 0 !important;
+}
+
+.skip-button {
+    text-transform: none;
+    padding: 15px;
+    font-weight: bold;
+}
+
+.floating-buttons {
+    z-index: 1;
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+    margin-bottom: 50px;
+    transition: all 0.4s linear;
+}
+
+.floating-buttons button {
+    color: white;
+    min-height: 7vh;
+    text-transform: none;
+    font-size: 1.4em;
+    font-weight: bold;
+    background: rgba(49, 161, 216, 0.67);
+}
+
+.slide-background {
+    background-size: cover !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-color: transparent;
+}
+
+.toolbar-background {
+    border-color: transparent;
+}
+
+.slide-zoom {
+    height: 100%;
+}
+
+.text-wrapper {
+    width: 100vw;
+    height: 100vh;
+}
+
+.slide-text {
+    position: relative;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.slide-title {
+    color: white;
+    font-weight: bold;
+}
+
+.slide-image {
+    max-height: 100%;
+    max-width: 100%;
+    margin: 18px 0;
+}
+/* SLIDES */
+/* Noticias */
+page-noticias {
+    .noticias {
+        .item-block {
+            margin-top: 2rem;
+        }
+    }
+}
+
+.noticias {
+    .item-block {
+        margin-top: 0.5rem;
+        box-shadow: 0 1px 6px 1px rgba(0,0,0,0.1);
+        font-family: 'CircularStd';
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 3rem;
+        color: color($colors, negro);
+    }
+
+    .detalles {
+        padding: 1rem;
+    }
+
+    .dates {
+        line-height: 3rem;
+        font-size: 1.3rem;
+        text-transform: uppercase;
+
+        .since {
+            margin-right: 1rem;
+            color: color($colors, negro);
+        }
+
+        .date {
+            color: color($colors, primary);
+        }
+    }
+
+    .bajada {
+        font-family: 'CircularStd';
+        font-weight: $book;
+        font-size: 1.7rem;
+        color: color($colors, texto);
+    }
+
+    .item-block .item-inner {
+        background: none !important;
+        padding: 0 !important;
+    }
+
+    .more {
+        font-weight: $light;
+        font-size: 1.5rem;
+    }
+
+    ion-label {
+        margin: 0 0 5px;
+    }
+}
+/* Noticias */
+/* Ferreterias */
+.logoRounded {
+    max-width: 120px;
+    margin: 0 auto;
+    box-shadow: 0 2px 4px rgba(199,199,199,0.5);
+    border-radius: 100%;
+}
+/* Ferreterias */
+/* Charts */
+#home_donutChart,
+#indicadores_donutChart {
+    width: 100%;
+    height: 230px;
+    padding-right: 6rem;
+}
+
+#periodo_donutChart_total,
+#periodo_donutChart_norte,
+#periodo_donutChart_centro,
+#periodo_donutChart_sur {
+    width: 100%;
+    height: 200px;
+    padding-right: 6rem;
+}
+#variacion_barChart,
+#ventas_barChart {
+    width: 100%;
+    height: 230px;
+    padding: 0;
+    margin-top: 2rem;
+    text-transform: capitalize;
+}
+
+#variacion_barChart path[fill="#e50201"],
+#ventas_barChart path[fill="#e50201"] {
+    transform: translate(0,0.2rem);
+}
+
+.chartCompras,
+.chartIndi,
+.chartProv,
+.chartNPS,
+.chartOrdenCompras {
+    h2 {
+        color: color($colors, negro);
+    }
+
+    h2.neutro {
+        color: color($indicadores, neutro);
+    }
+
+    h2.positivo {
+        color: color($indicadores, positivo);
+    }
+
+    h2.negativo {
+        color: color($indicadores, negativo);
+    }
+
+    h3 {
+        margin-bottom: 1rem;
+        font-size: 1.7rem;
+        line-height: 3rem;
+        font-weight: $book;
+        font-family: 'CircularStd';
+        color: color($colors, texto);
+    }
+
+    h4 {
+        font-size: 1.8rem;
+        line-height: 3rem;
+        font-weight: $medium;
+        font-family: 'CircularStd';
+        color: color($colors, negro);
+
+        .addSpacing {
+            padding-right: 2rem;
+        }
+    }
+    position: relative;
+    padding: 10px;
+
+    .legendChart .centeredChart {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 80%;
+        height: auto;
+        text-align: center;
+        font-family: 'CircularStd';
+        font-size: 3rem;
+        margin-top: 0.8rem;
+        padding-right: 4.5rem;
+        letter-spacing: normal;
+        color: color($colors, texto);
+    }
+
+    .legendChart .stadisticsChart {
+        position: absolute;
+        top: 50%;
+        left: 70%;
+        width: 30%;
+        height: auto;
+        font-family: 'CircularStd';
+        font-size: 1.9rem;
+        margin-top: 0;
+        color: color($colors, negro);
+        text-transform: capitalize;
+        letter-spacing: normal;
+        text-align: left;
+
+        .p {
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .p:before {
+            display: block;
+            content: "";
+            background: #009987;
+            position: absolute;
+            left: -15px;
+            top: 4px;
+            width: 18px;
+            height: 18px;
+            border-radius: 100%;
+        }
+
+        .d {
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .d:before {
+            display: block;
+            content: "";
+            background: #0084B1;
+            position: absolute;
+            left: -15px;
+            top: 4px;
+            width: 18px;
+            height: 18px;
+            border-radius: 100%;
+        }
+
+        .n {
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .n:before {
+            display: block;
+            content: "";
+            background: #9C5895;
+            position: absolute;
+            left: -15px;
+            top: 4px;
+            width: 18px;
+            height: 18px;
+            border-radius: 100%;
+        }
+    }
+
+    .rangoFecha {
+        letter-spacing: normal;
+        font-size: 1.4rem;
+        color: color($colors, texto);
+    }
+}
+
+.chartOrdenCompras {
+    padding: 5px 20px 20px;
+}
+
+.chartCompras,
+.chartIndi {
+    padding: 20px;
+}
+.chartProv {
+    padding: 20px 0 0 0;
+}
+/* Charts */
+/* Indicadores */
+.contentInterior accordion-list .accordion-content {
+    > .variaciones {
+        padding: 1.2rem;
+        letter-spacing: normal;
+        background: color($colors, variacion);
+        text-transform: none;
+        color: color($colors, blanco);
+
+        > .title {
+            padding: 0;
+            font-size: 1.7rem;
+            line-height: 1.7rem;
+        }
+
+        > .variacion {
+            padding: 0;
+            font-size: 1.7rem;
+            line-height: 1.7rem;
+        }
+
+        .positivo {
+            .texto:after {
+                color: color($indicadores, title);
+                content: "\f062";
+                display: inline-block;
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: inherit;
+                text-rendering: auto;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+        }
+
+        .negativo {
+            .texto:after {
+                color: color($colors, primary);
+                content: "\f063";
+                display: inline-block;
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: inherit;
+                text-rendering: auto;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+        }
+    }
+}
+.chartProv,
+.chartIndi,
+.chartOrdenCompras {
+    ion-list.indicadores.list {
+        margin-bottom: 0;
+
+        ion-item {
+            min-height: 3rem;
+            padding: 0;
+            background: none;
+            letter-spacing: normal;
+
+            .title {
+                display: inline-block;
+                text-align: left;
+                text-transform: capitalize;
+                font-size: 1.7rem;
+                color: color($colors, texto);
+            }
+
+            .valor {
+                display: inline-block;
+                text-align: right;
+                float: right;
+                font-size: 1.7rem;
+                color: color($colors, texto);
+            }
+        }
+    }
+
+    ion-list.indicadores.list ion-item .indicadorBullet.negativo:before,
+    ion-list.indicadores.list ion-item .indicadorBullet.neutro:before,
+    ion-list.indicadores.list ion-item .indicadorBullet.positivo:before,
+    ion-list.indicadores.list ion-item .indicadorBullet.transparent:before {
+        float: left;
+        content: "";
+        position: relative;
+        top: 3px;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin-right: 10px;
+        background: color($indicadores, neutro);
+    }
+
+    ion-list.indicadores.list ion-item .indicadorBullet.positivo:before {
+        background: color($indicadores, positivo);
+    }
+
+    ion-list.indicadores.list ion-item .indicadorBullet.negativo:before {
+        background: color($indicadores, negativo);
+    }
+
+    ion-list.indicadores.list ion-item .indicadorBullet.transparent:before {
+        width: 1px;
+        background: none;
+    }
+}
+/* Indicadores */
+/* Buscador */
+ion-searchbar.searchbar {
+    background: none;
+    padding: 0;
+    border: none;
+    border-bottom: 1px solid color($colors, light);
+
+    .searchbar-input-container {
+        .searchbar-input {
+            box-shadow: none;
+            border: none;
+        }
+    }
+}
+
+.searchbar-md .searchbar-search-icon {
+    top: 15px;
+}
+/* Buscador */

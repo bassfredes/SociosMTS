@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-navbar center>
+        <img class="logoHeaderv1" width="71" src="assets/images/logoHeaderV1@2.png" />
+        <button ion-button menuToggle right>
+    		<ion-icon name="menu"></ion-icon>
+    	</button>
+    </ion-navbar>
+</ion-header>
+<ion-content padding class="contentInterior">
+    <ion-grid>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <div class="bloqueBlanco firstElement">
+                    <h1 margin-top class="welcome">Bienvenido a la aplicación de MTS.</h1>
+                </div>
+                <form [formGroup]="loginData" (ngSubmit)="login()">
+                    <ion-item>
+                        <ion-label floating>Mail de usuario</ion-label>
+                        <ion-input type="email" formControlName="email" autocomplete="false" spellcheck="false"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label floating>Clave</ion-label>
+                        <ion-input type="password" formControlName="password" autocomplete="false" spellcheck="false"></ion-input>
+                    </ion-item>
+                    <div margin-top class="text-center">
+                        <button margin-top center ion-button round large type="submit" [disabled]="!loginData.valid">Ingresar</button>
+                    </div>
+                </form>
+                <ion-row>
+                    <ion-col>
+                        <button class="normalText" ion-button clear block (click)="openPage('ForgotPage')">Recuperar Contraseña</button>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

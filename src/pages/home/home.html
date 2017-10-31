@@ -1,0 +1,73 @@
+<ion-header>
+    <ion-navbar center>
+        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />
+        <button ion-button menuToggle right>
+            <div class="navicon-button x">
+                <div class="navicon"></div>
+            </div>
+    	</button>
+    </ion-navbar>
+</ion-header>
+<ion-content class="contentInterior">
+    <ion-grid>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <accordion-list class="no-margin" title="NPS" desplegable="false" subtitle="" maxHeight="350" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">
+                    <div class="chartNPS">
+                        <h2 class="small capitalize normalLetter">Local</h2>
+                        <ion-item class="no-padding" margin-top>
+                            <ion-label>Selecciona un Local</ion-label>
+                            <ion-select [(ngModel)]="localSelected" class="sinLabel" cancelText="Cancelar" okText="Aceptar" (ionChange)="onSelectChange($event)">
+                                <ion-option *ngFor="let local of ferreteria.indicadores.nps.locales; index as i" [value]="i">{{local.nombre_local}}</ion-option>
+                            </ion-select>
+                        </ion-item>
+                        <div id="home_donutChart"></div>
+                        <div class="legendChart">
+                            <div class="stadisticsChart">
+                                <div class="p">P = {{ferreteria.indicadores.nps.locales[localSelected].p}}</div>
+                                <div class="d">D = {{ferreteria.indicadores.nps.locales[localSelected].d}}</div>
+                                <div class="n">N = {{ferreteria.indicadores.nps.locales[localSelected].n}}</div>
+                            </div>
+                            <div class="centeredChart">
+                                {{npsValue}}
+                            </div>
+                        </div>
+                        <div class="text-center rangoFecha capitalize">Desde {{ferreteria.indicadores.nps.locales[0].rango_fecha.primera}} Hasta {{ferreteria.indicadores.nps.locales[localSelected].rango_fecha.segunda}}</div>
+                    </div>
+                </accordion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <div class="bloqueBlancoNoPadding no-padding">
+                    <div class="infocomercial">
+                        <ion-slides #slider pager="true" autoplay="6000" (ionSlideWillChange)="onSlideChanged()">
+                            <ion-slide *ngFor="let slide of slides" class="slide-background" [ngStyle]="{'background-image': 'url(' + slide.imageUrl +')'}"></ion-slide>
+                        </ion-slides>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-around *ngIf="noticias">
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <ion-list no-lines class="noticias">
+                    <button ion-item class="no-padding" (click)="openPage('NoticiaDetallePage',noticias);" detail-push>
+                        <div class="imageNoticia" *ngIf="noticiasImage">
+                            <img width="100%" src="{{noticiasImage}}" />
+                        </div>
+                        <div class="detalles">
+                            <h2 text-wrap>{{noticias.title}}</h2>
+                            <div class="dates">
+                                <span class="since">{{noticias.updated_at | amLocale:'es' | amTimeAgo}}</span><span class="date">{{noticias.updated_at | date : "dd ' ' MMMM ' ' yyyy"}}</span>
+                            </div>
+                            <div class="bajada" text-wrap>
+                                <p>{{noticias.body | words : 15 }}</p>
+                                <a class="more" href="#">Leer más</a>
+                            </div>
+                        </div>
+                    </button>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

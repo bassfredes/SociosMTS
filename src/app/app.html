@@ -1,0 +1,27 @@
+<ion-menu id="authenticated" [content]="contenido" side="right" type="overlay" persistent="true" (ionOpen)="menuOpened()" (ionClose)="menuClosed()" >
+    <ion-content class="has-footer">
+        <ion-list inset>
+            <button ion-item *ngFor="let page of pages" (click)="openPage(page)" [class.hidden]="page.invisible" detail-push>
+    			{{page.title}}
+    		</button>
+        </ion-list>
+        <ion-list class="indicadores" inset>
+            <ion-item>
+                <div class="title">Indicadores económicos</div>
+            </ion-item>
+            <ion-item class="indicador">
+                <span class="title">Valor Dólar</span>
+                <span class="valor">642 CLP</span>
+            </ion-item>
+            <ion-item class="indicador">
+                <span class="title">Valor UF</span>
+                <span class="valor">26.619,53</span>
+            </ion-item>
+        </ion-list>
+        <ion-footer class="lastUpdate">
+            <div class="version">1.0.1</div>
+            <div class="date">Última descarga de datos: 22 Sep 2017</div>
+        </ion-footer>
+    </ion-content>
+</ion-menu>
+<ion-nav #contenido [root]="rootPage"></ion-nav>

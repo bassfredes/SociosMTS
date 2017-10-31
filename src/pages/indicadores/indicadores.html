@@ -1,0 +1,190 @@
+<ion-header>
+    <ion-navbar center>
+        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />
+        <button ion-button menuToggle right>
+            <div class="navicon-button x">
+                <div class="navicon"></div>
+            </div>
+    	</button>
+    </ion-navbar>
+</ion-header>
+<ion-content class="contentInterior">
+    <ion-grid>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <h1 class="text-center uppercase">Indicadores</h1>
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <div class="text-center">
+                    <img class="logoRounded" src="{{logoFerreteria}}" />
+                </div>
+                <h4 class="text-center capitalize">{{ferreteria.nombre}}</h4>
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <accordion-list class="no-margin" title="NPS" desplegable="false" subtitle="" maxHeight="350" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">
+                    <div class="chartNPS">
+                        <h2 class="small capitalize normalLetter">Local</h2>
+                        <ion-item class="no-padding" margin-top>
+                            <ion-label>Selecciona un Local</ion-label>
+                            <ion-select [(ngModel)]="localSelected" class="sinLabel" cancelText="Cancelar" okText="Aceptar" (ionChange)="onSelectChange($event)">
+                                <ion-option *ngFor="let local of ferreteria.indicadores.nps.locales; index as i" [value]="i">{{local.nombre_local}}</ion-option>
+                            </ion-select>
+                        </ion-item>
+                        <div id="indicadores_donutChart"></div>
+                        <div class="legendChart">
+                            <div class="stadisticsChart">
+                                <div class="p">P = {{ferreteria.indicadores.nps.locales[localSelected].p}}</div>
+                                <div class="d">D = {{ferreteria.indicadores.nps.locales[localSelected].d}}</div>
+                                <div class="n">N = {{ferreteria.indicadores.nps.locales[localSelected].n}}</div>
+                            </div>
+                            <div class="centeredChart">
+                                {{npsValue}}
+                            </div>
+                        </div>
+                        <div class="text-center rangoFecha capitalize">Desde {{ferreteria.indicadores.nps.locales[0].rango_fecha.primera}} Hasta {{ferreteria.indicadores.nps.locales[localSelected].rango_fecha.segunda}}</div>
+                    </div>
+                </accordion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <accordion-list class="no-margin {{ferreteria.indicadores.ivs.tendencia}}" title="IVS" subtitle="" fecha="{{ferreteria.indicadores.compras.variacion.mes | slice : 0:3 }}. {{thisYear}}" valorIndicador="{{ferreteria.indicadores.ivs.puntaje}}" valor="" desplegable="false" button="true" maxHeight="200" contentColor="#F5F5F5" hasMargin="false">
+                    <div class="chartIndi">
+                        <ion-list class="indicadores">
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet {{ferreteria.indicadores.ivs.tamano_tendencia}}"></div>
+                                <span class="title">Tamaño</span>
+                                <span class="valor">{{ferreteria.indicadores.ivs.tamano}}</span>
+                            </ion-item>
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet {{ferreteria.indicadores.ivs.penetracion_tendencia}}"></div>
+                                <span class="title">Penetración</span>
+                                <span class="valor">{{ferreteria.indicadores.ivs.penetracion}}</span>
+                            </ion-item>
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet {{ferreteria.indicadores.ivs.crecimiento_tendencia}}"></div>
+                                <span class="title">Crecimiento</span>
+                                <span class="valor">{{ferreteria.indicadores.ivs.crecimiento}}</span>
+                            </ion-item>
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet {{ferreteria.indicadores.ivs.credito_tendencia}}"></div>
+                                <span class="title">Crédito</span>
+                                <span class="valor">{{ferreteria.indicadores.ivs.credito}}</span>
+                            </ion-item>
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet {{ferreteria.indicadores.ivs.participacion_tendencia}}"></div>
+                                <span class="title">Participación</span>
+                                <span class="valor">{{ferreteria.indicadores.ivs.participacion}}</span>
+                            </ion-item>
+                        </ion-list>
+                    </div>
+                </accordion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <accordion-list class="no-margin" title="Orden de Compra" subtitle="" desplegable="true" maxHeight="175" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">
+                    <h2 class="large">MM$ {{ferreteria.indicadores.orden_compra.valor}}</h2>
+                    <div class="chartOrdenCompras">
+                        <ion-list class="indicadores">
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet transparent"></div>
+                                <span class="title">Nacional</span>
+                                <span class="valor">{{ferreteria.indicadores.orden_compra.nacional}}</span>
+                            </ion-item>
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet transparent"></div>
+                                <span class="title">Stock MTS</span>
+                                <span class="valor">{{ferreteria.indicadores.orden_compra.stock_mts}}</span>
+                            </ion-item>
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet transparent"></div>
+                                <span class="title">Importación</span>
+                                <span class="valor">{{ferreteria.indicadores.orden_compra.importacion}}</span>
+                            </ion-item>
+                        </ion-list>
+                    </div>
+                </accordion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <accordion-list class="no-margin" title="Compras" subtitle="{{ferreteria.indicadores.compras.variacion.mes | slice : 0:3 }}. {{ferreteria.indicadores.compras.valor}} MM$" desplegable="true" masMeses="true" masMesesButton="variacionAdd" maxHeight="1200" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">
+                    <div class="variaciones text-center">
+                        <div class="title">Variación {{thisYear}} v/s {{lastYear}}:</div>
+                        <div class="variacion capitalize {{indicadorVariacion}}">
+                            <span class="texto">
+                                A {{ferreteria.indicadores.compras.variacion.mes}} = <strong>{{ferreteria.indicadores.compras.variacion.mes_indicador}}</strong> %
+                            </span>
+                        </div>
+                    </div>
+                    <div class="chartCompras">
+                        <h2 class="small capitalize normalLetter">Compras en MM$</h2>
+                        <div id="variacion_barChart"></div>
+                    </div>
+                </accordion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <accordion-list class="no-margin" title="Facturación MTS" subtitle=""  valor="" desplegable="true" maxHeight="200" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">
+                    <div class="chartIndi">
+                        <h2 class="small capitalize normalLetter">MM$ {{ferreteria.indicadores.facturacion.valor}}</h2>
+                        <ion-list margin-top class="indicadores">
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet {{ferreteria.indicadores.facturacion.factura_tendencia}}"></div>
+                                <span class="title">Factura</span>
+                                <span class="valor">{{ferreteria.indicadores.facturacion.factura}}</span>
+                            </ion-item>
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet {{ferreteria.indicadores.facturacion.nota_credito_tendencia}}"></div>
+                                <span class="title">Nota de Crédito</span>
+                                <span class="valor">{{ferreteria.indicadores.facturacion.nota_credito}}</span>
+                            </ion-item>
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet {{ferreteria.indicadores.facturacion.solicitud_nc_tendencia}}"></div>
+                                <span class="title">Solicitud NC</span>
+                                <span class="valor">{{ferreteria.indicadores.facturacion.solicitud_nc}}</span>
+                            </ion-item>
+                        </ion-list>
+                    </div>
+                </accordion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <accordion-list class="no-margin" title="Ventas a cliente" subtitle="{{ferreteria.indicadores.ventas.variacion.mes | slice : 0:3 }}. {{ferreteria.indicadores.ventas.valor}} MM$" desplegable="true" masMeses="true" masMesesButton="ventasAdd" maxHeight="1200" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">
+                    <div class="variaciones text-center">
+                        <div class="title">Variación {{thisYear}} v/s {{lastYear}}:</div>
+                        <div class="variacion capitalize {{indicadorVariacionVentas}}">
+                            <span class="texto">
+                                A {{ferreteria.indicadores.ventas.variacion.mes}} = <strong>{{ferreteria.indicadores.ventas.variacion.mes_indicador}}</strong> %
+                            </span>
+                        </div>
+                    </div>
+                    <div class="chartCompras">
+                        <h2 class="small capitalize normalLetter">Ventas en MM$</h2>
+                        <div id="ventas_barChart"></div>
+                    </div>
+                </accordion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <accordion-list class="no-margin" title="Rapel y Rebate" subtitle=""  valor="" desplegable="true" maxHeight="200" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">
+                    <div class="chartIndi normalLetter">
+                        <h2 class="small capitalize {{ferreteria.indicadores.rapel_rebate.tendencia}}">Ranking {{ferreteria.indicadores.rapel_rebate.ranking}}</h2>
+                        <h3 class="noTransform">Acumulado anual a {{ferreteria.indicadores.ventas.variacion.mes}} del {{thisYear}}</h3>
+                        <h4 class="capitalize"><span class="addSpacing">Rapel:</span> MM$: {{ferreteria.indicadores.rapel_rebate.rapel}} - {{ferreteria.indicadores.rapel_rebate.rapel_indicador}}%</h4>
+                        <h4 class="capitalize"><span class="addSpacing">Rebate:</span> MM$: {{ferreteria.indicadores.rapel_rebate.rebate}} - {{ferreteria.indicadores.rapel_rebate.rebate_indicador}}%</h4>
+                        <h4 class="capitalize"><span class="addSpacing">Proyectado:</span> MM$: {{ferreteria.indicadores.rapel_rebate.proyectado}} - {{ferreteria.indicadores.rapel_rebate.proyectado_indicador}}%</h4>
+                    </div>
+                </accordion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
