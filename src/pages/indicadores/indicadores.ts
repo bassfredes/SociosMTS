@@ -146,7 +146,7 @@ export class IndicadoresPage extends ProtectedPage {
             var counterNeg = 0;
             var handler = setInterval(function(){
                 var resta = full-counterNeg;
-                if(resta<0) resta=0;
+                if(resta<0){resta=0};
                 data_nps = google.visualization.arrayToDataTable([
                     ['indicador', 'valor'],
                     ['P', p*counter],
@@ -271,7 +271,7 @@ export class IndicadoresPage extends ProtectedPage {
                     this.ferreteriasService.getOne(this.id_ferreteria).then(datosFerreteria => {
                         this.ferreteria = datosFerreteria;
                         const attachments = Object.keys(this.ferreteria._attachments);
-                        this.logoFerreteria = this.cfg.apiUrl + '/ferreterias/' + this.id_ferreteria + '/' + attachments[0];
+                        this.logoFerreteria = attachments[0];
                         this.dateUpdate = new Date(this.ferreteria.indicadores.info.date);
                         this.thisYear = this.dateUpdate.getFullYear();
                         this.lastYear = this.dateUpdate.getFullYear()-1;

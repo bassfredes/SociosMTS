@@ -47,6 +47,12 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
         }
     },
     "dependent_plugins": {

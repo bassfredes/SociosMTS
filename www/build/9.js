@@ -1,14 +1,15 @@
 webpackJsonp([9],{
 
-/***/ 728:
+/***/ 740:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BooksPageModule", function() { return BooksPageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__books_page__ = __webpack_require__(749);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InformacionComercialDetallePageModule", function() { return InformacionComercialDetallePageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_shared_module__ = __webpack_require__(396);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__informacion_comercial_detalle__ = __webpack_require__(761);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,30 +19,32 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var BooksPageModule = /** @class */ (function () {
-    function BooksPageModule() {
+
+var InformacionComercialDetallePageModule = /** @class */ (function () {
+    function InformacionComercialDetallePageModule() {
     }
-    BooksPageModule = __decorate([
+    InformacionComercialDetallePageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__books_page__["a" /* BooksPage */],
+                __WEBPACK_IMPORTED_MODULE_3__informacion_comercial_detalle__["a" /* InformacionComercialDetallePage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__books_page__["a" /* BooksPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__informacion_comercial_detalle__["a" /* InformacionComercialDetallePage */]),
+                __WEBPACK_IMPORTED_MODULE_2__app_shared_module__["a" /* SharedModule */]
             ],
             exports: [
-                __WEBPACK_IMPORTED_MODULE_2__books_page__["a" /* BooksPage */]
+                __WEBPACK_IMPORTED_MODULE_3__informacion_comercial_detalle__["a" /* InformacionComercialDetallePage */]
             ]
         })
-    ], BooksPageModule);
-    return BooksPageModule;
+    ], InformacionComercialDetallePageModule);
+    return InformacionComercialDetallePageModule;
 }());
 
-//# sourceMappingURL=books-page.module.js.map
+//# sourceMappingURL=informacion-comercial-detalle.module.js.map
 
 /***/ }),
 
-/***/ 742:
+/***/ 750:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -71,16 +74,19 @@ var ProtectedPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 749:
+/***/ 761:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BooksPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__protected_page_protected_page__ = __webpack_require__(742);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_books_service__ = __webpack_require__(396);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InformacionComercialDetallePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__protected_page_protected_page__ = __webpack_require__(750);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_informercial_service__ = __webpack_require__(402);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_config__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_jquery__ = __webpack_require__(398);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_jquery__);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -105,48 +111,65 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var BooksPage = /** @class */ (function (_super) {
-    __extends(BooksPage, _super);
-    function BooksPage(navCtrl, navParams, menuCtrl, storage, appCtrl, booksService) {
+
+
+var InformacionComercialDetallePage = /** @class */ (function (_super) {
+    __extends(InformacionComercialDetallePage, _super);
+    function InformacionComercialDetallePage(navCtrl, navParams, menuCtrl, storage, appCtrl, informercialService) {
         var _this = _super.call(this, navCtrl, navParams, storage, appCtrl) || this;
         _this.navCtrl = navCtrl;
         _this.navParams = navParams;
         _this.menuCtrl = menuCtrl;
         _this.storage = storage;
         _this.appCtrl = appCtrl;
-        _this.booksService = booksService;
+        _this.informercialService = informercialService;
+        _this.informercial = [];
+        _this.clickParticipar = false;
+        _this.cfg = __WEBPACK_IMPORTED_MODULE_5__app_config__["a" /* cfg */];
+        _this.informercial = _this.navParams.get('informercial');
         return _this;
     }
-    BooksPage.prototype.ionViewWillEnter = function () {
+    InformacionComercialDetallePage.prototype.ionViewDidLoad = function () {
         var _this = this;
-        this.booksService.getAll().then(function (books) { return _this.books = books; });
+        if (this.informercial === undefined || this.informercial === null) {
+            this.navCtrl.setRoot('InformacionComercialPage');
+        }
+        else {
+            this.informercialService.getOne(this.informercial._id).then(function (infomercialData) {
+                _this.informercial = infomercialData;
+                if (_this.informercial._attachments) {
+                    _this.attachments = Object.keys(_this.informercial._attachments);
+                    _this.imagenPrincipal = _this.cfg.apiUrl + '/inforcomercial/' + _this.informercial._id + '/' + _this.attachments[0];
+                    _this.attachments.shift();
+                }
+            });
+        }
     };
-    BooksPage.prototype.bookInfo = function (book) {
-        this.navCtrl.push('BookInfoPage', { book: book });
+    InformacionComercialDetallePage.prototype.participar = function () {
+        if (!this.clickParticipar) {
+            this.clickParticipar = true;
+            var parent_1 = this;
+            __WEBPACK_IMPORTED_MODULE_6_jquery__(".prevParticipar").stop().fadeOut(300, function () {
+                __WEBPACK_IMPORTED_MODULE_6_jquery__(".postParticipar").fadeIn(300);
+                parent_1.informercial.participando = true;
+            });
+        }
     };
-    /**
-     * Opens a paage
-     *
-     * @param page string Page name
-     */
-    BooksPage.prototype.openPage = function (page) {
-        this.navCtrl.push(page);
-    };
-    BooksPage = __decorate([
+    InformacionComercialDetallePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-books-page',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/books-page/books-page.html"*/'\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>    \n    <ion-title>{{ \'page.books.list\' | translate }}</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n  <button ion-button block (click)="openPage(\'BookAddPage\')">{{ \'button.add_book\' | translate }}</button>\n  \n  <ion-list *ngIf="books">\n    <button ion-item  *ngFor="let book of books" (click)="bookInfo(book)">{{ book.title }}</button>\n  </ion-list>\n  \n</ion-content>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/books-page/books-page.html"*/,
+            selector: 'page-informacion-comercial-detalle',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/informacion-comercial-detalle/informacion-comercial-detalle.html"*/'<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />\n        <button ion-button menuToggle right>\n            <div class="navicon-button x">\n                <div class="navicon"></div>\n            </div>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content padding class="contentInterior">\n    <ion-grid>\n        <ion-row justify-content-around *ngIf="informercial">\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <div class="bloqueBlanco firstElement">\n                    <div class="imageNoticia" *ngIf="imagenPrincipal">\n                        <lazy-img width="100%" inputSrc="{{imagenPrincipal}}"></lazy-img>\n                    </div>\n                </div>\n                <div class="noticias">\n                    <div class="detalles">\n                        <div class="text-center" *ngIf="!informercial.participando">\n                            <button margin-bottom class="btn-primary btn-large" margin-top center ion-button large (click)="participar()">\n                                <span>Participar</span>\n                            </button>\n                        </div>\n                        <div class="text-left" *ngIf="informercial.participando">\n                            <button margin-bottom class="btn-participando notEffect btn-large" margin-top center ion-button large>\n                                <span><ion-icon class="icon" name="md-checkmark"></ion-icon>Ya estás Participando</span>\n                            </button>\n                        </div>\n                        <div class="prevParticipar">\n                            <h2>{{informercial.title}}</h2>\n                            <div class="dates">\n                                <span class="since">{{informercial.updated_at | amLocale:\'es\' | amTimeAgo}}</span><span class="date">{{informercial.updated_at | date : "dd \' \' MMMM \' \' yyyy"}}</span>\n                            </div>\n                            <div class="bajada" text-wrap>\n                                <p>{{informercial.body}}</p>\n                            </div>\n                            <accordion-list class="no-margin" title="Descripción General" desplegable="true" subtitle="" maxHeight="730" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">\n                                <div padding class="bajada noTransform normalLetter" text-wrap>\n                                    <p>{{informercial.description}}</p>\n                                </div>\n                            </accordion-list>\n                        </div>\n                        <div class="postParticipar">\n                            <h2>Excelente <strong>Pedro,</strong></h2>\n                            <h2><strong>Un asistente de ventas te contactará.</strong></h2>\n                        </div>\n                    </div>\n                </div>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/informacion-comercial-detalle/informacion-comercial-detalle.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */],
-            __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* App */],
-            __WEBPACK_IMPORTED_MODULE_4__providers_books_service__["a" /* BooksService */]])
-    ], BooksPage);
-    return BooksPage;
-}(__WEBPACK_IMPORTED_MODULE_2__protected_page_protected_page__["a" /* ProtectedPage */]));
+            __WEBPACK_IMPORTED_MODULE_4__providers_informercial_service__["a" /* InformercialService */]])
+    ], InformacionComercialDetallePage);
+    return InformacionComercialDetallePage;
+}(__WEBPACK_IMPORTED_MODULE_3__protected_page_protected_page__["a" /* ProtectedPage */]));
 
-//# sourceMappingURL=books-page.js.map
+//# sourceMappingURL=informacion-comercial-detalle.js.map
 
 /***/ })
 

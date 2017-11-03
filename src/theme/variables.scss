@@ -17,6 +17,8 @@ $font-path: "../assets/fonts";
 $colors: ( primary: #D0011B, secondary: #32db64, danger: #f53d3d, light: #C7C7C7, midlight: #B6B6B6, dark: #444343, blanco: #FFF, negro: #000, texto: #606060, titles: #777777, variacion: #333333, ultralight: #F5F5F5 );
 $indicadores: ( title: #7ED321, neutro: #FFC12D, positivo: #7ED321, negativo: #D0011B );
 $fondos: ( light: #F2F2F2 ); // breakpoint mixin
+$color-grey: #666;
+$font-icons: 'Ionicons';
 @mixin breakpoint($mq01: 0, $mq2: false, $maxmin: max-width) {
      @if $mq2 == false{
         @media ($maxmin: $mq01) {

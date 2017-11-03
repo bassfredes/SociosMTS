@@ -5,6 +5,7 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {AuthService} from '../providers/auth-service';
 import {AndroidFullScreen} from '@ionic-native/android-full-screen';
 import {CacheService} from "ionic-cache";
+import {ImgcacheService} from '../global/services';
 import * as $ from 'jquery';
 declare var google: any;
 
@@ -24,6 +25,7 @@ export class MyApp {
         public authService: AuthService,
         public androidFullScreen: AndroidFullScreen,
         public menuCtrl: MenuController,
+        public imgcacheService: ImgcacheService,
         public cache: CacheService) {
         this.pages = [
             { title: "Inicio", component: "HomePage"},
@@ -44,9 +46,11 @@ export class MyApp {
         this.platform.ready().then(() => {
             this.cache.setDefaultTTL(60 * 60 * 12 * 7);
             this.cache.setOfflineInvalidate(false);
-            this.statusBar.styleDefault();
-            this.splashScreen.hide();
-            this.authService.startupTokenRefresh();
+            this.imgcacheService.initImgCache().then(() => {
+                this.statusBar.styleDefault();
+                this.splashScreen.hide();
+                this.authService.startupTokenRefresh();
+            });
         });
     }
     openPage(page) {
@@ -60,6 +64,7 @@ export class MyApp {
                 this.nav.setRoot(page.component);
             }
             else {
+                this.nav.popToRoot({animate:false});
                 this.nav.push(page.component);
             }
         }

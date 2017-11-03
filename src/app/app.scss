@@ -110,6 +110,7 @@ h1.welcome {
     position: relative;
     margin-top: 2rem;
     margin-bottom: 2rem;
+    position: relative;
 }
 
 h1.welcome:before {
@@ -453,7 +454,17 @@ ion-menu {
     width: 1px !important;
     height: 1px !important;
 }
-
+.notEffect, .notEffect.activated {
+    background: none;
+    box-shadow: none;
+    border: none;
+    .button-effect {
+        display: none !important;
+    }
+}
+.btn-participando:hover:not(.disable-hover) {
+    background: none;
+}
 .btn-primary {
     width: 80%;
     background: #38394a;
@@ -462,7 +473,34 @@ ion-menu {
     background: linear-gradient(to bottom, #38394a 0%,#2c2d3e 100%);
     transition: all 0.3s ease-out;
 }
+.btn-participando {
+    width: 80%;
+    background: none;
+    color: color($indicadores, positivo);
+    transition: all 0.3s ease-out;
+    line-height: 4rem;
+    .icon {
+        margin-right: 1rem;
+        font-size: 2em;
+        position: relative;
+        top: 0.5rem;
+    }
+}
+.text-left {
+    text-align: left;
+    .btn-participando {
+        text-align: left;
+        padding: 0;
+        span {
+            display: block;
+            width: 100%;
+        }
+    }
 
+}
+.btn-large {
+    width: 100%;
+}
 .normalText,
 .normalText .button-inner {
     font-family: 'Montserrat';
@@ -481,16 +519,19 @@ ion-menu {
     background: -webkit-linear-gradient(top, #e30d20 0%,#9f031b 100%);
     background: linear-gradient(to bottom, #e30d20 0%,#9f031b 100%);
 }
+
 .inContent.active {
     background: #e30d20;
     background: -moz-linear-gradient(top, #e30d20 0%, #9f031b 100%);
     background: -webkit-linear-gradient(top, #e30d20 0%,#9f031b 100%);
     background: linear-gradient(to bottom, #e30d20 0%,#9f031b 100%);
 }
+
 .inContent.inactive {
     background: #D8D8D8;
     color: color($colors, midlight);
 }
+
 .inContent[disabled] {
     background: #D8D8D8;
     color: color($colors, texto);
@@ -702,16 +743,16 @@ ion-select.sinLabel {
     margin: 18px 0;
 }
 /* SLIDES */
-/* Noticias */
-page-noticias {
-    .noticias {
+/* Noticias y Eventos */
+page-noticias, page-eventos {
+    .noticias, .eventos {
         .item-block {
             margin-top: 2rem;
         }
     }
 }
 
-.noticias {
+.noticias, .eventos {
     .item-block {
         margin-top: 0.5rem;
         box-shadow: 0 1px 6px 1px rgba(0,0,0,0.1);
@@ -748,6 +789,12 @@ page-noticias {
         font-weight: $book;
         font-size: 1.7rem;
         color: color($colors, texto);
+        p {
+            font-family: inherit;
+            font-weight: inherit;
+            font-size: inherit;
+            color: inherit;
+        }
     }
 
     .item-block .item-inner {
@@ -764,9 +811,17 @@ page-noticias {
         margin: 0 0 5px;
     }
 }
-/* Noticias */
+/* Noticias y Eventos */
 /* Ferreterias */
 .logoRounded {
+    display: block;
+    max-width: 120px;
+    border-radius: 100%;
+    margin: 0 auto;
+}
+
+.logoRounded img {
+    display: block;
     max-width: 120px;
     margin: 0 auto;
     box-shadow: 0 2px 4px rgba(199,199,199,0.5);
@@ -781,14 +836,15 @@ page-noticias {
     padding-right: 6rem;
 }
 
-#periodo_donutChart_total,
-#periodo_donutChart_norte,
 #periodo_donutChart_centro,
-#periodo_donutChart_sur {
+#periodo_donutChart_norte,
+#periodo_donutChart_sur,
+#periodo_donutChart_total {
     width: 100%;
     height: 200px;
     padding-right: 6rem;
 }
+
 #variacion_barChart,
 #ventas_barChart {
     width: 100%;
@@ -805,9 +861,9 @@ page-noticias {
 
 .chartCompras,
 .chartIndi,
-.chartProv,
 .chartNPS,
-.chartOrdenCompras {
+.chartOrdenCompras,
+.chartProv {
     h2 {
         color: color($colors, negro);
     }
@@ -943,8 +999,9 @@ page-noticias {
 .chartIndi {
     padding: 20px;
 }
+
 .chartProv {
-    padding: 20px 0 0 0;
+    padding: 20px 0 0;
 }
 /* Charts */
 /* Indicadores */
@@ -995,9 +1052,10 @@ page-noticias {
         }
     }
 }
-.chartProv,
+
 .chartIndi,
-.chartOrdenCompras {
+.chartOrdenCompras,
+.chartProv {
     ion-list.indicadores.list {
         margin-bottom: 0;
 
@@ -1068,8 +1126,29 @@ ion-searchbar.searchbar {
         }
     }
 }
-
 .searchbar-md .searchbar-search-icon {
     top: 15px;
 }
 /* Buscador */
+[lazy-load] {
+    opacity: 0;
+    transition: opacity 2s;
+
+    &.loaded {
+        opacity: 1;
+    }
+}
+/* Productos */
+.infoProducto p {
+    font-size: 1.6rem;
+    color: color($colors, light);
+}
+
+.infoProducto p.noAdquirido {
+    color: color($colors, primary);
+}
+
+.producto .adquirido {
+    opacity: 0.4;
+}
+/* Productos */

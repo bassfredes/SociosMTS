@@ -40,7 +40,7 @@
                 <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
                     <div class="logoProveedor text-center center" *ngIf="proveedor.doc._attachments">
                         <div *ngFor="let attachment of proveedor.doc._attachments | keys; index as i">
-                            <img width="100%" src="{{cfg.apiUrl}}/proveedores/{{proveedor.doc._id}}/{{attachment.key}}" *ngIf="i==0" />
+                            <lazy-img  width="100%" inputSrc="{{cfg.apiUrl}}/proveedores/{{proveedor.doc._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>
                         </div>
                     </div>
                 </ion-col>

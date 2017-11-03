@@ -47256,6 +47256,7 @@ h1.welcome {
   position: relative;
   margin-top: 2rem;
   margin-bottom: 2rem;
+  position: relative;
 }
 
 h1.welcome:before {
@@ -47598,6 +47599,21 @@ ion-menu ion-list.indicadores .item.indicador ion-label.label > .valor {
   height: 1px !important;
 }
 
+.notEffect, .notEffect.activated {
+  background: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: none;
+}
+
+.notEffect .button-effect, .notEffect.activated .button-effect {
+  display: none !important;
+}
+
+.btn-participando:hover:not(.disable-hover) {
+  background: none;
+}
+
 .btn-primary {
   width: 80%;
   background: #38394a;
@@ -47605,6 +47621,40 @@ ion-menu ion-list.indicadores .item.indicador ion-label.label > .valor {
   background: linear-gradient(to bottom, #38394a 0%, #2c2d3e 100%);
   -webkit-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
+}
+
+.btn-participando {
+  width: 80%;
+  background: none;
+  color: #7ED321;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  line-height: 4rem;
+}
+
+.btn-participando .icon {
+  margin-right: 1rem;
+  font-size: 2em;
+  position: relative;
+  top: 0.5rem;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-left .btn-participando {
+  text-align: left;
+  padding: 0;
+}
+
+.text-left .btn-participando span {
+  display: block;
+  width: 100%;
+}
+
+.btn-large {
+  width: 100%;
 }
 
 .normalText,
@@ -47854,67 +47904,82 @@ ion-select.sinLabel {
 }
 
 /* SLIDES */
-/* Noticias */
-page-noticias .noticias .item-block {
+/* Noticias y Eventos */
+page-noticias .noticias .item-block, page-noticias .eventos .item-block, page-eventos .noticias .item-block, page-eventos .eventos .item-block {
   margin-top: 2rem;
 }
 
-.noticias .item-block {
+.noticias .item-block, .eventos .item-block {
   margin-top: 0.5rem;
   -webkit-box-shadow: 0 1px 6px 1px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 6px 1px rgba(0, 0, 0, 0.1);
   font-family: 'CircularStd';
 }
 
-.noticias h2 {
+.noticias h2, .eventos h2 {
   font-size: 2.4rem;
   line-height: 3rem;
   color: #000;
 }
 
-.noticias .detalles {
+.noticias .detalles, .eventos .detalles {
   padding: 1rem;
 }
 
-.noticias .dates {
+.noticias .dates, .eventos .dates {
   line-height: 3rem;
   font-size: 1.3rem;
   text-transform: uppercase;
 }
 
-.noticias .dates .since {
+.noticias .dates .since, .eventos .dates .since {
   margin-right: 1rem;
   color: #000;
 }
 
-.noticias .dates .date {
+.noticias .dates .date, .eventos .dates .date {
   color: #D0011B;
 }
 
-.noticias .bajada {
+.noticias .bajada, .eventos .bajada {
   font-family: 'CircularStd';
   font-weight: 300;
   font-size: 1.7rem;
   color: #606060;
 }
 
-.noticias .item-block .item-inner {
+.noticias .bajada p, .eventos .bajada p {
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+.noticias .item-block .item-inner, .eventos .item-block .item-inner {
   background: none !important;
   padding: 0 !important;
 }
 
-.noticias .more {
+.noticias .more, .eventos .more {
   font-weight: 100;
   font-size: 1.5rem;
 }
 
-.noticias ion-label {
+.noticias ion-label, .eventos ion-label {
   margin: 0 0 5px;
 }
 
-/* Noticias */
+/* Noticias y Eventos */
 /* Ferreterias */
 .logoRounded {
+  display: block;
+  max-width: 120px;
+  border-radius: 100%;
+  margin: 0 auto;
+}
+
+.logoRounded img {
+  display: block;
   max-width: 120px;
   margin: 0 auto;
   -webkit-box-shadow: 0 2px 4px rgba(199, 199, 199, 0.5);
@@ -47931,10 +47996,10 @@ page-noticias .noticias .item-block {
   padding-right: 6rem;
 }
 
-#periodo_donutChart_total,
-#periodo_donutChart_norte,
 #periodo_donutChart_centro,
-#periodo_donutChart_sur {
+#periodo_donutChart_norte,
+#periodo_donutChart_sur,
+#periodo_donutChart_total {
   width: 100%;
   height: 200px;
   padding-right: 6rem;
@@ -47957,50 +48022,50 @@ page-noticias .noticias .item-block {
 
 .chartCompras,
 .chartIndi,
-.chartProv,
 .chartNPS,
-.chartOrdenCompras {
+.chartOrdenCompras,
+.chartProv {
   position: relative;
   padding: 10px;
 }
 
 .chartCompras h2,
 .chartIndi h2,
-.chartProv h2,
 .chartNPS h2,
-.chartOrdenCompras h2 {
+.chartOrdenCompras h2,
+.chartProv h2 {
   color: #000;
 }
 
 .chartCompras h2.neutro,
 .chartIndi h2.neutro,
-.chartProv h2.neutro,
 .chartNPS h2.neutro,
-.chartOrdenCompras h2.neutro {
+.chartOrdenCompras h2.neutro,
+.chartProv h2.neutro {
   color: #FFC12D;
 }
 
 .chartCompras h2.positivo,
 .chartIndi h2.positivo,
-.chartProv h2.positivo,
 .chartNPS h2.positivo,
-.chartOrdenCompras h2.positivo {
+.chartOrdenCompras h2.positivo,
+.chartProv h2.positivo {
   color: #7ED321;
 }
 
 .chartCompras h2.negativo,
 .chartIndi h2.negativo,
-.chartProv h2.negativo,
 .chartNPS h2.negativo,
-.chartOrdenCompras h2.negativo {
+.chartOrdenCompras h2.negativo,
+.chartProv h2.negativo {
   color: #D0011B;
 }
 
 .chartCompras h3,
 .chartIndi h3,
-.chartProv h3,
 .chartNPS h3,
-.chartOrdenCompras h3 {
+.chartOrdenCompras h3,
+.chartProv h3 {
   margin-bottom: 1rem;
   font-size: 1.7rem;
   line-height: 3rem;
@@ -48011,9 +48076,9 @@ page-noticias .noticias .item-block {
 
 .chartCompras h4,
 .chartIndi h4,
-.chartProv h4,
 .chartNPS h4,
-.chartOrdenCompras h4 {
+.chartOrdenCompras h4,
+.chartProv h4 {
   font-size: 1.8rem;
   line-height: 3rem;
   font-weight: 500;
@@ -48023,17 +48088,17 @@ page-noticias .noticias .item-block {
 
 .chartCompras h4 .addSpacing,
 .chartIndi h4 .addSpacing,
-.chartProv h4 .addSpacing,
 .chartNPS h4 .addSpacing,
-.chartOrdenCompras h4 .addSpacing {
+.chartOrdenCompras h4 .addSpacing,
+.chartProv h4 .addSpacing {
   padding-right: 2rem;
 }
 
 .chartCompras .legendChart .centeredChart,
 .chartIndi .legendChart .centeredChart,
-.chartProv .legendChart .centeredChart,
 .chartNPS .legendChart .centeredChart,
-.chartOrdenCompras .legendChart .centeredChart {
+.chartOrdenCompras .legendChart .centeredChart,
+.chartProv .legendChart .centeredChart {
   position: absolute;
   top: 50%;
   left: 0;
@@ -48050,9 +48115,9 @@ page-noticias .noticias .item-block {
 
 .chartCompras .legendChart .stadisticsChart,
 .chartIndi .legendChart .stadisticsChart,
-.chartProv .legendChart .stadisticsChart,
 .chartNPS .legendChart .stadisticsChart,
-.chartOrdenCompras .legendChart .stadisticsChart {
+.chartOrdenCompras .legendChart .stadisticsChart,
+.chartProv .legendChart .stadisticsChart {
   position: absolute;
   top: 50%;
   left: 70%;
@@ -48069,18 +48134,18 @@ page-noticias .noticias .item-block {
 
 .chartCompras .legendChart .stadisticsChart .p,
 .chartIndi .legendChart .stadisticsChart .p,
-.chartProv .legendChart .stadisticsChart .p,
 .chartNPS .legendChart .stadisticsChart .p,
-.chartOrdenCompras .legendChart .stadisticsChart .p {
+.chartOrdenCompras .legendChart .stadisticsChart .p,
+.chartProv .legendChart .stadisticsChart .p {
   position: relative;
   padding-left: 10px;
 }
 
 .chartCompras .legendChart .stadisticsChart .p:before,
 .chartIndi .legendChart .stadisticsChart .p:before,
-.chartProv .legendChart .stadisticsChart .p:before,
 .chartNPS .legendChart .stadisticsChart .p:before,
-.chartOrdenCompras .legendChart .stadisticsChart .p:before {
+.chartOrdenCompras .legendChart .stadisticsChart .p:before,
+.chartProv .legendChart .stadisticsChart .p:before {
   display: block;
   content: "";
   background: #009987;
@@ -48094,18 +48159,18 @@ page-noticias .noticias .item-block {
 
 .chartCompras .legendChart .stadisticsChart .d,
 .chartIndi .legendChart .stadisticsChart .d,
-.chartProv .legendChart .stadisticsChart .d,
 .chartNPS .legendChart .stadisticsChart .d,
-.chartOrdenCompras .legendChart .stadisticsChart .d {
+.chartOrdenCompras .legendChart .stadisticsChart .d,
+.chartProv .legendChart .stadisticsChart .d {
   position: relative;
   padding-left: 10px;
 }
 
 .chartCompras .legendChart .stadisticsChart .d:before,
 .chartIndi .legendChart .stadisticsChart .d:before,
-.chartProv .legendChart .stadisticsChart .d:before,
 .chartNPS .legendChart .stadisticsChart .d:before,
-.chartOrdenCompras .legendChart .stadisticsChart .d:before {
+.chartOrdenCompras .legendChart .stadisticsChart .d:before,
+.chartProv .legendChart .stadisticsChart .d:before {
   display: block;
   content: "";
   background: #0084B1;
@@ -48119,18 +48184,18 @@ page-noticias .noticias .item-block {
 
 .chartCompras .legendChart .stadisticsChart .n,
 .chartIndi .legendChart .stadisticsChart .n,
-.chartProv .legendChart .stadisticsChart .n,
 .chartNPS .legendChart .stadisticsChart .n,
-.chartOrdenCompras .legendChart .stadisticsChart .n {
+.chartOrdenCompras .legendChart .stadisticsChart .n,
+.chartProv .legendChart .stadisticsChart .n {
   position: relative;
   padding-left: 10px;
 }
 
 .chartCompras .legendChart .stadisticsChart .n:before,
 .chartIndi .legendChart .stadisticsChart .n:before,
-.chartProv .legendChart .stadisticsChart .n:before,
 .chartNPS .legendChart .stadisticsChart .n:before,
-.chartOrdenCompras .legendChart .stadisticsChart .n:before {
+.chartOrdenCompras .legendChart .stadisticsChart .n:before,
+.chartProv .legendChart .stadisticsChart .n:before {
   display: block;
   content: "";
   background: #9C5895;
@@ -48144,9 +48209,9 @@ page-noticias .noticias .item-block {
 
 .chartCompras .rangoFecha,
 .chartIndi .rangoFecha,
-.chartProv .rangoFecha,
 .chartNPS .rangoFecha,
-.chartOrdenCompras .rangoFecha {
+.chartOrdenCompras .rangoFecha,
+.chartProv .rangoFecha {
   letter-spacing: normal;
   font-size: 1.4rem;
   color: #606060;
@@ -48162,7 +48227,7 @@ page-noticias .noticias .item-block {
 }
 
 .chartProv {
-  padding: 20px 0 0 0;
+  padding: 20px 0 0;
 }
 
 /* Charts */
@@ -48209,24 +48274,24 @@ page-noticias .noticias .item-block {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.chartProv ion-list.indicadores.list,
 .chartIndi ion-list.indicadores.list,
-.chartOrdenCompras ion-list.indicadores.list {
+.chartOrdenCompras ion-list.indicadores.list,
+.chartProv ion-list.indicadores.list {
   margin-bottom: 0;
 }
 
-.chartProv ion-list.indicadores.list ion-item,
 .chartIndi ion-list.indicadores.list ion-item,
-.chartOrdenCompras ion-list.indicadores.list ion-item {
+.chartOrdenCompras ion-list.indicadores.list ion-item,
+.chartProv ion-list.indicadores.list ion-item {
   min-height: 3rem;
   padding: 0;
   background: none;
   letter-spacing: normal;
 }
 
-.chartProv ion-list.indicadores.list ion-item .title,
 .chartIndi ion-list.indicadores.list ion-item .title,
-.chartOrdenCompras ion-list.indicadores.list ion-item .title {
+.chartOrdenCompras ion-list.indicadores.list ion-item .title,
+.chartProv ion-list.indicadores.list ion-item .title {
   display: inline-block;
   text-align: left;
   text-transform: capitalize;
@@ -48234,9 +48299,9 @@ page-noticias .noticias .item-block {
   color: #606060;
 }
 
-.chartProv ion-list.indicadores.list ion-item .valor,
 .chartIndi ion-list.indicadores.list ion-item .valor,
-.chartOrdenCompras ion-list.indicadores.list ion-item .valor {
+.chartOrdenCompras ion-list.indicadores.list ion-item .valor,
+.chartProv ion-list.indicadores.list ion-item .valor {
   display: inline-block;
   text-align: right;
   float: right;
@@ -48244,10 +48309,6 @@ page-noticias .noticias .item-block {
   color: #606060;
 }
 
-.chartProv ion-list.indicadores.list ion-item .indicadorBullet.negativo:before,
-.chartProv ion-list.indicadores.list ion-item .indicadorBullet.neutro:before,
-.chartProv ion-list.indicadores.list ion-item .indicadorBullet.positivo:before,
-.chartProv ion-list.indicadores.list ion-item .indicadorBullet.transparent:before,
 .chartIndi ion-list.indicadores.list ion-item .indicadorBullet.negativo:before,
 .chartIndi ion-list.indicadores.list ion-item .indicadorBullet.neutro:before,
 .chartIndi ion-list.indicadores.list ion-item .indicadorBullet.positivo:before,
@@ -48255,7 +48316,11 @@ page-noticias .noticias .item-block {
 .chartOrdenCompras ion-list.indicadores.list ion-item .indicadorBullet.negativo:before,
 .chartOrdenCompras ion-list.indicadores.list ion-item .indicadorBullet.neutro:before,
 .chartOrdenCompras ion-list.indicadores.list ion-item .indicadorBullet.positivo:before,
-.chartOrdenCompras ion-list.indicadores.list ion-item .indicadorBullet.transparent:before {
+.chartOrdenCompras ion-list.indicadores.list ion-item .indicadorBullet.transparent:before,
+.chartProv ion-list.indicadores.list ion-item .indicadorBullet.negativo:before,
+.chartProv ion-list.indicadores.list ion-item .indicadorBullet.neutro:before,
+.chartProv ion-list.indicadores.list ion-item .indicadorBullet.positivo:before,
+.chartProv ion-list.indicadores.list ion-item .indicadorBullet.transparent:before {
   float: left;
   content: "";
   position: relative;
@@ -48267,21 +48332,21 @@ page-noticias .noticias .item-block {
   background: #FFC12D;
 }
 
-.chartProv ion-list.indicadores.list ion-item .indicadorBullet.positivo:before,
 .chartIndi ion-list.indicadores.list ion-item .indicadorBullet.positivo:before,
-.chartOrdenCompras ion-list.indicadores.list ion-item .indicadorBullet.positivo:before {
+.chartOrdenCompras ion-list.indicadores.list ion-item .indicadorBullet.positivo:before,
+.chartProv ion-list.indicadores.list ion-item .indicadorBullet.positivo:before {
   background: #7ED321;
 }
 
-.chartProv ion-list.indicadores.list ion-item .indicadorBullet.negativo:before,
 .chartIndi ion-list.indicadores.list ion-item .indicadorBullet.negativo:before,
-.chartOrdenCompras ion-list.indicadores.list ion-item .indicadorBullet.negativo:before {
+.chartOrdenCompras ion-list.indicadores.list ion-item .indicadorBullet.negativo:before,
+.chartProv ion-list.indicadores.list ion-item .indicadorBullet.negativo:before {
   background: #D0011B;
 }
 
-.chartProv ion-list.indicadores.list ion-item .indicadorBullet.transparent:before,
 .chartIndi ion-list.indicadores.list ion-item .indicadorBullet.transparent:before,
-.chartOrdenCompras ion-list.indicadores.list ion-item .indicadorBullet.transparent:before {
+.chartOrdenCompras ion-list.indicadores.list ion-item .indicadorBullet.transparent:before,
+.chartProv ion-list.indicadores.list ion-item .indicadorBullet.transparent:before {
   width: 1px;
   background: none;
 }
@@ -48306,6 +48371,31 @@ ion-searchbar.searchbar .searchbar-input-container .searchbar-input {
 }
 
 /* Buscador */
+[lazy-load] {
+  opacity: 0;
+  -webkit-transition: opacity 2s;
+  transition: opacity 2s;
+}
+
+[lazy-load].loaded {
+  opacity: 1;
+}
+
+/* Productos */
+.infoProducto p {
+  font-size: 1.6rem;
+  color: #C7C7C7;
+}
+
+.infoProducto p.noAdquirido {
+  color: #D0011B;
+}
+
+.producto .adquirido {
+  opacity: 0.4;
+}
+
+/* Productos */
 accordion-list .nomargin {
   margin: 0 !important;
 }
@@ -48386,6 +48476,76 @@ accordion-list .label {
   margin: 0;
 }
 
+lazy-img div {
+  background-color: transparent;
+  color: #666;
+  font-family: "Ionicons";
+  font-size: inherit;
+  height: inherit;
+  min-height: inherit;
+  min-width: inherit;
+  position: relative;
+  -webkit-transition: 2s background-color ease;
+  transition: 2s background-color ease;
+  width: 100%;
+}
+
+lazy-img .placeholder {
+  background-color: grey;
+}
+
+lazy-img .placeholder::before {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  content: '\f30e';
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+lazy-img img {
+  display: block;
+  height: inherit;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+page-eventos h1 {
+  margin-top: 0.5rem;
+}
+
+page-eventos-detalle .eventos {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+page-eventos-detalle .eventos .detalles {
+  padding: 0;
+}
+
+page-eventos-detalle .bloqueBlanco {
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+page-eventos-detalle .attachments .item-block {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
 page-forgot-page ion-content.contentInterior {
   background: #F2F2F2;
 }
@@ -48446,6 +48606,52 @@ page-indicadores .google-visualization-tooltip span {
   font-size: 1.2rem !important;
 }
 
+page-informacion-comercial h1 {
+  margin-top: 0.5rem;
+}
+
+page-informacion-comercial-detalle .noticias {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+page-informacion-comercial-detalle .noticias .detalles {
+  padding: 0;
+}
+
+page-informacion-comercial-detalle .bloqueBlanco {
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+page-informacion-comercial-detalle .attachments .item-block {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+page-informacion-comercial-detalle .bajada {
+  font-family: 'CircularStd';
+  font-weight: 300;
+  font-size: 1.7rem;
+  color: #606060;
+}
+
+page-informacion-comercial-detalle .bajada p {
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+page-informacion-comercial-detalle .postParticipar {
+  display: none;
+}
+
+page-informacion-comercial-detalle .prevParticipar {
+  display: block;
+}
+
 page-login-page ion-content.contentInterior {
   background: #F2F2F2;
 }
@@ -48495,6 +48701,10 @@ page-noticia-detalle .bloqueBlanco {
 page-noticia-detalle .attachments .item-block {
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+
+page-noticias h1 {
+  margin-top: 0.5rem;
 }
 
 page-proveedor h1 {
@@ -48557,6 +48767,7 @@ page-proveedor ion-list.proveedores {
 }
 
 page-proveedor ion-list.proveedores .logoProveedor img {
+  display: block;
   max-width: 120px;
 }
 
@@ -48644,6 +48855,7 @@ page-proveedores ion-list.proveedores {
 
 page-proveedores ion-list.proveedores .logoProveedor img {
   max-width: 120px;
+  margin: 0 auto;
 }
 
 page-proveedores ion-list.proveedores ion-item:first-child {

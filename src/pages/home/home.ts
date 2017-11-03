@@ -34,13 +34,7 @@ export class HomePage extends ProtectedPage {
     localSelected: number = 0;
 
     slideIndex = 0;
-    slides = [
-        {
-            imageUrl: 'assets/images/lists/slide01.jpg'
-        }, {
-            imageUrl: 'assets/images/lists/slide02.jpg'
-        }
-    ];
+    slides: any;
     constructor(
         public nav: Nav,
         public navCtrl: NavController,
@@ -144,6 +138,13 @@ export class HomePage extends ProtectedPage {
                     this.id_ferreteria = theID;
                     this.ferreteriasService.getOne(this.id_ferreteria).then(datosFerreteria => {
                         this.ferreteria = datosFerreteria;
+                        this.slides = [
+                            {
+                                imageUrl: 'assets/images/lists/slide01.jpg'
+                            }, {
+                                imageUrl: 'assets/images/lists/slide02.jpg'
+                            }
+                        ];
                         this.drawChartNPS();
                     });
                     this.noticiasService.getLast().then(noticias => {

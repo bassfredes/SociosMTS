@@ -36,11 +36,31 @@ export class AuthService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return new Promise(resolve => {
-            this.http.post(this.cfg.apiUrl + this.cfg.user.login, credentials).subscribe(data => {
+            this.authHttp.post(this.cfg.apiUrl + this.cfg.user.login, credentials).subscribe(data => {
                 if (data) {
                     this.saveData(data);
                     let rs = data.json();
                     this.idToken = rs.rows[0].doc.token;
+                    this.scheduleRefresh();
+                    resolve(true);
+                }
+                else {
+                    resolve(false);
+                }
+            }, function errorCallback(response) {
+                resolve(false);
+            });
+        });
+    }
+    login_produccion(credentials: CredentialsModel) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return new Promise(resolve => {
+            this.authHttp.get(this.cfg.apiUrl + this.cfg.user.login+'/'+credentials.email+'/'+credentials.password).subscribe(data => {
+                if (data) {
+                    this.saveData_produccion(data);
+                    let rs = data.json();
+                    this.idToken = rs.token;
                     this.scheduleRefresh();
                     resolve(true);
                 }
@@ -74,6 +94,11 @@ export class AuthService {
         this.storage.set("user", documentConfig.user_id);
         this.storage.set("id_token", documentConfig.token);
     }
+    saveData_produccion(data: any) {
+        let rs = data.json();
+        this.storage.set("user", rs.user_id);
+        this.storage.set("id_token", rs.token);
+    }
     logout() {
         // stop function of auto refesh
         this.unscheduleRefresh();
@@ -92,7 +117,7 @@ export class AuthService {
             let senddata: { Token: string } = {
                 Token: thetoken
             };
-            this.http.get(this.cfg.apiUrl + this.cfg.user.refresh + "&Token=" + thetoken)
+            this.authHttp.get(this.cfg.apiUrl + this.cfg.user.refresh + "&Token=" + thetoken)
                 .map(res => res.json())
                 .subscribe(res => {
                     let documentConfig = res.rows[0].doc;

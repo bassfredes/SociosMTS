@@ -1,0 +1,41 @@
+page-informacion-comercial-detalle {
+    .noticias {
+        box-shadow: none;
+        padding: 0;
+
+        .detalles {
+            padding: 0;
+        }
+    }
+
+    .bloqueBlanco {
+        padding: 0;
+        margin-bottom: 10px;
+    }
+
+    .attachments {
+        .item-block {
+            box-shadow: none;
+        }
+    }
+
+    .bajada {
+        font-family: 'CircularStd';
+        font-weight: $book;
+        font-size: 1.7rem;
+        color: color($colors, texto);
+
+        p {
+            font-family: inherit;
+            font-weight: inherit;
+            font-size: inherit;
+            color: inherit;
+        }
+    }
+    .postParticipar {
+        display: none;
+    }
+    .prevParticipar {
+        display: block;
+    }
+}

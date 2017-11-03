@@ -1,6 +1,5 @@
 export let cfg = {
     apiUrl: 'http://192.168.1.143:5984',
-    /*apiUrl: 'http://books.prodio.bg/api',*/
     tokenName: 'token',
     user: {
         register: '/auth/signup',
@@ -9,6 +8,27 @@ export let cfg = {
     },
     ferreterias: '/ferreterias',
     proveedores: '/proveedores',
+    productos: '/productos',
+    productostop: '/productos_top',
     noticias: '/noticias',
-    books: '/books'
+    informercial: '/inforcomercial',
+    eventos: '/eventos'
 };
+/*
+export let cfg = {
+    apiUrl: 'http://wsp.mts.cl/app/index.php?/',
+    tokenName: 'token',
+    user: {
+        register: '/auth/signup',
+        login: 'usuario/usuarioApp',
+        refresh:'/auth_refresh/_all_docs?limit=20&include_docs=true',
+    },
+    ferreterias: '/ferreterias',
+    proveedores: '/proveedores',
+    productos: '/productos',
+    productostop: '/productos_top',
+    noticias: '/noticias',
+    informercial: '/inforcomercial',
+    eventos: '/eventos'
+};
+*/

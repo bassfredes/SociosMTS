@@ -8,7 +8,7 @@
     	</button>
     </ion-navbar>
 </ion-header>
-<ion-content class="contentInterior">
+<ion-content class="contentInterior" *ngIf="proveedor">
     <ion-grid>
         <ion-row justify-content-around>
             <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
@@ -17,8 +17,8 @@
         </ion-row>
         <ion-row justify-content-around>
             <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
-                <div class="text-center">
-                    <img class="logoRounded" src="{{logoProveedor}}" />
+                <div class="text-center" *ngIf="logoProveedor">
+                    <lazy-img class="logoRounded" inputSrc="{{logoProveedor}}"></lazy-img>
                 </div>
                 <h4 class="text-center capitalize">{{proveedor.nombre}}</h4>
             </ion-col>
@@ -191,12 +191,42 @@
                 <accordion-list class="no-margin" title="Rapel y Rebate" subtitle=""  valor="" desplegable="true" maxHeight="200" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">
                     <div class="chartIndi normalLetter">
                         <h3 class="noTransform">{{proveedor.indicadores.rapel_rebate.title}}</h3>
-                        <h4 class="capitalize"><span class="addSpacing">Rapel:</span> MM$: {{proveedor.indicadores.rapel_rebate.rapel}} - {{proveedor.indicadores.rapel_rebate.rapel_indicador}}%</h4>
-                        <h4 class="capitalize"><span class="addSpacing">Rebate:</span> MM$: {{proveedor.indicadores.rapel_rebate.rebate}} - {{proveedor.indicadores.rapel_rebate.rebate_indicador}}%</h4>
+                        <h4 class="capitalize"><span class="addSpacing">Rapel:</span> MM$: {{proveedor.indicadores.rapel_rebate.rapel}} - {{proveedor.indicadores.rapel_rebate.rapel_porcentual}}%</h4>
+                        <h4 class="capitalize"><span class="addSpacing">Rebate:</span> MM$: {{proveedor.indicadores.rapel_rebate.rebate}} - {{proveedor.indicadores.rapel_rebate.rebate_porcentual}}%</h4>
                     </div>
                 </accordion-list>
             </ion-col>
         </ion-row>
+        <div padding>
+            <ion-row justify-content-around>
+                <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                    <div class="bloqueBlanco">
+                        <h1 margin-top class="welcome">Más comprados por la red</h1>
+                        <ion-list margin-top class="productosTop">
+                            <ion-item no-lines class="producto no-padding" *ngFor="let producto of productosTop">
+                                <ion-row padding-right padding-left justify-content-around [class.adquirido]="producto.doc.adquirido" *ngIf="producto.doc.isActive">
+                                    <ion-col col-5 col-sm-5 col-md-4 col-lg-4 col-xl-3 align-self-center>
+                                        <div class="imagenProducto text-center center" *ngIf="producto.doc._attachments">
+                                            <div *ngFor="let attachment of producto.doc._attachments | keys; index as i">
+                                                <lazy-img inputSrc="{{cfg.apiUrl}}/productos_top/{{producto.doc._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                    <ion-col col-7 col-sm-7 col-md-8 col-lg-4 col-xl-3 align-self-center>
+                                        <div class="infoProducto">
+                                            <h2>{{producto.doc.nombre}}</h2>
+                                            <h3>SKU {{producto.doc.sku}}</h3>
+                                            <p class="noAdquirido" *ngIf="!producto.doc.adquirido">Aún no lo has adquirido</p>
+                                            <p *ngIf="producto.doc.adquirido">Ya lo adquiriste</p>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-item>
+                        </ion-list>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </div>
         <ion-row justify-content-around>
             <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
                 <accordion-list class="no-margin" title="Ventas" subtitle="{{proveedor.indicadores.ventas.fechas[0].mes | slice : 0:3 }}. {{proveedor.indicadores.ventas.valor}} MM$" desplegable="true" masMeses="true" masMesesButton="ventasAdd" maxHeight="1200" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">

@@ -9,11 +9,16 @@
     </ion-navbar>
 </ion-header>
 <ion-content padding class="contentInterior">
+    <ion-row justify-content-around>
+        <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+            <h1 class="text-center uppercase">Noticias</h1>
+        </ion-col>
+    </ion-row>
     <ion-list no-lines class="noticias">
         <button ion-item *ngFor="let noticia of noticias" class="no-padding" (click)="openPage('NoticiaDetallePage', noticia);" detail-push>
             <div class="imageNoticia" *ngIf="noticia.doc._attachments">
                 <div *ngFor="let attachment of noticia.doc._attachments | keys; index as i">
-                    <img width="100%" src="{{cfg.apiUrl}}/noticias/{{noticia.doc._id}}/{{attachment.key}}" *ngIf="i==0" />
+                    <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/noticias/{{noticia.doc._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>
                 </div>
             </div>
             <div class="detalles">

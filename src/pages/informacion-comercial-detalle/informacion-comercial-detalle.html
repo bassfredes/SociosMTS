@@ -1,0 +1,55 @@
+<ion-header>
+    <ion-navbar center>
+        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />
+        <button ion-button menuToggle right>
+            <div class="navicon-button x">
+                <div class="navicon"></div>
+            </div>
+    	</button>
+    </ion-navbar>
+</ion-header>
+<ion-content padding class="contentInterior">
+    <ion-grid>
+        <ion-row justify-content-around *ngIf="informercial">
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <div class="bloqueBlanco firstElement">
+                    <div class="imageNoticia" *ngIf="imagenPrincipal">
+                        <lazy-img width="100%" inputSrc="{{imagenPrincipal}}"></lazy-img>
+                    </div>
+                </div>
+                <div class="noticias">
+                    <div class="detalles">
+                        <div class="text-center" *ngIf="!informercial.participando">
+                            <button margin-bottom class="btn-primary btn-large" margin-top center ion-button large (click)="participar()">
+                                <span>Participar</span>
+                            </button>
+                        </div>
+                        <div class="text-left" *ngIf="informercial.participando">
+                            <button margin-bottom class="btn-participando notEffect btn-large" margin-top center ion-button large>
+                                <span><ion-icon class="icon" name="md-checkmark"></ion-icon>Ya estás Participando</span>
+                            </button>
+                        </div>
+                        <div class="prevParticipar">
+                            <h2>{{informercial.title}}</h2>
+                            <div class="dates">
+                                <span class="since">{{informercial.updated_at | amLocale:'es' | amTimeAgo}}</span><span class="date">{{informercial.updated_at | date : "dd ' ' MMMM ' ' yyyy"}}</span>
+                            </div>
+                            <div class="bajada" text-wrap>
+                                <p>{{informercial.body}}</p>
+                            </div>
+                            <accordion-list class="no-margin" title="Descripción General" desplegable="true" subtitle="" maxHeight="730" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">
+                                <div padding class="bajada noTransform normalLetter" text-wrap>
+                                    <p>{{informercial.description}}</p>
+                                </div>
+                            </accordion-list>
+                        </div>
+                        <div class="postParticipar">
+                            <h2>Excelente <strong>Pedro,</strong></h2>
+                            <h2><strong>Un asistente de ventas te contactará.</strong></h2>
+                        </div>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

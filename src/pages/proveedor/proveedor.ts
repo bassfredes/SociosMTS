@@ -7,6 +7,7 @@ import { ProtectedPage } from '../protected-page/protected-page';
 import { AuthService } from '../../providers/auth-service';
 import { proveedorModel } from '../../models/proveedor.model';
 import { ProveedoresService } from '../../providers/proveedores-service';
+import { ProductosService } from '../../providers/productos-service';
 import { FerreteriasService } from '../../providers/ferreterias-service';
 import { CacheService } from "ionic-cache";
 
@@ -41,6 +42,8 @@ export class ProveedorPage extends ProtectedPage {
         centro: 0,
         sur: 0
     }
+    dataVentas: any;
+    productosTop: any;
 
     constructor(
         public navCtrl: NavController,
@@ -50,9 +53,44 @@ export class ProveedorPage extends ProtectedPage {
         public appCtrl: App,
         public authService: AuthService,
         public proveedoresService: ProveedoresService,
+        public productosService: ProductosService,
         public keyboard: Keyboard) {
         super(navCtrl, navParams, storage, appCtrl);
         this.cfg = AppConfig.cfg;
+        this.proveedor = this.navParams.get('proveedor');
+    }
+    ionViewDidLoad() {
+        if (this.proveedor === undefined || this.proveedor === null) {
+            this.navCtrl.setRoot('ProveedoresPage');
+        }
+        else {
+            this.proveedoresService.getOne(this.proveedor._id).then(proveedor => {
+                this.proveedor = proveedor;
+                if (this.proveedor._attachments) {
+                    this.attachments = Object.keys(this.proveedor._attachments);
+                    this.logoProveedor = this.cfg.apiUrl + '/proveedores/' + this.proveedor._id + '/' + this.attachments[0];
+                    this.attachments.shift();
+                }
+                this.storage.get("id_ferreteria").then((theID) => {
+                    this.id_ferreteria = theID;
+
+                    this.dateUpdate = new Date(this.proveedor.indicadores.info.date);
+                    this.thisYear = this.dateUpdate.getFullYear();
+                    this.lastYear = this.dateUpdate.getFullYear() - 1;
+
+                    this.proveedoresService.getAll(this.id_ferreteria).then(datosProveedores => {
+                        this.proveedores = datosProveedores;
+                        this.proveedoresFiltered = this.proveedores;
+                    });
+                    this.productosService.getTop(this.proveedor._id).then(datosProductos => {
+                        this.productosTop = datosProductos;
+                        console.log(this.productosTop);
+                    });
+
+                    this.drawCharts('30');
+                });
+            });
+        }
     }
     searchFn(ev: any) {
         this.term = ev.target.value;
@@ -77,10 +115,11 @@ export class ProveedorPage extends ProtectedPage {
     }
     drawCharts(month: string) {
         let parent = this;
-        chartTotal(month);
-        chartNorte(month);
-        chartCentro(month);
-        chartSur(month);
+        google.charts.setOnLoadCallback(chartTotal(month));
+        google.charts.setOnLoadCallback(chartNorte(month));
+        google.charts.setOnLoadCallback(chartCentro(month));
+        google.charts.setOnLoadCallback(chartSur(month));
+        google.charts.setOnLoadCallback(chartVentas());
         function chartTotal(month: string) {
             const totalChart = new google.visualization.PieChart(document.getElementById('periodo_donutChart_total'));
             let indicador = parent.proveedor.indicadores.cobertura.periodos[eval(month)].total;
@@ -116,21 +155,27 @@ export class ProveedorPage extends ProtectedPage {
             totalChart.draw(data_total, options_total);
             var counter = 0;
 
+            var resta;
+            var indicadorMulti;
             var handler = setInterval(function() {
+                resta = nulo - indicador * counter;
+                indicadorMulti = indicador * counter;
+                if(resta<0){resta=0}
+                if(indicador<0){indicador=0}
                 data_total = google.visualization.arrayToDataTable([
                     ['indicador', 'valor'],
-                    ['Total', indicador * counter],
-                    ['nulo', nulo - indicador],
+                    ['Total', indicadorMulti],
+                    ['nulo', resta],
                 ]);
                 counter = counter + 0.1;
                 counter = Math.round(counter * 10) / 10
 
-                if (counter > 1) {
+                if (counter >= 1) {
                     clearInterval(handler);
                     data_total = google.visualization.arrayToDataTable([
                         ['indicador', 'valor'],
                         ['Total', indicador],
-                        ['nulo', nulo - indicador],
+                        ['nulo', nulo-indicador],
                     ]);
                 }
                 totalChart.draw(data_total, options_total);
@@ -172,23 +217,24 @@ export class ProveedorPage extends ProtectedPage {
             var counter = 0;
             if(nulo<0) nulo=0;
 
+            var resta;
             var handler = setInterval(function() {
-                var resta = nulo - indicador;
-                if(resta<0) resta=0;
+                resta = nulo - indicador * counter;
+                if(resta<0){resta = 0};
                 data_norte = google.visualization.arrayToDataTable([
                     ['indicador', 'valor'],
                     ['Norte', indicador * counter],
-                    ['nulo', resta],
+                    ['nulo', nulo],
                 ]);
                 counter = counter + 0.1;
                 counter = Math.round(counter * 10) / 10
 
-                if (counter > 1) {
+                if (counter >= 1) {
                     clearInterval(handler);
                     data_norte = google.visualization.arrayToDataTable([
                         ['indicador', 'valor'],
                         ['Norte', indicador],
-                        ['nulo', nulo - indicador],
+                        ['nulo', nulo-indicador],
                     ]);
                 }
                 norteChart.draw(data_norte, options_norte);
@@ -230,9 +276,10 @@ export class ProveedorPage extends ProtectedPage {
             var counter = 0;
             if(nulo<0) nulo=0;
 
+            var resta;
             var handler = setInterval(function() {
-                var resta = nulo - indicador;
-                if(resta<0) resta=0;
+                resta = nulo - indicador * counter;
+                if(resta<0){resta = 0};
                 data_centro = google.visualization.arrayToDataTable([
                     ['indicador', 'valor'],
                     ['Centro', indicador * counter],
@@ -246,7 +293,7 @@ export class ProveedorPage extends ProtectedPage {
                     data_centro = google.visualization.arrayToDataTable([
                         ['indicador', 'valor'],
                         ['Centro', indicador],
-                        ['nulo', nulo - indicador],
+                        ['nulo', nulo-indicador],
                     ]);
                 }
                 centroChart.draw(data_centro, options_centro);
@@ -259,7 +306,7 @@ export class ProveedorPage extends ProtectedPage {
             let nulo = parent.proveedor.indicadores.cobertura.totales.sur;
             var data_sur = google.visualization.arrayToDataTable([
                 ['indicador', 'valor'],
-                ['Sur', indicador],
+                ['Sur', 0],
                 ['nulo', nulo],
             ]);
             var options_sur = {
@@ -288,9 +335,10 @@ export class ProveedorPage extends ProtectedPage {
             var counter = 0;
             if(nulo<0) nulo=0;
 
+            var resta;
             var handler = setInterval(function() {
-                var resta = nulo - indicador;
-                if(resta<0) resta=0;
+                resta = nulo - indicador;
+                if(resta<0){resta = 0};
                 data_sur = google.visualization.arrayToDataTable([
                     ['indicador', 'valor'],
                     ['Sur', indicador * counter],
@@ -304,14 +352,112 @@ export class ProveedorPage extends ProtectedPage {
                     data_sur = google.visualization.arrayToDataTable([
                         ['indicador', 'valor'],
                         ['Sur', indicador],
-                        ['nulo', nulo - indicador],
+                        ['nulo', nulo-indicador],
                     ]);
                 }
                 surChart.draw(data_sur, options_sur);
             }, 10);
         }
+        function chartVentas(){
+            var chart_ventas = new google.visualization.BarChart(document.getElementById('ventas_barChart'));
+            var data_ventas = new google.visualization.DataTable();
+            parent.dataVentas = parent.proveedor.indicadores.ventas.fechas;
+
+            data_ventas.addColumn('string', ' ');
+            data_ventas.addColumn('number', parent.lastYear);
+            data_ventas.addColumn('number', parent.thisYear);
+            var optionsVentas = {
+                backgroundColor: "#F5F5F5",
+                colors: ['#4890E2', '#E50201'],
+                chartArea: {
+                    backgroundColor: "#F5F5F5",
+                    left: '30%',
+                    top: '0%',
+                    width: '70%',
+                    height: '90%',
+                },
+                focusTarget: 'category',
+                bars: 'horizontal',
+                bar: { groupWidth: "40px" },
+                enableInteractivity: true,
+                legend: { position: 'none' },
+                tooltip: {
+                    isHtml: true,
+                },
+                textStyle: {
+                    color: '#000001',
+                    fontSize: 12,
+                    bold: true,
+                },
+                vAxis: {
+                    viewWindowMode: 'pretty',
+                    format: 'short',
+                    textStyle: {
+                        color: '#000000',
+                        fontSize: 14,
+                        bold: true,
+                    },
+                },
+                hAxis: {
+                    viewWindowMode: 'pretty',
+                    minValue: 0,
+                    baseline: 0,
+                    textStyle: {
+                        color: '#000001',
+                        fontSize: 12,
+                        bold: true,
+                    },
+                    gridlines: {
+                        count: 6,
+                        color: "#D9DADB"
+                    },
+                    minorGridlines: {
+                        count: 0
+                    }
+                },
+                animation: {
+                    startup: true,
+                    duration: 1000,
+                    easing: 'in',
+                },
+            };
+            var numMax = parent.dataVentas.length;
+            Object.keys(parent.dataVentas).forEach(function(key) {
+                let mes = parent.dataVentas[key].mes;
+                let periodoAnterior = parent.dataVentas[key].periodos.anterior;
+                let periodoActual = parent.dataVentas[key].periodos.actual;
+                if(data_ventas.getNumberOfRows()<3){
+                    data_ventas.addRow([mes, periodoAnterior, periodoActual]);
+                }
+            });
+            function drawVentas() {
+                chart_ventas.draw(data_ventas, optionsVentas);
+            }
+            drawVentas();
+            var addVentasButton = document.getElementById('ventasAdd');
+            let ableToClick = true;
+            addVentasButton.onclick = function() {
+                if(ableToClick){
+                    ableToClick = false;
+                    if(data_ventas.getNumberOfRows()<numMax){
+                        data_ventas.addRow([parent.dataVentas[data_ventas.getNumberOfRows()].mes, parent.dataVentas[data_ventas.getNumberOfRows()].periodos.anterior, parent.dataVentas[data_ventas.getNumberOfRows()].periodos.actual]);
+                        let alturaActual = $("#ventas_barChart").outerHeight(true);
+                        $("#ventas_barChart").animate({
+                            height: alturaActual+30
+                        }, 300, function() {
+                            drawVentas();
+                            ableToClick = true;
+                        });
+                    }
+                    if(data_ventas.getNumberOfRows()>=numMax){
+                        $("#ventasAdd").stop().fadeOut(300);
+                    }
+                }
+            }
+        }
     }
     openPage(page: string, proveedorData) {
+        this.navCtrl.pop({animate:false});
         this.navCtrl.push(page, {
             proveedor: proveedorData.doc
         });
@@ -343,34 +489,5 @@ export class ProveedorPage extends ProtectedPage {
                 $("#mes90").addClass("active");
             break;
         }
-    }
-    ionViewDidLoad() {
-        this.storage.get('id_token').then(id_token => {
-            if (id_token !== null) {
-                this.storage.get("id_ferreteria").then((theID) => {
-                    this.id_ferreteria = theID;
-                    this.getProveedor = this.navParams.get('proveedor');
-                    if (this.getProveedor === undefined || this.getProveedor === null) {
-                        this.navCtrl.setRoot('ProveedoresPage');
-                    }
-                    else {
-                        this.proveedor = this.getProveedor;
-                        this.dateUpdate = new Date(this.proveedor.indicadores.info.date);
-                        this.thisYear = this.dateUpdate.getFullYear();
-                        this.lastYear = this.dateUpdate.getFullYear() - 1;
-                        if (this.proveedor._attachments) {
-                            this.attachments = Object.keys(this.proveedor._attachments);
-                            this.logoProveedor = this.cfg.apiUrl + '/proveedores/' + this.proveedor._id + '/' + this.attachments[0];
-                            this.attachments.shift();
-                        }
-                        this.proveedoresService.getAll(this.id_ferreteria).then(datosProveedores => {
-                            this.proveedores = datosProveedores;
-                            this.proveedoresFiltered = this.proveedores;
-                        });
-                        this.drawCharts('30');
-                    }
-                });
-            }
-        });
     }
 }

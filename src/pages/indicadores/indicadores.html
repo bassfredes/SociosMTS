@@ -17,8 +17,8 @@
         </ion-row>
         <ion-row justify-content-around>
             <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
-                <div class="text-center">
-                    <img class="logoRounded" src="{{logoFerreteria}}" />
+                <div class="text-center" *ngIf="logoFerreteria">
+                    <lazy-img  class="logoRounded" inputSrc="{{cfg.apiUrl}}/ferreterias/{{ferreteria._id}}/{{logoFerreteria}}"></lazy-img>
                 </div>
                 <h4 class="text-center capitalize">{{ferreteria.nombre}}</h4>
             </ion-col>

@@ -1,15 +1,15 @@
 webpackJsonp([7],{
 
-/***/ 733:
+/***/ 743:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InformacionComercialPageModule", function() { return InformacionComercialPageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__informacion_comercial__ = __webpack_require__(754);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_shared_module__ = __webpack_require__(395);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NoticiaDetallePageModule", function() { return NoticiaDetallePageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__noticia_detalle__ = __webpack_require__(764);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_shared_module__ = __webpack_require__(396);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,31 +20,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var InformacionComercialPageModule = /** @class */ (function () {
-    function InformacionComercialPageModule() {
+var NoticiaDetallePageModule = /** @class */ (function () {
+    function NoticiaDetallePageModule() {
     }
-    InformacionComercialPageModule = __decorate([
+    NoticiaDetallePageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__informacion_comercial__["a" /* InformacionComercialPage */]
+                __WEBPACK_IMPORTED_MODULE_2__noticia_detalle__["a" /* NoticiaDetallePage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__informacion_comercial__["a" /* InformacionComercialPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__noticia_detalle__["a" /* NoticiaDetallePage */]),
                 __WEBPACK_IMPORTED_MODULE_3__app_shared_module__["a" /* SharedModule */]
             ],
             exports: [
-                __WEBPACK_IMPORTED_MODULE_2__informacion_comercial__["a" /* InformacionComercialPage */]
+                __WEBPACK_IMPORTED_MODULE_2__noticia_detalle__["a" /* NoticiaDetallePage */]
             ]
         })
-    ], InformacionComercialPageModule);
-    return InformacionComercialPageModule;
+    ], NoticiaDetallePageModule);
+    return NoticiaDetallePageModule;
 }());
 
-//# sourceMappingURL=informacion-comercial.module.js.map
+//# sourceMappingURL=noticia-detalle.module.js.map
 
 /***/ }),
 
-/***/ 742:
+/***/ 750:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -74,15 +74,18 @@ var ProtectedPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 754:
+/***/ 764:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InformacionComercialPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__protected_page_protected_page__ = __webpack_require__(742);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NoticiaDetallePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_photo_viewer__ = __webpack_require__(405);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__protected_page_protected_page__ = __webpack_require__(750);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_noticias_service__ = __webpack_require__(397);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_config__ = __webpack_require__(37);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -106,34 +109,63 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var InformacionComercialPage = /** @class */ (function (_super) {
-    __extends(InformacionComercialPage, _super);
-    function InformacionComercialPage(navCtrl, navParams, menuCtrl, storage, appCtrl) {
+
+
+
+var NoticiaDetallePage = /** @class */ (function (_super) {
+    __extends(NoticiaDetallePage, _super);
+    function NoticiaDetallePage(navCtrl, navParams, menuCtrl, storage, noticiasService, photoViewer, appCtrl) {
         var _this = _super.call(this, navCtrl, navParams, storage, appCtrl) || this;
         _this.navCtrl = navCtrl;
         _this.navParams = navParams;
         _this.menuCtrl = menuCtrl;
         _this.storage = storage;
+        _this.noticiasService = noticiasService;
+        _this.photoViewer = photoViewer;
         _this.appCtrl = appCtrl;
+        _this.noticia = [];
+        _this.attachments = [];
+        _this.noticiaImagenPrincipal = "";
+        _this.cfg = __WEBPACK_IMPORTED_MODULE_6__app_config__["a" /* cfg */];
+        _this.noticia = _this.navParams.get('noticia');
         return _this;
     }
-    InformacionComercialPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad InformacionComercialPage');
+    NoticiaDetallePage.prototype.ionViewDidLoad = function () {
+        var _this = this;
+        if (this.noticia === undefined || this.noticia === null) {
+            this.navCtrl.setRoot('HomePage');
+        }
+        else {
+            this.noticiasService.getOne(this.noticia._id).then(function (noticia) {
+                _this.noticia = noticia;
+                if (_this.noticia._attachments) {
+                    _this.attachments = Object.keys(_this.noticia._attachments);
+                    _this.noticiaImagenPrincipal = _this.cfg.apiUrl + '/noticias/' + _this.noticia._id + '/' + _this.attachments[0];
+                    _this.attachments.shift();
+                }
+            });
+        }
     };
-    InformacionComercialPage = __decorate([
+    NoticiaDetallePage.prototype.zoomPhoto = function (urlPhoto) {
+        console.log(this.cfg.apiUrl + '/noticias/' + this.noticia._id + '/' + urlPhoto);
+        this.photoViewer.show(this.cfg.apiUrl + '/noticias/' + this.noticia._id + '/' + urlPhoto);
+    };
+    NoticiaDetallePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-informacion-comercial',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/informacion-comercial/informacion-comercial.html"*/'<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />\n        <button ion-button menuToggle right>\n            <div class="navicon-button x">\n                <div class="navicon"></div>\n            </div>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content padding class="contentInterior">\n    Información Comercial\n</ion-content>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/informacion-comercial/informacion-comercial.html"*/,
+            selector: 'page-noticia-detalle',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/noticia-detalle/noticia-detalle.html"*/'<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />\n        <button ion-button menuToggle right>\n            <div class="navicon-button x">\n                <div class="navicon"></div>\n            </div>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content padding class="contentInterior">\n    <ion-grid>\n        <ion-row justify-content-around *ngIf="noticia">\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <div class="bloqueBlanco firstElement">\n                    <div class="imageNoticia" *ngIf="noticiaImagenPrincipal">\n                        <lazy-img width="100%" inputSrc="{{noticiaImagenPrincipal}}"></lazy-img>\n                    </div>\n                </div>\n                <div class="noticias">\n                    <div class="detalles">\n                        <h2>{{noticia.title}}</h2>\n                        <div class="dates">\n                            <span class="since">{{noticia.updated_at | amLocale:\'es\' | amTimeAgo}}</span><span class="date">{{noticia.updated_at | date : "dd \' \' MMMM \' \' yyyy"}}</span>\n                        </div>\n                        <div class="bajada" text-wrap>\n                            <p>{{noticia.body}}</p>\n                        </div>\n                    </div>\n                    <div class="attachments">\n                        <ion-list no-lines no-padding>\n                            <ion-item  no-padding *ngFor="let attachment of attachments">\n                                <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/noticias/{{noticia._id}}/{{attachment}}" (click)="zoomPhoto(attachment);"></lazy-img>\n                            </ion-item>\n                        </ion-list>\n                    </div>\n                </div>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/noticia-detalle/noticia-detalle.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */],
             __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_5__providers_noticias_service__["a" /* NoticiasService */],
+            __WEBPACK_IMPORTED_MODULE_3__ionic_native_photo_viewer__["a" /* PhotoViewer */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* App */]])
-    ], InformacionComercialPage);
-    return InformacionComercialPage;
-}(__WEBPACK_IMPORTED_MODULE_3__protected_page_protected_page__["a" /* ProtectedPage */]));
+    ], NoticiaDetallePage);
+    return NoticiaDetallePage;
+}(__WEBPACK_IMPORTED_MODULE_4__protected_page_protected_page__["a" /* ProtectedPage */]));
 
-//# sourceMappingURL=informacion-comercial.js.map
+//# sourceMappingURL=noticia-detalle.js.map
 
 /***/ })
 

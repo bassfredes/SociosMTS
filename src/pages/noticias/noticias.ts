@@ -35,6 +35,8 @@ export class NoticiasPage extends ProtectedPage {
         });
     }
     getNoticias(infiniteScroll) {
+        console.log("offset", this.offset);
+        console.log("TotalRow", this.totalRows);
         if (this.offset < this.totalRows) {
             let loader = this.loading.create({
                 content: "Cargando..."
@@ -50,11 +52,13 @@ export class NoticiasPage extends ProtectedPage {
                 if (infiniteScroll) {
                     infiniteScroll.complete();
                 }
+                this.offset += 3;
             });
         }
     }
     doInfinite(infiniteScroll) {
-        this.offset += 3;
+        console.log("offset", this.offset);
+        console.log("TotalRow", this.totalRows);
         if (this.offset < this.totalRows) {
             setTimeout(() => {
                 this.getNoticias(infiniteScroll);

@@ -14,7 +14,7 @@
             <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
                 <div class="bloqueBlanco firstElement">
                     <div class="imageNoticia" *ngIf="noticiaImagenPrincipal">
-                        <img width="100%" src="{{noticiaImagenPrincipal}}" />
+                        <lazy-img width="100%" inputSrc="{{noticiaImagenPrincipal}}"></lazy-img>
                     </div>
                 </div>
                 <div class="noticias">
@@ -30,7 +30,7 @@
                     <div class="attachments">
                         <ion-list no-lines no-padding>
                             <ion-item  no-padding *ngFor="let attachment of attachments">
-                                <img width="100%" src="{{cfg.apiUrl}}/noticias/{{noticia._id}}/{{attachment}}" (click)="zoomPhoto(attachment);" />
+                                <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/noticias/{{noticia._id}}/{{attachment}}" (click)="zoomPhoto(attachment);"></lazy-img>
                             </ion-item>
                         </ion-list>
                     </div>
