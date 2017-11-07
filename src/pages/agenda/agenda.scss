@@ -1,3 +1,40 @@
 page-agenda {
+    h1 {
+        margin-top: 0.5rem;
+    }
+    h3 {
+        font-family: 'Lato', sans-serif;
+        font-weight: $regular;
+        font-size: 1.4rem;
+        color: color($colors, texto),
+    }
+    ion-item-divider ion-label {
+        color: color($colors, primary);
+    }
 
+    .profilePhoto {
+        display: block;
+        max-width: 60px;
+        border-radius: 100%;
+        margin: 0 auto;
+    }
+
+    .profilePhoto div {
+        border-radius: 100%;
+    }
+
+    .profilePhoto img {
+        display: block;
+        max-width: 60px;
+        margin: 0 auto;
+        box-shadow: 0 2px 4px rgba(199,199,199,0.5);
+        border-radius: 100%;
+    }
+
+    ion-avatar img {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 60px !important;
+        max-height: 60px !important;
+    }
 }

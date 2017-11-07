@@ -21,7 +21,7 @@
                     <div class="infocomercial" *ngIf="informerciales">
                         <ion-slides *ngIf="informerciales && informerciales.length" #slider pager="true" autoplay="6000" (ionSlideWillChange)="onSlideChanged()">
                             <ion-slide *ngFor="let informercial of informerciales" class="slide-background">
-                                <div class="imagen" *ngIf="informercial.doc.isActive" (click)="openPage('InformacionComercialDetallePage', informercial);">
+                                <div class="imagen" (click)="openPage('InformacionComercialDetallePage', informercial);" *ngIf="informercial.doc.isActive">
                                     <div class="imageInformercial" *ngIf="informercial.doc._attachments">
                                         <div *ngFor="let attachment of informercial.doc._attachments | keys; index as i">
                                             <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/inforcomercial/{{informercial.doc._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>

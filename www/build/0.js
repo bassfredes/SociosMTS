@@ -1,14 +1,15 @@
 webpackJsonp([0],{
 
-/***/ 734:
+/***/ 752:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BookEditPageModule", function() { return BookEditPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProveedoresPageModule", function() { return ProveedoresPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__book_edit_page__ = __webpack_require__(754);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__proveedores__ = __webpack_require__(772);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_shared_module__ = __webpack_require__(397);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,30 +19,32 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var BookEditPageModule = /** @class */ (function () {
-    function BookEditPageModule() {
+
+var ProveedoresPageModule = /** @class */ (function () {
+    function ProveedoresPageModule() {
     }
-    BookEditPageModule = __decorate([
+    ProveedoresPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__book_edit_page__["a" /* BookEditPage */],
+                __WEBPACK_IMPORTED_MODULE_2__proveedores__["a" /* ProveedoresPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__book_edit_page__["a" /* BookEditPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__proveedores__["a" /* ProveedoresPage */]),
+                __WEBPACK_IMPORTED_MODULE_3__app_shared_module__["a" /* SharedModule */]
             ],
             exports: [
-                __WEBPACK_IMPORTED_MODULE_2__book_edit_page__["a" /* BookEditPage */]
+                __WEBPACK_IMPORTED_MODULE_2__proveedores__["a" /* ProveedoresPage */]
             ]
         })
-    ], BookEditPageModule);
-    return BookEditPageModule;
+    ], ProveedoresPageModule);
+    return ProveedoresPageModule;
 }());
 
-//# sourceMappingURL=book-edit-page.module.js.map
+//# sourceMappingURL=proveedores.module.js.map
 
 /***/ }),
 
-/***/ 750:
+/***/ 754:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -71,17 +74,117 @@ var ProtectedPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 754:
+/***/ 756:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BookEditPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return proveedorModel; });
+var proveedorModel = {
+    _id: "",
+    _rev: "",
+    isActive: true,
+    nombre: "",
+    indicadores: {
+        info: {
+            date: "",
+        },
+        ivp: {
+            puntaje: 0,
+            tendencia: "",
+            ranking: 0,
+            compromiso: 0,
+            compromiso_tendencia: "",
+            cobertura: 0,
+            cobertura_tendencia: "",
+            dispersion: 0,
+            dispersion_tendencia: "",
+            plazos_pago: 0,
+            plazos_pago_tendencia: "",
+            fill_rate: 0,
+            fill_rate_tendencia: "",
+            desviacion: 0,
+            desviacion_tendencia: "",
+        },
+        cobertura: {
+            totales: {
+                total: 0,
+                norte: 0,
+                centro: 0,
+                sur: 0
+            },
+            periodos: {
+                30: {
+                    total: 0,
+                    norte: 0,
+                    centro: 0,
+                    sur: 0
+                },
+                60: {
+                    total: 0,
+                    norte: 0,
+                    centro: 0,
+                    sur: 0
+                },
+                90: {
+                    total: 0,
+                    norte: 0,
+                    centro: 0,
+                    sur: 0
+                }
+            }
+        },
+        ventas_acumuladas: 0,
+        rapel_rebate: {
+            title: "",
+            rapel: 0,
+            rapel_porcentual: 0,
+            rebate: 0,
+            rebate_porcentual: 0
+        },
+        ventas: {
+            valor: 0,
+            totales: {
+                min: 0,
+                max: 0
+            },
+            fechas: [
+                {
+                    mes: "Octubre",
+                    periodos: {
+                        actual: 0,
+                        anterior: 0
+                    }
+                },
+                {
+                    mes: "Nombre Mes",
+                    periodos: {
+                        actual: 0,
+                        anterior: 0
+                    }
+                }
+            ]
+        }
+    },
+    _attachments: ""
+};
+//# sourceMappingURL=proveedor.model.js.map
+
+/***/ }),
+
+/***/ 772:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProveedoresPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__protected_page_protected_page__ = __webpack_require__(750);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_books_service__ = __webpack_require__(755);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_keyboard__ = __webpack_require__(409);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__protected_page_protected_page__ = __webpack_require__(754);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_auth_service__ = __webpack_require__(141);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__models_proveedor_model__ = __webpack_require__(756);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_proveedores_service__ = __webpack_require__(401);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_config__ = __webpack_require__(38);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -107,132 +210,87 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var BookEditPage = /** @class */ (function (_super) {
-    __extends(BookEditPage, _super);
-    function BookEditPage(navCtrl, navParams, menuCtrl, storage, appCtrl, formBuilder, booksService) {
+
+
+
+var ProveedoresPage = /** @class */ (function (_super) {
+    __extends(ProveedoresPage, _super);
+    function ProveedoresPage(navCtrl, navParams, menuCtrl, storage, appCtrl, authService, proveedoresService, keyboard) {
         var _this = _super.call(this, navCtrl, navParams, storage, appCtrl) || this;
         _this.navCtrl = navCtrl;
         _this.navParams = navParams;
         _this.menuCtrl = menuCtrl;
         _this.storage = storage;
         _this.appCtrl = appCtrl;
-        _this.formBuilder = formBuilder;
-        _this.booksService = booksService;
-        _this.book = navParams.get('book');
-        _this.bookData = _this.formBuilder.group({
-            title: [_this.book.title, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required],
-            author_name: [_this.book.author_name, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required],
-            pages_count: [_this.book.pages_count, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required],
-        });
+        _this.authService = authService;
+        _this.proveedoresService = proveedoresService;
+        _this.keyboard = keyboard;
+        _this.proveedor = __WEBPACK_IMPORTED_MODULE_6__models_proveedor_model__["a" /* proveedorModel */];
+        _this.proveedores = [];
+        _this.proveedoresFiltered = [];
+        _this.id_ferreteria = "1";
+        _this.term = '';
+        _this.revisados = false;
+        _this.cfg = __WEBPACK_IMPORTED_MODULE_8__app_config__["a" /* cfg */];
         return _this;
     }
-    BookEditPage.prototype.process = function () {
+    ProveedoresPage.prototype.searchFn = function (ev) {
         var _this = this;
-        var updatedBook = Object.assign(this.book, this.bookData.value);
-        this.booksService.update(updatedBook)
-            .then(function () { return _this.navCtrl.pop(); })
-            .catch(function (e) { return console.log("add book error", e); });
+        this.term = ev.target.value;
+        if (this.term) {
+            this.proveedoresFiltered = this.proveedores.filter(function (proveedor) {
+                return (proveedor.doc.nombre.toLowerCase().indexOf(_this.term.toLowerCase()) > -1);
+            });
+        }
+        else {
+            this.proveedoresFiltered = this.proveedores;
+        }
     };
-    BookEditPage = __decorate([
+    ProveedoresPage.prototype.searchSubmit = function () {
+        var ev = {
+            "target": {
+                "value": this.term
+            }
+        };
+        this.searchFn(ev);
+        this.keyboard.close();
+    };
+    ProveedoresPage.prototype.ionViewDidLoad = function () {
+        var _this = this;
+        this.storage.get('id_token').then(function (id_token) {
+            if (id_token !== null) {
+                _this.storage.get("id_ferreteria").then(function (theID) {
+                    _this.id_ferreteria = theID;
+                    _this.proveedoresService.getAll(_this.id_ferreteria).then(function (datosProveedores) {
+                        _this.proveedores = datosProveedores;
+                        _this.proveedoresFiltered = _this.proveedores;
+                    });
+                });
+            }
+        });
+    };
+    ProveedoresPage.prototype.openPage = function (page, proveedorData) {
+        this.navCtrl.push(page, {
+            proveedor: proveedorData.doc
+        });
+    };
+    ProveedoresPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-book-edit-page',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/book-edit-page/book-edit-page.html"*/'<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>    \n    <ion-title>{{ \'page.books.edit\' | translate }}</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n  <ion-grid>\n    <ion-row justify-content-around>\n      <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3  align-self-center>\n        <form [formGroup]="bookData" (ngSubmit)="process()">\n          <ion-item>\n            <ion-label floating>{{ \'label.title\' | translate }}:</ion-label>\n            <ion-input type="text" formControlName="title"></ion-input>\n          </ion-item>\n          \n          <ion-item>\n            <ion-label floating>{{ \'label.author_name\' | translate }}:</ion-label>\n            <ion-input type="text" formControlName="author_name"></ion-input>\n          </ion-item>\n          \n          <ion-item>\n            <ion-label floating>{{ \'label.pages\' | translate }}:</ion-label>\n            <ion-input type="number" formControlName="pages_count"></ion-input>\n          </ion-item>\n          \n\n          <button margin-top ion-button type="submit" [disabled]="!bookData.valid">{{ \'button.submit\' | translate }}</button>\n\n        </form>\n        \n      </ion-col>\n\n    </ion-row>\n    \n    \n    \n  </ion-grid>  \n  \n</ion-content>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/book-edit-page/book-edit-page.html"*/,
+            selector: 'page-proveedores',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/proveedores/proveedores.html"*/'<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />\n        <button ion-button menuToggle right>\n            <div class="navicon-button x">\n                <div class="navicon"></div>\n            </div>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content class="contentInterior">\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <h1 class="text-center uppercase">Proveedores</h1>\n            </ion-col>\n        </ion-row>\n        <ion-row padding-right padding-left justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <form (ngSubmit)="searchSubmit()">\n                    <ion-searchbar class="buscador" animated="true" cancelButtonText="Cancelar" showCancelButton="false" placeholder="Buscar Proveedores" type="text" (ionInput)="searchFn($event)" (search)="searchSubmit($event)"></ion-searchbar>\n                    <button class="button button-clear" type="submit">Buscar Proveedores</button>\n                </form>\n            </ion-col>\n        </ion-row>\n        <div class="bloqueBlancoNoPadding no-padding">\n            <ion-row padding-right padding-left justify-content-around>\n                <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                    <button class="inContent minPadding fullWidth" ion-button round large>Mi Lista</button>\n                </ion-col>\n                <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                    <button class="inContent minPadding fullWidth" ion-button round large [disabled]="!revisados">Últimos revisados</button>\n                </ion-col>\n            </ion-row>\n        </div>\n    </ion-grid>\n    <ion-list [virtualScroll]="proveedoresFiltered" class="proveedores">\n        <ion-item *virtualItem="let proveedor" class="proveedor" padding-top padding-bottom>\n            <ion-row padding-right padding-left justify-content-around (click)="openPage(\'ProveedorPage\', proveedor);">\n                <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                    <div class="logoProveedor text-center center" *ngIf="proveedor.doc._attachments">\n                        <div *ngFor="let attachment of proveedor.doc._attachments | keys; index as i">\n                            <lazy-img  width="100%" inputSrc="{{cfg.apiUrl}}/proveedores/{{proveedor.doc._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>\n                        </div>\n                    </div>\n                </ion-col>\n                <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                    <h2 class="titleProveedor">\n                        {{proveedor.doc.nombre}}\n                    </h2>\n                </ion-col>\n            </ion-row>\n        </ion-item>\n    </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/proveedores/proveedores.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */],
-            __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* App */],
-            __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormBuilder */],
-            __WEBPACK_IMPORTED_MODULE_5__providers_books_service__["a" /* BooksService */]])
-    ], BookEditPage);
-    return BookEditPage;
-}(__WEBPACK_IMPORTED_MODULE_2__protected_page_protected_page__["a" /* ProtectedPage */]));
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */],
+            __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */],
+            __WEBPACK_IMPORTED_MODULE_5__providers_auth_service__["a" /* AuthService */],
+            __WEBPACK_IMPORTED_MODULE_7__providers_proveedores_service__["a" /* ProveedoresService */],
+            __WEBPACK_IMPORTED_MODULE_3__ionic_native_keyboard__["a" /* Keyboard */]])
+    ], ProveedoresPage);
+    return ProveedoresPage;
+}(__WEBPACK_IMPORTED_MODULE_4__protected_page_protected_page__["a" /* ProtectedPage */]));
 
-//# sourceMappingURL=book-edit-page.js.map
-
-/***/ }),
-
-/***/ 755:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BooksService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular2_jwt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_config__ = __webpack_require__(37);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-var BooksService = /** @class */ (function () {
-    function BooksService(authHttp) {
-        this.authHttp = authHttp;
-        this.cfg = __WEBPACK_IMPORTED_MODULE_4__app_config__["a" /* cfg */];
-    }
-    BooksService.prototype.getAll = function () {
-        return this.authHttp.get(this.cfg.apiUrl + this.cfg.books)
-            .toPromise()
-            .then(function (rs) {
-            return rs.json();
-        });
-    };
-    BooksService.prototype.getOne = function (id) {
-        return this.authHttp.get(this.cfg.apiUrl + this.cfg.books + '/' + id)
-            .toPromise()
-            .then(function (rs) {
-            console.log(rs, rs.json());
-            return rs.json().book;
-        });
-    };
-    BooksService.prototype.add = function (book) {
-        return this.authHttp.post(this.cfg.apiUrl + this.cfg.books, book)
-            .toPromise()
-            .then(function () {
-            return true;
-        })
-            .catch(function (e) { return console.log("create book error", e); });
-    };
-    BooksService.prototype.update = function (book) {
-        return this.authHttp.put(this.cfg.apiUrl + this.cfg.books + '/' + book.id, book)
-            .toPromise()
-            .then(function (rs) {
-            console.log(rs, rs.json());
-            return rs.json();
-        })
-            .catch(function (e) { return console.log("update book error", e); });
-    };
-    BooksService.prototype.remove = function (id) {
-        return this.authHttp.delete(this.cfg.apiUrl + this.cfg.books + '/' + id)
-            .toPromise()
-            .then(function (rs) {
-            console.log(rs, rs.json());
-            return rs.json();
-        })
-            .catch(function (e) { return console.log("delete book error", e); });
-    };
-    BooksService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_angular2_jwt__["AuthHttp"]])
-    ], BooksService);
-    return BooksService;
-}());
-
-//# sourceMappingURL=books-service.js.map
+//# sourceMappingURL=proveedores.js.map
 
 /***/ })
 

@@ -8,20 +8,49 @@
     	</button>
     </ion-navbar>
 </ion-header>
-<ion-content>
-    <ion-card *ngIf="user">
-
-        <ion-row>
-            <ion-col col-25>Nombre:</ion-col>
-            <ion-col col-75>{{ user.name }}</ion-col>
+<ion-content padding class="contentInterior" *ngIf="user">
+    <ion-grid>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <h1 class="text-center uppercase">Mi Perfil</h1>
+            </ion-col>
         </ion-row>
-
-        <ion-row>
-            <ion-col col-25>Email:</ion-col>
-            <ion-col col-75>{{ user.email }}</ion-col>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <div class="user">
+                    <div margin-top class="photos" *ngIf="user._attachments">
+                        <div class="profilePhoto logoRounded" *ngFor="let attachment of user._attachments | keys; index as i">
+                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/users_socios/{{user._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>
+                            <div class="editarPhoto" *ngIf="editandoPerfil">
+                                <ion-icon name="md-camera"></ion-icon>
+                            </div>
+                        </div>
+                        <div class="ferreteriaPhoto logoRounded sinShadow" *ngIf="logoFerreteria">
+                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/ferreterias/{{user.id_ferreteria}}/{{logoFerreteria}}"></lazy-img>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <h2 class="nombre text-center">{{user.name}}</h2>
+                        <button (click)="triggerPerfil();" margin-bottom margin-top class="btn-large" center ion-button large>
+                            <span>{{textoBoton}}</span>
+                        </button>
+                        <h3 margin-top class="small ferreteria">{{user.name_ferreteria}}</h3>
+                        <address class="adress">{{user.direction}}</address>
+                        <h4 class="small region">{{user.region}}</h4>
+                        <h4 class="small cargo">{{user.cargo}}</h4>
+                    </div>
+                    <div class="actions" margin-top>
+                        <ion-list>
+                            <ion-list-header no-lines>Email</ion-list-header>
+                            <ion-item *ngIf="!editandoPerfil"><ion-icon name="mail" color="primary" item-end></ion-icon>{{user.email}}</ion-item>
+                            <ion-item *ngIf="editandoPerfil"><ion-icon name="mail" color="primary" item-end></ion-icon><ion-input type="text" [(ngModel)]="userEmail" [ngModelOptions]="{standalone: true}" autocomplete="false" spellcheck="false"></ion-input></ion-item>
+                            <ion-list-header no-lines>Número telefónico</ion-list-header>
+                            <ion-item *ngIf="!editandoPerfil"><ion-icon name="call" color="primary" item-end></ion-icon>{{user.phonenum}}</ion-item>
+                            <ion-item *ngIf="editandoPerfil"><ion-icon name="call" color="primary" item-end></ion-icon><ion-input type="text" [(ngModel)]="userPhone" [ngModelOptions]="{standalone: true}" autocomplete="false" spellcheck="false"></ion-input></ion-item>
+                        </ion-list>
+                    </div>
+                </div>
+            </ion-col>
         </ion-row>
-
-    </ion-card>
-
-
+    </ion-grid>
 </ion-content>

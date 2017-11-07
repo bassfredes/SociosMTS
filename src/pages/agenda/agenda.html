@@ -8,6 +8,45 @@
     	</button>
     </ion-navbar>
 </ion-header>
-<ion-content padding class="contentInterior">
-    Agenda
+<ion-content class="contentInterior">
+    <ion-grid>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <h1 class="text-center uppercase">Agenda</h1>
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <div class="bloqueBlancoNoPadding no-padding">
+                    <ion-list no-lines>
+                        <ion-item-group *ngFor="let socios of sociosAgrupados">
+                            <ion-item-divider color="ultralight">{{socios.letter}}</ion-item-divider>
+                            <ion-item-sliding *ngFor="let socio of socios.users">
+                                <ion-item no-lines (click)="openPage('ProfileDetallePage', socio);" *ngIf="socio.isActive">
+                                    <ion-avatar item-start *ngIf="socio._attachments">
+                                        <div class="profilePhoto" *ngFor="let attachment of socio._attachments | keys; index as i">
+                                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/users_socios/{{socio._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>
+                                        </div>
+                                    </ion-avatar>
+                                    <h2>{{socio.name}}</h2>
+                                    <h3>{{socio.name_ferreteria}}</h3>
+                                </ion-item>
+                                <ion-item-options no-lines *ngIf="socio.isActive">
+                                    <button class="normalButton" ion-button icon-only (click)="saveContact(socio)" color="save">
+                                        <ion-icon name="md-download"></ion-icon>
+                                    </button>
+                                    <button class="normalButton" ion-button icon-only (click)="callToContact(socio)" color="call">
+                                        <ion-icon name="call"></ion-icon>
+                                    </button>
+                                    <button class="normalButton" ion-button icon-only (click)="mailToContact(socio)" color="mail">
+                                        <ion-icon name="mail"></ion-icon>
+                                    </button>
+                                </ion-item-options>
+                            </ion-item-sliding>
+                        </ion-item-group>
+                    </ion-list>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

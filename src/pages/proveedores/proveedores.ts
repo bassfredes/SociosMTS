@@ -7,7 +7,6 @@ import { ProtectedPage } from '../protected-page/protected-page';
 import { AuthService } from '../../providers/auth-service';
 import { proveedorModel } from '../../models/proveedor.model';
 import { ProveedoresService } from '../../providers/proveedores-service';
-import { FerreteriasService } from '../../providers/ferreterias-service';
 
 import *  as AppConfig from '../../app/config';
 import * as $ from 'jquery';
@@ -21,8 +20,8 @@ import * as $ from 'jquery';
 export class ProveedoresPage extends ProtectedPage {
     private cfg: any;
     public proveedor = proveedorModel;
-    proveedores: any;
-    proveedoresFiltered: any;
+    proveedores: any = [];
+    proveedoresFiltered: any = [];
     id_ferreteria: string = "1";
 
     term: string = '';

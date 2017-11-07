@@ -5,6 +5,7 @@ export let cfg = {
         register: '/auth/signup',
         login: '/auth_login/_all_docs?limit=20&include_docs=true',
         refresh:'/auth_refresh/_all_docs?limit=20&include_docs=true',
+        users: '/users',
     },
     ferreterias: '/ferreterias',
     proveedores: '/proveedores',

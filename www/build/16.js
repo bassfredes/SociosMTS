@@ -1,15 +1,14 @@
 webpackJsonp([16],{
 
-/***/ 735:
+/***/ 740:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventosDetallePageModule", function() { return EventosDetallePageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ForgotPageModule", function() { return ForgotPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_shared_module__ = __webpack_require__(396);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__eventos_detalle__ = __webpack_require__(756);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forgot_page__ = __webpack_require__(760);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -19,83 +18,39 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
-var EventosDetallePageModule = /** @class */ (function () {
-    function EventosDetallePageModule() {
+var ForgotPageModule = /** @class */ (function () {
+    function ForgotPageModule() {
     }
-    EventosDetallePageModule = __decorate([
+    ForgotPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_3__eventos_detalle__["a" /* EventosDetallePage */]
+                __WEBPACK_IMPORTED_MODULE_2__forgot_page__["a" /* ForgotPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__eventos_detalle__["a" /* EventosDetallePage */]),
-                __WEBPACK_IMPORTED_MODULE_2__app_shared_module__["a" /* SharedModule */]
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__forgot_page__["a" /* ForgotPage */]),
             ],
             exports: [
-                __WEBPACK_IMPORTED_MODULE_3__eventos_detalle__["a" /* EventosDetallePage */]
+                __WEBPACK_IMPORTED_MODULE_2__forgot_page__["a" /* ForgotPage */]
             ]
         })
-    ], EventosDetallePageModule);
-    return EventosDetallePageModule;
+    ], ForgotPageModule);
+    return ForgotPageModule;
 }());
 
-//# sourceMappingURL=eventos-detalle.module.js.map
+//# sourceMappingURL=forgot-page.module.js.map
 
 /***/ }),
 
-/***/ 750:
+/***/ 760:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProtectedPage; });
-var ProtectedPage = /** @class */ (function () {
-    function ProtectedPage(navCtrl, navParams, storage, appCtrl) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.storage = storage;
-        this.appCtrl = appCtrl;
-    }
-    ProtectedPage.prototype.ionViewCanEnter = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.storage.get('id_token').then(function (id_token) {
-                if (id_token === null) {
-                    _this.appCtrl.getRootNav().setRoot('WelcomePage');
-                }
-            });
-            resolve();
-        });
-    };
-    return ProtectedPage;
-}());
-
-//# sourceMappingURL=protected-page.js.map
-
-/***/ }),
-
-/***/ 756:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EventosDetallePage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ForgotPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_photo_viewer__ = __webpack_require__(405);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__protected_page_protected_page__ = __webpack_require__(750);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_eventos_service__ = __webpack_require__(404);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_config__ = __webpack_require__(37);
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth_service__ = __webpack_require__(141);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -110,57 +65,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
-
-var EventosDetallePage = /** @class */ (function (_super) {
-    __extends(EventosDetallePage, _super);
-    function EventosDetallePage(navCtrl, navParams, menuCtrl, storage, eventosService, photoViewer, appCtrl) {
-        var _this = _super.call(this, navCtrl, navParams, storage, appCtrl) || this;
-        _this.navCtrl = navCtrl;
-        _this.navParams = navParams;
-        _this.menuCtrl = menuCtrl;
-        _this.storage = storage;
-        _this.eventosService = eventosService;
-        _this.photoViewer = photoViewer;
-        _this.appCtrl = appCtrl;
-        _this.evento = [];
-        _this.attachments = [];
-        _this.eventoImagenPrincipal = "";
-        _this.cfg = __WEBPACK_IMPORTED_MODULE_6__app_config__["a" /* cfg */];
-        _this.evento = _this.navParams.get('evento');
-        return _this;
+var ForgotPage = /** @class */ (function () {
+    function ForgotPage(navCtrl, navParams, menuCtrl, storage, appCtrl, formBuilder, authService) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.menuCtrl = menuCtrl;
+        this.storage = storage;
+        this.appCtrl = appCtrl;
+        this.formBuilder = formBuilder;
+        this.authService = authService;
+        this.forgotData = this.formBuilder.group({
+            egn: ['', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].minLength(10), , __WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].maxLength(10)])],
+            email: ['', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].required],
+        });
     }
-    EventosDetallePage.prototype.ionViewDidLoad = function () {
-        var _this = this;
-        if (this.evento === undefined || this.evento === null) {
-            this.navCtrl.setRoot('EventosPage');
-        }
-        else {
-            this.eventosService.getOne(this.evento._id).then(function (evento) {
-                _this.evento = evento;
-                if (_this.evento._attachments) {
-                    _this.attachments = Object.keys(_this.evento._attachments);
-                    _this.eventoImagenPrincipal = _this.cfg.apiUrl + '/eventos/' + _this.evento._id + '/' + _this.attachments[0];
-                    _this.attachments.shift();
-                }
-            });
-        }
+    ForgotPage.prototype.ionViewDidLoad = function () {
+        //hide menu when on the login page, regardless of the screen resolution
+        this.menuCtrl.enable(false);
     };
-    EventosDetallePage.prototype.zoomPhoto = function (urlPhoto) {
-        console.log(this.cfg.apiUrl + '/eventos/' + this.evento._id + '/' + urlPhoto);
-        this.photoViewer.show(this.cfg.apiUrl + '/eventos/' + this.evento._id + '/' + urlPhoto);
-    };
-    EventosDetallePage = __decorate([
+    ForgotPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-eventos-detalle',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/eventos-detalle/eventos-detalle.html"*/'<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />\n        <button ion-button menuToggle right>\n            <div class="navicon-button x">\n                <div class="navicon"></div>\n            </div>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content padding class="contentInterior">\n    <ion-grid>\n        <ion-row justify-content-around *ngIf="noticia">\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                Evento detalle\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/eventos-detalle/eventos-detalle.html"*/,
+            selector: 'page-forgot-page',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/forgot-page/forgot-page.html"*/'<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv1" width="71" src="assets/images/logoHeaderV1@2.png" />\n        <button ion-button menuToggle right>\n    		<ion-icon name="menu"></ion-icon>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content padding class="contentInterior">\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <div class="bloqueBlanco firstElement">\n                    <h1 margin-top class="welcome">¿Olvidaste tu contraseña?</h1>\n                    <h2 class="small">Ingresa tu email y te ayudaremos.</h2>\n                </div>\n                <form [formGroup]="forgotData" (ngSubmit)="login()">\n                    <ion-item>\n                        <ion-label floating>Mail de usuario</ion-label>\n                        <ion-input type="email" formControlName="email"></ion-input>\n                    </ion-item>\n                    <div margin-top class="text-center">\n                        <button margin-top center ion-button round large type="submit" [disabled]="!forgotData.valid">Enviar</button>\n                    </div>\n                </form>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n\n</ion-content>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/forgot-page/forgot-page.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__providers_eventos_service__["a" /* EventosService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__providers_eventos_service__["a" /* EventosService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_photo_viewer__["a" /* PhotoViewer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_photo_viewer__["a" /* PhotoViewer */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* App */]) === "function" && _g || Object])
-    ], EventosDetallePage);
-    return EventosDetallePage;
-    var _a, _b, _c, _d, _e, _f, _g;
-}(__WEBPACK_IMPORTED_MODULE_4__protected_page_protected_page__["a" /* ProtectedPage */]));
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */],
+            __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */],
+            __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */],
+            __WEBPACK_IMPORTED_MODULE_4__providers_auth_service__["a" /* AuthService */]])
+    ], ForgotPage);
+    return ForgotPage;
+}());
 
-//# sourceMappingURL=eventos-detalle.js.map
+//# sourceMappingURL=forgot-page.js.map
 
 /***/ })
 

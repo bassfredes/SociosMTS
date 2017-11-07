@@ -53,6 +53,19 @@
         },
         "cordova-plugin-file": {
             "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "cordova-plugin-app-version": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "cordova-plugin-contacts": {
+            "CONTACTS_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "mx.ferreyra.callnumber": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "cordova-plugin-email-composer": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
         }
     },
     "dependent_plugins": {

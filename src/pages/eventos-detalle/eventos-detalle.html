@@ -10,9 +10,164 @@
 </ion-header>
 <ion-content padding class="contentInterior">
     <ion-grid>
-        <ion-row justify-content-around *ngIf="noticia">
+        <ion-row justify-content-around *ngIf="evento">
             <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
-                Evento detalle
+                <div class="bloqueBlanco firstElement">
+                    <div class="imageNoticia" *ngIf="imagenPrincipal">
+                        <lazy-img width="100%" inputSrc="{{imagenPrincipal}}"></lazy-img>
+                    </div>
+                </div>
+                <div class="eventos">
+                    <div class="chartRDN" *ngIf="evento.isRdn">
+                        <h2 class="small capitalize normalLetter text-left">{{evento.rdn.title}}</h2>
+                        <div id="RDN"></div>
+                    </div>
+                    <div class="detalles">
+                        <div class="prevParticipar">
+                            <div class="text-center" *ngIf="!evento.participando">
+                                <button class="btn-primary btn-large" margin-bottom margin-top center ion-button large (click)="participar()">
+                                    <span>Inscribirse</span>
+                                </button>
+                            </div>
+                            <div class="text-left" *ngIf="evento.participando">
+                                <button margin-bottom class="btn-participando notEffect btn-large" margin-top center ion-button large>
+                                    <span><ion-icon class="icon" name="md-checkmark"></ion-icon>Ya estás Inscrito</span>
+                                </button>
+                            </div>
+                            <h2>{{evento.title}}</h2>
+                            <div class="dates">
+                                <span class="since">{{evento.updated_at | amLocale:'es' | amTimeAgo}}</span><span class="date">{{evento.updated_at | date : "dd ' ' MMMM ' ' yyyy"}}</span>
+                            </div>
+                            <div class="bajada" text-wrap>
+                                <p>{{evento.body}}</p>
+                            </div>
+                        </div>
+                        <div class="rdnDetails" *ngIf="evento.isRdn">
+                            <div class="detallesRDN">
+                                <ion-row margin-bottom justify-content-around>
+                                    <ion-col col-6 align-self-center>
+                                        <div class="title text-right">
+                                            Potencial
+                                        </div>
+                                        <div class="title text-right">
+                                            %
+                                        </div>
+                                    </ion-col>
+                                    <ion-col col-6 align-self-center>
+                                        <div class="indicador text-left positivo">
+                                            {{evento.rdn.detalle.potencial}}
+                                        </div>
+                                        <div class="indicador text-left positivo">
+                                            {{evento.rdn.detalle.indicador_potencial}}
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row margin-bottom justify-content-around>
+                                    <ion-col col-6 align-self-center>
+                                        <div class="title text-right">
+                                            RDN
+                                        </div>
+                                    </ion-col>
+                                    <ion-col col-6 align-self-center>
+                                        <div class="indicador text-left negativo">
+                                            {{evento.rdn.detalle.rdn}}
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row margin-bottom justify-content-around>
+                                    <ion-col col-6 align-self-center>
+                                        <div class="title text-right">
+                                            Orden de Compra
+                                        </div>
+                                        <div class="title text-right">
+                                            %
+                                        </div>
+                                    </ion-col>
+                                    <ion-col col-6 align-self-center>
+                                        <div class="indicador text-left compra">
+                                            {{evento.rdn.detalle.orden_compra}}
+                                        </div>
+                                        <div class="indicador text-left compra">
+                                            {{evento.rdn.detalle.indicador_orden_compra}}
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row margin-bottom justify-content-around>
+                                    <ion-col col-6 align-self-center>
+                                        <div class="title text-right">
+                                            Facturado
+                                        </div>
+                                        <div class="title text-right">
+                                            %
+                                        </div>
+                                    </ion-col>
+                                    <ion-col col-6 align-self-center>
+                                        <div class="indicador text-left factura">
+                                            {{evento.rdn.detalle.facturado}}
+                                        </div>
+                                        <div class="indicador text-left factura">
+                                            {{evento.rdn.detalle.indicador_facturado}}
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                            <div class="proveedores" *ngIf="proveedores">
+                                <ion-row justify-content-around>
+                                    <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                                        <h2 class="small capitalize normalLetter text-center">Proveedores que<br />Asistirán</h2>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row justify-content-around>
+                                    <ion-col col-6 col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center *ngFor="let proveedor of proveedoresFiltered">
+                                        <div class="logoProveedor text-center center" *ngIf="proveedor.doc._attachments" (click)="openPage('ProveedorPage', proveedor);">
+                                            <div *ngFor="let attachment of proveedor.doc._attachments | keys; index as i">
+                                                <lazy-img  width="100%" inputSrc="{{cfg.apiUrl}}/proveedores/{{proveedor.doc._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>
+                                            </div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row justify-content-around *ngIf="!alreadyExpanded">
+                                    <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                                        <div class="text-center" *ngIf="!evento.participando">
+                                            <button class="btn-primary btn-large" margin-bottom margin-top center ion-button large (click)="cargarProveedores()">
+                                                <span>Ver todos los proveedores</span>
+                                            </button>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                        </div>
+                        <div class="postParticipar">
+                            <h2><strong>Pedro,</strong> te has incrito con éxito.</h2>
+                            <div class="able" *ngIf="evento.able_to_invite">
+                                <h3 margin-top margin-bottom class="text-center">¿Deseas invitar a alguien?</h3>
+                                <div class="alreadyInvited">
+                                    <h3><ion-icon class="icon" name="md-bookmark"></ion-icon>Has invitado a <strong>{{nombreInvitado}}</strong> exitosamente.</h3>
+                                    <div class="text-center">
+                                        <button margin-bottom class="btn-large" margin-top center ion-button large (click)="invitarOtro()">
+                                            <span>Añadir a otro invitado</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="toInvite">
+                                    <form [formGroup]="inviteData" (ngSubmit)="invite()">
+                                        <ion-item>
+                                            <ion-label floating>Nombre y Apellido</ion-label>
+                                            <ion-input type="text" formControlName="name" autocomplete="false" spellcheck="false"></ion-input>
+                                        </ion-item>
+                                        <ion-item>
+                                            <ion-label floating>RUT <small>(Ej: 1234567-0)</small></ion-label>
+                                            <ion-input type="text" formControlName="rut" autocomplete="false" spellcheck="false"></ion-input>
+                                        </ion-item>
+                                        <div margin-top class="text-center">
+                                            <button class="btn-primary btn-large" margin-top center ion-button large type="submit" [disabled]="!inviteData.valid">Invitar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </ion-col>
         </ion-row>
     </ion-grid>

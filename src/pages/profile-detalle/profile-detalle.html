@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-navbar center>
+        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />
+        <button ion-button menuToggle right>
+            <div class="navicon-button x">
+                <div class="navicon"></div>
+            </div>
+    	</button>
+    </ion-navbar>
+</ion-header>
+<ion-content padding class="contentInterior" *ngIf="user">
+    <ion-grid>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <h1 class="text-center uppercase">Agenda</h1>
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <div class="user">
+                    <div margin-top class="photos" *ngIf="userType">
+                        <div class="profilePhoto logoRounded" *ngFor="let attachment of user._attachments | keys; index as i">
+                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/users_{{userType}}s/{{user._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>
+                        </div>
+                        <div class="ferreteriaPhoto logoRounded sinShadow" *ngIf="logoFerreteria">
+                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/ferreterias/{{user.id_ferreteria}}/{{logoFerreteria}}"></lazy-img>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <h2 class="nombre text-center">{{user.name}}</h2>
+                        <h3 margin-top class="small ferreteria">{{user.name_ferreteria}}</h3>
+                        <address class="adress">{{user.direction}}</address>
+                        <h4 class="small region">{{user.region}}</h4>
+                        <h4 class="small cargo">{{user.cargo}}</h4>
+                    </div>
+                    <div class="actions" margin-top>
+                        <ion-list>
+                            <ion-list-header no-lines>Email</ion-list-header>
+                            <ion-item (click)="mailToContact(user)"><ion-icon name="mail" color="primary" item-end></ion-icon>{{user.email}}</ion-item>
+                            <ion-list-header no-lines>Número telefónico</ion-list-header>
+                            <ion-item (click)="callToContact(user)"><ion-icon name="call" color="primary" item-end></ion-icon>{{user.phonenum}}</ion-item>
+                        </ion-list>
+                        <button margin-bottom class="btn-large" center ion-button large>
+                            <span>Enviar un email</span>
+                        </button>
+                        <button class="btn-large" center ion-button large color="call">
+                            <span>Llamar</span>
+                        </button>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

@@ -8,7 +8,6 @@ import { AuthService } from '../../providers/auth-service';
 import { proveedorModel } from '../../models/proveedor.model';
 import { ProveedoresService } from '../../providers/proveedores-service';
 import { ProductosService } from '../../providers/productos-service';
-import { FerreteriasService } from '../../providers/ferreterias-service';
 import { CacheService } from "ionic-cache";
 
 import *  as AppConfig from '../../app/config';

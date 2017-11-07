@@ -34,9 +34,9 @@
             </ion-row>
         </div>
     </ion-grid>
-    <ion-list class="proveedores" *ngFor="let proveedor of proveedoresFiltered">
-        <ion-item class="proveedor" padding-top padding-bottom (click)="openPage('ProveedorPage', proveedor);">
-            <ion-row padding-right padding-left justify-content-around>
+    <ion-list [virtualScroll]="proveedoresFiltered" class="proveedores">
+        <ion-item *virtualItem="let proveedor" class="proveedor" padding-top padding-bottom>
+            <ion-row padding-right padding-left justify-content-around (click)="openPage('ProveedorPage', proveedor);">
                 <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
                     <div class="logoProveedor text-center center" *ngIf="proveedor.doc._attachments">
                         <div *ngFor="let attachment of proveedor.doc._attachments | keys; index as i">

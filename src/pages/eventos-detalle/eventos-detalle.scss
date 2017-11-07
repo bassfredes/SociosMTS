@@ -18,4 +18,98 @@ page-eventos-detalle {
             box-shadow: none;
         }
     }
+
+    h3 {
+        font-size: 1.8rem;
+        line-height: 2rem;
+        font-weight: $regular;
+
+        strong {
+            color: color($colors, primary);
+        }
+
+        .icon {
+            font-size: 2.5rem;
+            color: color($colors, primary);
+            margin-right: 1rem;
+            position: relative;
+            top: 0.3rem;
+        }
+    }
+
+    .bajada {
+        font-family: 'CircularStd';
+        font-weight: $book;
+        font-size: 1.7rem;
+        color: color($colors, texto);
+
+        p {
+            font-family: inherit;
+            font-weight: inherit;
+            font-size: inherit;
+            color: inherit;
+        }
+    }
+
+    .postParticipar, .alreadyInvited {
+        display: none;
+    }
+
+    .prevParticipar {
+        display: block;
+    }
+
+    ion-item.item {
+        background: none;
+        box-shadow: none !important;
+    }
+
+    .item.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
+        border-bottom: 1px solid #dedede;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .item.item-input.input-has-focus .item-inner {
+        border-bottom: 1px solid #dedede;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .item.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
+        border-bottom: 1px solid #dedede;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .input-has-focus .label-md[floating],
+    .input-has-focus .label-md[stacked] {
+        color: #999;
+    }
+    .detallesRDN {
+        font-family: 'CircularStd';
+        .title {
+            font-size: 1.7rem;
+            line-height: 1.7rem;
+            color: color($colors, texto);
+            font-weight: $book;
+        }
+        .indicador {
+            font-size: 1.7rem;
+            line-height: 1.7rem;
+            font-weight: $medium;
+        }
+        .positivo {
+            color: color($indicadores, positivo);
+        }
+        .negativo {
+            color: color($indicadores, negativo);
+        }
+        .compra {
+            color: color($indicadores, compra);
+        }
+        .factura {
+            color: color($indicadores, factura);
+        }
+    }
 }

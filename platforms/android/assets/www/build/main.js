@@ -1,23 +1,34 @@
 webpackJsonp([18],{
 
-/***/ 140:
+/***/ 119:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__cache_img_cache_img_service__ = __webpack_require__(702);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__cache_img_cache_img_service__["a"]; });
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ 141:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_jwt__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_jwt__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_angular2_jwt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_Rx__ = __webpack_require__(435);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_Rx__ = __webpack_require__(449);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_Rx__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__connectivity_service__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ionic_cache__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_config__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__connectivity_service__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ionic_cache__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_config__ = __webpack_require__(38);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -58,12 +69,51 @@ var AuthService = /** @class */ (function () {
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return new Promise(function (resolve) {
-            _this.http.post(_this.cfg.apiUrl + _this.cfg.user.login, credentials).subscribe(function (data) {
+            _this.authHttp.post(_this.cfg.apiUrl + _this.cfg.user.login, credentials).subscribe(function (data) {
                 if (data) {
                     _this.saveData(data);
                     var rs = data.json();
                     _this.idToken = rs.rows[0].doc.token;
                     _this.scheduleRefresh();
+                    resolve(true);
+                }
+                else {
+                    resolve(false);
+                }
+            }, function errorCallback(response) {
+                resolve(false);
+            });
+        });
+    };
+    AuthService.prototype.login_produccion = function (credentials) {
+        var _this = this;
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return new Promise(function (resolve) {
+            _this.authHttp.get(_this.cfg.apiUrl + _this.cfg.user.login + '/' + credentials.email + '/' + credentials.password).subscribe(function (data) {
+                if (data) {
+                    _this.saveData_produccion(data);
+                    var rs = data.json();
+                    _this.idToken = rs.token;
+                    _this.scheduleRefresh();
+                    resolve(true);
+                }
+                else {
+                    resolve(false);
+                }
+            }, function errorCallback(response) {
+                resolve(false);
+            });
+        });
+    };
+    AuthService.prototype.invitarEvento = function (invitadoM) {
+        var _this = this;
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return new Promise(function (resolve) {
+            _this.authHttp.get(_this.cfg.apiUrl + _this.cfg.eventos + '_invitar').subscribe(function (data) {
+                if (data) {
+                    var rs = data.json();
                     resolve(true);
                 }
                 else {
@@ -96,6 +146,11 @@ var AuthService = /** @class */ (function () {
         this.storage.set("user", documentConfig.user_id);
         this.storage.set("id_token", documentConfig.token);
     };
+    AuthService.prototype.saveData_produccion = function (data) {
+        var rs = data.json();
+        this.storage.set("user", rs.user_id);
+        this.storage.set("id_token", rs.token);
+    };
     AuthService.prototype.logout = function () {
         // stop function of auto refesh
         this.unscheduleRefresh();
@@ -115,7 +170,7 @@ var AuthService = /** @class */ (function () {
             var senddata = {
                 Token: thetoken
             };
-            _this.http.get(_this.cfg.apiUrl + _this.cfg.user.refresh + "&Token=" + thetoken)
+            _this.authHttp.get(_this.cfg.apiUrl + _this.cfg.user.refresh + "&Token=" + thetoken)
                 .map(function (res) { return res.json(); })
                 .subscribe(function (res) {
                 var documentConfig = res.rows[0].doc;
@@ -225,14 +280,14 @@ var AuthService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 141:
+/***/ 142:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConnectivityService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_network__ = __webpack_require__(223);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_network__ = __webpack_require__(225);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(49);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -278,7 +333,7 @@ var ConnectivityService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 151:
+/***/ 152:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -291,85 +346,85 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 151;
+webpackEmptyAsyncContext.id = 152;
 
 /***/ }),
 
-/***/ 194:
+/***/ 195:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"../pages/agenda/agenda.module": [
-		724,
-		13
-	],
-	"../pages/book-add-page/book-add-page.module": [
-		725,
-		12
-	],
-	"../pages/book-edit-page/book-edit-page.module": [
-		726,
-		11
-	],
-	"../pages/book-info-page/book-info-page.module": [
-		727,
-		10
-	],
-	"../pages/books-page/books-page.module": [
-		728,
-		9
-	],
-	"../pages/eventos/eventos.module": [
-		729,
-		8
-	],
-	"../pages/forgot-page/forgot-page.module": [
-		730,
+	"../pages/agenda-detalle/agenda-detalle.module": [
+		737,
 		17
 	],
-	"../pages/home/home.module": [
-		731,
-		3
+	"../pages/agenda/agenda.module": [
+		738,
+		12
 	],
-	"../pages/indicadores/indicadores.module": [
-		732,
-		2
+	"../pages/eventos-detalle/eventos-detalle.module": [
+		739,
+		11
 	],
-	"../pages/informacion-comercial/informacion-comercial.module": [
-		733,
-		7
+	"../pages/eventos/eventos.module": [
+		740,
+		10
 	],
-	"../pages/login-page/login-page.module": [
-		734,
+	"../pages/forgot-page/forgot-page.module": [
+		741,
 		16
 	],
-	"../pages/noticia-detalle/noticia-detalle.module": [
-		735,
-		6
-	],
-	"../pages/noticias/noticias.module": [
-		736,
-		5
-	],
-	"../pages/preloader/preloader.module": [
-		737,
-		15
-	],
-	"../pages/profile-page/profile-page.module": [
-		738,
+	"../pages/home/home.module": [
+		742,
 		4
 	],
+	"../pages/indicadores/indicadores.module": [
+		743,
+		3
+	],
+	"../pages/informacion-comercial-detalle/informacion-comercial-detalle.module": [
+		744,
+		9
+	],
+	"../pages/informacion-comercial/informacion-comercial.module": [
+		745,
+		8
+	],
+	"../pages/login-page/login-page.module": [
+		746,
+		15
+	],
+	"../pages/noticia-detalle/noticia-detalle.module": [
+		747,
+		7
+	],
+	"../pages/noticias/noticias.module": [
+		748,
+		6
+	],
+	"../pages/preloader/preloader.module": [
+		749,
+		14
+	],
+	"../pages/profile-detalle/profile-detalle.module": [
+		750,
+		2
+	],
+	"../pages/profile-page/profile-page.module": [
+		751,
+		5
+	],
 	"../pages/proveedor/proveedor.module": [
-		739,
+		752,
 		1
 	],
 	"../pages/proveedores/proveedores.module": [
-		740,
+		753,
 		0
 	],
 	"../pages/welcome/welcome.module": [
-		741,
-		14
+		754,
+		13
 	]
 };
 function webpackAsyncContext(req) {
@@ -383,12 +438,12 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 194;
+webpackAsyncContext.id = 195;
 module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ 195:
+/***/ 201:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -398,28 +453,39 @@ module.exports = webpackAsyncContext;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return PIPES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return PROVIDERS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return COMPONENTS; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_auth_service__ = __webpack_require__(140);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_connectivity_service__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_books_service__ = __webpack_require__(396);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_ferreterias_service__ = __webpack_require__(398);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_proveedores_service__ = __webpack_require__(399);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_users_service__ = __webpack_require__(693);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_noticias_service__ = __webpack_require__(397);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_photo_viewer__ = __webpack_require__(402);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_camera__ = __webpack_require__(694);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_status_bar__ = __webpack_require__(226);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_splash_screen__ = __webpack_require__(227);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_android_full_screen__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_network__ = __webpack_require__(223);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_google_maps__ = __webpack_require__(403);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_keyboard__ = __webpack_require__(400);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_angular2_jwt__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_angular2_jwt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_accordion_list_accordion_list__ = __webpack_require__(695);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pipes_keys_keys__ = __webpack_require__(696);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__angular_platform_browser__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__angular_http__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_auth_service__ = __webpack_require__(141);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_connectivity_service__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ferreterias_service__ = __webpack_require__(399);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_proveedores_service__ = __webpack_require__(400);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_productos_service__ = __webpack_require__(404);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_users_service__ = __webpack_require__(403);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_noticias_service__ = __webpack_require__(401);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_informercial_service__ = __webpack_require__(405);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_eventos_service__ = __webpack_require__(406);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_photo_viewer__ = __webpack_require__(407);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_camera__ = __webpack_require__(701);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_status_bar__ = __webpack_require__(227);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_splash_screen__ = __webpack_require__(228);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_android_full_screen__ = __webpack_require__(229);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_network__ = __webpack_require__(225);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_native_google_maps__ = __webpack_require__(411);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_keyboard__ = __webpack_require__(408);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_native_app_version__ = __webpack_require__(230);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__ionic_native_contacts__ = __webpack_require__(409);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_call_number__ = __webpack_require__(402);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_email_composer__ = __webpack_require__(410);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__global_services__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_angular2_jwt__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22_angular2_jwt__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_accordion_list_accordion_list__ = __webpack_require__(704);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__global_components___ = __webpack_require__(705);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pipes_keys_keys__ = __webpack_require__(707);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__angular_platform_browser__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__angular_http__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__global_directives___ = __webpack_require__(708);
 // Providers
+
+
 
 
 
@@ -437,58 +503,120 @@ module.exports = webpackAsyncContext;
 
 
 
+
+
+
+
+
 // Components
+
 
 // Pipes
 
 // Modules
 
 
+// DIRECTIVES
+
 var MODULES = [
-    __WEBPACK_IMPORTED_MODULE_18__angular_platform_browser__["a" /* BrowserModule */],
-    __WEBPACK_IMPORTED_MODULE_19__angular_http__["HttpModule"]
+    __WEBPACK_IMPORTED_MODULE_26__angular_platform_browser__["a" /* BrowserModule */],
+    __WEBPACK_IMPORTED_MODULE_27__angular_http__["HttpModule"]
 ];
 var SERVICES = [
     __WEBPACK_IMPORTED_MODULE_0__providers_auth_service__["a" /* AuthService */],
     __WEBPACK_IMPORTED_MODULE_1__providers_connectivity_service__["a" /* ConnectivityService */],
-    __WEBPACK_IMPORTED_MODULE_2__providers_books_service__["a" /* BooksService */],
     __WEBPACK_IMPORTED_MODULE_5__providers_users_service__["a" /* UsersService */],
-    __WEBPACK_IMPORTED_MODULE_3__providers_ferreterias_service__["a" /* FerreteriasService */],
-    __WEBPACK_IMPORTED_MODULE_4__providers_proveedores_service__["a" /* ProveedoresService */],
-    __WEBPACK_IMPORTED_MODULE_6__providers_noticias_service__["a" /* NoticiasService */]
+    __WEBPACK_IMPORTED_MODULE_2__providers_ferreterias_service__["a" /* FerreteriasService */],
+    __WEBPACK_IMPORTED_MODULE_3__providers_proveedores_service__["a" /* ProveedoresService */],
+    __WEBPACK_IMPORTED_MODULE_4__providers_productos_service__["a" /* ProductosService */],
+    __WEBPACK_IMPORTED_MODULE_6__providers_noticias_service__["a" /* NoticiasService */],
+    __WEBPACK_IMPORTED_MODULE_7__providers_informercial_service__["a" /* InformercialService */],
+    __WEBPACK_IMPORTED_MODULE_8__providers_eventos_service__["a" /* EventosService */]
 ];
-var DIRECTIVES = [];
+var DIRECTIVES = [
+    __WEBPACK_IMPORTED_MODULE_28__global_directives___["a" /* LazyLoadDirective */]
+];
 var PIPES = [
-    __WEBPACK_IMPORTED_MODULE_17__pipes_keys_keys__["a" /* KeysPipe */]
+    __WEBPACK_IMPORTED_MODULE_25__pipes_keys_keys__["a" /* KeysPipe */]
 ];
 var PROVIDERS = [
-    __WEBPACK_IMPORTED_MODULE_9__ionic_native_status_bar__["a" /* StatusBar */],
-    __WEBPACK_IMPORTED_MODULE_10__ionic_native_splash_screen__["a" /* SplashScreen */],
-    __WEBPACK_IMPORTED_MODULE_12__ionic_native_network__["a" /* Network */],
-    __WEBPACK_IMPORTED_MODULE_7__ionic_native_photo_viewer__["a" /* PhotoViewer */],
-    __WEBPACK_IMPORTED_MODULE_8__ionic_native_camera__["a" /* Camera */],
-    __WEBPACK_IMPORTED_MODULE_15_angular2_jwt__["JwtHelper"],
-    __WEBPACK_IMPORTED_MODULE_11__ionic_native_android_full_screen__["a" /* AndroidFullScreen */],
-    __WEBPACK_IMPORTED_MODULE_13__ionic_native_google_maps__["b" /* GoogleMaps */],
-    __WEBPACK_IMPORTED_MODULE_14__ionic_native_keyboard__["a" /* Keyboard */]
+    __WEBPACK_IMPORTED_MODULE_11__ionic_native_status_bar__["a" /* StatusBar */],
+    __WEBPACK_IMPORTED_MODULE_12__ionic_native_splash_screen__["a" /* SplashScreen */],
+    __WEBPACK_IMPORTED_MODULE_14__ionic_native_network__["a" /* Network */],
+    __WEBPACK_IMPORTED_MODULE_9__ionic_native_photo_viewer__["a" /* PhotoViewer */],
+    __WEBPACK_IMPORTED_MODULE_10__ionic_native_camera__["a" /* Camera */],
+    __WEBPACK_IMPORTED_MODULE_22_angular2_jwt__["JwtHelper"],
+    __WEBPACK_IMPORTED_MODULE_13__ionic_native_android_full_screen__["a" /* AndroidFullScreen */],
+    __WEBPACK_IMPORTED_MODULE_15__ionic_native_google_maps__["b" /* GoogleMaps */],
+    __WEBPACK_IMPORTED_MODULE_16__ionic_native_keyboard__["a" /* Keyboard */],
+    __WEBPACK_IMPORTED_MODULE_21__global_services__["a" /* ImgcacheService */],
+    __WEBPACK_IMPORTED_MODULE_17__ionic_native_app_version__["a" /* AppVersion */],
+    __WEBPACK_IMPORTED_MODULE_18__ionic_native_contacts__["c" /* Contacts */],
+    __WEBPACK_IMPORTED_MODULE_19__ionic_native_call_number__["a" /* CallNumber */],
+    __WEBPACK_IMPORTED_MODULE_20__ionic_native_email_composer__["a" /* EmailComposer */]
 ];
 var COMPONENTS = [
-    __WEBPACK_IMPORTED_MODULE_16__components_accordion_list_accordion_list__["a" /* AccordionListComponent */]
+    __WEBPACK_IMPORTED_MODULE_23__components_accordion_list_accordion_list__["a" /* AccordionListComponent */],
+    __WEBPACK_IMPORTED_MODULE_24__global_components___["a" /* LazyImgComponent */]
 ];
 //# sourceMappingURL=app.imports.js.map
 
 /***/ }),
 
-/***/ 395:
+/***/ 38:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return cfg; });
+var cfg = {
+    apiUrl: 'http://192.168.1.143:5984',
+    tokenName: 'token',
+    user: {
+        register: '/auth/signup',
+        login: '/auth_login/_all_docs?limit=20&include_docs=true',
+        refresh: '/auth_refresh/_all_docs?limit=20&include_docs=true',
+        users: '/users',
+    },
+    ferreterias: '/ferreterias',
+    proveedores: '/proveedores',
+    productos: '/productos',
+    productostop: '/productos_top',
+    noticias: '/noticias',
+    informercial: '/inforcomercial',
+    eventos: '/eventos'
+};
+/*
+export let cfg = {
+    apiUrl: 'http://wsp.mts.cl/app/index.php?/',
+    tokenName: 'token',
+    user: {
+        register: '/auth/signup',
+        login: 'usuario/usuarioApp',
+        refresh:'/auth_refresh/_all_docs?limit=20&include_docs=true',
+    },
+    ferreterias: '/ferreterias',
+    proveedores: '/proveedores',
+    productos: '/productos',
+    productostop: '/productos_top',
+    noticias: '/noticias',
+    informercial: '/inforcomercial',
+    eventos: '/eventos'
+};
+*/
+//# sourceMappingURL=config.js.map
+
+/***/ }),
+
+/***/ 397:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SharedModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_imports__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_truncate__ = __webpack_require__(697);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_moment__ = __webpack_require__(701);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_imports__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_truncate__ = __webpack_require__(710);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_moment__ = __webpack_require__(714);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_angular2_moment__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -529,19 +657,21 @@ var SharedModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 396:
+/***/ 399:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BooksService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__ = __webpack_require__(39);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FerreteriasService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular2_jwt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_config__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_config__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ionic_cache__ = __webpack_require__(37);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -556,77 +686,181 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var BooksService = /** @class */ (function () {
-    function BooksService(authHttp) {
+
+
+var FerreteriasService = /** @class */ (function () {
+    function FerreteriasService(storage, authHttp, cache) {
+        this.storage = storage;
         this.authHttp = authHttp;
-        this.cfg = __WEBPACK_IMPORTED_MODULE_4__app_config__["a" /* cfg */];
+        this.cache = cache;
+        this.cfg = __WEBPACK_IMPORTED_MODULE_5__app_config__["a" /* cfg */];
     }
-    BooksService.prototype.getAll = function () {
-        return this.authHttp.get(this.cfg.apiUrl + this.cfg.books)
-            .toPromise()
-            .then(function (rs) {
-            return rs.json();
+    FerreteriasService.prototype.saveFerreteria = function (idFerreteria) {
+        var _id = idFerreteria;
+        this.storage.set("id_ferreteria", _id);
+    };
+    FerreteriasService.prototype.getAll = function () {
+        var _this = this;
+        var url = this.cfg.apiUrl + this.cfg.apiUrl + this.cfg.ferreterias + '/_all_docs?limit=20&include_docs=true';
+        var cacheKey = url;
+        var request = this.authHttp.get(url);
+        return new Promise(function (resolve) {
+            _this.cache.getItem(cacheKey).catch(function () {
+                return _this.authHttp.get(url).toPromise().then(function (rs) {
+                    var result = rs.json();
+                    return _this.cache.saveItem(cacheKey, result);
+                });
+            }).then(function (data) {
+                if (data.value) {
+                    resolve(JSON.parse(data.value));
+                }
+                else {
+                    resolve(data);
+                }
+            });
         });
     };
-    BooksService.prototype.getOne = function (id) {
-        return this.authHttp.get(this.cfg.apiUrl + this.cfg.books + '/' + id)
-            .toPromise()
-            .then(function (rs) {
-            console.log(rs, rs.json());
-            return rs.json().book;
+    FerreteriasService.prototype.getOne = function (id) {
+        var _this = this;
+        var url = this.cfg.apiUrl + this.cfg.ferreterias + '/' + id;
+        var cacheKey = url;
+        var request = this.authHttp.get(url);
+        return new Promise(function (resolve) {
+            _this.cache.getItem(cacheKey).catch(function () {
+                return _this.authHttp.get(url).toPromise().then(function (rs) {
+                    var result = rs.json();
+                    return _this.cache.saveItem(cacheKey, result);
+                });
+            }).then(function (data) {
+                if (data.value) {
+                    resolve(JSON.parse(data.value));
+                }
+                else {
+                    resolve(data);
+                }
+            });
         });
     };
-    BooksService.prototype.add = function (book) {
-        return this.authHttp.post(this.cfg.apiUrl + this.cfg.books, book)
-            .toPromise()
-            .then(function () {
-            return true;
-        })
-            .catch(function (e) { return console.log("create book error", e); });
-    };
-    BooksService.prototype.update = function (book) {
-        return this.authHttp.put(this.cfg.apiUrl + this.cfg.books + '/' + book.id, book)
-            .toPromise()
-            .then(function (rs) {
-            console.log(rs, rs.json());
-            return rs.json();
-        })
-            .catch(function (e) { return console.log("update book error", e); });
-    };
-    BooksService.prototype.remove = function (id) {
-        return this.authHttp.delete(this.cfg.apiUrl + this.cfg.books + '/' + id)
-            .toPromise()
-            .then(function (rs) {
-            console.log(rs, rs.json());
-            return rs.json();
-        })
-            .catch(function (e) { return console.log("delete book error", e); });
-    };
-    BooksService = __decorate([
+    FerreteriasService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_angular2_jwt__["AuthHttp"]])
-    ], BooksService);
-    return BooksService;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__["AuthHttp"],
+            __WEBPACK_IMPORTED_MODULE_6_ionic_cache__["b" /* CacheService */]])
+    ], FerreteriasService);
+    return FerreteriasService;
 }());
 
-//# sourceMappingURL=books-service.js.map
+//# sourceMappingURL=ferreterias-service.js.map
 
 /***/ }),
 
-/***/ 397:
+/***/ 400:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProveedoresService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular2_jwt__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_config__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ionic_cache__ = __webpack_require__(37);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var ProveedoresService = /** @class */ (function () {
+    function ProveedoresService(storage, authHttp, cache) {
+        this.storage = storage;
+        this.authHttp = authHttp;
+        this.cache = cache;
+        this.cfg = __WEBPACK_IMPORTED_MODULE_5__app_config__["a" /* cfg */];
+    }
+    ProveedoresService.prototype.getAll = function (id) {
+        var _this = this;
+        var url = this.cfg.apiUrl + this.cfg.proveedores + '/_all_docs?include_docs=true';
+        var cacheKey = url;
+        var request = this.authHttp.get(url);
+        return new Promise(function (resolve) {
+            _this.cache.getItem(cacheKey).catch(function () {
+                return _this.authHttp.get(url).toPromise().then(function (rs) {
+                    var result = rs.json().rows;
+                    return _this.cache.saveItem(cacheKey, result);
+                });
+            }).then(function (data) {
+                if (data.value) {
+                    resolve(JSON.parse(data.value));
+                }
+                else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+    ProveedoresService.prototype.getOne = function (id) {
+        var _this = this;
+        var url = this.cfg.apiUrl + this.cfg.proveedores + '/' + id;
+        var cacheKey = url;
+        var request = this.authHttp.get(url);
+        return new Promise(function (resolve) {
+            _this.cache.getItem(cacheKey).catch(function () {
+                return _this.authHttp.get(url).toPromise().then(function (rs) {
+                    var result = rs.json();
+                    return _this.cache.saveItem(cacheKey, result);
+                });
+            }).then(function (data) {
+                if (data.value) {
+                    resolve(JSON.parse(data.value));
+                }
+                else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+    ProveedoresService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__["AuthHttp"],
+            __WEBPACK_IMPORTED_MODULE_6_ionic_cache__["b" /* CacheService */]])
+    ], ProveedoresService);
+    return ProveedoresService;
+}());
+
+//# sourceMappingURL=proveedores-service.js.map
+
+/***/ }),
+
+/***/ 401:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NoticiasService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular2_jwt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_config__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ionic_cache__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_config__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ionic_cache__ = __webpack_require__(37);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -744,21 +978,20 @@ var NoticiasService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 398:
+/***/ 403:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FerreteriasService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__ = __webpack_require__(39);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UsersService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular2_jwt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_config__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ionic_cache__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_config__ = __webpack_require__(38);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -774,88 +1007,53 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
-var FerreteriasService = /** @class */ (function () {
-    function FerreteriasService(storage, authHttp, cache) {
+var UsersService = /** @class */ (function () {
+    function UsersService(storage, authHttp) {
         this.storage = storage;
         this.authHttp = authHttp;
-        this.cache = cache;
         this.cfg = __WEBPACK_IMPORTED_MODULE_5__app_config__["a" /* cfg */];
     }
-    FerreteriasService.prototype.saveFerreteria = function (idFerreteria) {
-        var _id = idFerreteria;
-        this.storage.set("id_ferreteria", _id);
-    };
-    FerreteriasService.prototype.getAll = function () {
-        var _this = this;
-        var url = this.cfg.apiUrl + this.cfg.apiUrl + this.cfg.ferreterias + '/_all_docs?limit=20&include_docs=true';
-        var cacheKey = url;
-        var request = this.authHttp.get(url);
-        return new Promise(function (resolve) {
-            _this.cache.getItem(cacheKey).catch(function () {
-                return _this.authHttp.get(url).toPromise().then(function (rs) {
-                    var result = rs.json();
-                    return _this.cache.saveItem(cacheKey, result);
-                });
-            }).then(function (data) {
-                if (data.value) {
-                    resolve(JSON.parse(data.value));
-                }
-                else {
-                    resolve(data);
-                }
-            });
+    UsersService.prototype.getAll = function (type) {
+        return this.authHttp.get(this.cfg.apiUrl + this.cfg.user.users + '_' + type + '/_all_docs?include_docs=true')
+            .toPromise()
+            .then(function (rs) {
+            return rs.json().rows;
         });
     };
-    FerreteriasService.prototype.getOne = function (id) {
-        var _this = this;
-        var url = this.cfg.apiUrl + this.cfg.ferreterias + '/' + id;
-        var cacheKey = url;
-        var request = this.authHttp.get(url);
-        return new Promise(function (resolve) {
-            _this.cache.getItem(cacheKey).catch(function () {
-                return _this.authHttp.get(url).toPromise().then(function (rs) {
-                    var result = rs.json();
-                    return _this.cache.saveItem(cacheKey, result);
-                });
-            }).then(function (data) {
-                if (data.value) {
-                    resolve(JSON.parse(data.value));
-                }
-                else {
-                    resolve(data);
-                }
-            });
+    UsersService.prototype.getOne = function (id) {
+        return this.authHttp.get(this.cfg.apiUrl + this.cfg.proveedores + '/' + id)
+            .toPromise()
+            .then(function (rs) {
+            return rs.json();
         });
     };
-    FerreteriasService = __decorate([
+    UsersService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__["AuthHttp"],
-            __WEBPACK_IMPORTED_MODULE_6_ionic_cache__["b" /* CacheService */]])
-    ], FerreteriasService);
-    return FerreteriasService;
+            __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__["AuthHttp"]])
+    ], UsersService);
+    return UsersService;
 }());
 
-//# sourceMappingURL=ferreterias-service.js.map
+//# sourceMappingURL=users-service.js.map
 
 /***/ }),
 
-/***/ 399:
+/***/ 404:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProveedoresService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__ = __webpack_require__(39);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProductosService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular2_jwt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_config__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ionic_cache__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_config__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ionic_cache__ = __webpack_require__(37);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -872,18 +1070,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var ProveedoresService = /** @class */ (function () {
-    function ProveedoresService(storage, authHttp, cache) {
+var ProductosService = /** @class */ (function () {
+    function ProductosService(storage, authHttp, cache) {
         this.storage = storage;
         this.authHttp = authHttp;
         this.cache = cache;
         this.cfg = __WEBPACK_IMPORTED_MODULE_5__app_config__["a" /* cfg */];
     }
-    ProveedoresService.prototype.getAll = function (id) {
+    ProductosService.prototype.getTop = function (id_proveedor) {
         var _this = this;
-        var url = this.cfg.apiUrl + this.cfg.proveedores + '/_all_docs?include_docs=true';
+        var url = this.cfg.apiUrl + this.cfg.productostop + '/_all_docs?limit=3&include_docs=true';
         var cacheKey = url;
-        var request = this.authHttp.get(url);
         return new Promise(function (resolve) {
             _this.cache.getItem(cacheKey).catch(function () {
                 return _this.authHttp.get(url).toPromise().then(function (rs) {
@@ -900,11 +1097,30 @@ var ProveedoresService = /** @class */ (function () {
             });
         });
     };
-    ProveedoresService.prototype.getOne = function (id) {
+    ProductosService.prototype.getAll = function () {
         var _this = this;
-        var url = this.cfg.apiUrl + this.cfg.proveedores + '/' + id;
+        var url = this.cfg.apiUrl + this.cfg.productos + '/_all_docs?include_docs=true';
         var cacheKey = url;
-        var request = this.authHttp.get(url);
+        return new Promise(function (resolve) {
+            _this.cache.getItem(cacheKey).catch(function () {
+                return _this.authHttp.get(url).toPromise().then(function (rs) {
+                    var result = rs.json().rows;
+                    return _this.cache.saveItem(cacheKey, result);
+                });
+            }).then(function (data) {
+                if (data.value) {
+                    resolve(JSON.parse(data.value));
+                }
+                else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+    ProductosService.prototype.getOne = function (id) {
+        var _this = this;
+        var url = this.cfg.apiUrl + this.cfg.productos + '/' + id;
+        var cacheKey = url;
         return new Promise(function (resolve) {
             _this.cache.getItem(cacheKey).catch(function () {
                 return _this.authHttp.get(url).toPromise().then(function (rs) {
@@ -921,26 +1137,240 @@ var ProveedoresService = /** @class */ (function () {
             });
         });
     };
-    ProveedoresService = __decorate([
+    ProductosService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
             __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__["AuthHttp"],
             __WEBPACK_IMPORTED_MODULE_6_ionic_cache__["b" /* CacheService */]])
-    ], ProveedoresService);
-    return ProveedoresService;
+    ], ProductosService);
+    return ProductosService;
 }());
 
-//# sourceMappingURL=proveedores-service.js.map
+//# sourceMappingURL=productos-service.js.map
 
 /***/ }),
 
-/***/ 404:
+/***/ 405:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InformercialService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular2_jwt__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_config__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ionic_cache__ = __webpack_require__(37);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var InformercialService = /** @class */ (function () {
+    function InformercialService(authHttp, cache) {
+        this.authHttp = authHttp;
+        this.cache = cache;
+        this.cfg = __WEBPACK_IMPORTED_MODULE_4__app_config__["a" /* cfg */];
+    }
+    InformercialService.prototype.getAll = function () {
+        var _this = this;
+        var url = this.cfg.apiUrl + this.cfg.informercial + '/_all_docs?include_docs=true';
+        var cacheKey = url;
+        return new Promise(function (resolve) {
+            _this.cache.getItem(cacheKey).catch(function () {
+                return _this.authHttp.get(url).toPromise().then(function (rs) {
+                    var result = rs.json().rows;
+                    return _this.cache.saveItem(cacheKey, result);
+                });
+            }).then(function (data) {
+                if (data.value) {
+                    resolve(JSON.parse(data.value));
+                }
+                else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+    InformercialService.prototype.getOne = function (id) {
+        var _this = this;
+        var url = this.cfg.apiUrl + this.cfg.informercial + '/' + id;
+        var cacheKey = url;
+        return new Promise(function (resolve) {
+            _this.cache.getItem(cacheKey).catch(function () {
+                return _this.authHttp.get(url).toPromise().then(function (rs) {
+                    var result = rs.json();
+                    return _this.cache.saveItem(cacheKey, result);
+                });
+            }).then(function (data) {
+                if (data.value) {
+                    resolve(JSON.parse(data.value));
+                }
+                else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+    InformercialService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_angular2_jwt__["AuthHttp"],
+            __WEBPACK_IMPORTED_MODULE_5_ionic_cache__["b" /* CacheService */]])
+    ], InformercialService);
+    return InformercialService;
+}());
+
+//# sourceMappingURL=informercial-service.js.map
+
+/***/ }),
+
+/***/ 406:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EventosService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular2_jwt__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_config__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ionic_cache__ = __webpack_require__(37);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var EventosService = /** @class */ (function () {
+    function EventosService(authHttp, cache) {
+        this.authHttp = authHttp;
+        this.cache = cache;
+        this.cfg = __WEBPACK_IMPORTED_MODULE_4__app_config__["a" /* cfg */];
+    }
+    EventosService.prototype.getLast = function () {
+        var _this = this;
+        var url = this.cfg.apiUrl + this.cfg.eventos + '/_all_docs?limit=1&include_docs=true';
+        var cacheKey = url;
+        return new Promise(function (resolve) {
+            _this.cache.getItem(cacheKey).catch(function () {
+                return _this.authHttp.get(url).toPromise().then(function (rs) {
+                    var result = rs.json().rows[0].doc;
+                    return _this.cache.saveItem(cacheKey, result);
+                });
+            }).then(function (data) {
+                if (data.value) {
+                    resolve(JSON.parse(data.value));
+                }
+                else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+    EventosService.prototype.getRows = function () {
+        var _this = this;
+        var url = this.cfg.apiUrl + this.cfg.eventos + '/_all_docs?include_docs=true';
+        var cacheKey = url;
+        return new Promise(function (resolve) {
+            _this.cache.getItem(cacheKey).catch(function () {
+                return _this.authHttp.get(url).toPromise().then(function (rs) {
+                    var result = rs.json().total_rows;
+                    return _this.cache.saveItem(cacheKey, result);
+                });
+            }).then(function (data) {
+                if (data.value) {
+                    resolve(JSON.parse(data.value));
+                }
+                else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+    EventosService.prototype.getAll = function (offset, limit) {
+        var _this = this;
+        var url = this.cfg.apiUrl + this.cfg.eventos + '/_all_docs?limit=' + limit + '&skip=' + offset + '&include_docs=true';
+        var cacheKey = url;
+        return new Promise(function (resolve) {
+            _this.cache.getItem(cacheKey).catch(function () {
+                return _this.authHttp.get(url).toPromise().then(function (rs) {
+                    var result = rs.json().rows;
+                    return _this.cache.saveItem(cacheKey, result);
+                });
+            }).then(function (data) {
+                if (data.value) {
+                    resolve(JSON.parse(data.value));
+                }
+                else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+    EventosService.prototype.getOne = function (id) {
+        var _this = this;
+        var url = this.cfg.apiUrl + this.cfg.eventos + '/' + id;
+        var cacheKey = url;
+        return new Promise(function (resolve) {
+            _this.cache.getItem(cacheKey).catch(function () {
+                return _this.authHttp.get(url).toPromise().then(function (rs) {
+                    var result = rs.json();
+                    return _this.cache.saveItem(cacheKey, result);
+                });
+            }).then(function (data) {
+                if (data.value) {
+                    resolve(JSON.parse(data.value));
+                }
+                else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+    EventosService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_angular2_jwt__["AuthHttp"],
+            __WEBPACK_IMPORTED_MODULE_5_ionic_cache__["b" /* CacheService */]])
+    ], EventosService);
+    return EventosService;
+}());
+
+//# sourceMappingURL=eventos-service.js.map
+
+/***/ }),
+
+/***/ 412:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(405);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(409);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(413);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(417);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -948,22 +1378,22 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 409:
+/***/ 417:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export getAuthHttp */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(723);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_jwt__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(736);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_jwt__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_angular2_jwt__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ionic_cache__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__shared_module__ = __webpack_require__(395);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_imports__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ionic_cache__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__shared_module__ = __webpack_require__(397);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_imports__ = __webpack_require__(201);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1005,20 +1435,20 @@ var AppModule = /** @class */ (function () {
                     monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
                 }, {
                     links: [
+                        { loadChildren: '../pages/agenda-detalle/agenda-detalle.module#AgendaDetallePageModule', name: 'AgendaDetallePage', segment: 'agenda-detalle', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/agenda/agenda.module#AgendaPageModule', name: 'AgendaPage', segment: 'agenda', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/book-add-page/book-add-page.module#BookAddPageModule', name: 'BookAddPage', segment: 'book-add-page', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/book-edit-page/book-edit-page.module#BookEditPageModule', name: 'BookEditPage', segment: 'book-edit-page', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/book-info-page/book-info-page.module#BookInfoPageModule', name: 'BookInfoPage', segment: 'book-info-page', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/books-page/books-page.module#BooksPageModule', name: 'BooksPage', segment: 'books-page', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/eventos-detalle/eventos-detalle.module#EventosDetallePageModule', name: 'EventosDetallePage', segment: 'eventos-detalle', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/eventos/eventos.module#EventosPageModule', name: 'EventosPage', segment: 'eventos', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/forgot-page/forgot-page.module#ForgotPageModule', name: 'ForgotPage', segment: 'forgot-page', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/indicadores/indicadores.module#IndicadoresPageModule', name: 'IndicadoresPage', segment: 'indicadores', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/informacion-comercial-detalle/informacion-comercial-detalle.module#InformacionComercialDetallePageModule', name: 'InformacionComercialDetallePage', segment: 'informacion-comercial-detalle', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/informacion-comercial/informacion-comercial.module#InformacionComercialPageModule', name: 'InformacionComercialPage', segment: 'informacion-comercial', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login-page/login-page.module#LoginPageModule', name: 'LoginPage', segment: 'login-page', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/noticia-detalle/noticia-detalle.module#NoticiaDetallePageModule', name: 'NoticiaDetallePage', segment: 'noticia-detalle', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/noticias/noticias.module#NoticiasPageModule', name: 'NoticiasPage', segment: 'noticias', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/preloader/preloader.module#PreloaderPageModule', name: 'PreloaderPage', segment: 'preloader', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/profile-detalle/profile-detalle.module#ProfileDetallePageModule', name: 'ProfileDetallePage', segment: 'profile-detalle', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/profile-page/profile-page.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile-page', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/proveedor/proveedor.module#ProveedorPageModule', name: 'ProveedorPage', segment: 'proveedor', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/proveedores/proveedores.module#ProveedoresPageModule', name: 'ProveedoresPage', segment: 'proveedores', priority: 'low', defaultHistory: [] },
@@ -1052,43 +1482,15 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 47:
+/***/ 702:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return cfg; });
-var cfg = {
-    apiUrl: 'http://192.168.1.143:5984',
-    /*apiUrl: 'http://books.prodio.bg/api',*/
-    tokenName: 'token',
-    user: {
-        register: '/auth/signup',
-        login: '/auth_login/_all_docs?limit=20&include_docs=true',
-        refresh: '/auth_refresh/_all_docs?limit=20&include_docs=true',
-    },
-    ferreterias: '/ferreterias',
-    proveedores: '/proveedores',
-    noticias: '/noticias',
-    books: '/books'
-};
-//# sourceMappingURL=config.js.map
-
-/***/ }),
-
-/***/ 693:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UsersService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular2_jwt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_config__ = __webpack_require__(47);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ImgcacheService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_imgcache_js__ = __webpack_require__(703);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_imgcache_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_imgcache_js__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1101,47 +1503,69 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
-
-
-var UsersService = /** @class */ (function () {
-    function UsersService(storage, authHttp) {
-        this.storage = storage;
-        this.authHttp = authHttp;
-        this.cfg = __WEBPACK_IMPORTED_MODULE_5__app_config__["a" /* cfg */];
+/**
+ * This service is charged of provide the methods to cache the images
+ */
+var ImgcacheService = /** @class */ (function () {
+    function ImgcacheService(platform) {
+        this.imgQueue = [];
+        __WEBPACK_IMPORTED_MODULE_2_imgcache_js___default.a.options.debug = true;
     }
-    UsersService.prototype.getAll = function () {
-        return this.authHttp.get(this.cfg.apiUrl + this.cfg.proveedores + '/_all_docs?include_docs=true')
-            .toPromise()
-            .then(function (rs) {
-            return rs.json();
+    /**
+     * Init imgCache library
+     * @return {Promise}
+     */
+    ImgcacheService.prototype.initImgCache = function () {
+        return new Promise(function (resolve, reject) {
+            if (__WEBPACK_IMPORTED_MODULE_2_imgcache_js___default.a.ready) {
+                resolve();
+            }
+            else {
+                __WEBPACK_IMPORTED_MODULE_2_imgcache_js___default.a.init(function () { return resolve(); }, function () { return reject(); });
+            }
         });
     };
-    UsersService.prototype.getOne = function (id) {
-        return this.authHttp.get(this.cfg.apiUrl + this.cfg.proveedores + '/' + id)
-            .toPromise()
-            .then(function (rs) {
-            return rs.json();
+    /**
+     * Cache images
+     * @param src {string} - img source
+     */
+    ImgcacheService.prototype.cacheImg = function (src) {
+        return new Promise(function (resolve, reject) {
+            __WEBPACK_IMPORTED_MODULE_2_imgcache_js___default.a.isCached(src, function (path, success) {
+                // if not, it will be cached
+                if (success) {
+                    __WEBPACK_IMPORTED_MODULE_2_imgcache_js___default.a.getCachedFileURL(src, function (originalUrl, cacheUrl) {
+                        resolve(cacheUrl);
+                    }, function (e) {
+                        reject(e);
+                    });
+                }
+                else {
+                    // cache img
+                    __WEBPACK_IMPORTED_MODULE_2_imgcache_js___default.a.cacheFile(src);
+                    // return original img URL
+                    resolve(src);
+                }
+            });
         });
     };
-    UsersService = __decorate([
+    ImgcacheService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_1_angular2_jwt__["AuthHttp"]])
-    ], UsersService);
-    return UsersService;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */]])
+    ], ImgcacheService);
+    return ImgcacheService;
 }());
 
-//# sourceMappingURL=users-service.js.map
+//# sourceMappingURL=cache-img.service.js.map
 
 /***/ }),
 
-/***/ 695:
+/***/ 704:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AccordionListComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1259,12 +1683,63 @@ var AccordionListComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 696:
+/***/ 705:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lazy_img_lazy_img_component__ = __webpack_require__(706);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__lazy_img_lazy_img_component__["a"]; });
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ 706:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LazyImgComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+/**
+ * Component in charge of lazy load images and cache them
+ */
+var LazyImgComponent = /** @class */ (function () {
+    function LazyImgComponent() {
+        this.placeholderActive = true;
+    }
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+        __metadata("design:type", String)
+    ], LazyImgComponent.prototype, "inputSrc", void 0);
+    LazyImgComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'lazy-img',
+            template: "\n  <div text-center [ngClass]=\"{ 'placeholder': placeholderActive }\">\n    <img [inputSrc]=\"inputSrc\" lazy-load (loaded)=\"placeholderActive = false\"/>\n  </div>\n  "
+        })
+    ], LazyImgComponent);
+    return LazyImgComponent;
+}());
+
+//# sourceMappingURL=lazy-img.component.js.map
+
+/***/ }),
+
+/***/ 707:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return KeysPipe; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1294,240 +1769,326 @@ var KeysPipe = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 703:
+/***/ 708:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lazy_load_directive__ = __webpack_require__(709);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__lazy_load_directive__["a"]; });
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ 709:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LazyLoadDirective; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services___ = __webpack_require__(119);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+/**
+ * This directive is charge of cache the images and emit a loaded event
+ */
+var LazyLoadDirective = /** @class */ (function () {
+    function LazyLoadDirective(el, imgCacheService, renderer) {
+        this.el = el;
+        this.imgCacheService = imgCacheService;
+        this.renderer = renderer;
+        this.src = '';
+        this.loaded = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+    }
+    LazyLoadDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        // get img element
+        var nativeElement = this.el.nativeElement;
+        var render = this.renderer;
+        // add load listener
+        this.loadEvent = render.listen(nativeElement, 'load', function () {
+            render.addClass(nativeElement, 'loaded');
+            _this.loaded.emit();
+        });
+        this.errorEvent = render.listen(nativeElement, 'error', function () {
+            nativeElement.remove();
+        });
+        // cache img and set the src to the img
+        this.imgCacheService.cacheImg(this.src).then(function (value) {
+            render.setAttribute(nativeElement, 'src', value);
+        });
+    };
+    LazyLoadDirective.prototype.ngOnDestroy = function () {
+        // remove listeners
+        this.loadEvent();
+        this.errorEvent();
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('inputSrc'),
+        __metadata("design:type", Object)
+    ], LazyLoadDirective.prototype, "src", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+        __metadata("design:type", Object)
+    ], LazyLoadDirective.prototype, "loaded", void 0);
+    LazyLoadDirective = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
+            selector: '[lazy-load]'
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"],
+            __WEBPACK_IMPORTED_MODULE_1__services___["a" /* ImgcacheService */],
+            __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer2"]])
+    ], LazyLoadDirective);
+    return LazyLoadDirective;
+}());
+
+//# sourceMappingURL=lazy-load.directive.js.map
+
+/***/ }),
+
+/***/ 716:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 230,
-	"./af.js": 230,
-	"./ar": 231,
-	"./ar-dz": 232,
-	"./ar-dz.js": 232,
-	"./ar-kw": 233,
-	"./ar-kw.js": 233,
-	"./ar-ly": 234,
-	"./ar-ly.js": 234,
-	"./ar-ma": 235,
-	"./ar-ma.js": 235,
-	"./ar-sa": 236,
-	"./ar-sa.js": 236,
-	"./ar-tn": 237,
-	"./ar-tn.js": 237,
-	"./ar.js": 231,
-	"./az": 238,
-	"./az.js": 238,
-	"./be": 239,
-	"./be.js": 239,
-	"./bg": 240,
-	"./bg.js": 240,
-	"./bn": 241,
-	"./bn.js": 241,
-	"./bo": 242,
-	"./bo.js": 242,
-	"./br": 243,
-	"./br.js": 243,
-	"./bs": 244,
-	"./bs.js": 244,
-	"./ca": 245,
-	"./ca.js": 245,
-	"./cs": 246,
-	"./cs.js": 246,
-	"./cv": 247,
-	"./cv.js": 247,
-	"./cy": 248,
-	"./cy.js": 248,
-	"./da": 249,
-	"./da.js": 249,
-	"./de": 250,
-	"./de-at": 251,
-	"./de-at.js": 251,
-	"./de-ch": 252,
-	"./de-ch.js": 252,
-	"./de.js": 250,
-	"./dv": 253,
-	"./dv.js": 253,
-	"./el": 254,
-	"./el.js": 254,
-	"./en-au": 255,
-	"./en-au.js": 255,
-	"./en-ca": 256,
-	"./en-ca.js": 256,
-	"./en-gb": 257,
-	"./en-gb.js": 257,
-	"./en-ie": 258,
-	"./en-ie.js": 258,
-	"./en-nz": 259,
-	"./en-nz.js": 259,
-	"./eo": 260,
-	"./eo.js": 260,
-	"./es": 261,
-	"./es-do": 262,
-	"./es-do.js": 262,
-	"./es.js": 261,
-	"./et": 263,
-	"./et.js": 263,
-	"./eu": 264,
-	"./eu.js": 264,
-	"./fa": 265,
-	"./fa.js": 265,
-	"./fi": 266,
-	"./fi.js": 266,
-	"./fo": 267,
-	"./fo.js": 267,
-	"./fr": 268,
-	"./fr-ca": 269,
-	"./fr-ca.js": 269,
-	"./fr-ch": 270,
-	"./fr-ch.js": 270,
-	"./fr.js": 268,
-	"./fy": 271,
-	"./fy.js": 271,
-	"./gd": 272,
-	"./gd.js": 272,
-	"./gl": 273,
-	"./gl.js": 273,
-	"./gom-latn": 274,
-	"./gom-latn.js": 274,
-	"./he": 275,
-	"./he.js": 275,
-	"./hi": 276,
-	"./hi.js": 276,
-	"./hr": 277,
-	"./hr.js": 277,
-	"./hu": 278,
-	"./hu.js": 278,
-	"./hy-am": 279,
-	"./hy-am.js": 279,
-	"./id": 280,
-	"./id.js": 280,
-	"./is": 281,
-	"./is.js": 281,
-	"./it": 282,
-	"./it.js": 282,
-	"./ja": 283,
-	"./ja.js": 283,
-	"./jv": 284,
-	"./jv.js": 284,
-	"./ka": 285,
-	"./ka.js": 285,
-	"./kk": 286,
-	"./kk.js": 286,
-	"./km": 287,
-	"./km.js": 287,
-	"./kn": 288,
-	"./kn.js": 288,
-	"./ko": 289,
-	"./ko.js": 289,
-	"./ky": 290,
-	"./ky.js": 290,
-	"./lb": 291,
-	"./lb.js": 291,
-	"./lo": 292,
-	"./lo.js": 292,
-	"./lt": 293,
-	"./lt.js": 293,
-	"./lv": 294,
-	"./lv.js": 294,
-	"./me": 295,
-	"./me.js": 295,
-	"./mi": 296,
-	"./mi.js": 296,
-	"./mk": 297,
-	"./mk.js": 297,
-	"./ml": 298,
-	"./ml.js": 298,
-	"./mr": 299,
-	"./mr.js": 299,
-	"./ms": 300,
-	"./ms-my": 301,
-	"./ms-my.js": 301,
-	"./ms.js": 300,
-	"./my": 302,
-	"./my.js": 302,
-	"./nb": 303,
-	"./nb.js": 303,
-	"./ne": 304,
-	"./ne.js": 304,
-	"./nl": 305,
-	"./nl-be": 306,
-	"./nl-be.js": 306,
-	"./nl.js": 305,
-	"./nn": 307,
-	"./nn.js": 307,
-	"./pa-in": 308,
-	"./pa-in.js": 308,
-	"./pl": 309,
-	"./pl.js": 309,
-	"./pt": 310,
-	"./pt-br": 311,
-	"./pt-br.js": 311,
-	"./pt.js": 310,
-	"./ro": 312,
-	"./ro.js": 312,
-	"./ru": 313,
-	"./ru.js": 313,
-	"./sd": 314,
-	"./sd.js": 314,
-	"./se": 315,
-	"./se.js": 315,
-	"./si": 316,
-	"./si.js": 316,
-	"./sk": 317,
-	"./sk.js": 317,
-	"./sl": 318,
-	"./sl.js": 318,
-	"./sq": 319,
-	"./sq.js": 319,
-	"./sr": 320,
-	"./sr-cyrl": 321,
-	"./sr-cyrl.js": 321,
-	"./sr.js": 320,
-	"./ss": 322,
-	"./ss.js": 322,
-	"./sv": 323,
-	"./sv.js": 323,
-	"./sw": 324,
-	"./sw.js": 324,
-	"./ta": 325,
-	"./ta.js": 325,
-	"./te": 326,
-	"./te.js": 326,
-	"./tet": 327,
-	"./tet.js": 327,
-	"./th": 328,
-	"./th.js": 328,
-	"./tl-ph": 329,
-	"./tl-ph.js": 329,
-	"./tlh": 330,
-	"./tlh.js": 330,
-	"./tr": 331,
-	"./tr.js": 331,
-	"./tzl": 332,
-	"./tzl.js": 332,
-	"./tzm": 333,
-	"./tzm-latn": 334,
-	"./tzm-latn.js": 334,
-	"./tzm.js": 333,
-	"./uk": 335,
-	"./uk.js": 335,
-	"./ur": 336,
-	"./ur.js": 336,
-	"./uz": 337,
-	"./uz-latn": 338,
-	"./uz-latn.js": 338,
-	"./uz.js": 337,
-	"./vi": 339,
-	"./vi.js": 339,
-	"./x-pseudo": 340,
-	"./x-pseudo.js": 340,
-	"./yo": 341,
-	"./yo.js": 341,
-	"./zh-cn": 342,
-	"./zh-cn.js": 342,
-	"./zh-hk": 343,
-	"./zh-hk.js": 343,
-	"./zh-tw": 344,
-	"./zh-tw.js": 344
+	"./af": 232,
+	"./af.js": 232,
+	"./ar": 233,
+	"./ar-dz": 234,
+	"./ar-dz.js": 234,
+	"./ar-kw": 235,
+	"./ar-kw.js": 235,
+	"./ar-ly": 236,
+	"./ar-ly.js": 236,
+	"./ar-ma": 237,
+	"./ar-ma.js": 237,
+	"./ar-sa": 238,
+	"./ar-sa.js": 238,
+	"./ar-tn": 239,
+	"./ar-tn.js": 239,
+	"./ar.js": 233,
+	"./az": 240,
+	"./az.js": 240,
+	"./be": 241,
+	"./be.js": 241,
+	"./bg": 242,
+	"./bg.js": 242,
+	"./bn": 243,
+	"./bn.js": 243,
+	"./bo": 244,
+	"./bo.js": 244,
+	"./br": 245,
+	"./br.js": 245,
+	"./bs": 246,
+	"./bs.js": 246,
+	"./ca": 247,
+	"./ca.js": 247,
+	"./cs": 248,
+	"./cs.js": 248,
+	"./cv": 249,
+	"./cv.js": 249,
+	"./cy": 250,
+	"./cy.js": 250,
+	"./da": 251,
+	"./da.js": 251,
+	"./de": 252,
+	"./de-at": 253,
+	"./de-at.js": 253,
+	"./de-ch": 254,
+	"./de-ch.js": 254,
+	"./de.js": 252,
+	"./dv": 255,
+	"./dv.js": 255,
+	"./el": 256,
+	"./el.js": 256,
+	"./en-au": 257,
+	"./en-au.js": 257,
+	"./en-ca": 258,
+	"./en-ca.js": 258,
+	"./en-gb": 259,
+	"./en-gb.js": 259,
+	"./en-ie": 260,
+	"./en-ie.js": 260,
+	"./en-nz": 261,
+	"./en-nz.js": 261,
+	"./eo": 262,
+	"./eo.js": 262,
+	"./es": 263,
+	"./es-do": 264,
+	"./es-do.js": 264,
+	"./es.js": 263,
+	"./et": 265,
+	"./et.js": 265,
+	"./eu": 266,
+	"./eu.js": 266,
+	"./fa": 267,
+	"./fa.js": 267,
+	"./fi": 268,
+	"./fi.js": 268,
+	"./fo": 269,
+	"./fo.js": 269,
+	"./fr": 270,
+	"./fr-ca": 271,
+	"./fr-ca.js": 271,
+	"./fr-ch": 272,
+	"./fr-ch.js": 272,
+	"./fr.js": 270,
+	"./fy": 273,
+	"./fy.js": 273,
+	"./gd": 274,
+	"./gd.js": 274,
+	"./gl": 275,
+	"./gl.js": 275,
+	"./gom-latn": 276,
+	"./gom-latn.js": 276,
+	"./he": 277,
+	"./he.js": 277,
+	"./hi": 278,
+	"./hi.js": 278,
+	"./hr": 279,
+	"./hr.js": 279,
+	"./hu": 280,
+	"./hu.js": 280,
+	"./hy-am": 281,
+	"./hy-am.js": 281,
+	"./id": 282,
+	"./id.js": 282,
+	"./is": 283,
+	"./is.js": 283,
+	"./it": 284,
+	"./it.js": 284,
+	"./ja": 285,
+	"./ja.js": 285,
+	"./jv": 286,
+	"./jv.js": 286,
+	"./ka": 287,
+	"./ka.js": 287,
+	"./kk": 288,
+	"./kk.js": 288,
+	"./km": 289,
+	"./km.js": 289,
+	"./kn": 290,
+	"./kn.js": 290,
+	"./ko": 291,
+	"./ko.js": 291,
+	"./ky": 292,
+	"./ky.js": 292,
+	"./lb": 293,
+	"./lb.js": 293,
+	"./lo": 294,
+	"./lo.js": 294,
+	"./lt": 295,
+	"./lt.js": 295,
+	"./lv": 296,
+	"./lv.js": 296,
+	"./me": 297,
+	"./me.js": 297,
+	"./mi": 298,
+	"./mi.js": 298,
+	"./mk": 299,
+	"./mk.js": 299,
+	"./ml": 300,
+	"./ml.js": 300,
+	"./mr": 301,
+	"./mr.js": 301,
+	"./ms": 302,
+	"./ms-my": 303,
+	"./ms-my.js": 303,
+	"./ms.js": 302,
+	"./my": 304,
+	"./my.js": 304,
+	"./nb": 305,
+	"./nb.js": 305,
+	"./ne": 306,
+	"./ne.js": 306,
+	"./nl": 307,
+	"./nl-be": 308,
+	"./nl-be.js": 308,
+	"./nl.js": 307,
+	"./nn": 309,
+	"./nn.js": 309,
+	"./pa-in": 310,
+	"./pa-in.js": 310,
+	"./pl": 311,
+	"./pl.js": 311,
+	"./pt": 312,
+	"./pt-br": 313,
+	"./pt-br.js": 313,
+	"./pt.js": 312,
+	"./ro": 314,
+	"./ro.js": 314,
+	"./ru": 315,
+	"./ru.js": 315,
+	"./sd": 316,
+	"./sd.js": 316,
+	"./se": 317,
+	"./se.js": 317,
+	"./si": 318,
+	"./si.js": 318,
+	"./sk": 319,
+	"./sk.js": 319,
+	"./sl": 320,
+	"./sl.js": 320,
+	"./sq": 321,
+	"./sq.js": 321,
+	"./sr": 322,
+	"./sr-cyrl": 323,
+	"./sr-cyrl.js": 323,
+	"./sr.js": 322,
+	"./ss": 324,
+	"./ss.js": 324,
+	"./sv": 325,
+	"./sv.js": 325,
+	"./sw": 326,
+	"./sw.js": 326,
+	"./ta": 327,
+	"./ta.js": 327,
+	"./te": 328,
+	"./te.js": 328,
+	"./tet": 329,
+	"./tet.js": 329,
+	"./th": 330,
+	"./th.js": 330,
+	"./tl-ph": 331,
+	"./tl-ph.js": 331,
+	"./tlh": 332,
+	"./tlh.js": 332,
+	"./tr": 333,
+	"./tr.js": 333,
+	"./tzl": 334,
+	"./tzl.js": 334,
+	"./tzm": 335,
+	"./tzm-latn": 336,
+	"./tzm-latn.js": 336,
+	"./tzm.js": 335,
+	"./uk": 337,
+	"./uk.js": 337,
+	"./ur": 338,
+	"./ur.js": 338,
+	"./uz": 339,
+	"./uz-latn": 340,
+	"./uz-latn.js": 340,
+	"./uz.js": 339,
+	"./vi": 341,
+	"./vi.js": 341,
+	"./x-pseudo": 342,
+	"./x-pseudo.js": 342,
+	"./yo": 343,
+	"./yo.js": 343,
+	"./zh-cn": 344,
+	"./zh-cn.js": 344,
+	"./zh-hk": 345,
+	"./zh-hk.js": 345,
+	"./zh-tw": 346,
+	"./zh-tw.js": 346
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -1543,24 +2104,26 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 703;
+webpackContext.id = 716;
 
 /***/ }),
 
-/***/ 723:
+/***/ 736:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(226);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(227);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth_service__ = __webpack_require__(140);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_android_full_screen__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ionic_cache__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_jquery__ = __webpack_require__(401);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(227);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(228);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth_service__ = __webpack_require__(141);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_android_full_screen__ = __webpack_require__(229);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ionic_cache__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__global_services__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_app_version__ = __webpack_require__(230);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_jquery__ = __webpack_require__(398);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_jquery__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1578,16 +2141,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var MyApp = /** @class */ (function () {
-    function MyApp(platform, statusBar, splashScreen, authService, androidFullScreen, menuCtrl, cache) {
+    function MyApp(platform, statusBar, splashScreen, authService, androidFullScreen, menuCtrl, imgcacheService, appVersion, cache) {
         this.platform = platform;
         this.statusBar = statusBar;
         this.splashScreen = splashScreen;
         this.authService = authService;
         this.androidFullScreen = androidFullScreen;
         this.menuCtrl = menuCtrl;
+        this.imgcacheService = imgcacheService;
+        this.appVersion = appVersion;
         this.cache = cache;
         this.rootPage = 'PreloaderPage';
+        this.versionApp = "1.0.1";
         this.pages = [
             { title: "Inicio", component: "HomePage" },
             { title: 'Indicadores', component: 'IndicadoresPage' },
@@ -1608,9 +2176,11 @@ var MyApp = /** @class */ (function () {
         this.platform.ready().then(function () {
             _this.cache.setDefaultTTL(60 * 60 * 12 * 7);
             _this.cache.setOfflineInvalidate(false);
-            _this.statusBar.styleDefault();
-            _this.splashScreen.hide();
-            _this.authService.startupTokenRefresh();
+            _this.imgcacheService.initImgCache().then(function () {
+                _this.statusBar.styleDefault();
+                _this.splashScreen.hide();
+                _this.authService.startupTokenRefresh();
+            });
         });
     };
     MyApp.prototype.openPage = function (page) {
@@ -1624,6 +2194,7 @@ var MyApp = /** @class */ (function () {
                 this.nav.setRoot(page.component);
             }
             else {
+                this.nav.popToRoot({ animate: false });
                 this.nav.push(page.component);
             }
         }
@@ -1632,17 +2203,17 @@ var MyApp = /** @class */ (function () {
         }
     };
     MyApp.prototype.menuClosed = function () {
-        __WEBPACK_IMPORTED_MODULE_7_jquery__("ion-header .bar-button-menutoggle[right] .navicon-button").removeClass("open");
+        __WEBPACK_IMPORTED_MODULE_9_jquery__("ion-header .bar-button-menutoggle[right] .navicon-button").removeClass("open");
     };
     MyApp.prototype.menuOpened = function () {
-        __WEBPACK_IMPORTED_MODULE_7_jquery__("ion-header .bar-button-menutoggle[right] .navicon-button").addClass("open");
+        __WEBPACK_IMPORTED_MODULE_9_jquery__("ion-header .bar-button-menutoggle[right] .navicon-button").addClass("open");
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Nav */]),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Nav */])
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/app/app.html"*/'<ion-menu id="authenticated" [content]="contenido" side="right" type="overlay" persistent="true" (ionOpen)="menuOpened()" (ionClose)="menuClosed()" >\n    <ion-content class="has-footer">\n        <ion-list inset>\n            <button ion-item *ngFor="let page of pages" (click)="openPage(page)" [class.hidden]="page.invisible" detail-push>\n    			{{page.title}}\n    		</button>\n        </ion-list>\n        <ion-list class="indicadores" inset>\n            <ion-item>\n                <div class="title">Indicadores económicos</div>\n            </ion-item>\n            <ion-item class="indicador">\n                <span class="title">Valor Dólar</span>\n                <span class="valor">642 CLP</span>\n            </ion-item>\n            <ion-item class="indicador">\n                <span class="title">Valor UF</span>\n                <span class="valor">26.619,53</span>\n            </ion-item>\n        </ion-list>\n        <ion-footer class="lastUpdate">\n            <div class="version">1.0.1</div>\n            <div class="date">Última descarga de datos: 22 Sep 2017</div>\n        </ion-footer>\n    </ion-content>\n</ion-menu>\n<ion-nav #contenido [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/app/app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/app/app.html"*/'<ion-menu id="authenticated" [content]="contenido" side="right" type="overlay" persistent="true" (ionOpen)="menuOpened()" (ionClose)="menuClosed()" >\n    <ion-content class="has-footer">\n        <ion-list inset>\n            <button ion-item *ngFor="let page of pages" (click)="openPage(page)" [class.hidden]="page.invisible" detail-push>\n    			{{page.title}}\n    		</button>\n        </ion-list>\n        <ion-list class="indicadores" inset>\n            <ion-item>\n                <div class="title">Indicadores económicos</div>\n            </ion-item>\n            <ion-item class="indicador">\n                <span class="title">Valor Dólar</span>\n                <span class="valor">642 CLP</span>\n            </ion-item>\n            <ion-item class="indicador">\n                <span class="title">Valor UF</span>\n                <span class="valor">26.619,53</span>\n            </ion-item>\n        </ion-list>\n        <ion-footer class="lastUpdate">\n            <div class="version">{{versionApp}}</div>\n            <div class="date">Última descarga de datos: 22 Sep 2017</div>\n        </ion-footer>\n    </ion-content>\n</ion-menu>\n<ion-nav #contenido [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/app/app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */],
             __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */],
@@ -1650,6 +2221,8 @@ var MyApp = /** @class */ (function () {
             __WEBPACK_IMPORTED_MODULE_4__providers_auth_service__["a" /* AuthService */],
             __WEBPACK_IMPORTED_MODULE_5__ionic_native_android_full_screen__["a" /* AndroidFullScreen */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */],
+            __WEBPACK_IMPORTED_MODULE_7__global_services__["a" /* ImgcacheService */],
+            __WEBPACK_IMPORTED_MODULE_8__ionic_native_app_version__["a" /* AppVersion */],
             __WEBPACK_IMPORTED_MODULE_6_ionic_cache__["b" /* CacheService */]])
     ], MyApp);
     return MyApp;
@@ -1659,5 +2232,5 @@ var MyApp = /** @class */ (function () {
 
 /***/ })
 
-},[404]);
+},[412]);
 //# sourceMappingURL=main.js.map

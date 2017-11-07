@@ -1,15 +1,15 @@
 webpackJsonp([14],{
 
-/***/ 741:
+/***/ 749:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WelcomePageModule", function() { return WelcomePageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__welcome__ = __webpack_require__(762);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_shared_module__ = __webpack_require__(395);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PreloaderPageModule", function() { return PreloaderPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__preloader__ = __webpack_require__(770);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_shared_module__ = __webpack_require__(397);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,38 +20,39 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var WelcomePageModule = /** @class */ (function () {
-    function WelcomePageModule() {
+var PreloaderPageModule = /** @class */ (function () {
+    function PreloaderPageModule() {
     }
-    WelcomePageModule = __decorate([
+    PreloaderPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__welcome__["a" /* WelcomePage */],
+                __WEBPACK_IMPORTED_MODULE_2__preloader__["a" /* PreloaderPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__welcome__["a" /* WelcomePage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__preloader__["a" /* PreloaderPage */]),
                 __WEBPACK_IMPORTED_MODULE_3__app_shared_module__["a" /* SharedModule */]
             ],
             exports: [
-                __WEBPACK_IMPORTED_MODULE_2__welcome__["a" /* WelcomePage */]
+                __WEBPACK_IMPORTED_MODULE_2__preloader__["a" /* PreloaderPage */]
             ]
         })
-    ], WelcomePageModule);
-    return WelcomePageModule;
+    ], PreloaderPageModule);
+    return PreloaderPageModule;
 }());
 
-//# sourceMappingURL=welcome.module.js.map
+//# sourceMappingURL=preloader.module.js.map
 
 /***/ }),
 
-/***/ 762:
+/***/ 770:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WelcomePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(403);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PreloaderPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_connectivity_service__ = __webpack_require__(142);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -64,50 +65,49 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var WelcomePage = /** @class */ (function () {
-    function WelcomePage(navCtrl, navParams, menuCtrl, googleMaps) {
+
+var PreloaderPage = /** @class */ (function () {
+    function PreloaderPage(navCtrl, storage, connectivityService) {
         this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.menuCtrl = menuCtrl;
-        this.googleMaps = googleMaps;
+        this.storage = storage;
+        this.connectivityService = connectivityService;
+        this.mostrarContenido = false;
+        this.mostrarLoader = false;
     }
-    WelcomePage.prototype.ionViewDidLoad = function () {
-        this.menuCtrl.enable(false);
-        this.loadMap();
-    };
-    WelcomePage.prototype.goToHome = function () {
-        this.navCtrl.push("LoginPage");
-    };
-    WelcomePage.prototype.loadMap = function () {
-        var element = document.getElementById('mapa');
-        var mapOptions = {
-            camera: {
-                target: {
-                    lat: 43.0741904,
-                    lng: -89.3809802
-                },
-                zoom: 18,
-                tilt: 30
+    PreloaderPage.prototype.ionViewDidLoad = function () {
+        var _this = this;
+        this.storage.get('id_token').then(function (id_token) {
+            if (id_token === null) {
+                _this.navCtrl.setRoot('WelcomePage');
             }
-        };
-        var map = new __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__["a" /* GoogleMap */](this.mapElement, mapOptions);
-        map.one(__WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__["c" /* GoogleMapsEvent */].MAP_READY).then(function () {
-            console.log('Map is ready!');
+            else {
+                _this.startPreload();
+            }
+            _this.mostrarContenido = true;
         });
     };
-    WelcomePage = __decorate([
+    PreloaderPage.prototype.startPreload = function () {
+        this.mostrarLoader = true;
+        if (this.connectivityService.isOnline()) {
+            console.log("online");
+            this.navCtrl.setRoot('HomePage');
+        }
+        if (this.connectivityService.isOffline()) {
+            console.log("offline");
+        }
+    };
+    PreloaderPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-welcome',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/welcome/welcome.html"*/'<ion-header>\n    <ion-navbar center hideBackButton="true">\n        <img class="logoHeaderv1" width="71" src="assets/images/logoHeaderV1@2.png" />\n        <button ion-button menuToggle right>\n    		<ion-icon name="menu"></ion-icon>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content padding class="contentInterior has-footer">\n	<ion-grid>\n		<ion-row>\n			<ion-col col-12>\n                <div class="bloqueBlanco firstElement">\n                    <h2 class="small">Tu ferretería más cercana es:</h2>\n                </div>\n                <div id="mapa"></div>\n                <ion-row>\n        			<ion-col col-12>\n                        <div margin-top></div>\n                    </ion-col>\n        		</ion-row>\n                <h1 class="welcome">Ingresa a la app MTS</h1>\n                <div class="text-center">\n                    <button margin-top center ion-button round large (click)="goToHome()">Ingresar</button>\n                </div>\n            </ion-col>\n		</ion-row>\n    </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/welcome/welcome.html"*/,
+            selector: 'page-preloader',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/preloader/preloader.html"*/'<ion-content padding *ngIf="mostrarContenido">\n    <div class="connected" *ngIf="mostrarLoader">Estás Contectado</div>\n    <div class="disconnected" *ngIf="!mostrarLoader">Estás Desconectado</div>\n</ion-content>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/preloader/preloader.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */],
-            __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__["b" /* GoogleMaps */]])
-    ], WelcomePage);
-    return WelcomePage;
+            __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_connectivity_service__["a" /* ConnectivityService */]])
+    ], PreloaderPage);
+    return PreloaderPage;
 }());
 
-//# sourceMappingURL=welcome.js.map
+//# sourceMappingURL=preloader.js.map
 
 /***/ })
 

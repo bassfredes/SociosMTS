@@ -1,15 +1,15 @@
 webpackJsonp([12],{
 
-/***/ 749:
+/***/ 737:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WelcomePageModule", function() { return WelcomePageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AgendaPageModule", function() { return AgendaPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__welcome__ = __webpack_require__(770);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_shared_module__ = __webpack_require__(396);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__agenda__ = __webpack_require__(757);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_shared_module__ = __webpack_require__(397);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,38 +20,84 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var WelcomePageModule = /** @class */ (function () {
-    function WelcomePageModule() {
+var AgendaPageModule = /** @class */ (function () {
+    function AgendaPageModule() {
     }
-    WelcomePageModule = __decorate([
+    AgendaPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__welcome__["a" /* WelcomePage */],
+                __WEBPACK_IMPORTED_MODULE_2__agenda__["a" /* AgendaPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__welcome__["a" /* WelcomePage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__agenda__["a" /* AgendaPage */]),
                 __WEBPACK_IMPORTED_MODULE_3__app_shared_module__["a" /* SharedModule */]
             ],
             exports: [
-                __WEBPACK_IMPORTED_MODULE_2__welcome__["a" /* WelcomePage */]
+                __WEBPACK_IMPORTED_MODULE_2__agenda__["a" /* AgendaPage */]
             ]
         })
-    ], WelcomePageModule);
-    return WelcomePageModule;
+    ], AgendaPageModule);
+    return AgendaPageModule;
 }());
 
-//# sourceMappingURL=welcome.module.js.map
+//# sourceMappingURL=agenda.module.js.map
 
 /***/ }),
 
-/***/ 770:
+/***/ 754:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WelcomePage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProtectedPage; });
+var ProtectedPage = /** @class */ (function () {
+    function ProtectedPage(navCtrl, navParams, storage, appCtrl) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.storage = storage;
+        this.appCtrl = appCtrl;
+    }
+    ProtectedPage.prototype.ionViewCanEnter = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.storage.get('id_token').then(function (id_token) {
+                if (id_token === null) {
+                    _this.appCtrl.getRootNav().setRoot('WelcomePage');
+                }
+            });
+            resolve();
+        });
+    };
+    return ProtectedPage;
+}());
+
+//# sourceMappingURL=protected-page.js.map
+
+/***/ }),
+
+/***/ 757:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AgendaPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(406);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_contacts__ = __webpack_require__(410);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_call_number__ = __webpack_require__(403);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_email_composer__ = __webpack_require__(404);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__protected_page_protected_page__ = __webpack_require__(754);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_users_service__ = __webpack_require__(400);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_config__ = __webpack_require__(38);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -64,50 +110,194 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var WelcomePage = /** @class */ (function () {
-    function WelcomePage(navCtrl, navParams, menuCtrl, googleMaps) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.menuCtrl = menuCtrl;
-        this.googleMaps = googleMaps;
+
+
+
+
+
+
+var AgendaPage = /** @class */ (function (_super) {
+    __extends(AgendaPage, _super);
+    function AgendaPage(navCtrl, navParams, menuCtrl, storage, usersService, toastCtrl, alertCtrl, contacts, callNumber, emailComposer, appCtrl) {
+        var _this = _super.call(this, navCtrl, navParams, storage, appCtrl) || this;
+        _this.navCtrl = navCtrl;
+        _this.navParams = navParams;
+        _this.menuCtrl = menuCtrl;
+        _this.storage = storage;
+        _this.usersService = usersService;
+        _this.toastCtrl = toastCtrl;
+        _this.alertCtrl = alertCtrl;
+        _this.contacts = contacts;
+        _this.callNumber = callNumber;
+        _this.emailComposer = emailComposer;
+        _this.appCtrl = appCtrl;
+        _this.socios = [];
+        _this.sociosAgrupados = [];
+        _this.proveedores = [];
+        _this.proveedoresAgrupados = [];
+        _this.alreadySaved = false;
+        _this.cfg = __WEBPACK_IMPORTED_MODULE_8__app_config__["a" /* cfg */];
+        return _this;
     }
-    WelcomePage.prototype.ionViewDidLoad = function () {
-        this.menuCtrl.enable(false);
-        this.loadMap();
-    };
-    WelcomePage.prototype.goToHome = function () {
-        this.navCtrl.push("LoginPage");
-    };
-    WelcomePage.prototype.loadMap = function () {
-        var element = document.getElementById('mapa');
-        var mapOptions = {
-            camera: {
-                target: {
-                    lat: 43.0741904,
-                    lng: -89.3809802
-                },
-                zoom: 18,
-                tilt: 30
-            }
-        };
-        var map = new __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__["a" /* GoogleMap */](this.mapElement, mapOptions);
-        map.one(__WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__["c" /* GoogleMapsEvent */].MAP_READY).then(function () {
-            console.log('Map is ready!');
+    AgendaPage.prototype.ionViewDidLoad = function () {
+        var _this = this;
+        this.usersService.getAll('socios').then(function (socios) {
+            _this.socios = socios;
+            _this.groupSocios(_this.socios, _this.sociosAgrupados);
+        });
+        this.usersService.getAll('proveedores').then(function (proveedores) {
+            _this.proveedores = proveedores;
         });
     };
-    WelcomePage = __decorate([
+    AgendaPage.prototype.openPage = function (page, user) {
+        this.navCtrl.push(page, {
+            user: user
+        });
+    };
+    AgendaPage.prototype.groupSocios = function (users, output) {
+        var sortedContacts = users.sort();
+        var currentLetter = false;
+        var currentContacts = [];
+        sortedContacts.forEach(function (value, index) {
+            if (value.doc.name.charAt(0) != currentLetter) {
+                currentLetter = value.doc.name.charAt(0);
+                var newGroup = {
+                    letter: currentLetter,
+                    users: []
+                };
+                currentContacts = newGroup.users;
+                output.push(newGroup);
+            }
+            currentContacts.push(value.doc);
+        });
+    };
+    AgendaPage.prototype.guardarContacto = function (user) {
+        var success = this.toastCtrl.create({
+            message: 'El contacto se ha guardado con éxito',
+            duration: 4000,
+            position: 'bottom',
+            closeButtonText: "OK"
+        });
+        var failed = this.toastCtrl.create({
+            message: 'Ha ocurrido un problema al guardar el contacto',
+            duration: 4000,
+            position: 'bottom',
+            closeButtonText: "OK"
+        });
+        if (window.cordova) {
+            this.alreadySaved = true;
+            var contact = this.contacts.create();
+            var nombreUser = user.name.split(" ");
+            if (contact) {
+                contact.name = new __WEBPACK_IMPORTED_MODULE_3__ionic_native_contacts__["b" /* ContactName */](null, nombreUser[1], nombreUser[0]);
+                contact.phoneNumbers = [new __WEBPACK_IMPORTED_MODULE_3__ionic_native_contacts__["a" /* ContactField */]('Móvil', user.phonenum)];
+                contact.emails = [new __WEBPACK_IMPORTED_MODULE_3__ionic_native_contacts__["a" /* ContactField */]('Correo', user.email)];
+                //contact.photos = [new ContactField('photo', user._attachments)];
+                contact.addresses = [new __WEBPACK_IMPORTED_MODULE_3__ionic_native_contacts__["a" /* ContactField */]('Dirección', user.direction)];
+                contact.organizations = [new __WEBPACK_IMPORTED_MODULE_3__ionic_native_contacts__["a" /* ContactField */]('Marca', user.name_ferreteria)];
+                contact.save().then(function () {
+                    return success.present();
+                }, function (error) {
+                    return failed.present();
+                });
+            }
+        }
+        else {
+            failed.present();
+        }
+    };
+    AgendaPage.prototype.saveContact = function (user) {
+        'use strict';
+        var _this = this;
+        if (user.phonenum) {
+            if (!this.alreadySaved) {
+                this.guardarContacto(user);
+            }
+            else {
+                var alert_1 = this.alertCtrl.create({
+                    title: 'Contacto ya guardado',
+                    message: 'El contacto ya ha sido guardado. ¿Deseas guardarlo nuevamente?',
+                    buttons: [
+                        {
+                            text: 'Cancelar',
+                            role: 'cancel',
+                            handler: function () { }
+                        },
+                        {
+                            text: 'Aceptar',
+                            handler: function () {
+                                _this.guardarContacto(user);
+                            }
+                        }
+                    ]
+                });
+                alert_1.present();
+            }
+        }
+    };
+    AgendaPage.prototype.callToContact = function (user) {
+        if (user.phonenum) {
+            var success_1 = this.toastCtrl.create({
+                message: 'Llamando al contacto',
+                duration: 3000,
+                position: 'bottom',
+                closeButtonText: "OK"
+            });
+            var failed_1 = this.toastCtrl.create({
+                message: 'Ha ocurrido un problema al intentar llamar el contacto',
+                duration: 4000,
+                position: 'bottom',
+                closeButtonText: "OK"
+            });
+            this.callNumber.callNumber(user.phonenum, true).then(function () {
+                return success_1.present();
+            }).catch(function () {
+                return failed_1.present();
+            });
+        }
+    };
+    AgendaPage.prototype.mailToContact = function (user) {
+        if (user.email) {
+            var failed = this.toastCtrl.create({
+                message: 'Ha ocurrido un problema al intentar enviar el correo',
+                duration: 4000,
+                position: 'bottom',
+                closeButtonText: "OK"
+            });
+            if (window.cordova) {
+                var email = {
+                    to: user.email,
+                    subject: 'Mensaje desde App SociosMTS',
+                    body: 'Estimado: ¿Cómo se encuentra?',
+                    isHtml: true
+                };
+                this.emailComposer.open(email);
+            }
+            else {
+                failed.present();
+            }
+        }
+    };
+    AgendaPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-welcome',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/welcome/welcome.html"*/'<ion-header>\n    <ion-navbar center hideBackButton="true">\n        <img class="logoHeaderv1" width="71" src="assets/images/logoHeaderV1@2.png" />\n        <button ion-button menuToggle right>\n    		<ion-icon name="menu"></ion-icon>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content padding class="contentInterior has-footer">\n	<ion-grid>\n		<ion-row>\n			<ion-col col-12>\n                <div class="bloqueBlanco firstElement">\n                    <h2 class="small">Tu ferretería más cercana es:</h2>\n                </div>\n                <div id="mapa"></div>\n                <ion-row>\n        			<ion-col col-12>\n                        <div margin-top></div>\n                    </ion-col>\n        		</ion-row>\n                <h1 class="welcome">Ingresa a la app MTS</h1>\n                <div class="text-center">\n                    <button margin-top center ion-button round large (click)="goToHome()">Ingresar</button>\n                </div>\n            </ion-col>\n		</ion-row>\n    </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/welcome/welcome.html"*/,
+            selector: 'page-agenda',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/agenda/agenda.html"*/'<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />\n        <button ion-button menuToggle right>\n            <div class="navicon-button x">\n                <div class="navicon"></div>\n            </div>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content class="contentInterior">\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <h1 class="text-center uppercase">Agenda</h1>\n            </ion-col>\n        </ion-row>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <div class="bloqueBlancoNoPadding no-padding">\n                    <ion-list no-lines>\n                        <ion-item-group *ngFor="let socios of sociosAgrupados">\n                            <ion-item-divider color="ultralight">{{socios.letter}}</ion-item-divider>\n                            <ion-item-sliding *ngFor="let socio of socios.users">\n                                <ion-item no-lines (click)="openPage(\'ProfileDetallePage\', socio);" *ngIf="socio.isActive">\n                                    <ion-avatar item-start *ngIf="socio._attachments">\n                                        <div class="profilePhoto" *ngFor="let attachment of socio._attachments | keys; index as i">\n                                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/users_socios/{{socio._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>\n                                        </div>\n                                    </ion-avatar>\n                                    <h2>{{socio.name}}</h2>\n                                    <h3>{{socio.name_ferreteria}}</h3>\n                                </ion-item>\n                                <ion-item-options no-lines *ngIf="socio.isActive">\n                                    <button class="normalButton" ion-button icon-only (click)="saveContact(socio)" color="save">\n                                        <ion-icon name="md-download"></ion-icon>\n                                    </button>\n                                    <button class="normalButton" ion-button icon-only (click)="callToContact(socio)" color="call">\n                                        <ion-icon name="call"></ion-icon>\n                                    </button>\n                                    <button class="normalButton" ion-button icon-only (click)="mailToContact(socio)" color="mail">\n                                        <ion-icon name="mail"></ion-icon>\n                                    </button>\n                                </ion-item-options>\n                            </ion-item-sliding>\n                        </ion-item-group>\n                    </ion-list>\n                </div>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/agenda/agenda.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */],
-            __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__["b" /* GoogleMaps */]])
-    ], WelcomePage);
-    return WelcomePage;
-}());
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */],
+            __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_7__providers_users_service__["a" /* UsersService */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_3__ionic_native_contacts__["c" /* Contacts */],
+            __WEBPACK_IMPORTED_MODULE_4__ionic_native_call_number__["a" /* CallNumber */],
+            __WEBPACK_IMPORTED_MODULE_5__ionic_native_email_composer__["a" /* EmailComposer */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]])
+    ], AgendaPage);
+    return AgendaPage;
+}(__WEBPACK_IMPORTED_MODULE_6__protected_page_protected_page__["a" /* ProtectedPage */]));
 
-//# sourceMappingURL=welcome.js.map
+//# sourceMappingURL=agenda.js.map
 
 /***/ })
 

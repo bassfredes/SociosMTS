@@ -1,6 +1,6 @@
 webpackJsonp([10],{
 
-/***/ 736:
+/***/ 739:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,8 +8,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventosPageModule", function() { return EventosPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__eventos__ = __webpack_require__(757);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_shared_module__ = __webpack_require__(396);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__eventos__ = __webpack_require__(759);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_shared_module__ = __webpack_require__(397);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -29,7 +29,7 @@ var EventosPageModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2__eventos__["a" /* EventosPage */]
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__eventos__["a" /* EventosPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__eventos__["a" /* EventosPage */]),
                 __WEBPACK_IMPORTED_MODULE_3__app_shared_module__["a" /* SharedModule */]
             ],
             exports: [
@@ -44,7 +44,7 @@ var EventosPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 750:
+/***/ 754:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -74,17 +74,17 @@ var ProtectedPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 757:
+/***/ 759:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EventosPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__protected_page_protected_page__ = __webpack_require__(750);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_eventos_service__ = __webpack_require__(404);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_config__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__protected_page_protected_page__ = __webpack_require__(754);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_eventos_service__ = __webpack_require__(407);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_config__ = __webpack_require__(38);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -175,12 +175,17 @@ var EventosPage = /** @class */ (function (_super) {
     };
     EventosPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-eventos',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/eventos/eventos.html"*/'<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />\n        <button ion-button menuToggle right>\n            <div class="navicon-button x">\n                <div class="navicon"></div>\n            </div>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content padding class="contentInterior">\n    <ion-row justify-content-around>\n        <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n            <h1 class="text-center uppercase">Eventos</h1>\n        </ion-col>\n    </ion-row>\n    <ion-list no-lines class="eventos">\n        <button ion-item *ngFor="let evento of eventos" class="no-padding" (click)="openPage(\'EventosDetallePage\', evento);" detail-push>\n            <div class="detalles">\n                <h2 text-wrap>{{evento.doc.title}}</h2>\n            </div>\n            <div class="imageEvento" *ngIf="evento.doc._attachments">\n                <div *ngFor="let attachment of evento.doc._attachments | keys; index as i">\n                    <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/eventos/{{evento.doc._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>\n                </div>\n            </div>\n            <div class="detalles">\n                <div class="text-center" *ngIf="!evento.doc.participando">\n                    <button margin-bottom class="btn-primary btn-large" margin-top center ion-button large (click)="participar()">\n                        <span>Participar</span>\n                    </button>\n                </div>\n                <div class="text-center" *ngIf="evento.doc.participando">\n                    <button margin-bottom class="btn-primary btn-large" margin-top center ion-button large (click)="participar()">\n                        <span>Participar</span>\n                    </button>\n                </div>\n            </div>\n        </button>\n    </ion-list>\n    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n        <ion-infinite-scroll-content></ion-infinite-scroll-content>\n    </ion-infinite-scroll>\n</ion-content>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/eventos/eventos.html"*/,
+            selector: 'page-eventos',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/eventos/eventos.html"*/'<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />\n        <button ion-button menuToggle right>\n            <div class="navicon-button x">\n                <div class="navicon"></div>\n            </div>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content padding class="contentInterior">\n    <ion-row justify-content-around>\n        <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n            <h1 class="text-center uppercase">Eventos</h1>\n        </ion-col>\n    </ion-row>\n    <ion-list no-lines class="eventos">\n        <ion-item *ngFor="let evento of eventos" class="no-padding" detail-push>\n            <div class="evento" *ngIf="evento.doc.isActive">\n                <div class="detalles" (click)="openPage(\'EventosDetallePage\', evento);">\n                    <h2 text-wrap>{{evento.doc.title}}</h2>\n                </div>\n                <div class="imageEvento" *ngIf="evento.doc._attachments" (click)="openPage(\'EventosDetallePage\', evento);">\n                    <div *ngFor="let attachment of evento.doc._attachments | keys; index as i">\n                        <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/eventos/{{evento.doc._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>\n                    </div>\n                </div>\n                <div class="detalles">\n                    <div class="text-center" *ngIf="!evento.doc.participando">\n                        <button class="btn-primary btn-large" center ion-button large (click)="participar()">\n                            <span>Inscribirse</span>\n                        </button>\n                    </div>\n                    <div class="text-center" *ngIf="evento.doc.participando">\n                        <ion-row justify-content-around>\n                            <ion-col col-7 align-self-center>\n                                <button class="btn-participando btn-participandoSmall notEffect btn-large" center ion-button large>\n                                    <span><ion-icon class="icon" name="md-checkmark"></ion-icon>Ya estás Inscrito</span>\n                                </button>\n                            </ion-col>\n                            <ion-col col-5 align-self-center>\n                                <button class="btn-primary btn-large" center ion-button large (click)="openPage(\'EventosDetallePage\', evento);">\n                                    <span>Ver Detalle</span>\n                                </button>\n                            </ion-col>\n                        </ion-row>\n                    </div>\n                </div>\n            </div>\n        </ion-item>\n    </ion-list>\n    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n        <ion-infinite-scroll-content></ion-infinite-scroll-content>\n    </ion-infinite-scroll>\n</ion-content>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/eventos/eventos.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* App */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_4__providers_eventos_service__["a" /* EventosService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_eventos_service__["a" /* EventosService */]) === "function" && _g || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */],
+            __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */],
+            __WEBPACK_IMPORTED_MODULE_4__providers_eventos_service__["a" /* EventosService */]])
     ], EventosPage);
     return EventosPage;
-    var _a, _b, _c, _d, _e, _f, _g;
 }(__WEBPACK_IMPORTED_MODULE_3__protected_page_protected_page__["a" /* ProtectedPage */]));
 
 //# sourceMappingURL=eventos.js.map

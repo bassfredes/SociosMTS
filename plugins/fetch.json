@@ -131,5 +131,37 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-app-version": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-app-version@^0.1.9"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-contacts": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-contacts"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "mx.ferreyra.callnumber": {
+        "source": {
+            "type": "registry",
+            "id": "call-number"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-email-composer": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-email-composer"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

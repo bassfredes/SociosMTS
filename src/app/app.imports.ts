@@ -19,6 +19,10 @@ import {AndroidFullScreen} from '@ionic-native/android-full-screen';
 import {Network} from '@ionic-native/network';
 import {GoogleMaps} from '@ionic-native/google-maps';
 import {Keyboard} from '@ionic-native/keyboard';
+import {AppVersion} from '@ionic-native/app-version';
+import {Contacts} from '@ionic-native/contacts';
+import {CallNumber} from '@ionic-native/call-number';
+import {EmailComposer} from '@ionic-native/email-composer';
 import {ImgcacheService} from '../global/services';
 
 import {JwtHelper} from 'angular2-jwt';
@@ -70,7 +74,11 @@ export const PROVIDERS = [
     AndroidFullScreen,
     GoogleMaps,
     Keyboard,
-    ImgcacheService
+    ImgcacheService,
+    AppVersion,
+    Contacts,
+    CallNumber,
+    EmailComposer
 ];
 
 export const COMPONENTS = [

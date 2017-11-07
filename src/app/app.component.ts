@@ -6,6 +6,8 @@ import {AuthService} from '../providers/auth-service';
 import {AndroidFullScreen} from '@ionic-native/android-full-screen';
 import {CacheService} from "ionic-cache";
 import {ImgcacheService} from '../global/services';
+import {AppVersion} from '@ionic-native/app-version';
+
 import * as $ from 'jquery';
 declare var google: any;
 
@@ -15,6 +17,7 @@ declare var google: any;
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
     rootPage: any = 'PreloaderPage';
+    versionApp: any = "1.0.1";
 
     pages: Array<{ title: string, component: any, method?: any }>;
 
@@ -26,6 +29,7 @@ export class MyApp {
         public androidFullScreen: AndroidFullScreen,
         public menuCtrl: MenuController,
         public imgcacheService: ImgcacheService,
+        public appVersion: AppVersion,
         public cache: CacheService) {
         this.pages = [
             { title: "Inicio", component: "HomePage"},
@@ -38,6 +42,7 @@ export class MyApp {
             { title: 'Mi Perfil', component: 'ProfilePage'},
             { title: 'Cerrar Sesión', component: 'LoginPage', method: 'logout'}
         ];
+
         google.charts.load("current", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(this.initializeApp());
     }

@@ -1,15 +1,15 @@
 webpackJsonp([2],{
 
-/***/ 747:
+/***/ 749:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProveedorPageModule", function() { return ProveedorPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileDetallePageModule", function() { return ProfileDetallePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__proveedor__ = __webpack_require__(768);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_shared_module__ = __webpack_require__(396);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profile_detalle__ = __webpack_require__(769);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_shared_module__ = __webpack_require__(397);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,31 +20,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var ProveedorPageModule = /** @class */ (function () {
-    function ProveedorPageModule() {
+var ProfileDetallePageModule = /** @class */ (function () {
+    function ProfileDetallePageModule() {
     }
-    ProveedorPageModule = __decorate([
+    ProfileDetallePageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__proveedor__["a" /* ProveedorPage */],
+                __WEBPACK_IMPORTED_MODULE_2__profile_detalle__["a" /* ProfileDetallePage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__proveedor__["a" /* ProveedorPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__profile_detalle__["a" /* ProfileDetallePage */]),
                 __WEBPACK_IMPORTED_MODULE_3__app_shared_module__["a" /* SharedModule */]
             ],
             exports: [
-                __WEBPACK_IMPORTED_MODULE_2__proveedor__["a" /* ProveedorPage */]
+                __WEBPACK_IMPORTED_MODULE_2__profile_detalle__["a" /* ProfileDetallePage */]
             ]
         })
-    ], ProveedorPageModule);
-    return ProveedorPageModule;
+    ], ProfileDetallePageModule);
+    return ProfileDetallePageModule;
 }());
 
-//# sourceMappingURL=proveedor.module.js.map
+//# sourceMappingURL=profile-detalle.module.js.map
 
 /***/ }),
 
-/***/ 750:
+/***/ 754:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -74,120 +74,134 @@ var ProtectedPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 752:
+/***/ 755:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return proveedorModel; });
-var proveedorModel = {
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ferreteriaModel; });
+var ferreteriaModel = {
     _id: "",
     _rev: "",
-    isActive: true,
+    isActive: false,
     nombre: "",
     indicadores: {
         info: {
             date: "",
         },
-        ivp: {
+        nps: {
+            locales: [{
+                    nombre_local: "",
+                    rango_fecha: {
+                        primera: "",
+                        segunda: ""
+                    },
+                    total: 0,
+                    p: 0,
+                    d: 0,
+                    n: 0
+                }]
+        },
+        ivs: {
             puntaje: 0,
             tendencia: "",
-            ranking: 0,
-            compromiso: 0,
-            compromiso_tendencia: "",
-            cobertura: 0,
-            cobertura_tendencia: "",
-            dispersion: 0,
-            dispersion_tendencia: "",
-            plazos_pago: 0,
-            plazos_pago_tendencia: "",
-            fill_rate: 0,
-            fill_rate_tendencia: "",
-            desviacion: 0,
-            desviacion_tendencia: "",
+            tamano: 0,
+            tamano_tendencia: "",
+            penetracion: 0,
+            penetracion_tendencia: "",
+            crecimiento: 0,
+            crecimiento_tendencia: "",
+            credito: 0,
+            credito_tendencia: "",
+            participacion: 0,
+            participacion_tendencia: "",
         },
-        cobertura: {
-            totales: {
-                total: 0,
-                norte: 0,
-                centro: 0,
-                sur: 0
+        orden_compra: {
+            valor: 0,
+            nacional: 0,
+            stock_mts: 0,
+            importacion: 0
+        },
+        compras: {
+            valor: 0,
+            variacion: {
+                mes: "",
+                mes_indicador: 0,
             },
-            periodos: {
-                30: {
-                    total: 0,
-                    norte: 0,
-                    centro: 0,
-                    sur: 0
-                },
-                60: {
-                    total: 0,
-                    norte: 0,
-                    centro: 0,
-                    sur: 0
-                },
-                90: {
-                    total: 0,
-                    norte: 0,
-                    centro: 0,
-                    sur: 0
-                }
-            }
+            fechas: [{
+                    mes: "",
+                    periodos: {
+                        actual: 0,
+                        anterior: 0
+                    }
+                }, {
+                    mes: "",
+                    periodos: {
+                        actual: 0,
+                        anterior: 0
+                    }
+                }]
         },
-        ventas_acumuladas: 0,
-        rapel_rebate: {
-            title: "",
-            rapel: 0,
-            rapel_porcentual: 0,
-            rebate: 0,
-            rebate_porcentual: 0
+        facturacion: {
+            valor: 0,
+            factura: 0,
+            factura_tendencia: "neutro",
+            nota_credito: 0,
+            nota_credito_tendencia: "neutro",
+            solicitud_nc: 0,
+            solicitud_nc_tendencia: "neutro"
         },
         ventas: {
             valor: 0,
-            totales: {
-                min: 0,
-                max: 0
+            variacion: {
+                mes: "",
+                mes_indicador: 0,
             },
-            fechas: [
-                {
-                    mes: "Octubre",
+            fechas: [{
+                    mes: "",
                     periodos: {
                         actual: 0,
                         anterior: 0
                     }
-                },
-                {
-                    mes: "Nombre Mes",
+                }, {
+                    mes: "",
                     periodos: {
                         actual: 0,
                         anterior: 0
                     }
-                }
-            ]
+                }]
+        },
+        rapel_rebate: {
+            ranking: 0,
+            tendencia: "neutro",
+            rapel: 0,
+            rapel_indicador: 0,
+            rebate: 0,
+            rebate_indicador: 0,
+            proyectado: 0,
+            proyectado_indicador: 0
         }
     },
     _attachments: ""
 };
-//# sourceMappingURL=proveedor.model.js.map
+//# sourceMappingURL=ferreteria.model.js.map
 
 /***/ }),
 
-/***/ 768:
+/***/ 769:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProveedorPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProfileDetallePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_keyboard__ = __webpack_require__(403);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__protected_page_protected_page__ = __webpack_require__(750);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_auth_service__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__models_proveedor_model__ = __webpack_require__(752);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_proveedores_service__ = __webpack_require__(400);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_productos_service__ = __webpack_require__(401);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_config__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_jquery__ = __webpack_require__(398);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_call_number__ = __webpack_require__(403);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_email_composer__ = __webpack_require__(404);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_ferreteria_model__ = __webpack_require__(755);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__protected_page_protected_page__ = __webpack_require__(754);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_users_service__ = __webpack_require__(400);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_ferreterias_service__ = __webpack_require__(398);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_config__ = __webpack_require__(38);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -217,490 +231,107 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
-var ProveedorPage = /** @class */ (function (_super) {
-    __extends(ProveedorPage, _super);
-    function ProveedorPage(navCtrl, navParams, menuCtrl, storage, appCtrl, authService, proveedoresService, productosService, keyboard) {
+var ProfileDetallePage = /** @class */ (function (_super) {
+    __extends(ProfileDetallePage, _super);
+    function ProfileDetallePage(navCtrl, navParams, menuCtrl, storage, appCtrl, toastCtrl, alertCtrl, callNumber, emailComposer, usersService, ferreteriasService) {
         var _this = _super.call(this, navCtrl, navParams, storage, appCtrl) || this;
         _this.navCtrl = navCtrl;
         _this.navParams = navParams;
         _this.menuCtrl = menuCtrl;
         _this.storage = storage;
         _this.appCtrl = appCtrl;
-        _this.authService = authService;
-        _this.proveedoresService = proveedoresService;
-        _this.productosService = productosService;
-        _this.keyboard = keyboard;
-        _this.proveedor = __WEBPACK_IMPORTED_MODULE_6__models_proveedor_model__["a" /* proveedorModel */];
-        _this.id_ferreteria = "1";
-        _this.attachments = [];
-        _this.term = '';
-        _this.mostrarProveedores = false;
-        _this.indicadorGral = {
-            total: 0,
-            norte: 0,
-            centro: 0,
-            sur: 0
-        };
+        _this.toastCtrl = toastCtrl;
+        _this.alertCtrl = alertCtrl;
+        _this.callNumber = callNumber;
+        _this.emailComposer = emailComposer;
+        _this.usersService = usersService;
+        _this.ferreteriasService = ferreteriasService;
+        _this.ferreteria = __WEBPACK_IMPORTED_MODULE_5__models_ferreteria_model__["a" /* ferreteriaModel */];
+        _this.user = [];
         _this.cfg = __WEBPACK_IMPORTED_MODULE_9__app_config__["a" /* cfg */];
-        _this.proveedor = _this.navParams.get('proveedor');
+        _this.user = _this.navParams.get('user');
         return _this;
     }
-    ProveedorPage.prototype.ionViewDidLoad = function () {
+    ProfileDetallePage.prototype.ionViewDidLoad = function () {
         var _this = this;
-        if (this.proveedor === undefined || this.proveedor === null) {
-            this.navCtrl.setRoot('ProveedoresPage');
+        if (this.user === undefined || this.user === null) {
+            this.navCtrl.setRoot('AgendaPage');
         }
         else {
-            this.proveedoresService.getOne(this.proveedor._id).then(function (proveedor) {
-                _this.proveedor = proveedor;
-                if (_this.proveedor._attachments) {
-                    _this.attachments = Object.keys(_this.proveedor._attachments);
-                    _this.logoProveedor = _this.cfg.apiUrl + '/proveedores/' + _this.proveedor._id + '/' + _this.attachments[0];
-                    _this.attachments.shift();
-                }
-                _this.storage.get("id_ferreteria").then(function (theID) {
-                    _this.id_ferreteria = theID;
-                    _this.dateUpdate = new Date(_this.proveedor.indicadores.info.date);
-                    _this.thisYear = _this.dateUpdate.getFullYear();
-                    _this.lastYear = _this.dateUpdate.getFullYear() - 1;
-                    _this.proveedoresService.getAll(_this.id_ferreteria).then(function (datosProveedores) {
-                        _this.proveedores = datosProveedores;
-                        _this.proveedoresFiltered = _this.proveedores;
-                    });
-                    _this.productosService.getTop(_this.proveedor._id).then(function (datosProductos) {
-                        _this.productosTop = datosProductos;
-                        console.log(_this.productosTop);
-                    });
-                    _this.drawCharts('30');
-                });
+            this.ferreteriasService.getOne(this.user.id_ferreteria).then(function (datosFerreteria) {
+                _this.ferreteria = datosFerreteria;
+                var attachments = Object.keys(_this.ferreteria._attachments);
+                _this.logoFerreteria = attachments[0];
             });
-        }
-    };
-    ProveedorPage.prototype.searchFn = function (ev) {
-        var _this = this;
-        this.term = ev.target.value;
-        if (this.term) {
-            this.proveedoresFiltered = this.proveedores.filter(function (proveedor) {
-                return (proveedor.doc.nombre.toLowerCase().indexOf(_this.term.toLowerCase()) > -1);
-            });
-            this.mostrarProveedores = true;
-        }
-        else {
-            this.proveedoresFiltered = this.proveedores;
-        }
-    };
-    ProveedorPage.prototype.searchSubmit = function () {
-        var ev = {
-            "target": {
-                "value": this.term
+            this.userType = this.user.type;
+            if (this.userType == "corporativo") {
+                this.userType = "socio";
             }
-        };
-        this.searchFn(ev);
-        this.keyboard.close();
+        }
     };
-    ProveedorPage.prototype.drawCharts = function (month) {
-        var parent = this;
-        google.charts.setOnLoadCallback(chartTotal(month));
-        google.charts.setOnLoadCallback(chartNorte(month));
-        google.charts.setOnLoadCallback(chartCentro(month));
-        google.charts.setOnLoadCallback(chartSur(month));
-        google.charts.setOnLoadCallback(chartVentas());
-        function chartTotal(month) {
-            var totalChart = new google.visualization.PieChart(document.getElementById('periodo_donutChart_total'));
-            var indicador = parent.proveedor.indicadores.cobertura.periodos[eval(month)].total;
-            parent.indicadorGral.total = indicador;
-            var nulo = parent.proveedor.indicadores.cobertura.totales.total;
-            var data_total = google.visualization.arrayToDataTable([
-                ['indicador', 'valor'],
-                ['Total', 0],
-                ['nulo', nulo],
-            ]);
-            var options_total = {
-                pieHole: 0.8,
-                backgroundColor: '#F5F5F5',
-                colors: ['#EF452B', '#DADBDF'],
-                chartArea: {
-                    left: '0%',
-                    top: '10%',
-                    width: '70%',
-                    height: '80%'
-                },
-                animation: {
-                    startup: true,
-                    duration: 1000,
-                    easing: 'in',
-                },
-                enableInteractivity: false,
-                legend: {
-                    position: 'none'
-                },
-                pieSliceText: 'none',
-                pieSliceBorderColor: '#F5F5F5',
-            };
-            totalChart.draw(data_total, options_total);
-            var counter = 0;
-            var resta;
-            var indicadorMulti;
-            var handler = setInterval(function () {
-                resta = nulo - indicador * counter;
-                indicadorMulti = indicador * counter;
-                if (resta < 0) {
-                    resta = 0;
-                }
-                if (indicador < 0) {
-                    indicador = 0;
-                }
-                data_total = google.visualization.arrayToDataTable([
-                    ['indicador', 'valor'],
-                    ['Total', indicadorMulti],
-                    ['nulo', resta],
-                ]);
-                counter = counter + 0.1;
-                counter = Math.round(counter * 10) / 10;
-                if (counter >= 1) {
-                    clearInterval(handler);
-                    data_total = google.visualization.arrayToDataTable([
-                        ['indicador', 'valor'],
-                        ['Total', indicador],
-                        ['nulo', nulo - indicador],
-                    ]);
-                }
-                totalChart.draw(data_total, options_total);
-            }, 10);
-        }
-        function chartNorte(month) {
-            var norteChart = new google.visualization.PieChart(document.getElementById('periodo_donutChart_norte'));
-            var indicador = parent.proveedor.indicadores.cobertura.periodos[eval(month)].norte;
-            parent.indicadorGral.norte = indicador;
-            var nulo = parent.proveedor.indicadores.cobertura.totales.norte;
-            var data_norte = google.visualization.arrayToDataTable([
-                ['indicador', 'valor'],
-                ['Norte', 0],
-                ['nulo', nulo],
-            ]);
-            var options_norte = {
-                pieHole: 0.8,
-                backgroundColor: '#F5F5F5',
-                colors: ['#FFC12D', '#DADBDF'],
-                chartArea: {
-                    left: '0%',
-                    top: '10%',
-                    width: '70%',
-                    height: '80%'
-                },
-                animation: {
-                    startup: true,
-                    duration: 1000,
-                    easing: 'in',
-                },
-                enableInteractivity: false,
-                legend: {
-                    position: 'none'
-                },
-                pieSliceText: 'none',
-                pieSliceBorderColor: '#F5F5F5',
-            };
-            norteChart.draw(data_norte, options_norte);
-            var counter = 0;
-            if (nulo < 0)
-                nulo = 0;
-            var resta;
-            var handler = setInterval(function () {
-                resta = nulo - indicador * counter;
-                if (resta < 0) {
-                    resta = 0;
-                }
-                ;
-                data_norte = google.visualization.arrayToDataTable([
-                    ['indicador', 'valor'],
-                    ['Norte', indicador * counter],
-                    ['nulo', nulo],
-                ]);
-                counter = counter + 0.1;
-                counter = Math.round(counter * 10) / 10;
-                if (counter >= 1) {
-                    clearInterval(handler);
-                    data_norte = google.visualization.arrayToDataTable([
-                        ['indicador', 'valor'],
-                        ['Norte', indicador],
-                        ['nulo', nulo - indicador],
-                    ]);
-                }
-                norteChart.draw(data_norte, options_norte);
-            }, 10);
-        }
-        function chartCentro(month) {
-            var centroChart = new google.visualization.PieChart(document.getElementById('periodo_donutChart_centro'));
-            var indicador = parent.proveedor.indicadores.cobertura.periodos[eval(month)].centro;
-            parent.indicadorGral.centro = indicador;
-            var nulo = parent.proveedor.indicadores.cobertura.totales.centro;
-            var data_centro = google.visualization.arrayToDataTable([
-                ['indicador', 'valor'],
-                ['Centro', 0],
-                ['nulo', nulo],
-            ]);
-            var options_centro = {
-                pieHole: 0.8,
-                backgroundColor: '#F5F5F5',
-                colors: ['#4A90E2', '#DADBDF'],
-                chartArea: {
-                    left: '0%',
-                    top: '10%',
-                    width: '70%',
-                    height: '80%'
-                },
-                animation: {
-                    startup: true,
-                    duration: 1000,
-                    easing: 'in',
-                },
-                enableInteractivity: false,
-                legend: {
-                    position: 'none'
-                },
-                pieSliceText: 'none',
-                pieSliceBorderColor: '#F5F5F5',
-            };
-            centroChart.draw(data_centro, options_centro);
-            var counter = 0;
-            if (nulo < 0)
-                nulo = 0;
-            var resta;
-            var handler = setInterval(function () {
-                resta = nulo - indicador * counter;
-                if (resta < 0) {
-                    resta = 0;
-                }
-                ;
-                data_centro = google.visualization.arrayToDataTable([
-                    ['indicador', 'valor'],
-                    ['Centro', indicador * counter],
-                    ['nulo', resta],
-                ]);
-                counter = counter + 0.1;
-                counter = Math.round(counter * 10) / 10;
-                if (counter > 1) {
-                    clearInterval(handler);
-                    data_centro = google.visualization.arrayToDataTable([
-                        ['indicador', 'valor'],
-                        ['Centro', indicador],
-                        ['nulo', nulo - indicador],
-                    ]);
-                }
-                centroChart.draw(data_centro, options_centro);
-            }, 10);
-        }
-        function chartSur(month) {
-            var surChart = new google.visualization.PieChart(document.getElementById('periodo_donutChart_sur'));
-            var indicador = parent.proveedor.indicadores.cobertura.periodos[eval(month)].sur;
-            parent.indicadorGral.sur = indicador;
-            var nulo = parent.proveedor.indicadores.cobertura.totales.sur;
-            var data_sur = google.visualization.arrayToDataTable([
-                ['indicador', 'valor'],
-                ['Sur', 0],
-                ['nulo', nulo],
-            ]);
-            var options_sur = {
-                pieHole: 0.8,
-                backgroundColor: '#F5F5F5',
-                colors: ['#52831D', '#DADBDF'],
-                chartArea: {
-                    left: '0%',
-                    top: '10%',
-                    width: '70%',
-                    height: '80%'
-                },
-                animation: {
-                    startup: true,
-                    duration: 1000,
-                    easing: 'in',
-                },
-                enableInteractivity: false,
-                legend: {
-                    position: 'none'
-                },
-                pieSliceText: 'none',
-                pieSliceBorderColor: '#F5F5F5',
-            };
-            surChart.draw(data_sur, options_sur);
-            var counter = 0;
-            if (nulo < 0)
-                nulo = 0;
-            var resta;
-            var handler = setInterval(function () {
-                resta = nulo - indicador;
-                if (resta < 0) {
-                    resta = 0;
-                }
-                ;
-                data_sur = google.visualization.arrayToDataTable([
-                    ['indicador', 'valor'],
-                    ['Sur', indicador * counter],
-                    ['nulo', resta],
-                ]);
-                counter = counter + 0.1;
-                counter = Math.round(counter * 10) / 10;
-                if (counter > 1) {
-                    clearInterval(handler);
-                    data_sur = google.visualization.arrayToDataTable([
-                        ['indicador', 'valor'],
-                        ['Sur', indicador],
-                        ['nulo', nulo - indicador],
-                    ]);
-                }
-                surChart.draw(data_sur, options_sur);
-            }, 10);
-        }
-        function chartVentas() {
-            var chart_ventas = new google.visualization.BarChart(document.getElementById('ventas_barChart'));
-            var data_ventas = new google.visualization.DataTable();
-            parent.dataVentas = parent.proveedor.indicadores.ventas.fechas;
-            data_ventas.addColumn('string', ' ');
-            data_ventas.addColumn('number', parent.lastYear);
-            data_ventas.addColumn('number', parent.thisYear);
-            var optionsVentas = {
-                backgroundColor: "#F5F5F5",
-                colors: ['#4890E2', '#E50201'],
-                chartArea: {
-                    backgroundColor: "#F5F5F5",
-                    left: '30%',
-                    top: '0%',
-                    width: '70%',
-                    height: '90%',
-                },
-                focusTarget: 'category',
-                bars: 'horizontal',
-                bar: { groupWidth: "40px" },
-                enableInteractivity: true,
-                legend: { position: 'none' },
-                tooltip: {
-                    isHtml: true,
-                },
-                textStyle: {
-                    color: '#000001',
-                    fontSize: 12,
-                    bold: true,
-                },
-                vAxis: {
-                    viewWindowMode: 'pretty',
-                    format: 'short',
-                    textStyle: {
-                        color: '#000000',
-                        fontSize: 14,
-                        bold: true,
-                    },
-                },
-                hAxis: {
-                    viewWindowMode: 'pretty',
-                    minValue: 0,
-                    baseline: 0,
-                    textStyle: {
-                        color: '#000001',
-                        fontSize: 12,
-                        bold: true,
-                    },
-                    gridlines: {
-                        count: 6,
-                        color: "#D9DADB"
-                    },
-                    minorGridlines: {
-                        count: 0
-                    }
-                },
-                animation: {
-                    startup: true,
-                    duration: 1000,
-                    easing: 'in',
-                },
-            };
-            var numMax = parent.dataVentas.length;
-            Object.keys(parent.dataVentas).forEach(function (key) {
-                var mes = parent.dataVentas[key].mes;
-                var periodoAnterior = parent.dataVentas[key].periodos.anterior;
-                var periodoActual = parent.dataVentas[key].periodos.actual;
-                if (data_ventas.getNumberOfRows() < 3) {
-                    data_ventas.addRow([mes, periodoAnterior, periodoActual]);
-                }
+    ProfileDetallePage.prototype.callToContact = function (user) {
+        if (user.phonenum) {
+            var success_1 = this.toastCtrl.create({
+                message: 'Llamando al contacto',
+                duration: 3000,
+                position: 'bottom',
+                closeButtonText: "OK"
             });
-            function drawVentas() {
-                chart_ventas.draw(data_ventas, optionsVentas);
+            var failed_1 = this.toastCtrl.create({
+                message: 'Ha ocurrido un problema al intentar llamar el contacto',
+                duration: 4000,
+                position: 'bottom',
+                closeButtonText: "OK"
+            });
+            this.callNumber.callNumber(user.phonenum, true).then(function () {
+                return success_1.present();
+            }).catch(function () {
+                return failed_1.present();
+            });
+        }
+    };
+    ProfileDetallePage.prototype.mailToContact = function (user) {
+        if (user.email) {
+            var failed = this.toastCtrl.create({
+                message: 'Ha ocurrido un problema al intentar enviar el correo',
+                duration: 4000,
+                position: 'bottom',
+                closeButtonText: "OK"
+            });
+            if (window.cordova) {
+                var email = {
+                    to: user.email,
+                    subject: 'Mensaje desde App SociosMTS',
+                    body: 'Estimado: ¿Cómo se encuentra?',
+                    isHtml: true
+                };
+                this.emailComposer.open(email);
             }
-            drawVentas();
-            var addVentasButton = document.getElementById('ventasAdd');
-            var ableToClick = true;
-            addVentasButton.onclick = function () {
-                if (ableToClick) {
-                    ableToClick = false;
-                    if (data_ventas.getNumberOfRows() < numMax) {
-                        data_ventas.addRow([parent.dataVentas[data_ventas.getNumberOfRows()].mes, parent.dataVentas[data_ventas.getNumberOfRows()].periodos.anterior, parent.dataVentas[data_ventas.getNumberOfRows()].periodos.actual]);
-                        var alturaActual = __WEBPACK_IMPORTED_MODULE_10_jquery__("#ventas_barChart").outerHeight(true);
-                        __WEBPACK_IMPORTED_MODULE_10_jquery__("#ventas_barChart").animate({
-                            height: alturaActual + 30
-                        }, 300, function () {
-                            drawVentas();
-                            ableToClick = true;
-                        });
-                    }
-                    if (data_ventas.getNumberOfRows() >= numMax) {
-                        __WEBPACK_IMPORTED_MODULE_10_jquery__("#ventasAdd").stop().fadeOut(300);
-                    }
-                }
-            };
+            else {
+                failed.present();
+            }
         }
     };
-    ProveedorPage.prototype.openPage = function (page, proveedorData) {
-        this.navCtrl.pop({ animate: false });
-        this.navCtrl.push(page, {
-            proveedor: proveedorData.doc
-        });
-    };
-    ProveedorPage.prototype.mostrarLista = function () {
-        if (this.mostrarProveedores) {
-            this.mostrarProveedores = false;
-        }
-        else {
-            this.mostrarProveedores = true;
-        }
-    };
-    ProveedorPage.prototype.changeMonth = function (month) {
-        this.drawCharts(month);
-        __WEBPACK_IMPORTED_MODULE_10_jquery__(".botonesPeriodo button.inContent").removeClass("active");
-        __WEBPACK_IMPORTED_MODULE_10_jquery__(".botonesPeriodo button.inContent").removeClass("inactive");
-        __WEBPACK_IMPORTED_MODULE_10_jquery__(".botonesPeriodo button.inContent").addClass("inactive");
-        switch (month) {
-            case '30':
-                __WEBPACK_IMPORTED_MODULE_10_jquery__("#mes30").removeClass("inactive");
-                __WEBPACK_IMPORTED_MODULE_10_jquery__("#mes30").addClass("active");
-                break;
-            case '60':
-                __WEBPACK_IMPORTED_MODULE_10_jquery__("#mes60").removeClass("inactive");
-                __WEBPACK_IMPORTED_MODULE_10_jquery__("#mes60").addClass("active");
-                break;
-            case '90':
-                __WEBPACK_IMPORTED_MODULE_10_jquery__("#mes90").removeClass("inactive");
-                __WEBPACK_IMPORTED_MODULE_10_jquery__("#mes90").addClass("active");
-                break;
-        }
-    };
-    ProveedorPage = __decorate([
+    ProfileDetallePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-proveedor',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/proveedor/proveedor.html"*/'<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />\n        <button ion-button menuToggle right>\n            <div class="navicon-button x">\n                <div class="navicon"></div>\n            </div>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content class="contentInterior" *ngIf="proveedor">\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <h1 class="text-center uppercase">Proveedores</h1>\n            </ion-col>\n        </ion-row>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <div class="text-center" *ngIf="logoProveedor">\n                    <lazy-img class="logoRounded" inputSrc="{{logoProveedor}}"></lazy-img>\n                </div>\n                <h4 class="text-center capitalize">{{proveedor.nombre}}</h4>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-row padding-right padding-left justify-content-around>\n                <ion-col col-10 col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                    <form (ngSubmit)="searchSubmit()">\n                        <ion-searchbar class="buscador" animated="true" cancelButtonText="Cancelar" showCancelButton="false" placeholder="Buscar Proveedores" type="text" (ionInput)="searchFn($event)" (search)="searchSubmit($event)"></ion-searchbar>\n                        <button class="button button-clear" type="submit">Buscar Proveedores</button>\n                    </form>\n                </ion-col>\n                <ion-col col-2 col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                    <button class="button dropdownProveedor" (click)="mostrarLista();" ion-button icon-only>\n                        <ion-icon class="icon" [class.active]="mostrarProveedores" name="ios-arrow-up"></ion-icon>\n                        <ion-icon class="icon" [class.active]="!mostrarProveedores" name="ios-arrow-down"></ion-icon>\n                    </button>\n                </ion-col>\n            </ion-row>\n        </ion-row>\n    </ion-grid>\n    <ion-scroll class="containerProveedores" [class.active]="mostrarProveedores" scrollY="true">\n        <ion-list class="proveedores" *ngFor="let proveedorList of proveedoresFiltered">\n            <ion-item class="proveedor" padding-top padding-bottom (click)="openPage(\'ProveedorPage\', proveedorList);">\n                <ion-row padding-right padding-left justify-content-around>\n                    <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                        <h2 class="titleProveedor">\n                            {{proveedorList.doc.nombre}}\n                        </h2>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n        </ion-list>\n    </ion-scroll>\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <accordion-list class="no-margin" title="IVP" subtitle=""  valor="" desplegable="true" maxHeight="2720" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">\n                    <div class="chartIndi">\n                        <div class="title text-center center">\n                            <h3 class="small capitalize normalLetter">Ranking <span class="ranking {{proveedor.indicadores.ivp.tendencia}}">{{proveedor.indicadores.ivp.ranking}}</span> <span class="separadorVertical"></span> <span class="large">{{proveedor.indicadores.ivp.puntaje}}%</span></h3>\n                        </div>\n                        <ion-list margin-top class="indicadores">\n                            <ion-item no-lines class="indicador">\n                                <div class="indicadorBullet {{proveedor.indicadores.ivp.compromiso_tendencia}}"></div>\n                                <span class="title">Compromiso</span>\n                                <span class="valor">{{proveedor.indicadores.ivp.compromiso}}</span>\n                            </ion-item>\n                            <ion-item no-lines class="indicador">\n                                <div class="indicadorBullet {{proveedor.indicadores.ivp.cobertura_tendencia}}"></div>\n                                <span class="title">Cobertura</span>\n                                <span class="valor">{{proveedor.indicadores.ivp.cobertura}}</span>\n                            </ion-item>\n                            <ion-item no-lines class="indicador">\n                                <div class="indicadorBullet {{proveedor.indicadores.ivp.dispersion_tendencia}}"></div>\n                                <span class="title">Dispersión</span>\n                                <span class="valor">{{proveedor.indicadores.ivp.dispersion}}</span>\n                            </ion-item>\n                            <ion-item no-lines class="indicador">\n                                <div class="indicadorBullet {{proveedor.indicadores.ivp.plazos_pago_tendencia}}"></div>\n                                <span class="title">Plazos de Pago</span>\n                                <span class="valor">{{proveedor.indicadores.ivp.plazos_pago}}</span>\n                            </ion-item>\n                            <ion-item no-lines class="indicador">\n                                <div class="indicadorBullet {{proveedor.indicadores.ivp.fill_rate_tendencia}}"></div>\n                                <span class="title">Fill Rate</span>\n                                <span class="valor">{{proveedor.indicadores.ivp.fill_rate}}</span>\n                            </ion-item>\n                            <ion-item no-lines class="indicador">\n                                <div class="indicadorBullet {{proveedor.indicadores.ivp.desviacion_tendencia}}"></div>\n                                <span class="title">Desviación</span>\n                                <span class="valor">{{proveedor.indicadores.ivp.desviacion}}</span>\n                            </ion-item>\n                        </ion-list>\n                    </div>\n                </accordion-list>\n            </ion-col>\n        </ion-row>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <accordion-list class="no-margin" title="Cobertura" subtitle=""  valor="" desplegable="true" maxHeight="2720" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">\n                    <div class="chartProv">\n                        <div class="title text-center center">\n                            <h3 class="small capitalize normalLetter">Período Móvil</h3>\n                        </div>\n                    </div>\n                    <ion-grid>\n                        <div class="no-padding botonesPeriodo">\n                            <ion-row padding-right padding-left justify-content-around>\n                                <ion-col col-sm-4 col-md-4 col-lg-4 col-xl-3 align-self-center>\n                                    <button id="mes30" class="inContent minPadding fullWidth active" ion-button round large (click)="changeMonth(\'30\');">30 Días</button>\n                                </ion-col>\n                                <ion-col col-sm-4 col-md-4 col-lg-4 col-xl-3 align-self-center>\n                                    <button id="mes60" class="inContent minPadding fullWidth inactive" ion-button round large (click)="changeMonth(\'60\');">60 Días</button>\n                                </ion-col>\n                                <ion-col col-sm-4 col-md-4 col-lg-4 col-xl-3 align-self-center>\n                                    <button id="mes90" class="inContent minPadding fullWidth inactive" ion-button round large (click)="changeMonth(\'90\');">90 Días</button>\n                                </ion-col>\n                            </ion-row>\n                            <ion-row padding-right padding-left justify-content-around>\n                                <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                                    <div class="chartNPS">\n                                        <div class="periodoChart">\n                                            <div id="periodo_donutChart_total"></div>\n                                            <div class="legendChart">\n                                                <div class="stadisticsChart">\n                                                    <div class="indicador">Total</div>\n                                                </div>\n                                                <div class="centeredChart">\n                                                    {{indicadorGral.total}}\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class="periodoChart">\n                                            <div id="periodo_donutChart_norte"></div>\n                                            <div class="legendChart">\n                                                <div class="stadisticsChart">\n                                                    <div class="indicador">Zona Norte</div>\n                                                </div>\n                                                <div class="centeredChart">\n                                                    {{indicadorGral.norte}}\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class="periodoChart">\n                                            <div id="periodo_donutChart_centro"></div>\n                                            <div class="legendChart">\n                                                <div class="stadisticsChart">\n                                                    <div class="indicador">Zona Centro</div>\n                                                </div>\n                                                <div class="centeredChart">\n                                                    {{indicadorGral.centro}}\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class="periodoChart">\n                                            <div id="periodo_donutChart_sur"></div>\n                                            <div class="legendChart">\n                                                <div class="stadisticsChart">\n                                                    <div class="indicador">Zona Sur</div>\n                                                </div>\n                                                <div class="centeredChart">\n                                                    {{indicadorGral.sur}}\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </ion-col>\n                            </ion-row>\n                        </div>\n                    </ion-grid>\n                </accordion-list>\n            </ion-col>\n        </ion-row>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <accordion-list class="no-margin" title="Venta Acum." subtitle=""  valor="" desplegable="true" maxHeight="2720" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">\n                    <div class="chartIndi">\n                        <div class="title text-center center">\n                            <h2 class="small capitalize normalLetter">$ {{proveedor.indicadores.ventas_acumuladas}}</h2>\n                        </div>\n                    </div>\n                </accordion-list>\n            </ion-col>\n        </ion-row>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <accordion-list class="no-margin" title="Rapel y Rebate" subtitle=""  valor="" desplegable="true" maxHeight="200" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">\n                    <div class="chartIndi normalLetter">\n                        <h3 class="noTransform">{{proveedor.indicadores.rapel_rebate.title}}</h3>\n                        <h4 class="capitalize"><span class="addSpacing">Rapel:</span> MM$: {{proveedor.indicadores.rapel_rebate.rapel}} - {{proveedor.indicadores.rapel_rebate.rapel_porcentual}}%</h4>\n                        <h4 class="capitalize"><span class="addSpacing">Rebate:</span> MM$: {{proveedor.indicadores.rapel_rebate.rebate}} - {{proveedor.indicadores.rapel_rebate.rebate_porcentual}}%</h4>\n                    </div>\n                </accordion-list>\n            </ion-col>\n        </ion-row>\n        <div padding>\n            <ion-row justify-content-around>\n                <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                    <div class="bloqueBlanco">\n                        <h1 margin-top class="welcome">Más comprados por la red</h1>\n                        <ion-list margin-top class="productosTop">\n                            <ion-item no-lines class="producto no-padding" *ngFor="let producto of productosTop">\n                                <ion-row padding-right padding-left justify-content-around [class.adquirido]="producto.doc.adquirido" *ngIf="producto.doc.isActive">\n                                    <ion-col col-5 col-sm-5 col-md-4 col-lg-4 col-xl-3 align-self-center>\n                                        <div class="imagenProducto text-center center" *ngIf="producto.doc._attachments">\n                                            <div *ngFor="let attachment of producto.doc._attachments | keys; index as i">\n                                                <lazy-img inputSrc="{{cfg.apiUrl}}/productos_top/{{producto.doc._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>\n                                            </div>\n                                        </div>\n                                    </ion-col>\n                                    <ion-col col-7 col-sm-7 col-md-8 col-lg-4 col-xl-3 align-self-center>\n                                        <div class="infoProducto">\n                                            <h2>{{producto.doc.nombre}}</h2>\n                                            <h3>SKU {{producto.doc.sku}}</h3>\n                                            <p class="noAdquirido" *ngIf="!producto.doc.adquirido">Aún no lo has adquirido</p>\n                                            <p *ngIf="producto.doc.adquirido">Ya lo adquiriste</p>\n                                        </div>\n                                    </ion-col>\n                                </ion-row>\n                            </ion-item>\n                        </ion-list>\n                    </div>\n                </ion-col>\n            </ion-row>\n        </div>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <accordion-list class="no-margin" title="Ventas" subtitle="{{proveedor.indicadores.ventas.fechas[0].mes | slice : 0:3 }}. {{proveedor.indicadores.ventas.valor}} MM$" desplegable="true" masMeses="true" masMesesButton="ventasAdd" maxHeight="1200" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">\n                    <div class="chartCompras">\n                        <h2 class="small capitalize normalLetter">Ventas en MM$</h2>\n                        <div id="ventas_barChart"></div>\n                    </div>\n                </accordion-list>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/proveedor/proveedor.html"*/,
+            selector: 'page-profile-detalle',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/profile-detalle/profile-detalle.html"*/'<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />\n        <button ion-button menuToggle right>\n            <div class="navicon-button x">\n                <div class="navicon"></div>\n            </div>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content padding class="contentInterior" *ngIf="user">\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <h1 class="text-center uppercase">Agenda</h1>\n            </ion-col>\n        </ion-row>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <div class="user">\n                    <div margin-top class="photos" *ngIf="userType">\n                        <div class="profilePhoto logoRounded" *ngFor="let attachment of user._attachments | keys; index as i">\n                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/users_{{userType}}s/{{user._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>\n                        </div>\n                        <div class="ferreteriaPhoto logoRounded sinShadow" *ngIf="logoFerreteria">\n                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/ferreterias/{{user.id_ferreteria}}/{{logoFerreteria}}"></lazy-img>\n                        </div>\n                    </div>\n                    <div class="details">\n                        <h2 class="nombre text-center">{{user.name}}</h2>\n                        <h3 margin-top class="small ferreteria">{{user.name_ferreteria}}</h3>\n                        <address class="adress">{{user.direction}}</address>\n                        <h4 class="small region">{{user.region}}</h4>\n                        <h4 class="small cargo">{{user.cargo}}</h4>\n                    </div>\n                    <div class="actions" margin-top>\n                        <ion-list>\n                            <ion-list-header no-lines>Email</ion-list-header>\n                            <ion-item (click)="mailToContact(user)"><ion-icon name="mail" color="primary" item-end></ion-icon>{{user.email}}</ion-item>\n                            <ion-list-header no-lines>Número telefónico</ion-list-header>\n                            <ion-item (click)="callToContact(user)"><ion-icon name="call" color="primary" item-end></ion-icon>{{user.phonenum}}</ion-item>\n                        </ion-list>\n                        <button margin-bottom class="btn-large" center ion-button large>\n                            <span>Enviar un email</span>\n                        </button>\n                        <button class="btn-large" center ion-button large color="call">\n                            <span>Llamar</span>\n                        </button>\n                    </div>\n                </div>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/profile-detalle/profile-detalle.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */],
             __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* App */],
-            __WEBPACK_IMPORTED_MODULE_5__providers_auth_service__["a" /* AuthService */],
-            __WEBPACK_IMPORTED_MODULE_7__providers_proveedores_service__["a" /* ProveedoresService */],
-            __WEBPACK_IMPORTED_MODULE_8__providers_productos_service__["a" /* ProductosService */],
-            __WEBPACK_IMPORTED_MODULE_3__ionic_native_keyboard__["a" /* Keyboard */]])
-    ], ProveedorPage);
-    return ProveedorPage;
-}(__WEBPACK_IMPORTED_MODULE_4__protected_page_protected_page__["a" /* ProtectedPage */]));
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_3__ionic_native_call_number__["a" /* CallNumber */],
+            __WEBPACK_IMPORTED_MODULE_4__ionic_native_email_composer__["a" /* EmailComposer */],
+            __WEBPACK_IMPORTED_MODULE_7__providers_users_service__["a" /* UsersService */],
+            __WEBPACK_IMPORTED_MODULE_8__providers_ferreterias_service__["a" /* FerreteriasService */]])
+    ], ProfileDetallePage);
+    return ProfileDetallePage;
+}(__WEBPACK_IMPORTED_MODULE_6__protected_page_protected_page__["a" /* ProtectedPage */]));
 
-//# sourceMappingURL=proveedor.js.map
+//# sourceMappingURL=profile-detalle.js.map
 
 /***/ })
 

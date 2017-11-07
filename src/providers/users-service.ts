@@ -13,15 +13,15 @@ export class UsersService {
         private authHttp: AuthHttp) {
         this.cfg = AppConfig.cfg;
     }
-    getAll() {
-        return this.authHttp.get(this.cfg.apiUrl + this.cfg.proveedores + '/_all_docs?include_docs=true')
+    getAll(type: string) {
+        return this.authHttp.get(this.cfg.apiUrl + this.cfg.user.users + '_'+ type +'/_all_docs?include_docs=true')
             .toPromise()
             .then(rs => {
-                return rs.json();
+                return rs.json().rows;
             });
     }
     getOne(id: string) {
-        return this.authHttp.get(this.cfg.apiUrl + this.cfg.proveedores + '/' + id)
+        return this.authHttp.get(this.cfg.apiUrl + this.cfg.user.users + '_socios/' + id)
             .toPromise()
             .then(rs => {
                 return rs.json();

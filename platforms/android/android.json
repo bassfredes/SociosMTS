@@ -107,6 +107,22 @@
                         {
                             "xml": "<feature name=\"FileTransfer\"><param name=\"android-package\" value=\"org.apache.cordova.filetransfer.FileTransfer\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"AppVersion\"><param name=\"android-package\" value=\"uk.co.whiteoctober.cordova.AppVersion\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Contacts\"><param name=\"android-package\" value=\"org.apache.cordova.contacts.ContactManager\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"CallNumber\"><param name=\"android-package\" value=\"mx.ferreyra.callnumber.CFCallNumber\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"EmailComposer\"><param name=\"android-package\" value=\"de.appplant.cordova.emailcomposer.EmailComposer\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -163,6 +179,10 @@
                         {
                             "xml": "<uses-feature android:name=\"android.hardware.location.gps\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />",
+                            "count": 1
                         }
                     ],
                     "/*": [
@@ -173,11 +193,35 @@
                         {
                             "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_CONTACTS\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.CALL_PHONE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-feature android:name=\"android.hardware.telephony\" android:required=\"false\" />",
+                            "count": 1
                         }
                     ],
                     "application": [
                         {
                             "xml": "<provider android:authorities=\"${applicationId}.provider\" android:exported=\"false\" android:grantUriPermissions=\"true\" android:name=\"android.support.v4.content.FileProvider\"><meta-data android:name=\"android.support.FILE_PROVIDER_PATHS\" android:resource=\"@xml/provider_paths\" /></provider>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<provider android:authorities=\"${applicationId}.provider\" android:exported=\"false\" android:grantUriPermissions=\"true\" android:name=\"de.appplant.cordova.emailcomposer.EmailComposerProvider\"><meta-data android:name=\"android.support.FILE_PROVIDER_PATHS\" android:resource=\"@xml/emailcomposer_provider_paths\" /></provider>",
                             "count": 1
                         }
                     ]
@@ -243,6 +287,18 @@
             "PACKAGE_NAME": "mitocondria.digital.sociosmts"
         },
         "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "cordova-plugin-app-version": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "cordova-plugin-contacts": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "mx.ferreyra.callnumber": {
+            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        },
+        "cordova-plugin-email-composer": {
             "PACKAGE_NAME": "mitocondria.digital.sociosmts"
         }
     },
@@ -712,6 +768,108 @@
             "clobbers": [
                 "window.FileTransfer"
             ]
+        },
+        {
+            "id": "cordova-plugin-app-version.AppVersionPlugin",
+            "file": "plugins/cordova-plugin-app-version/www/AppVersionPlugin.js",
+            "pluginId": "cordova-plugin-app-version",
+            "clobbers": [
+                "cordova.getAppVersion"
+            ]
+        },
+        {
+            "id": "cordova-plugin-contacts.contacts",
+            "file": "plugins/cordova-plugin-contacts/www/contacts.js",
+            "pluginId": "cordova-plugin-contacts",
+            "clobbers": [
+                "navigator.contacts"
+            ]
+        },
+        {
+            "id": "cordova-plugin-contacts.Contact",
+            "file": "plugins/cordova-plugin-contacts/www/Contact.js",
+            "pluginId": "cordova-plugin-contacts",
+            "clobbers": [
+                "Contact"
+            ]
+        },
+        {
+            "id": "cordova-plugin-contacts.convertUtils",
+            "file": "plugins/cordova-plugin-contacts/www/convertUtils.js",
+            "pluginId": "cordova-plugin-contacts"
+        },
+        {
+            "id": "cordova-plugin-contacts.ContactAddress",
+            "file": "plugins/cordova-plugin-contacts/www/ContactAddress.js",
+            "pluginId": "cordova-plugin-contacts",
+            "clobbers": [
+                "ContactAddress"
+            ]
+        },
+        {
+            "id": "cordova-plugin-contacts.ContactError",
+            "file": "plugins/cordova-plugin-contacts/www/ContactError.js",
+            "pluginId": "cordova-plugin-contacts",
+            "clobbers": [
+                "ContactError"
+            ]
+        },
+        {
+            "id": "cordova-plugin-contacts.ContactField",
+            "file": "plugins/cordova-plugin-contacts/www/ContactField.js",
+            "pluginId": "cordova-plugin-contacts",
+            "clobbers": [
+                "ContactField"
+            ]
+        },
+        {
+            "id": "cordova-plugin-contacts.ContactFindOptions",
+            "file": "plugins/cordova-plugin-contacts/www/ContactFindOptions.js",
+            "pluginId": "cordova-plugin-contacts",
+            "clobbers": [
+                "ContactFindOptions"
+            ]
+        },
+        {
+            "id": "cordova-plugin-contacts.ContactName",
+            "file": "plugins/cordova-plugin-contacts/www/ContactName.js",
+            "pluginId": "cordova-plugin-contacts",
+            "clobbers": [
+                "ContactName"
+            ]
+        },
+        {
+            "id": "cordova-plugin-contacts.ContactOrganization",
+            "file": "plugins/cordova-plugin-contacts/www/ContactOrganization.js",
+            "pluginId": "cordova-plugin-contacts",
+            "clobbers": [
+                "ContactOrganization"
+            ]
+        },
+        {
+            "id": "cordova-plugin-contacts.ContactFieldType",
+            "file": "plugins/cordova-plugin-contacts/www/ContactFieldType.js",
+            "pluginId": "cordova-plugin-contacts",
+            "merges": [
+                ""
+            ]
+        },
+        {
+            "id": "mx.ferreyra.callnumber.CallNumber",
+            "file": "plugins/mx.ferreyra.callnumber/www/CallNumber.js",
+            "pluginId": "mx.ferreyra.callnumber",
+            "clobbers": [
+                "call"
+            ]
+        },
+        {
+            "id": "cordova-plugin-email-composer.EmailComposer",
+            "file": "plugins/cordova-plugin-email-composer/www/email_composer.js",
+            "pluginId": "cordova-plugin-email-composer",
+            "clobbers": [
+                "cordova.plugins.email",
+                "plugin.email"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -730,6 +888,10 @@
         "cordova-plugin-whitelist": "1.3.1",
         "ionic-plugin-keyboard": "2.2.1",
         "cordova-plugin-file": "4.3.3",
-        "cordova-plugin-file-transfer": "1.6.3"
+        "cordova-plugin-file-transfer": "1.6.3",
+        "cordova-plugin-app-version": "0.1.9",
+        "cordova-plugin-contacts": "2.3.1",
+        "mx.ferreyra.callnumber": "0.0.2",
+        "cordova-plugin-email-composer": "0.8.11"
     }
 }

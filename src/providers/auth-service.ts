@@ -5,6 +5,7 @@ import {Storage} from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
 import {UserModel} from '../models/user.model';
 import {CredentialsModel} from '../models/credentials.model';
+import {InvitadosModel} from '../models/invitados.model';
 import {AuthHttp, JwtHelper, tokenNotExpired} from 'angular2-jwt';
 import {Observable} from 'rxjs/Rx';
 
@@ -62,6 +63,23 @@ export class AuthService {
                     let rs = data.json();
                     this.idToken = rs.token;
                     this.scheduleRefresh();
+                    resolve(true);
+                }
+                else {
+                    resolve(false);
+                }
+            }, function errorCallback(response) {
+                resolve(false);
+            });
+        });
+    }
+    invitarEvento(invitadoM: InvitadosModel) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return new Promise(resolve => {
+            this.authHttp.get(this.cfg.apiUrl + this.cfg.eventos+'_invitar').subscribe(data => {
+                if (data) {
+                    let rs = data.json();
                     resolve(true);
                 }
                 else {
