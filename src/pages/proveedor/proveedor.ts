@@ -12,7 +12,7 @@ import { CacheService } from "ionic-cache";
 
 import *  as AppConfig from '../../app/config';
 import * as $ from 'jquery';
-declare var google: any;
+import Chart from 'chart.js';
 
 @IonicPage()
 @Component({
@@ -83,10 +83,9 @@ export class ProveedorPage extends ProtectedPage {
                     });
                     this.productosService.getTop(this.proveedor._id).then(datosProductos => {
                         this.productosTop = datosProductos;
-                        console.log(this.productosTop);
                     });
-
                     this.drawCharts('30');
+                    this.drawChartVentas();
                 });
             });
         }
@@ -113,350 +112,201 @@ export class ProveedorPage extends ProtectedPage {
         this.keyboard.close();
     }
     drawCharts(month: string) {
-        let parent = this;
-        google.charts.setOnLoadCallback(chartTotal(month));
-        google.charts.setOnLoadCallback(chartNorte(month));
-        google.charts.setOnLoadCallback(chartCentro(month));
-        google.charts.setOnLoadCallback(chartSur(month));
-        google.charts.setOnLoadCallback(chartVentas());
-        function chartTotal(month: string) {
-            const totalChart = new google.visualization.PieChart(document.getElementById('periodo_donutChart_total'));
-            let indicador = parent.proveedor.indicadores.cobertura.periodos[eval(month)].total;
-            parent.indicadorGral.total = indicador;
-            let nulo = parent.proveedor.indicadores.cobertura.totales.total;
-            var data_total = google.visualization.arrayToDataTable([
-                ['indicador', 'valor'],
-                ['Total', 0],
-                ['nulo', nulo],
-            ]);
-            var options_total = {
-                pieHole: 0.8,
-                backgroundColor: '#F5F5F5',
-                colors: ['#EF452B', '#DADBDF'],
-                chartArea: {
-                    left: '0%',
-                    top: '10%',
-                    width: '70%',
-                    height: '80%'
-                },
-                animation: {
-                    startup: true,
-                    duration: 1000,
-                    easing: 'in',
-                },
-                enableInteractivity: false,
+        var indicadorTotal = this.proveedor.indicadores.cobertura.periodos[eval(month)].total;
+        this.indicadorGral.total = indicadorTotal;
+        var nuloTotal = this.proveedor.indicadores.cobertura.totales.total;
+
+        var ctxTotal = $("page-proveedor").last().find("#periodo_donutChart_total");
+        var myChartTotal = new Chart(ctxTotal, {
+            type: 'pie',
+            data: {
+                labels: ["Proveedor", "Total"],
+                datasets: [{
+                    data: [indicadorTotal, nuloTotal-indicadorTotal],
+                    backgroundColor: [
+                        '#EF452B',
+                        '#DADBDF'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                cutoutPercentage: 80,
                 legend: {
-                    position: 'none'
+                    display: false
                 },
-                pieSliceText: 'none',
-                pieSliceBorderColor: '#F5F5F5',
-            };
-            totalChart.draw(data_total, options_total);
-            var counter = 0;
-
-            var resta;
-            var indicadorMulti;
-            var handler = setInterval(function() {
-                resta = nulo - indicador * counter;
-                indicadorMulti = indicador * counter;
-                if(resta<0){resta=0}
-                if(indicador<0){indicador=0}
-                data_total = google.visualization.arrayToDataTable([
-                    ['indicador', 'valor'],
-                    ['Total', indicadorMulti],
-                    ['nulo', resta],
-                ]);
-                counter = counter + 0.1;
-                counter = Math.round(counter * 10) / 10
-
-                if (counter >= 1) {
-                    clearInterval(handler);
-                    data_total = google.visualization.arrayToDataTable([
-                        ['indicador', 'valor'],
-                        ['Total', indicador],
-                        ['nulo', nulo-indicador],
-                    ]);
-                }
-                totalChart.draw(data_total, options_total);
-            }, 10);
-        }
-        function chartNorte(month: string) {
-            const norteChart = new google.visualization.PieChart(document.getElementById('periodo_donutChart_norte'));
-            let indicador = parent.proveedor.indicadores.cobertura.periodos[eval(month)].norte;
-            parent.indicadorGral.norte = indicador;
-            let nulo = parent.proveedor.indicadores.cobertura.totales.norte;
-            var data_norte = google.visualization.arrayToDataTable([
-                ['indicador', 'valor'],
-                ['Norte', 0],
-                ['nulo', nulo],
-            ]);
-            var options_norte = {
-                pieHole: 0.8,
-                backgroundColor: '#F5F5F5',
-                colors: ['#FFC12D', '#DADBDF'],
-                chartArea: {
-                    left: '0%',
-                    top: '10%',
-                    width: '70%',
-                    height: '80%'
-                },
-                animation: {
-                    startup: true,
-                    duration: 1000,
-                    easing: 'in',
-                },
-                enableInteractivity: false,
-                legend: {
-                    position: 'none'
-                },
-                pieSliceText: 'none',
-                pieSliceBorderColor: '#F5F5F5',
-            };
-            norteChart.draw(data_norte, options_norte);
-            var counter = 0;
-            if(nulo<0) nulo=0;
-
-            var resta;
-            var handler = setInterval(function() {
-                resta = nulo - indicador * counter;
-                if(resta<0){resta = 0};
-                data_norte = google.visualization.arrayToDataTable([
-                    ['indicador', 'valor'],
-                    ['Norte', indicador * counter],
-                    ['nulo', nulo],
-                ]);
-                counter = counter + 0.1;
-                counter = Math.round(counter * 10) / 10
-
-                if (counter >= 1) {
-                    clearInterval(handler);
-                    data_norte = google.visualization.arrayToDataTable([
-                        ['indicador', 'valor'],
-                        ['Norte', indicador],
-                        ['nulo', nulo-indicador],
-                    ]);
-                }
-                norteChart.draw(data_norte, options_norte);
-            }, 10);
-        }
-        function chartCentro(month: string) {
-            const centroChart = new google.visualization.PieChart(document.getElementById('periodo_donutChart_centro'));
-            let indicador = parent.proveedor.indicadores.cobertura.periodos[eval(month)].centro;
-            parent.indicadorGral.centro = indicador;
-            let nulo = parent.proveedor.indicadores.cobertura.totales.centro;
-            var data_centro = google.visualization.arrayToDataTable([
-                ['indicador', 'valor'],
-                ['Centro', 0],
-                ['nulo', nulo],
-            ]);
-            var options_centro = {
-                pieHole: 0.8,
-                backgroundColor: '#F5F5F5',
-                colors: ['#4A90E2', '#DADBDF'],
-                chartArea: {
-                    left: '0%',
-                    top: '10%',
-                    width: '70%',
-                    height: '80%'
-                },
-                animation: {
-                    startup: true,
-                    duration: 1000,
-                    easing: 'in',
-                },
-                enableInteractivity: false,
-                legend: {
-                    position: 'none'
-                },
-                pieSliceText: 'none',
-                pieSliceBorderColor: '#F5F5F5',
-            };
-            centroChart.draw(data_centro, options_centro);
-            var counter = 0;
-            if(nulo<0) nulo=0;
-
-            var resta;
-            var handler = setInterval(function() {
-                resta = nulo - indicador * counter;
-                if(resta<0){resta = 0};
-                data_centro = google.visualization.arrayToDataTable([
-                    ['indicador', 'valor'],
-                    ['Centro', indicador * counter],
-                    ['nulo', resta],
-                ]);
-                counter = counter + 0.1;
-                counter = Math.round(counter * 10) / 10
-
-                if (counter > 1) {
-                    clearInterval(handler);
-                    data_centro = google.visualization.arrayToDataTable([
-                        ['indicador', 'valor'],
-                        ['Centro', indicador],
-                        ['nulo', nulo-indicador],
-                    ]);
-                }
-                centroChart.draw(data_centro, options_centro);
-            }, 10);
-        }
-        function chartSur(month: string) {
-            const surChart = new google.visualization.PieChart(document.getElementById('periodo_donutChart_sur'));
-            let indicador = parent.proveedor.indicadores.cobertura.periodos[eval(month)].sur;
-            parent.indicadorGral.sur = indicador;
-            let nulo = parent.proveedor.indicadores.cobertura.totales.sur;
-            var data_sur = google.visualization.arrayToDataTable([
-                ['indicador', 'valor'],
-                ['Sur', 0],
-                ['nulo', nulo],
-            ]);
-            var options_sur = {
-                pieHole: 0.8,
-                backgroundColor: '#F5F5F5',
-                colors: ['#52831D', '#DADBDF'],
-                chartArea: {
-                    left: '0%',
-                    top: '10%',
-                    width: '70%',
-                    height: '80%'
-                },
-                animation: {
-                    startup: true,
-                    duration: 1000,
-                    easing: 'in',
-                },
-                enableInteractivity: false,
-                legend: {
-                    position: 'none'
-                },
-                pieSliceText: 'none',
-                pieSliceBorderColor: '#F5F5F5',
-            };
-            surChart.draw(data_sur, options_sur);
-            var counter = 0;
-            if(nulo<0) nulo=0;
-
-            var resta;
-            var handler = setInterval(function() {
-                resta = nulo - indicador;
-                if(resta<0){resta = 0};
-                data_sur = google.visualization.arrayToDataTable([
-                    ['indicador', 'valor'],
-                    ['Sur', indicador * counter],
-                    ['nulo', resta],
-                ]);
-                counter = counter + 0.1;
-                counter = Math.round(counter * 10) / 10
-
-                if (counter > 1) {
-                    clearInterval(handler);
-                    data_sur = google.visualization.arrayToDataTable([
-                        ['indicador', 'valor'],
-                        ['Sur', indicador],
-                        ['nulo', nulo-indicador],
-                    ]);
-                }
-                surChart.draw(data_sur, options_sur);
-            }, 10);
-        }
-        function chartVentas(){
-            var chart_ventas = new google.visualization.BarChart(document.getElementById('ventas_barChart'));
-            var data_ventas = new google.visualization.DataTable();
-            parent.dataVentas = parent.proveedor.indicadores.ventas.fechas;
-
-            data_ventas.addColumn('string', ' ');
-            data_ventas.addColumn('number', parent.lastYear);
-            data_ventas.addColumn('number', parent.thisYear);
-            var optionsVentas = {
-                backgroundColor: "#F5F5F5",
-                colors: ['#4890E2', '#E50201'],
-                chartArea: {
-                    backgroundColor: "#F5F5F5",
-                    left: '30%',
-                    top: '0%',
-                    width: '70%',
-                    height: '90%',
-                },
-                focusTarget: 'category',
-                bars: 'horizontal',
-                bar: { groupWidth: "40px" },
-                enableInteractivity: true,
-                legend: { position: 'none' },
-                tooltip: {
-                    isHtml: true,
-                },
-                textStyle: {
-                    color: '#000001',
-                    fontSize: 12,
-                    bold: true,
-                },
-                vAxis: {
-                    viewWindowMode: 'pretty',
-                    format: 'short',
-                    textStyle: {
-                        color: '#000000',
-                        fontSize: 14,
-                        bold: true,
-                    },
-                },
-                hAxis: {
-                    viewWindowMode: 'pretty',
-                    minValue: 0,
-                    baseline: 0,
-                    textStyle: {
-                        color: '#000001',
-                        fontSize: 12,
-                        bold: true,
-                    },
-                    gridlines: {
-                        count: 6,
-                        color: "#D9DADB"
-                    },
-                    minorGridlines: {
-                        count: 0
-                    }
-                },
-                animation: {
-                    startup: true,
-                    duration: 1000,
-                    easing: 'in',
-                },
-            };
-            var numMax = parent.dataVentas.length;
-            Object.keys(parent.dataVentas).forEach(function(key) {
-                let mes = parent.dataVentas[key].mes;
-                let periodoAnterior = parent.dataVentas[key].periodos.anterior;
-                let periodoActual = parent.dataVentas[key].periodos.actual;
-                if(data_ventas.getNumberOfRows()<3){
-                    data_ventas.addRow([mes, periodoAnterior, periodoActual]);
-                }
-            });
-            function drawVentas() {
-                chart_ventas.draw(data_ventas, optionsVentas);
+                maintainAspectRatio: false
             }
-            drawVentas();
-            var addVentasButton = document.getElementById('ventasAdd');
-            let ableToClick = true;
-            addVentasButton.onclick = function() {
-                if(ableToClick){
-                    ableToClick = false;
-                    if(data_ventas.getNumberOfRows()<numMax){
-                        data_ventas.addRow([parent.dataVentas[data_ventas.getNumberOfRows()].mes, parent.dataVentas[data_ventas.getNumberOfRows()].periodos.anterior, parent.dataVentas[data_ventas.getNumberOfRows()].periodos.actual]);
-                        let alturaActual = $("#ventas_barChart").outerHeight(true);
-                        $("#ventas_barChart").animate({
-                            height: alturaActual+30
-                        }, 300, function() {
-                            drawVentas();
-                            ableToClick = true;
-                        });
-                    }
-                    if(data_ventas.getNumberOfRows()>=numMax){
-                        $("#ventasAdd").stop().fadeOut(300);
-                    }
+        });
+        var indicadorNorte = this.proveedor.indicadores.cobertura.periodos[eval(month)].norte;
+        this.indicadorGral.norte = indicadorNorte;
+        var nuloNorte = this.proveedor.indicadores.cobertura.totales.norte;
+        var ctxNorte = $("page-proveedor").last().find("#periodo_donutChart_norte");
+        var myChartNorte = new Chart(ctxNorte, {
+            type: 'pie',
+            data: {
+                labels: ["Proveedor", "Total"],
+                datasets: [{
+                    data: [indicadorNorte, nuloNorte-indicadorNorte],
+                    backgroundColor: [
+                        '#FFC12D',
+                        '#DADBDF'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                cutoutPercentage: 80,
+                legend: {
+                    display: false
+                },
+                maintainAspectRatio: false
+            }
+        });
+        var indicadorCentro = this.proveedor.indicadores.cobertura.periodos[eval(month)].centro;
+        this.indicadorGral.centro = indicadorCentro;
+        var nuloCentro = this.proveedor.indicadores.cobertura.totales.centro;
+        var ctxCentro = $("page-proveedor").last().find("#periodo_donutChart_centro");
+        var myChartCentro = new Chart(ctxCentro, {
+            type: 'pie',
+            data: {
+                labels: ["Proveedor", "Total"],
+                datasets: [{
+                    data: [indicadorCentro, nuloCentro-indicadorCentro],
+                    backgroundColor: [
+                        '#4A90E2',
+                        '#DADBDF'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                cutoutPercentage: 80,
+                legend: {
+                    display: false
+                },
+                maintainAspectRatio: false
+            }
+        });
+        var indicadorSur = this.proveedor.indicadores.cobertura.periodos[eval(month)].sur;
+        this.indicadorGral.sur = indicadorSur;
+        var nuloSur = this.proveedor.indicadores.cobertura.totales.sur;
+        var ctxSur = $("page-proveedor").last().find("#periodo_donutChart_sur");
+        var myChartSur = new Chart(ctxSur, {
+            type: 'pie',
+            data: {
+                labels: ["Proveedor", "Total"],
+                datasets: [{
+                    data: [indicadorSur, nuloSur-indicadorSur],
+                    backgroundColor: [
+                        '#52831D',
+                        '#DADBDF'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                cutoutPercentage: 80,
+                legend: {
+                    display: false
+                },
+                maintainAspectRatio: false
+            }
+        });
+    }
+    drawChartVentas() {
+        var ventasChartCanvas = $("page-proveedor").last().find("#ventas_barChart");
+        var ventasMesesBarChart = [];
+        var ventasDataLastYear = [];
+        var ventasDataThisYear = [];
+        var ventasNumMonths = 0;
+        this.dataVentas = this.proveedor.indicadores.ventas.fechas;
+        var ventasNumMax = this.dataVentas.length;
+
+        var parent = this;
+        Object.keys(this.dataVentas).forEach(function(key) {
+            if (Number(key) < 3) {
+                ventasNumMonths++;
+                ventasMesesBarChart.push(parent.dataVentas[key].mes);
+                ventasDataLastYear.push(parent.dataVentas[key].periodos.anterior);
+                ventasDataThisYear.push(parent.dataVentas[key].periodos.actual);
+            }
+        });
+        var ventasChartData = {
+            labels: ventasMesesBarChart,
+            datasets: [{
+                label: parent.lastYear,
+                backgroundColor: '#4890E2',
+                borderWidth: 0,
+                data: ventasDataLastYear
+            }, {
+                label: parent.thisYear,
+                backgroundColor: '#E50201',
+                borderWidth: 1,
+                data: ventasDataThisYear
+            }]
+        };
+        var ventasBarChart = new Chart(ventasChartCanvas, {
+            type: 'horizontalBar',
+            data: ventasChartData,
+            options: {
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            drawBorder: true,
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            maxTicksLimit: 6,
+                            fontColor: '#000000',
+                            fontFamily: 'CircularStd',
+                            fontSize: 12
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            fontColor: '#000000',
+                            fontFamily: 'CircularStd',
+                            fontSize: 14
+                        }
+                    }]
+                },
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'top',
                 }
             }
-        }
+        });
+        let ableToClickVentas = true;
+        $("page-proveedor").last().find("#ventasAdd").click(function(){
+            if (ableToClickVentas) {
+                ableToClickVentas = false;
+                if (ventasNumMonths < ventasNumMax) {
+                    ventasNumMonths++;
+                    var newLabels = parent.dataVentas[ventasNumMonths-1].mes;
+                    ventasChartData.labels.push(newLabels);
+                    ventasChartData.datasets[0].data.push(parent.dataVentas[ventasNumMonths-1].periodos.anterior);
+                    ventasChartData.datasets[1].data.push(parent.dataVentas[ventasNumMonths-1].periodos.actual);
+                    console.log($("page-proveedor").last().find("#ventas_barChart").parents(".barChart_container"));
+                    let alturaActual = $("page-proveedor").last().find("#ventas_barChart").parents(".barChart_container").outerHeight(true);
+                    $("page-proveedor").last().find("#ventas_barChart").parents(".barChart_container").animate({
+                        height: alturaActual + 30
+                    }, 300, function() {
+                        ventasBarChart.update();
+                        ableToClickVentas = true;
+                    });
+                }
+                if (ventasNumMonths >= ventasNumMax) {
+                    $("page-proveedor").last().find("#ventasAdd").stop().fadeOut(300);
+                }
+            }
+        });
     }
     openPage(page: string, proveedorData) {
-        this.navCtrl.pop({animate:false});
+        //this.navCtrl.pop({animate:false});
         this.navCtrl.push(page, {
             proveedor: proveedorData.doc
         });
@@ -476,16 +326,16 @@ export class ProveedorPage extends ProtectedPage {
         $(".botonesPeriodo button.inContent").addClass("inactive");
         switch(month){
             case '30':
-                $("#mes30").removeClass("inactive");
-                $("#mes30").addClass("active");
+                $(".mes30Button").removeClass("inactive");
+                $(".mes30Button").addClass("active");
             break;
             case '60':
-                $("#mes60").removeClass("inactive");
-                $("#mes60").addClass("active");
+                $(".mes60Button").removeClass("inactive");
+                $(".mes60Button").addClass("active");
             break;
             case '90':
-                $("#mes90").removeClass("inactive");
-                $("#mes90").addClass("active");
+                $(".mes90Button").removeClass("inactive");
+                $(".mes90Button").addClass("active");
             break;
         }
     }

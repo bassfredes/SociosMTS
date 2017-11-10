@@ -8,67 +8,70 @@
     },
     "installed_plugins": {
         "com-sarriaroman-photoviewer": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+            "PACKAGE_NAME": "com.mts.sociosmts"
+        },
+        "cordova-plugin-app-version": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
         "cordova-plugin-camera": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
-        "cordova-plugin-console": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+        "cordova-plugin-contacts": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+            "PACKAGE_NAME": "com.mts.sociosmts"
+        },
+        "cordova-plugin-email-composer": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
         "cordova-plugin-fullscreen": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
         "cordova-plugin-googlemaps": {
             "API_KEY_FOR_ANDROID": "AIzaSyAtUoEPdkAj1sA_t0tolgBJlg_rM1es1iI",
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
         "cordova-plugin-network-information": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+            "PACKAGE_NAME": "com.mts.sociosmts"
+        },
+        "cordova-plugin-screen-orientation": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
         "cordova-plugin-sqlite-2": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
         "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
-        },
-        "cordova-plugin-file-transfer": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
-        },
-        "cordova-plugin-file": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
-        },
-        "cordova-plugin-app-version": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
-        },
-        "cordova-plugin-contacts": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
         "mx.ferreyra.callnumber": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
-        },
-        "cordova-plugin-email-composer": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+            "PACKAGE_NAME": "com.mts.sociosmts"
         }
     },
     "dependent_plugins": {
         "com.googlemaps.ios": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
         "cordova-plugin-compat": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+            "PACKAGE_NAME": "com.mts.sociosmts"
+        },
+        "es6-promise-plugin": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
         }
     }
 }

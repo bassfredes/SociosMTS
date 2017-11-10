@@ -4,8 +4,6 @@ import {IonicStorageModule} from '@ionic/storage';
 import {MyApp} from './app.component';
 import {AuthHttp, AuthConfig} from 'angular2-jwt';
 import {Storage} from '@ionic/storage';
-import {StatusBar} from '@ionic-native/status-bar';
-import {SplashScreen} from '@ionic-native/splash-screen';
 import {Http} from '@angular/http';
 import {CacheModule} from 'ionic-cache';
 
@@ -27,11 +25,14 @@ export function getAuthHttp(http) {
     ],
     imports: [
         MODULES,
-        IonicModule.forRoot(MyApp,{
+        IonicModule.forRoot(MyApp, {
             backButtonText: '',
             backButtonIcon: 'ios-arrow-back',
             iconMode: 'md',
-            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+            monthShortNames: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado' ],
+            dayShortNames: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
         }),
         IonicStorageModule.forRoot(),
         CacheModule.forRoot(),

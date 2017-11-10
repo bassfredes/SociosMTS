@@ -40,10 +40,10 @@
                             <ion-list-header no-lines>Número telefónico</ion-list-header>
                             <ion-item (click)="callToContact(user)"><ion-icon name="call" color="primary" item-end></ion-icon>{{user.phonenum}}</ion-item>
                         </ion-list>
-                        <button margin-bottom class="btn-large" center ion-button large>
+                        <button margin-bottom class="btn-large" center ion-button large (click)="mailToContact(user)">
                             <span>Enviar un email</span>
                         </button>
-                        <button class="btn-large" center ion-button large color="call">
+                        <button class="btn-large" center ion-button large color="call" (click)="callToContact(user)">
                             <span>Llamar</span>
                         </button>
                     </div>

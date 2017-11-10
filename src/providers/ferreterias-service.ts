@@ -20,7 +20,7 @@ export class FerreteriasService {
         this.storage.set("id_ferreteria", _id);
     }
     getAll() {
-        let url = this.cfg.apiUrl + this.cfg.apiUrl + this.cfg.ferreterias + '/_all_docs?limit=20&include_docs=true';
+        let url = this.cfg.apiUrl + this.cfg.ferreterias + '/_all_docs?limit=20&include_docs=true';
         let cacheKey = url;
         let request = this.authHttp.get(url);
 

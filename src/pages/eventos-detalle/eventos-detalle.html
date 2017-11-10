@@ -20,7 +20,9 @@
                 <div class="eventos">
                     <div class="chartRDN" *ngIf="evento.isRdn">
                         <h2 class="small capitalize normalLetter text-left">{{evento.rdn.title}}</h2>
-                        <div id="RDN"></div>
+                        <div class="barChartRDN_container">
+                            <canvas id="RDN"></canvas>
+                        </div>
                     </div>
                     <div class="detalles">
                         <div class="prevParticipar">
@@ -40,6 +42,35 @@
                             </div>
                             <div class="bajada" text-wrap>
                                 <p>{{evento.body}}</p>
+                            </div>
+                        </div>
+                        <div class="postParticipar">
+                            <h2><strong>Pedro,</strong> te has incrito con éxito.</h2>
+                            <div class="able" *ngIf="evento.able_to_invite">
+                                <h3 margin-top margin-bottom class="text-center">¿Deseas invitar a alguien?</h3>
+                                <div class="alreadyInvited">
+                                    <h3><ion-icon class="icon" name="md-bookmark"></ion-icon>Has invitado a <strong>{{nombreInvitado}}</strong> exitosamente.</h3>
+                                    <div class="text-center">
+                                        <button margin-bottom class="btn-large" margin-top center ion-button large (click)="invitarOtro()">
+                                            <span>Añadir a otro invitado</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="toInvite">
+                                    <form [formGroup]="inviteData" (ngSubmit)="invite()">
+                                        <ion-item>
+                                            <ion-label floating>Nombre y Apellido</ion-label>
+                                            <ion-input type="text" formControlName="name" autocomplete="false" spellcheck="false"></ion-input>
+                                        </ion-item>
+                                        <ion-item>
+                                            <ion-label floating>RUT <small>(Ej: 1234567-0)</small></ion-label>
+                                            <ion-input type="text" formControlName="rut" autocomplete="false" spellcheck="false"></ion-input>
+                                        </ion-item>
+                                        <div margin-top margin-bottom class="text-center">
+                                            <button class="btn-primary btn-large" margin-top center ion-button large type="submit" [disabled]="!inviteData.valid">Invitar</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <div class="rdnDetails" *ngIf="evento.isRdn">
@@ -135,35 +166,6 @@
                                         </div>
                                     </ion-col>
                                 </ion-row>
-                            </div>
-                        </div>
-                        <div class="postParticipar">
-                            <h2><strong>Pedro,</strong> te has incrito con éxito.</h2>
-                            <div class="able" *ngIf="evento.able_to_invite">
-                                <h3 margin-top margin-bottom class="text-center">¿Deseas invitar a alguien?</h3>
-                                <div class="alreadyInvited">
-                                    <h3><ion-icon class="icon" name="md-bookmark"></ion-icon>Has invitado a <strong>{{nombreInvitado}}</strong> exitosamente.</h3>
-                                    <div class="text-center">
-                                        <button margin-bottom class="btn-large" margin-top center ion-button large (click)="invitarOtro()">
-                                            <span>Añadir a otro invitado</span>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="toInvite">
-                                    <form [formGroup]="inviteData" (ngSubmit)="invite()">
-                                        <ion-item>
-                                            <ion-label floating>Nombre y Apellido</ion-label>
-                                            <ion-input type="text" formControlName="name" autocomplete="false" spellcheck="false"></ion-input>
-                                        </ion-item>
-                                        <ion-item>
-                                            <ion-label floating>RUT <small>(Ej: 1234567-0)</small></ion-label>
-                                            <ion-input type="text" formControlName="rut" autocomplete="false" spellcheck="false"></ion-input>
-                                        </ion-item>
-                                        <div margin-top class="text-center">
-                                            <button class="btn-primary btn-large" margin-top center ion-button large type="submit" [disabled]="!inviteData.valid">Invitar</button>
-                                        </div>
-                                    </form>
-                                </div>
                             </div>
                         </div>
                     </div>

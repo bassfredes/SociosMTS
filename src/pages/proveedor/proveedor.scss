@@ -113,14 +113,13 @@ page-proveedor {
         .legendChart .centeredChart {
             position: absolute;
             top: 50%;
-            left: 0;
-            width: 80%;
+            right: 12rem;
+            width: calc(100% - 12rem);
             height: auto;
             text-align: center;
             font-family: 'CircularStd';
             font-size: 4.1rem;
-            margin-top: -2.7rem;
-            padding-right: 7rem;
+            margin-top: -2.6rem;
             letter-spacing: normal;
             color: color($colors, texto);
         }

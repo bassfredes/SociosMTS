@@ -1,14 +1,13 @@
 // Providers
 import {AuthService} from '../providers/auth-service';
 import {ConnectivityService} from '../providers/connectivity-service';
-import {FerreteriasService} from '../providers/ferreterias-service';
-import {ProveedoresService} from '../providers/proveedores-service';
-import {ProductosService} from '../providers/productos-service';
-import {UsersService} from '../providers/users-service';
-
-import {NoticiasService} from '../providers/noticias-service';
-import {InformercialService} from '../providers/informercial-service';
 import {EventosService} from '../providers/eventos-service';
+import {FerreteriasService} from '../providers/ferreterias-service';
+import {InformercialService} from '../providers/informercial-service';
+import {NoticiasService} from '../providers/noticias-service';
+import {ProductosService} from '../providers/productos-service';
+import {ProveedoresService} from '../providers/proveedores-service';
+import {UsersService} from '../providers/users-service';
 
 // Ionic native providers
 import {PhotoViewer} from '@ionic-native/photo-viewer';
@@ -23,6 +22,7 @@ import {AppVersion} from '@ionic-native/app-version';
 import {Contacts} from '@ionic-native/contacts';
 import {CallNumber} from '@ionic-native/call-number';
 import {EmailComposer} from '@ionic-native/email-composer';
+import {ScreenOrientation} from '@ionic-native/screen-orientation';
 import {ImgcacheService} from '../global/services';
 
 import {JwtHelper} from 'angular2-jwt';
@@ -33,6 +33,7 @@ import {LazyImgComponent} from '../global/components/';
 
 // Pipes
 import {KeysPipe} from '../pipes/keys/keys';
+import {PointReplacerPipe} from '../pipes/point-replacer/point-replacer';
 
 // Modules
 import {BrowserModule} from '@angular/platform-browser';
@@ -49,19 +50,20 @@ export const MODULES = [
 export const SERVICES = [
     AuthService,
     ConnectivityService,
-    UsersService,
+    EventosService,
     FerreteriasService,
-    ProveedoresService,
-    ProductosService,
-    NoticiasService,
     InformercialService,
-    EventosService
+    NoticiasService,
+    ProductosService,
+    ProveedoresService,
+    UsersService
 ]
 export const DIRECTIVES = [
     LazyLoadDirective
 ];
 export const PIPES = [
-    KeysPipe
+    KeysPipe,
+    PointReplacerPipe
 ];
 
 export const PROVIDERS = [
@@ -78,7 +80,8 @@ export const PROVIDERS = [
     AppVersion,
     Contacts,
     CallNumber,
-    EmailComposer
+    EmailComposer,
+    ScreenOrientation
 ];
 
 export const COMPONENTS = [

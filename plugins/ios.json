@@ -7,73 +7,76 @@
         "files": {}
     },
     "installed_plugins": {
+        "com-sarriaroman-photoviewer": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
+        },
+        "cordova-plugin-app-version": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
+        },
         "cordova-plugin-camera": {
             "CAMERA_USAGE_DESCRIPTION": " ",
             "PHOTOLIBRARY_USAGE_DESCRIPTION": " ",
-            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
-        "cordova-plugin-console": {
-            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        "cordova-plugin-contacts": {
+            "CONTACTS_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        "cordova-plugin-email-composer": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
-        "cordova-plugin-sqlite-2": {
-            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
-        "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
         "cordova-plugin-fullscreen": {
-            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
-        },
-        "com-sarriaroman-photoviewer": {
-            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
-        },
-        "cordova-plugin-network-information": {
-            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
         "cordova-plugin-googlemaps": {
             "API_KEY_FOR_IOS": "AIzaSyDZ-3R98e0u_1uy2N4x6cDl1qU4JuvSXsI",
             "LOCATION_WHEN_IN_USE_DESCRIPTION": "Show your location on the map",
             "LOCATION_ALWAYS_USAGE_DESCRIPTION": "Trace your location on the map",
-            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+            "PACKAGE_NAME": "com.mts.sociosmts"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
+        },
+        "cordova-plugin-screen-orientation": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
+        },
+        "cordova-plugin-sqlite-2": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
-        },
-        "cordova-plugin-file-transfer": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
-        },
-        "cordova-plugin-file": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
-        },
-        "cordova-plugin-app-version": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
-        },
-        "cordova-plugin-contacts": {
-            "CONTACTS_USAGE_DESCRIPTION": " ",
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+            "PACKAGE_NAME": "com.mts.sociosmts"
         },
         "mx.ferreyra.callnumber": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
-        },
-        "cordova-plugin-email-composer": {
-            "PACKAGE_NAME": "mitocondria.digital.sociosmts"
+            "PACKAGE_NAME": "com.mts.sociosmts"
         }
     },
     "dependent_plugins": {
-        "cordova-plugin-compat": {
-            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
-        },
         "com.googlemaps.ios": {
-            "PACKAGE_NAME": "digital.toxic.ionic3seedjwt"
+            "PACKAGE_NAME": "com.mts.sociosmts"
+        },
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
+        },
+        "es6-promise-plugin": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
         }
     }
 }

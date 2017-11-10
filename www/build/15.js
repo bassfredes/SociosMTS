@@ -1,14 +1,14 @@
 webpackJsonp([15],{
 
-/***/ 745:
+/***/ 861:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginPageModule", function() { return LoginPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_page__ = __webpack_require__(765);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_page__ = __webpack_require__(937);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,7 +18,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var LoginPageModule = /** @class */ (function () {
+var LoginPageModule = (function () {
     function LoginPageModule() {
     }
     LoginPageModule = __decorate([
@@ -41,16 +41,16 @@ var LoginPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 765:
+/***/ 937:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth_service__ = __webpack_require__(141);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth_service__ = __webpack_require__(161);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -65,7 +65,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var LoginPage = /** @class */ (function () {
+var LoginPage = (function () {
     function LoginPage(navCtrl, navParams, menuCtrl, storage, formBuilder, authService) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
@@ -96,7 +96,7 @@ var LoginPage = /** @class */ (function () {
     };
     LoginPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-login-page',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/login-page/login-page.html"*/'<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv1" width="71" src="assets/images/logoHeaderV1@2.png" />\n        <button ion-button menuToggle right>\n    		<ion-icon name="menu"></ion-icon>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content padding class="contentInterior">\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <div class="bloqueBlanco firstElement">\n                    <h1 margin-top class="welcome">Bienvenido a la aplicación de MTS.</h1>\n                </div>\n                <form [formGroup]="loginData" (ngSubmit)="login()">\n                    <ion-item>\n                        <ion-label floating>Mail de usuario</ion-label>\n                        <ion-input type="email" formControlName="email" autocomplete="false" spellcheck="false"></ion-input>\n                    </ion-item>\n                    <ion-item>\n                        <ion-label floating>Clave</ion-label>\n                        <ion-input type="password" formControlName="password" autocomplete="false" spellcheck="false"></ion-input>\n                    </ion-item>\n                    <div margin-top class="text-center">\n                        <button margin-top center ion-button round large type="submit" [disabled]="!loginData.valid">Ingresar</button>\n                    </div>\n                </form>\n                <ion-row>\n                    <ion-col>\n                        <button class="normalText" ion-button clear block (click)="openPage(\'ForgotPage\')">Recuperar Contraseña</button>\n                    </ion-col>\n                </ion-row>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/login-page/login-page.html"*/,
+            selector: 'page-login-page',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/login-page/login-page.html"*/`<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv1" width="71" src="assets/images/logoHeaderV1@2.png" />\n        <button ion-button menuToggle right>\n    		<ion-icon name="menu"></ion-icon>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content padding class="contentInterior">\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <div class="bloqueBlanco firstElement">\n                    <h1 margin-top class="welcome">Bienvenido a la aplicación de MTS.</h1>\n                </div>\n                <form [formGroup]="loginData" (ngSubmit)="login()">\n                    <ion-item>\n                        <ion-label floating>Mail de usuario</ion-label>\n                        <ion-input type="email" formControlName="email" autocomplete="false" spellcheck="false"></ion-input>\n                    </ion-item>\n                    <ion-item>\n                        <ion-label floating>Clave</ion-label>\n                        <ion-input type="password" formControlName="password" autocomplete="false" spellcheck="false"></ion-input>\n                    </ion-item>\n                    <div margin-top class="text-center">\n                        <button margin-top center ion-button round large type="submit" [disabled]="!loginData.valid">Ingresar</button>\n                    </div>\n                </form>\n                <ion-row>\n                    <ion-col>\n                        <button class="normalText" ion-button clear block (click)="openPage(\'ForgotPage\')">Recuperar Contraseña</button>\n                    </ion-col>\n                </ion-row>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n</ion-content>\n`/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/login-page/login-page.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],

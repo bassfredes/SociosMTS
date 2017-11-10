@@ -5,22 +5,22 @@
     			{{page.title}}
     		</button>
         </ion-list>
-        <ion-list class="indicadores" inset>
+        <ion-list class="indicadores" *ngIf="indicadoresEco" inset>
             <ion-item>
                 <div class="title">Indicadores económicos</div>
             </ion-item>
             <ion-item class="indicador">
                 <span class="title">Valor Dólar</span>
-                <span class="valor">642 CLP</span>
+                <span class="valor">{{indicadoresEco.valor_USD}} {{indicadoresEco.currency_name}}</span>
             </ion-item>
             <ion-item class="indicador">
                 <span class="title">Valor UF</span>
-                <span class="valor">26.619,53</span>
+                <span class="valor">{{indicadoresEco.valor_UF | number: '1.0' | pointReplacer}}</span>
             </ion-item>
         </ion-list>
         <ion-footer class="lastUpdate">
             <div class="version">{{versionApp}}</div>
-            <div class="date">Última descarga de datos: 22 Sep 2017</div>
+            <div class="date">Última descarga de datos: {{indicadoresEco_date | date : "dd ' ' MMMM ' ' yyyy"}}</div>
         </ion-footer>
     </ion-content>
 </ion-menu>

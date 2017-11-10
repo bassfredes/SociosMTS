@@ -1,15 +1,15 @@
 webpackJsonp([5],{
 
-/***/ 750:
+/***/ 865:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfilePageModule", function() { return ProfilePageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileDetallePageModule", function() { return ProfileDetallePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profile_page__ = __webpack_require__(770);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_shared_module__ = __webpack_require__(397);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profile_detalle__ = __webpack_require__(941);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_shared_module__ = __webpack_require__(494);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,36 +20,36 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var ProfilePageModule = /** @class */ (function () {
-    function ProfilePageModule() {
+var ProfileDetallePageModule = (function () {
+    function ProfileDetallePageModule() {
     }
-    ProfilePageModule = __decorate([
+    ProfileDetallePageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__profile_page__["a" /* ProfilePage */],
+                __WEBPACK_IMPORTED_MODULE_2__profile_detalle__["a" /* ProfileDetallePage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__profile_page__["a" /* ProfilePage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__profile_detalle__["a" /* ProfileDetallePage */]),
                 __WEBPACK_IMPORTED_MODULE_3__app_shared_module__["a" /* SharedModule */]
             ],
             exports: [
-                __WEBPACK_IMPORTED_MODULE_2__profile_page__["a" /* ProfilePage */]
+                __WEBPACK_IMPORTED_MODULE_2__profile_detalle__["a" /* ProfileDetallePage */]
             ]
         })
-    ], ProfilePageModule);
-    return ProfilePageModule;
+    ], ProfileDetallePageModule);
+    return ProfileDetallePageModule;
 }());
 
-//# sourceMappingURL=profile-page.module.js.map
+//# sourceMappingURL=profile-detalle.module.js.map
 
 /***/ }),
 
-/***/ 754:
+/***/ 874:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProtectedPage; });
-var ProtectedPage = /** @class */ (function () {
+var ProtectedPage = (function () {
     function ProtectedPage(navCtrl, navParams, storage, appCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
@@ -74,18 +74,134 @@ var ProtectedPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 770:
+/***/ 927:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProfilePage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ferreteriaModel; });
+var ferreteriaModel = {
+    _id: "",
+    _rev: "",
+    isActive: false,
+    nombre: "",
+    indicadores: {
+        info: {
+            date: "",
+        },
+        nps: {
+            locales: [{
+                    nombre_local: "",
+                    rango_fecha: {
+                        primera: "",
+                        segunda: ""
+                    },
+                    total: 0,
+                    p: 0,
+                    d: 0,
+                    n: 0
+                }]
+        },
+        ivs: {
+            puntaje: 0,
+            tendencia: "",
+            tamano: 0,
+            tamano_tendencia: "",
+            penetracion: 0,
+            penetracion_tendencia: "",
+            crecimiento: 0,
+            crecimiento_tendencia: "",
+            credito: 0,
+            credito_tendencia: "",
+            participacion: 0,
+            participacion_tendencia: "",
+        },
+        orden_compra: {
+            valor: 0,
+            nacional: 0,
+            stock_mts: 0,
+            importacion: 0
+        },
+        compras: {
+            valor: 0,
+            variacion: {
+                mes: "",
+                mes_indicador: 0,
+            },
+            fechas: [{
+                    mes: "",
+                    periodos: {
+                        actual: 0,
+                        anterior: 0
+                    }
+                }, {
+                    mes: "",
+                    periodos: {
+                        actual: 0,
+                        anterior: 0
+                    }
+                }]
+        },
+        facturacion: {
+            valor: 0,
+            factura: 0,
+            factura_tendencia: "neutro",
+            nota_credito: 0,
+            nota_credito_tendencia: "neutro",
+            solicitud_nc: 0,
+            solicitud_nc_tendencia: "neutro"
+        },
+        ventas: {
+            valor: 0,
+            variacion: {
+                mes: "",
+                mes_indicador: 0,
+            },
+            fechas: [{
+                    mes: "",
+                    periodos: {
+                        actual: 0,
+                        anterior: 0
+                    }
+                }, {
+                    mes: "",
+                    periodos: {
+                        actual: 0,
+                        anterior: 0
+                    }
+                }]
+        },
+        rapel_rebate: {
+            ranking: 0,
+            tendencia: "neutro",
+            rapel: 0,
+            rapel_indicador: 0,
+            rebate: 0,
+            rebate_indicador: 0,
+            proyectado: 0,
+            proyectado_indicador: 0
+        }
+    },
+    _attachments: ""
+};
+//# sourceMappingURL=ferreteria.model.js.map
+
+/***/ }),
+
+/***/ 941:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProfileDetallePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__protected_page_protected_page__ = __webpack_require__(754);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_users_service__ = __webpack_require__(400);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_ferreterias_service__ = __webpack_require__(398);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_config__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_call_number__ = __webpack_require__(500);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_email_composer__ = __webpack_require__(501);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_ferreteria_model__ = __webpack_require__(927);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__protected_page_protected_page__ = __webpack_require__(874);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_users_service__ = __webpack_require__(497);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_ferreterias_service__ = __webpack_require__(496);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_config__ = __webpack_require__(38);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -112,75 +228,110 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var ProfilePage = /** @class */ (function (_super) {
-    __extends(ProfilePage, _super);
-    function ProfilePage(navCtrl, navParams, menuCtrl, storage, appCtrl, usersService, ferreteriasService) {
+
+
+
+var ProfileDetallePage = (function (_super) {
+    __extends(ProfileDetallePage, _super);
+    function ProfileDetallePage(navCtrl, navParams, menuCtrl, storage, appCtrl, toastCtrl, alertCtrl, callNumber, emailComposer, usersService, ferreteriasService) {
         var _this = _super.call(this, navCtrl, navParams, storage, appCtrl) || this;
         _this.navCtrl = navCtrl;
         _this.navParams = navParams;
         _this.menuCtrl = menuCtrl;
         _this.storage = storage;
         _this.appCtrl = appCtrl;
+        _this.toastCtrl = toastCtrl;
+        _this.alertCtrl = alertCtrl;
+        _this.callNumber = callNumber;
+        _this.emailComposer = emailComposer;
         _this.usersService = usersService;
         _this.ferreteriasService = ferreteriasService;
+        _this.ferreteria = __WEBPACK_IMPORTED_MODULE_5__models_ferreteria_model__["a" /* ferreteriaModel */];
         _this.user = [];
-        _this.userId = [];
-        _this.ferreteria = [];
-        _this.textoBoton = "Editar perfil";
-        _this.editandoPerfil = false;
-        _this.userEmail = "";
-        _this.userPhone = "";
-        _this.cfg = __WEBPACK_IMPORTED_MODULE_6__app_config__["a" /* cfg */];
+        _this.cfg = __WEBPACK_IMPORTED_MODULE_9__app_config__["a" /* cfg */];
+        _this.user = _this.navParams.get('user');
         return _this;
     }
-    ProfilePage.prototype.ionViewDidLoad = function () {
+    ProfileDetallePage.prototype.ionViewDidLoad = function () {
         var _this = this;
-        this.storage.get('user').then(function (user) {
-            _this.userId = user;
-            if (_this.userId === undefined || _this.userId === null) {
-                _this.navCtrl.setRoot('HomePage');
-            }
-            else {
-                _this.usersService.getOne(_this.userId).then(function (userData) {
-                    _this.user = userData;
-                    _this.userEmail = _this.user.email;
-                    _this.userPhone = _this.user.phonenum;
-                    _this.ferreteriasService.getOne(_this.user.id_ferreteria).then(function (datosFerreteria) {
-                        _this.ferreteria = datosFerreteria;
-                        var attachments = Object.keys(_this.ferreteria._attachments);
-                        _this.logoFerreteria = attachments[0];
-                    });
-                });
-            }
-        });
-    };
-    ProfilePage.prototype.triggerPerfil = function () {
-        if (this.editandoPerfil) {
-            this.guardarPerfil();
+        if (this.user === undefined || this.user === null) {
+            this.navCtrl.setRoot('AgendaPage');
         }
         else {
-            this.editarPerfil();
+            this.ferreteriasService.getOne(this.user.id_ferreteria).then(function (datosFerreteria) {
+                _this.ferreteria = datosFerreteria;
+                var attachments = Object.keys(_this.ferreteria._attachments);
+                _this.logoFerreteria = attachments[0];
+            });
+            this.userType = this.user.type;
+            if (this.userType == "corporativo") {
+                this.userType = "socio";
+            }
         }
     };
-    ProfilePage.prototype.editarPerfil = function () {
-        this.editandoPerfil = true;
-        this.textoBoton = "Guardar perfil";
+    ProfileDetallePage.prototype.callToContact = function (user) {
+        if (user.phonenum) {
+            var success_1 = this.toastCtrl.create({
+                message: 'Llamando al contacto',
+                duration: 3000,
+                position: 'bottom',
+                closeButtonText: "OK"
+            });
+            var failed_1 = this.toastCtrl.create({
+                message: 'Ha ocurrido un problema al intentar llamar el contacto',
+                duration: 4000,
+                position: 'bottom',
+                closeButtonText: "OK"
+            });
+            this.callNumber.callNumber(user.phonenum, true).then(function () {
+                return success_1.present();
+            }).catch(function () {
+                return failed_1.present();
+            });
+        }
     };
-    ProfilePage.prototype.guardarPerfil = function () {
-        this.editandoPerfil = false;
-        this.textoBoton = "Editar perfil";
+    ProfileDetallePage.prototype.mailToContact = function (user) {
+        if (user.email) {
+            var failed = this.toastCtrl.create({
+                message: 'Ha ocurrido un problema al intentar enviar el correo',
+                duration: 4000,
+                position: 'bottom',
+                closeButtonText: "OK"
+            });
+            if (window.cordova) {
+                var email = {
+                    to: user.email,
+                    subject: 'Mensaje desde App SociosMTS',
+                    body: 'Estimado: ¿Cómo se encuentra?',
+                    isHtml: true
+                };
+                this.emailComposer.open(email);
+            }
+            else {
+                failed.present();
+            }
+        }
     };
-    ProfilePage = __decorate([
+    ProfileDetallePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-profile-page',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/profile-page/profile-page.html"*/'<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />\n        <button ion-button menuToggle right>\n            <div class="navicon-button x">\n                <div class="navicon"></div>\n            </div>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content padding class="contentInterior" *ngIf="user">\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <h1 class="text-center uppercase">Mi Perfil</h1>\n            </ion-col>\n        </ion-row>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <div class="user">\n                    <div margin-top class="photos" *ngIf="user._attachments">\n                        <div class="profilePhoto logoRounded" *ngFor="let attachment of user._attachments | keys; index as i">\n                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/users_socios/{{user._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>\n                            <div class="editarPhoto" *ngIf="editandoPerfil">\n                                <ion-icon name="md-camera"></ion-icon>\n                            </div>\n                        </div>\n                        <div class="ferreteriaPhoto logoRounded sinShadow" *ngIf="logoFerreteria">\n                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/ferreterias/{{user.id_ferreteria}}/{{logoFerreteria}}"></lazy-img>\n                        </div>\n                    </div>\n                    <div class="details">\n                        <h2 class="nombre text-center">{{user.name}}</h2>\n                        <button (click)="triggerPerfil();" margin-bottom margin-top class="btn-large" center ion-button large>\n                            <span>{{textoBoton}}</span>\n                        </button>\n                        <h3 margin-top class="small ferreteria">{{user.name_ferreteria}}</h3>\n                        <address class="adress">{{user.direction}}</address>\n                        <h4 class="small region">{{user.region}}</h4>\n                        <h4 class="small cargo">{{user.cargo}}</h4>\n                    </div>\n                    <div class="actions" margin-top>\n                        <ion-list>\n                            <ion-list-header no-lines>Email</ion-list-header>\n                            <ion-item *ngIf="!editandoPerfil"><ion-icon name="mail" color="primary" item-end></ion-icon>{{user.email}}</ion-item>\n                            <ion-item *ngIf="editandoPerfil"><ion-icon name="mail" color="primary" item-end></ion-icon><ion-input type="text" [(ngModel)]="userEmail" [ngModelOptions]="{standalone: true}" autocomplete="false" spellcheck="false"></ion-input></ion-item>\n                            <ion-list-header no-lines>Número telefónico</ion-list-header>\n                            <ion-item *ngIf="!editandoPerfil"><ion-icon name="call" color="primary" item-end></ion-icon>{{user.phonenum}}</ion-item>\n                            <ion-item *ngIf="editandoPerfil"><ion-icon name="call" color="primary" item-end></ion-icon><ion-input type="text" [(ngModel)]="userPhone" [ngModelOptions]="{standalone: true}" autocomplete="false" spellcheck="false"></ion-input></ion-item>\n                        </ion-list>\n                    </div>\n                </div>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/profile-page/profile-page.html"*/,
+            selector: 'page-profile-detalle',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/profile-detalle/profile-detalle.html"*/`<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />\n        <button ion-button menuToggle right>\n            <div class="navicon-button x">\n                <div class="navicon"></div>\n            </div>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content padding class="contentInterior" *ngIf="user">\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <h1 class="text-center uppercase">Agenda</h1>\n            </ion-col>\n        </ion-row>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <div class="user">\n                    <div margin-top class="photos" *ngIf="userType">\n                        <div class="profilePhoto logoRounded" *ngFor="let attachment of user._attachments | keys; index as i">\n                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/users_{{userType}}s/{{user._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>\n                        </div>\n                        <div class="ferreteriaPhoto logoRounded sinShadow" *ngIf="logoFerreteria">\n                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/ferreterias/{{user.id_ferreteria}}/{{logoFerreteria}}"></lazy-img>\n                        </div>\n                    </div>\n                    <div class="details">\n                        <h2 class="nombre text-center">{{user.name}}</h2>\n                        <h3 margin-top class="small ferreteria">{{user.name_ferreteria}}</h3>\n                        <address class="adress">{{user.direction}}</address>\n                        <h4 class="small region">{{user.region}}</h4>\n                        <h4 class="small cargo">{{user.cargo}}</h4>\n                    </div>\n                    <div class="actions" margin-top>\n                        <ion-list>\n                            <ion-list-header no-lines>Email</ion-list-header>\n                            <ion-item (click)="mailToContact(user)"><ion-icon name="mail" color="primary" item-end></ion-icon>{{user.email}}</ion-item>\n                            <ion-list-header no-lines>Número telefónico</ion-list-header>\n                            <ion-item (click)="callToContact(user)"><ion-icon name="call" color="primary" item-end></ion-icon>{{user.phonenum}}</ion-item>\n                        </ion-list>\n                        <button margin-bottom class="btn-large" center ion-button large (click)="mailToContact(user)">\n                            <span>Enviar un email</span>\n                        </button>\n                        <button class="btn-large" center ion-button large color="call" (click)="callToContact(user)">\n                            <span>Llamar</span>\n                        </button>\n                    </div>\n                </div>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n</ion-content>\n`/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/profile-detalle/profile-detalle.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__providers_users_service__["a" /* UsersService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_users_service__["a" /* UsersService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_5__providers_ferreterias_service__["a" /* FerreteriasService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__providers_ferreterias_service__["a" /* FerreteriasService */]) === "function" && _g || Object])
-    ], ProfilePage);
-    return ProfilePage;
-    var _a, _b, _c, _d, _e, _f, _g;
-}(__WEBPACK_IMPORTED_MODULE_3__protected_page_protected_page__["a" /* ProtectedPage */]));
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */],
+            __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_3__ionic_native_call_number__["a" /* CallNumber */],
+            __WEBPACK_IMPORTED_MODULE_4__ionic_native_email_composer__["a" /* EmailComposer */],
+            __WEBPACK_IMPORTED_MODULE_7__providers_users_service__["a" /* UsersService */],
+            __WEBPACK_IMPORTED_MODULE_8__providers_ferreterias_service__["a" /* FerreteriasService */]])
+    ], ProfileDetallePage);
+    return ProfileDetallePage;
+}(__WEBPACK_IMPORTED_MODULE_6__protected_page_protected_page__["a" /* ProtectedPage */]));
 
-//# sourceMappingURL=profile-page.js.map
+//# sourceMappingURL=profile-detalle.js.map
 
 /***/ })
 

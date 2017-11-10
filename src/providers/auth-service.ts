@@ -73,6 +73,29 @@ export class AuthService {
             });
         });
     }
+    getIndicadoresEconomicos() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        let url = this.cfg.apiUrl + this.cfg.indicadores+'/_all_docs?include_docs=true';
+        let cacheKey = url;
+
+        return new Promise(resolve => {
+            this.cache.getItem(cacheKey).catch(() => {
+                return this.authHttp.get(url).toPromise().then(rs => {
+                    let result = rs.json().rows[0].doc;
+                    return this.cache.saveItem(cacheKey, result);
+                });
+            }).then((data) => {
+                if(data.value){
+                    resolve(JSON.parse(data.value));
+                }
+                else {
+                    resolve(data);
+                }
+            });
+        });
+    }
     invitarEvento(invitadoM: InvitadosModel) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -119,7 +142,7 @@ export class AuthService {
     }
     logout() {
         // stop function of auto refesh
-        this.unscheduleRefresh();
+        //this.unscheduleRefresh();
         this.cache.clearAll();
         this.storage.remove('user');
         this.storage.remove('id_token');
@@ -142,7 +165,7 @@ export class AuthService {
                     // If the API returned a successful response, mark the user as logged in
                     if (documentConfig.success == true) {
                         this.storage.set("id_token", documentConfig.token);
-                        this.refreshSubscription.unsubscribe();
+                        //this.refreshSubscription.unsubscribe();
                         console.log("Token set");
                     } else {
                         console.log("The Token Black Listed");
@@ -173,17 +196,19 @@ export class AuthService {
                     delay = 1;
                 return Observable.interval(delay);
             });
+            /*
         this.refreshSubscription = source.subscribe(() => {
             console.log("peticion");
             if (this.connectivityService.isOffline()) {
                 console.log("Offline");
-                this.refreshSubscription.unsubscribe();
+                //this.refreshSubscription.unsubscribe();
                 this.storage.set("id_token", "offline");
             }
             else {
                 this.getNewJwt();
             }
         });
+        */
     }
     public startupTokenRefresh() {
         // If the user is authenticated, use the token stream
@@ -213,7 +238,7 @@ export class AuthService {
                 // additional refreshes
                 source.subscribe(() => {
                     this.getNewJwt();
-                    this.scheduleRefresh();
+                    //this.scheduleRefresh();
                 });
             } else {
                 //there is no user logined

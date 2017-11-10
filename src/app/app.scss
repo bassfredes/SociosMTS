@@ -225,7 +225,7 @@ ion-menu[role="navigation"] .menu-inner {
         background: none;
         border: none;
         font-size: 2.2rem;
-        line-height: 2.1rem;
+        line-height: 2.7rem;
         font-weight: $medium;
         font-family: 'CircularStd';
 
@@ -236,7 +236,7 @@ ion-menu[role="navigation"] .menu-inner {
 
             ion-label {
                 text-align: right;
-                margin: 1.1rem 0.8rem 1.1rem 0;
+                margin: 0.8rem 0.8rem 0.8rem 0;
             }
         }
     }
@@ -256,11 +256,23 @@ ion-menu[role="navigation"] .menu-inner {
 .logoHeaderv1 {
     margin: 0 auto;
     display: block;
+    position: absolute;
+    top: 0.5rem;
+    padding-top: 1.4rem;
+    padding-bottom: 1.4rem;
+    left: 50%;
+    margin-left: -35px;
 }
 
 .logoHeaderv2 {
     margin: 0 auto;
     display: block;
+    position: absolute;
+    top: 0.5rem;
+    padding-top: 1.4rem;
+    padding-bottom: 1.4rem;
+    left: 50%;
+    margin-left: -60px;
 }
 
 .text-center {
@@ -292,6 +304,7 @@ ion-header .back-button.show-back-button {
     display: block;
     position: absolute;
     left: 1em;
+    top: 0.5rem;
     height: 5rem;
 }
 
@@ -303,6 +316,7 @@ ion-header .bar-button-menutoggle {
 
 ion-header .bar-button-menutoggle[right] {
     right: 0;
+    top: 0.5rem;
 }
 /* HEADER */
 /* MENU */
@@ -349,7 +363,7 @@ $content-bg: #FFF;
 .navicon {
     position: relative;
     width: 1em;
-    height: 0.1em;
+    height: 2px;
     background: $content-bg;
     transition: top, bottom, width, transform $duration;
     border-radius: 2.5rem;
@@ -358,7 +372,7 @@ $content-bg: #FFF;
     &:before {
         display: block;
         content: "";
-        height: 0.1em;
+        height: 2px;
         width: 2em;
         background: $content-bg;
         position: absolute;
@@ -390,6 +404,7 @@ $content-bg: #FFF;
 .open .navicon:before {
     transition: top, bottom, width, transform $duration;
     width: 2em;
+    height: 2px;
 }
 
 .open {
@@ -412,6 +427,7 @@ $content-bg: #FFF;
 
 ion-menu {
     ion-list.indicadores {
+        margin-top: 3rem;
         .item {
             ion-label.label {
                 margin: 0;
@@ -553,7 +569,6 @@ ion-menu {
     font-family: 'CircularStd';
     border-radius: 5px;
     font-size: 1.8rem;
-    transition: all 0.3s ease-out;
     background: #e30d20;
     background: -moz-linear-gradient(top, #e30d20 0%, #9f031b 100%);
     background: -webkit-linear-gradient(top, #e30d20 0%,#9f031b 100%);
@@ -875,28 +890,34 @@ page-noticias {
     box-shadow: 0 2px 4px rgba(199,199,199,0.5);
     border-radius: 100%;
 }
+
 .sinShadow img {
     box-shadow: none !important;
 }
 /* Ferreterias */
 /* Charts */
-#home_donutChart,
-#indicadores_donutChart {
+.donutChart_container {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-right: 12rem;
+}
+.barChart_container {
+    position: relative;
     width: 100%;
     height: 230px;
-    padding-right: 6rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
-
-#periodo_donutChart_centro,
-#periodo_donutChart_norte,
-#periodo_donutChart_sur,
-#periodo_donutChart_total {
+.barChartRDN_container {
+    position: relative;
     width: 100%;
-    height: 200px;
-    padding-right: 6rem;
+    height: 150px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
-
-#variacion_barChart,
 #ventas_barChart {
     width: 100%;
     height: 230px;
@@ -967,14 +988,13 @@ page-noticias {
     .legendChart .centeredChart {
         position: absolute;
         top: 50%;
-        left: 0;
-        width: 80%;
+        right: 12rem;
+        width: calc(100% - 12rem);
         height: auto;
         text-align: center;
         font-family: 'CircularStd';
         font-size: 3rem;
-        margin-top: 0.8rem;
-        padding-right: 4.5rem;
+        margin-top: 1rem;
         letter-spacing: normal;
         color: color($colors, texto);
     }

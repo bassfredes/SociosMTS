@@ -11,7 +11,7 @@ import { ferreteriaModel } from '../../models/ferreteria.model';
 
 import *  as AppConfig from '../../app/config';
 import * as $ from 'jquery';
-declare var google: any;
+import Chart from 'chart.js';
 
 @IonicPage()
 @Component({
@@ -52,74 +52,94 @@ export class HomePage extends ProtectedPage {
         this.slideIndex = this.slider.getActiveIndex();
     }
     drawChartNPS() {
-        google.charts.setOnLoadCallback(drawChart);
-        let parent = this;
-        function drawChart() {
-            let full = 100;
-            const chart = new google.visualization.PieChart(document.getElementById('home_donutChart'));
-            let total = parent.ferreteria.indicadores.nps.locales[parent.localSelected].total;
-            parent.npsValue = total;
-            let p = parent.ferreteria.indicadores.nps.locales[parent.localSelected].p;
-            let d = parent.ferreteria.indicadores.nps.locales[parent.localSelected].d;
-            let n = parent.ferreteria.indicadores.nps.locales[parent.localSelected].n;
-            var data = google.visualization.arrayToDataTable([
-                ['indicador', 'valor'],
-                ['P', 0],
-                ['D', 0],
-                ['n', 0],
-                ['nulo', full],
-            ]);
-            var options = {
-                pieHole: 0.5,
-                backgroundColor: '#F5F5F5',
-                colors: ['#009987', '#0084B1', '#9C5895', '#F5F5F5'],
-                chartArea: {
-                    left: '0%',
-                    top: '10%',
-                    width: '80%',
-                    height: '80%'
-                },
-                animation: {
-                    startup: true,
-                    duration: 1000,
-                    easing: 'in',
-                },
-                enableInteractivity: false,
-                legend: {
-                    position: 'none'
-                },
-                pieSliceText: 'none',
-                pieSliceBorderColor: '#F5F5F5',
-            };
-            chart.draw(data, options);
-            var counter = 0;
-            var counterNeg = 0;
+        let full = 100;
+        let total = this.ferreteria.indicadores.nps.locales[this.localSelected].total;
+        this.npsValue = total;
+        let p = this.ferreteria.indicadores.nps.locales[this.localSelected].p;
+        let d = this.ferreteria.indicadores.nps.locales[this.localSelected].d;
+        let n = this.ferreteria.indicadores.nps.locales[this.localSelected].n;
+        /*
+        const chart = new google.visualization.PieChart(document.getElementById('home_donutChart'));
+        var data = google.visualization.arrayToDataTable([
+            ['indicador', 'valor'],
+            ['P', 0],
+            ['D', 0],
+            ['n', 0],
+            ['nulo', full],
+        ]);
+        var options = {
+            pieHole: 0.5,
+            backgroundColor: '#F5F5F5',
+            colors: ['#009987', '#0084B1', '#9C5895', '#F5F5F5'],
+            chartArea: {
+                left: '0%',
+                top: '10%',
+                width: '80%',
+                height: '80%'
+            },
+            animation: {
+                startup: true,
+                duration: 1000,
+                easing: 'in',
+            },
+            enableInteractivity: false,
+            legend: {
+                position: 'none'
+            },
+            pieSliceText: 'none',
+            pieSliceBorderColor: '#F5F5F5',
+        };
+        chart.draw(data, options);
+        var counter = 0;
+        var counterNeg = 0;
 
-            var handler = setInterval(function(){
+        var handler = setInterval(function(){
+            data = google.visualization.arrayToDataTable([
+                ['indicador', 'valor'],
+                ['P', p*counter],
+                ['D', d*counter],
+                ['n', n*counter],
+                ['nulo', full-counterNeg],
+            ]);
+            counter = counter + 0.1;
+            counterNeg = counterNeg + 10;
+            counter = Math.round( counter * 10 ) / 10
+
+            if (counter > 1){
+                clearInterval(handler);
                 data = google.visualization.arrayToDataTable([
                     ['indicador', 'valor'],
-                    ['P', p*counter],
-                    ['D', d*counter],
-                    ['n', n*counter],
-                    ['nulo', full-counterNeg],
+                    ['P', p],
+                    ['D', d],
+                    ['n', n],
+                    ['nulo', 0],
                 ]);
-                counter = counter + 0.1;
-                counterNeg = counterNeg + 10;
-                counter = Math.round( counter * 10 ) / 10
-
-                if (counter > 1){
-                    clearInterval(handler);
-                    data = google.visualization.arrayToDataTable([
-                        ['indicador', 'valor'],
-                        ['P', p],
-                        ['D', d],
-                        ['n', n],
-                        ['nulo', 0],
-                    ]);
-                }
-                chart.draw(data, options);
-            }, 10);
-        }
+            }
+            chart.draw(data, options);
+        }, 10);
+        */
+        var ctx = $("#home_donutChart").last();
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ["P", "D", "n"],
+                datasets: [{
+                    data: [p, d, n],
+                    backgroundColor: [
+                        '#009987',
+                        '#0084B1',
+                        '#9C5895',
+                    ]
+                }]
+            },
+            options: {
+                cutoutPercentage: 50,
+                legend: {
+                    display: false
+                },
+                maintainAspectRatio: false
+            }
+        });
     }
     openPage(page: string) {
         this.navCtrl.push(page, {

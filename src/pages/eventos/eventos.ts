@@ -66,9 +66,10 @@ export class EventosPage extends ProtectedPage {
             infiniteScroll.enable(false);
         }
     }
-    openPage(page: string, evento) {
+    openPage(page: string, evento, participarB: boolean) {
         this.navCtrl.push(page, {
-            evento: evento.doc
+            evento: evento.doc,
+            participar: participarB
         });
     }
 

@@ -1,6 +1,7 @@
 export let cfg = {
-    apiUrl: 'http://192.168.1.143:5984',
+    apiUrl: 'http://basnakk.duckdns.org:5984',
     tokenName: 'token',
+    indicadores: '/indicadores',
     user: {
         register: '/auth/signup',
         login: '/auth_login/_all_docs?limit=20&include_docs=true',

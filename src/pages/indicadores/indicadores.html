@@ -34,7 +34,9 @@
                                 <ion-option *ngFor="let local of ferreteria.indicadores.nps.locales; index as i" [value]="i">{{local.nombre_local}}</ion-option>
                             </ion-select>
                         </ion-item>
-                        <div id="indicadores_donutChart"></div>
+                        <div class="donutChart_container">
+                            <canvas id="indicadores_donutChart"></canvas>
+                        </div>
                         <div class="legendChart">
                             <div class="stadisticsChart">
                                 <div class="p">P = {{ferreteria.indicadores.nps.locales[localSelected].p}}</div>
@@ -124,7 +126,9 @@
                     </div>
                     <div class="chartCompras">
                         <h2 class="small capitalize normalLetter">Compras en MM$</h2>
-                        <div id="variacion_barChart"></div>
+                        <div class="barChart_container">
+                            <canvas id="variacion_barChart"></canvas>
+                        </div>
                     </div>
                 </accordion-list>
             </ion-col>
@@ -168,7 +172,9 @@
                     </div>
                     <div class="chartCompras">
                         <h2 class="small capitalize normalLetter">Ventas en MM$</h2>
-                        <div id="ventas_barChart"></div>
+                        <div class="barChart_container">
+                            <canvas id="ventas_barChart"></canvas>
+                        </div>
                     </div>
                 </accordion-list>
             </ion-col>

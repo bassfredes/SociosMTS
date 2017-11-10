@@ -42,10 +42,11 @@ export class AgendaPage extends ProtectedPage {
     ionViewDidLoad() {
         this.usersService.getAll('socios').then(socios => {
             this.socios = socios;
-            this.groupSocios(this.socios, this.sociosAgrupados);
+            this.groupUsers(this.socios, this.sociosAgrupados);
         });
         this.usersService.getAll('proveedores').then(proveedores => {
             this.proveedores = proveedores;
+            this.groupUsers(this.proveedores, this.proveedoresAgrupados);
         });
     }
     openPage(page: string, user) {
@@ -53,7 +54,7 @@ export class AgendaPage extends ProtectedPage {
             user: user
         });
     }
-    groupSocios(users, output) {
+    groupUsers(users, output) {
         let sortedContacts = users.sort();
         let currentLetter = false;
         let currentContacts = [];
@@ -69,6 +70,31 @@ export class AgendaPage extends ProtectedPage {
             }
             currentContacts.push(value.doc);
         });
+    }
+    changeUser(typeUser: string) {
+        $(".botonesUsers button.inContent").removeClass("active");
+        $(".botonesUsers button.inContent").removeClass("inactive");
+        $(".botonesUsers button.inContent").addClass("inactive");
+        switch(typeUser){
+            case 'socios':
+                if(!$(".sociosButton").hasClass("active")){
+                    $(".proveedoresContainer").stop().fadeOut(300, function() {
+                        $(".sociosContainer").stop().fadeIn(300);
+                    });
+                    $(".sociosButton").removeClass("inactive");
+                    $(".sociosButton").addClass("active");
+                }
+            break;
+            case 'proveedores':
+                if(!$(".proveedoresButton").hasClass("active")){
+                    $(".sociosContainer").stop().fadeOut(300, function() {
+                        $(".proveedoresContainer").stop().fadeIn(300);
+                    });
+                    $(".proveedoresButton").removeClass("inactive");
+                    $(".proveedoresButton").addClass("active");
+                }
+            break;
+        }
     }
     guardarContacto(user) {
         let success = this.toastCtrl.create({

@@ -9,7 +9,7 @@ import { FerreteriasService } from '../../providers/ferreterias-service';
 
 import *  as AppConfig from '../../app/config';
 import * as $ from 'jquery';
-declare var google: any;
+import Chart from 'chart.js';
 
 @IonicPage()
 @Component({
@@ -45,10 +45,9 @@ export class IndicadoresPage extends ProtectedPage {
         this.cfg = AppConfig.cfg;
     }
     drawCharts() {
+        var parent = this;
+        /*
         let parent = this;
-        google.charts.setOnLoadCallback(chartNPS);
-        google.charts.setOnLoadCallback(chartVariacion);
-        google.charts.setOnLoadCallback(chartVentas);
         const options_nps = {
             pieHole: 0.5,
             backgroundColor: '#F5F5F5',
@@ -71,6 +70,7 @@ export class IndicadoresPage extends ProtectedPage {
             pieSliceText: 'none',
             pieSliceBorderColor: '#F5F5F5',
         };
+
         const options_variacion = {
             backgroundColor: "#F5F5F5",
             colors: ['#4890E2', '#E50201'],
@@ -126,51 +126,163 @@ export class IndicadoresPage extends ProtectedPage {
                 easing: 'in',
             },
         };
-        function chartNPS() {
-            let full = 100;
-            var chart_nps = new google.visualization.PieChart(document.getElementById('indicadores_donutChart'));
-            let total = parent.ferreteria.indicadores.nps.locales[parent.localSelected].total;
-            parent.npsValue = total;
-            let p = parent.ferreteria.indicadores.nps.locales[parent.localSelected].p;
-            let d = parent.ferreteria.indicadores.nps.locales[parent.localSelected].d;
-            let n = parent.ferreteria.indicadores.nps.locales[parent.localSelected].n;
-            var data_nps = google.visualization.arrayToDataTable([
+        */
+        let full = 100;
+        let total = this.ferreteria.indicadores.nps.locales[this.localSelected].total;
+        this.npsValue = total;
+        let p = this.ferreteria.indicadores.nps.locales[this.localSelected].p;
+        let d = this.ferreteria.indicadores.nps.locales[this.localSelected].d;
+        let n = this.ferreteria.indicadores.nps.locales[this.localSelected].n;
+        /*
+        var chart_nps = new google.visualization.PieChart(document.getElementById('indicadores_donutChart'));
+        var data_nps = google.visualization.arrayToDataTable([
+            ['indicador', 'valor'],
+            ['P', 0],
+            ['D', 0],
+            ['n', 0],
+            ['nulo', full],
+        ]);
+        chart_nps.draw(data_nps, options_nps);
+        var counter = 0;
+        var counterNeg = 0;
+        var handler = setInterval(function(){
+            var resta = full-counterNeg;
+            if(resta<0){resta=0};
+            data_nps = google.visualization.arrayToDataTable([
                 ['indicador', 'valor'],
-                ['P', 0],
-                ['D', 0],
-                ['n', 0],
-                ['nulo', full],
+                ['P', p*counter],
+                ['D', d*counter],
+                ['n', n*counter],
+                ['nulo', resta],
             ]);
-            chart_nps.draw(data_nps, options_nps);
-            var counter = 0;
-            var counterNeg = 0;
-            var handler = setInterval(function(){
-                var resta = full-counterNeg;
-                if(resta<0){resta=0};
+            counter = counter + 0.1;
+            counterNeg = counterNeg + 10;
+            counter = Math.round( counter * 10 ) / 10
+
+            if (counter > 1){
+                clearInterval(handler);
                 data_nps = google.visualization.arrayToDataTable([
                     ['indicador', 'valor'],
-                    ['P', p*counter],
-                    ['D', d*counter],
-                    ['n', n*counter],
-                    ['nulo', resta],
+                    ['P', p],
+                    ['D', d],
+                    ['n', n],
+                    ['nulo', 0],
                 ]);
-                counter = counter + 0.1;
-                counterNeg = counterNeg + 10;
-                counter = Math.round( counter * 10 ) / 10
+            }
+            chart_nps.draw(data_nps, options_nps);
+        }, 10);
+        */
+        var indicadoresCanvas = $("page-indicadores").last().find("#indicadores_donutChart");
+        var indicadoresChart = new Chart(indicadoresCanvas, {
+            type: 'pie',
+            data: {
+                labels: ["P", "D", "n"],
+                datasets: [{
+                    data: [p, d, n],
+                    backgroundColor: [
+                        '#009987',
+                        '#0084B1',
+                        '#9C5895',
+                    ]
+                }]
+            },
+            options: {
+                cutoutPercentage: 50,
+                legend: {
+                    display: false
+                },
+                maintainAspectRatio: false
+            }
+        });
 
-                if (counter > 1){
-                    clearInterval(handler);
-                    data_nps = google.visualization.arrayToDataTable([
-                        ['indicador', 'valor'],
-                        ['P', p],
-                        ['D', d],
-                        ['n', n],
-                        ['nulo', 0],
-                    ]);
+        var variacionChartCanvas = $("page-indicadores").last().find("#variacion_barChart");
+        var variacionMesesBarChart = [];
+        var variacionDataLastYear = [];
+        var variacionDataThisYear = [];
+        var variacionNumMonths = 0;
+        this.dataVariacion = this.ferreteria.indicadores.compras.fechas;
+        var variacionNumMax = this.dataVariacion.length;
+
+        Object.keys(this.dataVariacion).forEach(function(key) {
+            if (Number(key) < 3) {
+                variacionNumMonths++;
+                variacionMesesBarChart.push(parent.dataVariacion[key].mes);
+                variacionDataLastYear.push(parent.dataVariacion[key].periodos.anterior);
+                variacionDataThisYear.push(parent.dataVariacion[key].periodos.actual);
+            }
+        });
+        var variacionChartData = {
+            labels: variacionMesesBarChart,
+            datasets: [{
+                label: parent.lastYear,
+                backgroundColor: '#4890E2',
+                borderWidth: 0,
+                data: variacionDataLastYear
+            }, {
+                label: parent.thisYear,
+                backgroundColor: '#E50201',
+                borderWidth: 1,
+                data: variacionDataThisYear
+            }]
+        };
+        var variacionBarChart = new Chart(variacionChartCanvas, {
+            type: 'horizontalBar',
+            data: variacionChartData,
+            options: {
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            drawBorder: true,
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            maxTicksLimit: 6,
+                            fontColor: '#000000',
+                            fontFamily: 'CircularStd',
+                            fontSize: 12
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            fontColor: '#000000',
+                            fontFamily: 'CircularStd',
+                            fontSize: 14
+                        }
+                    }]
+                },
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'top',
                 }
-                chart_nps.draw(data_nps, options_nps);
-            }, 10);
-        }
+            }
+        });
+        let ableToClickVariacion = true;
+        $("page-indicadores").last().find("#variacionAdd").click(function(){
+            if (ableToClickVariacion) {
+                ableToClickVariacion = false;
+                if (variacionNumMonths < variacionNumMax) {
+                    variacionNumMonths++;
+                    var newLabels = parent.dataVariacion[variacionNumMonths-1].mes;
+                    variacionChartData.labels.push(newLabels);
+                    variacionChartData.datasets[0].data.push(parent.dataVariacion[variacionNumMonths-1].periodos.anterior);
+                    variacionChartData.datasets[1].data.push(parent.dataVariacion[variacionNumMonths-1].periodos.actual);
+                    let alturaActual = $("page-indicadores").last().find("#variacion_barChart").parents(".barChart_container").outerHeight(true);
+                    $("page-indicadores").last().find("#variacion_barChart").parents(".barChart_container").animate({
+                        height: alturaActual + 30
+                    }, 300, function() {
+                        variacionBarChart.update();
+                        ableToClickVariacion = true;
+                    });
+                }
+                if (variacionNumMonths >= variacionNumMax) {
+                    $("page-indicadores").last().find("#variacionAdd").stop().fadeOut(300);
+                }
+            }
+        });
+        /*
         function chartVariacion() {
             var chart_variacion = new google.visualization.BarChart(document.getElementById('variacion_barChart'));
             var data_variacion = new google.visualization.DataTable();
@@ -185,7 +297,7 @@ export class IndicadoresPage extends ProtectedPage {
                 let mes = parent.dataVariacion[key].mes;
                 let periodoAnterior = parent.dataVariacion[key].periodos.anterior;
                 let periodoActual = parent.dataVariacion[key].periodos.actual;
-                if(data_variacion.getNumberOfRows()<3){
+                if (data_variacion.getNumberOfRows() < 3) {
                     data_variacion.addRow([mes, periodoAnterior, periodoActual]);
                 }
             });
@@ -196,24 +308,115 @@ export class IndicadoresPage extends ProtectedPage {
             var addButton = document.getElementById('variacionAdd');
             let ableToClick = true;
             addButton.onclick = function() {
-                if(ableToClick){
+                if (ableToClick) {
                     ableToClick = false;
-                    if(data_variacion.getNumberOfRows()<numMax){
+                    if (data_variacion.getNumberOfRows() < numMax) {
                         data_variacion.addRow([parent.dataVariacion[data_variacion.getNumberOfRows()].mes, parent.dataVariacion[data_variacion.getNumberOfRows()].periodos.anterior, parent.dataVariacion[data_variacion.getNumberOfRows()].periodos.actual]);
                         let alturaActual = $("#variacion_barChart").outerHeight(true);
                         $("#variacion_barChart").animate({
-                            height: alturaActual+30
+                            height: alturaActual + 30
                         }, 300, function() {
                             drawVariacion();
                             ableToClick = true;
                         });
                     }
-                    if(data_variacion.getNumberOfRows()>=numMax){
+                    if (data_variacion.getNumberOfRows() >= numMax) {
                         $("#variacionAdd").stop().fadeOut(300);
                     }
                 }
             }
         }
+        */
+        var ventasChartCanvas = $("page-indicadores").last().find("#ventas_barChart");
+        var ventasMesesBarChart = [];
+        var ventasDataLastYear = [];
+        var ventasDataThisYear = [];
+        var ventasNumMonths = 0;
+        this.dataVentas = this.ferreteria.indicadores.compras.fechas;
+        var ventasNumMax = this.dataVentas.length;
+
+        var parent = this;
+        Object.keys(this.dataVentas).forEach(function(key) {
+            if (Number(key) < 3) {
+                ventasNumMonths++;
+                ventasMesesBarChart.push(parent.dataVentas[key].mes);
+                ventasDataLastYear.push(parent.dataVentas[key].periodos.anterior);
+                ventasDataThisYear.push(parent.dataVentas[key].periodos.actual);
+            }
+        });
+        var ventasChartData = {
+            labels: ventasMesesBarChart,
+            datasets: [{
+                label: parent.lastYear,
+                backgroundColor: '#4890E2',
+                borderWidth: 0,
+                data: ventasDataLastYear
+            }, {
+                label: parent.thisYear,
+                backgroundColor: '#E50201',
+                borderWidth: 1,
+                data: ventasDataThisYear
+            }]
+        };
+        var ventasBarChart = new Chart(ventasChartCanvas, {
+            type: 'horizontalBar',
+            data: ventasChartData,
+            options: {
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            drawBorder: true,
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            maxTicksLimit: 6,
+                            fontColor: '#000000',
+                            fontFamily: 'CircularStd',
+                            fontSize: 12
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            fontColor: '#000000',
+                            fontFamily: 'CircularStd',
+                            fontSize: 14
+                        }
+                    }]
+                },
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'top',
+                }
+            }
+        });
+
+        let ableToClickVentas = true;
+        $("page-indicadores").last().find("#ventasAdd").click(function(){
+            if (ableToClickVentas) {
+                ableToClickVentas = false;
+                if (ventasNumMonths < ventasNumMax) {
+                    ventasNumMonths++;
+                    var newLabels = parent.dataVentas[ventasNumMonths-1].mes;
+                    ventasChartData.labels.push(newLabels);
+                    ventasChartData.datasets[0].data.push(parent.dataVentas[ventasNumMonths-1].periodos.anterior);
+                    ventasChartData.datasets[1].data.push(parent.dataVentas[ventasNumMonths-1].periodos.actual);
+                    let alturaActual = $("page-indicadores").last().find("#ventas_barChart").parents(".barChart_container").outerHeight(true);
+                    $("page-indicadores").last().find("#ventas_barChart").parents(".barChart_container").animate({
+                        height: alturaActual + 30
+                    }, 300, function() {
+                        ventasBarChart.update();
+                        ableToClickVentas = true;
+                    });
+                }
+                if (ventasNumMonths >= ventasNumMax) {
+                    $("page-indicadores").last().find("#ventasAdd").stop().fadeOut(300);
+                }
+            }
+        });
+        /*
         function chartVentas() {
             var chart_ventas = new google.visualization.BarChart(document.getElementById('ventas_barChart'));
             var data_ventas = new google.visualization.DataTable();
@@ -228,7 +431,7 @@ export class IndicadoresPage extends ProtectedPage {
                 let mes = parent.dataVentas[key].mes;
                 let periodoAnterior = parent.dataVentas[key].periodos.anterior;
                 let periodoActual = parent.dataVentas[key].periodos.actual;
-                if(data_ventas.getNumberOfRows()<3){
+                if (data_ventas.getNumberOfRows() < 3) {
                     data_ventas.addRow([mes, periodoAnterior, periodoActual]);
                 }
             });
@@ -239,24 +442,25 @@ export class IndicadoresPage extends ProtectedPage {
             var addVentasButton = document.getElementById('ventasAdd');
             let ableToClick = true;
             addVentasButton.onclick = function() {
-                if(ableToClick){
+                if (ableToClick) {
                     ableToClick = false;
-                    if(data_ventas.getNumberOfRows()<numMax){
+                    if (data_ventas.getNumberOfRows() < numMax) {
                         data_ventas.addRow([parent.dataVentas[data_ventas.getNumberOfRows()].mes, parent.dataVentas[data_ventas.getNumberOfRows()].periodos.anterior, parent.dataVentas[data_ventas.getNumberOfRows()].periodos.actual]);
                         let alturaActual = $("#ventas_barChart").outerHeight(true);
                         $("#ventas_barChart").animate({
-                            height: alturaActual+30
+                            height: alturaActual + 30
                         }, 300, function() {
                             drawVentas();
                             ableToClick = true;
                         });
                     }
-                    if(data_ventas.getNumberOfRows()>=numMax){
+                    if (data_ventas.getNumberOfRows() >= numMax) {
                         $("#ventasAdd").stop().fadeOut(300);
                     }
                 }
             }
         }
+        */
     }
 
     onSelectChange(selectedValue: any) {
@@ -274,7 +478,7 @@ export class IndicadoresPage extends ProtectedPage {
                         this.logoFerreteria = attachments[0];
                         this.dateUpdate = new Date(this.ferreteria.indicadores.info.date);
                         this.thisYear = this.dateUpdate.getFullYear();
-                        this.lastYear = this.dateUpdate.getFullYear()-1;
+                        this.lastYear = this.dateUpdate.getFullYear() - 1;
                         this.drawCharts();
                         if (this.ferreteria.indicadores.compras.variacion.mes_indicador > 0) {
                             this.indicadorVariacion = "positivo";

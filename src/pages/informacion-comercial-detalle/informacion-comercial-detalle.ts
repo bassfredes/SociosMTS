@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, App, ToastController, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { ProtectedPage } from '../protected-page/protected-page';
 import { InformercialService } from '../../providers/informercial-service';
@@ -22,6 +22,8 @@ export class InformacionComercialDetallePage extends ProtectedPage {
         public navParams: NavParams,
         public menuCtrl: MenuController,
         public storage: Storage,
+        public toastCtrl: ToastController,
+        public alertCtrl: AlertController,
         public appCtrl: App,
         public informercialService: InformercialService) {
         super(navCtrl, navParams, storage, appCtrl);
@@ -46,12 +48,29 @@ export class InformacionComercialDetallePage extends ProtectedPage {
     }
     participar() {
         if(!this.clickParticipar){
-            this.clickParticipar = true;
-            const parent = this;
-            $(".prevParticipar").stop().fadeOut(300, function(){
-                $(".postParticipar").fadeIn(300);
-                parent.informercial.participando = true;
+            let alert = this.alertCtrl.create({
+                title: 'Confirmar Participación',
+                message: '¿Estás seguro que quieres participar?',
+                buttons: [
+                    {
+                        text: 'Cancelar',
+                        role: 'cancel',
+                        handler: () => { }
+                    },
+                    {
+                        text: 'Aceptar',
+                        handler: () => {
+                            this.clickParticipar = true;
+                            const parent = this;
+                            $(".prevParticipar").stop().fadeOut(300, function(){
+                                $(".postParticipar").fadeIn(300);
+                                parent.informercial.participando = true;
+                            });
+                        }
+                    }
+                ]
             });
+            alert.present();
         }
     }
 

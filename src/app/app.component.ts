@@ -4,12 +4,12 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {AuthService} from '../providers/auth-service';
 import {AndroidFullScreen} from '@ionic-native/android-full-screen';
+import {ScreenOrientation} from '@ionic-native/screen-orientation';
 import {CacheService} from "ionic-cache";
 import {ImgcacheService} from '../global/services';
 import {AppVersion} from '@ionic-native/app-version';
 
 import * as $ from 'jquery';
-declare var google: any;
 
 @Component({
     templateUrl: 'app.html'
@@ -18,6 +18,8 @@ export class MyApp {
     @ViewChild(Nav) nav: Nav;
     rootPage: any = 'PreloaderPage';
     versionApp: any = "1.0.1";
+    indicadoresEco: any;
+    indicadoresEco_date: any;
 
     pages: Array<{ title: string, component: any, method?: any }>;
 
@@ -27,6 +29,7 @@ export class MyApp {
         public splashScreen: SplashScreen,
         public authService: AuthService,
         public androidFullScreen: AndroidFullScreen,
+        public screenOrientation: ScreenOrientation,
         public menuCtrl: MenuController,
         public imgcacheService: ImgcacheService,
         public appVersion: AppVersion,
@@ -42,9 +45,7 @@ export class MyApp {
             { title: 'Mi Perfil', component: 'ProfilePage'},
             { title: 'Cerrar Sesión', component: 'LoginPage', method: 'logout'}
         ];
-
-        google.charts.load("current", { packages: ["corechart"] });
-        google.charts.setOnLoadCallback(this.initializeApp());
+        this.initializeApp();
     }
     initializeApp() {
         this.androidFullScreen.isImmersiveModeSupported().then(() => this.androidFullScreen.immersiveMode()).catch((error: any) => console.log(error));
@@ -52,9 +53,17 @@ export class MyApp {
             this.cache.setDefaultTTL(60 * 60 * 12 * 7);
             this.cache.setOfflineInvalidate(false);
             this.imgcacheService.initImgCache().then(() => {
-                this.statusBar.styleDefault();
+                this.statusBar.hide();
+                this.statusBar.overlaysWebView(false);
                 this.splashScreen.hide();
+                if ((<any>window).cordova) {
+                    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+                }
                 this.authService.startupTokenRefresh();
+                this.authService.getIndicadoresEconomicos().then((indicadoresData) => {
+                    this.indicadoresEco = indicadoresData;
+                    this.indicadoresEco_date = new Date();
+                }).catch(e => console.log("login error", e));
             });
         });
     }
@@ -69,7 +78,7 @@ export class MyApp {
                 this.nav.setRoot(page.component);
             }
             else {
-                this.nav.popToRoot({animate:false});
+                //this.nav.popToRoot({animate:false});
                 this.nav.push(page.component);
             }
         }

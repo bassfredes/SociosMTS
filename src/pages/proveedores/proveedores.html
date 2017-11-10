@@ -34,7 +34,7 @@
             </ion-row>
         </div>
     </ion-grid>
-    <ion-list [virtualScroll]="proveedoresFiltered" class="proveedores">
+    <ion-list [virtualScroll]="proveedoresFiltered" [approxItemHeight]=" '152px' " class="proveedores">
         <ion-item *virtualItem="let proveedor" class="proveedor" padding-top padding-bottom>
             <ion-row padding-right padding-left justify-content-around (click)="openPage('ProveedorPage', proveedor);">
                 <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>

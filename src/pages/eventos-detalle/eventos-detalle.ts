@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, App, ToastController, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../providers/auth-service';
@@ -10,7 +10,7 @@ import { ProveedoresService } from '../../providers/proveedores-service';
 
 import *  as AppConfig from '../../app/config';
 import * as $ from 'jquery';
-declare var google: any;
+import Chart from 'chart.js';
 
 @IonicPage()
 @Component({
@@ -31,6 +31,7 @@ export class EventosDetallePage extends ProtectedPage {
     totalRows: any = 0;
 
     evento: any = [];
+    participarB: boolean = false;
     imagenPrincipal: any;
     attachments: any;
     clickParticipar: boolean = false;
@@ -55,11 +56,14 @@ export class EventosDetallePage extends ProtectedPage {
         public eventosService: EventosService,
         public photoViewer: PhotoViewer,
         public appCtrl: App,
+        public toastCtrl: ToastController,
+        public alertCtrl: AlertController,
         public proveedoresService: ProveedoresService,
         public authService: AuthService) {
         super(navCtrl, navParams, storage, appCtrl);
         this.cfg = AppConfig.cfg;
         this.evento = this.navParams.get('evento');
+        this.participarB = this.navParams.get('participar');
         this.inviteData = this.formBuilder.group({
             name: ['', Validators.compose([Validators.required])],
             rut: ['', Validators.compose([Validators.required, Validators.minLength(7), Validators.pattern('^[0-9]+-[0-9kK]{1}$')])],
@@ -122,6 +126,9 @@ export class EventosDetallePage extends ProtectedPage {
                                     }
                                 }
                                 this.proveedoresFiltered = this.proveedores.filter(keyEqual);
+                                if (this.participarB) {
+                                    this.participar();
+                                }
                             });
                         });
                     }
@@ -132,12 +139,29 @@ export class EventosDetallePage extends ProtectedPage {
     }
     participar() {
         if (!this.clickParticipar) {
-            this.clickParticipar = true;
-            const parent = this;
-            $(".prevParticipar").stop().fadeOut(300, function() {
-                $(".postParticipar").fadeIn(300);
-                parent.evento.participando = true;
+            let alert = this.alertCtrl.create({
+                title: 'Confirmar Inscripción',
+                message: '¿Estás seguro que quieres inscribirte en el evento?',
+                buttons: [
+                    {
+                        text: 'Cancelar',
+                        role: 'cancel',
+                        handler: () => { }
+                    },
+                    {
+                        text: 'Aceptar',
+                        handler: () => {
+                            this.clickParticipar = true;
+                            const parent = this;
+                            $(".prevParticipar").stop().fadeOut(300, function() {
+                                $(".postParticipar").fadeIn(300);
+                                parent.evento.participando = true;
+                            });
+                        }
+                    }
+                ]
             });
+            alert.present();
         }
     }
     cargarProveedores() {
@@ -151,7 +175,65 @@ export class EventosDetallePage extends ProtectedPage {
         this.proveedoresFiltered = this.proveedores.filter(keyEqual);
     }
     drawCharts() {
-        let parent = this;
+        var RDNChartCanvas = $("page-eventos-detalle").last().find("#RDN");
+        const meta = this.varsRDN.meta;
+        const acuerdo = this.varsRDN.acuerdo;
+        const avance = this.varsRDN.avance;
+
+        var RDNChartData = {
+            labels: ["Meta", "Acuerdo", "Avance"],
+            datasets: [{
+                data: [100, 200, 400],
+                backgroundColor: [
+                    '#4990E2',
+                    '#52831D',
+                    '#D0011B'
+                ],
+                borderWidth: 0
+            }]
+        };
+        var RDNBarChart = new Chart(RDNChartCanvas, {
+            type: 'horizontalBar',
+            data: RDNChartData,
+            options: {
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            drawBorder: true,
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            maxTicksLimit: 6,
+                            fontColor: '#000000',
+                            fontFamily: 'CircularStd',
+                            fontSize: 12
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            fontColor: '#000000',
+                            fontFamily: 'CircularStd',
+                            fontSize: 14
+                        }
+                    }]
+                },
+                maintainAspectRatio: false,
+                legend: {
+                    display: false,
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            return tooltipItem.xLabel + " MM";
+                        }
+                    }
+                }
+            }
+        });
+        /*
         google.charts.setOnLoadCallback(chartRDN);
         const optionsRDN = {
             backgroundColor: "#FFF",
@@ -219,6 +301,7 @@ export class EventosDetallePage extends ProtectedPage {
             ]);
             chartRDNBar.draw(dataRDN, optionsRDN);
         }
+        */
     }
     openPage(page: string, proveedorData) {
         this.navCtrl.push(page, {
