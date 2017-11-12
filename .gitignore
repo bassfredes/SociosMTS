@@ -1,0 +1,10 @@
+## GITIGNORE para Proyectos Ionic 3 ##
+
+# Archivos SO
+
+[Tt]humbs.db
+*.DS_Store
+
+# Archivos Ionic
+node_modules/
+package-lock.json
