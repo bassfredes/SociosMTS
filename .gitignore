@@ -8,3 +8,6 @@
 # Archivos Ionic
 node_modules/
 package-lock.json
+.sourcemaps/
+www/
+platforms/

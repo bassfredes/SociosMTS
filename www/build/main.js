@@ -192,22 +192,34 @@ var AuthService = (function () {
             var senddata = {
                 Token: thetoken
             };
-            _this.authHttp.get(_this.cfg.apiUrl + _this.cfg.user.refresh + "&Token=" + thetoken)
-                .map(function (res) { return res.json(); })
-                .subscribe(function (res) {
-                var documentConfig = res.rows[0].doc;
-                // If the API returned a successful response, mark the user as logged in
-                if (documentConfig.success == true) {
-                    _this.storage.set("id_token", documentConfig.token);
-                    //this.refreshSubscription.unsubscribe();
-                    console.log("Token set");
-                }
-                else {
-                    console.log("The Token Black Listed");
-                    _this.logout();
-                }
-            }, function (err) {
-                console.error('ERROR', err);
+            var headers = new Headers();
+            headers.append('Content-Type', 'application/x-www-form-urlencoded');
+            var url = _this.cfg.apiUrl + _this.cfg.user.refresh + "&Token=" + thetoken;
+            var cacheKey = url;
+            return new Promise(function (resolve) {
+                _this.cache.getItem(cacheKey).catch(function () {
+                    return _this.authHttp.get(url).toPromise().then(function (rs) {
+                        var result = rs.json().rows[0].doc;
+                        if (result.success == true) {
+                            console.log("Guardando Token");
+                            console.log("Token set");
+                            _this.storage.set("id_token", result.token);
+                            return _this.cache.saveItem(cacheKey, result);
+                            /*this.refreshSubscription.unsubscribe();*/
+                        }
+                        else {
+                            console.log("The Token Black Listed");
+                            _this.logout();
+                        }
+                    });
+                }).then(function (data) {
+                    if (data.value) {
+                        resolve(JSON.parse(data.value));
+                    }
+                    else {
+                        resolve(data);
+                    }
+                });
             });
         });
     };
@@ -231,17 +243,11 @@ var AuthService = (function () {
                 delay = 1;
             return __WEBPACK_IMPORTED_MODULE_6_rxjs_Rx__["Observable"].interval(delay);
         });
+        this.getNewJwt();
         /*
     this.refreshSubscription = source.subscribe(() => {
         console.log("peticion");
-        if (this.connectivityService.isOffline()) {
-            console.log("Offline");
-            //this.refreshSubscription.unsubscribe();
-            this.storage.set("id_token", "offline");
-        }
-        else {
-            this.getNewJwt();
-        }
+        this.getNewJwt();
     });
     */
     };
@@ -415,7 +421,7 @@ var map = {
 		15
 	],
 	"../pages/noticia-detalle/noticia-detalle.module": [
-		862,
+		864,
 		8
 	],
 	"../pages/noticias/noticias.module": [
@@ -423,7 +429,7 @@ var map = {
 		7
 	],
 	"../pages/preloader/preloader.module": [
-		864,
+		862,
 		14
 	],
 	"../pages/profile-detalle/profile-detalle.module": [
@@ -439,11 +445,11 @@ var map = {
 		0
 	],
 	"../pages/proveedores/proveedores.module": [
-		868,
+		869,
 		4
 	],
 	"../pages/welcome/welcome.module": [
-		869,
+		868,
 		13
 	]
 };
@@ -572,7 +578,7 @@ var PROVIDERS = [
     __WEBPACK_IMPORTED_MODULE_10__ionic_native_camera__["a" /* Camera */],
     __WEBPACK_IMPORTED_MODULE_23_angular2_jwt__["JwtHelper"],
     __WEBPACK_IMPORTED_MODULE_13__ionic_native_android_full_screen__["a" /* AndroidFullScreen */],
-    __WEBPACK_IMPORTED_MODULE_15__ionic_native_google_maps__["b" /* GoogleMaps */],
+    __WEBPACK_IMPORTED_MODULE_15__ionic_native_google_maps__["a" /* GoogleMaps */],
     __WEBPACK_IMPORTED_MODULE_16__ionic_native_keyboard__["a" /* Keyboard */],
     __WEBPACK_IMPORTED_MODULE_22__global_services__["a" /* ImgcacheService */],
     __WEBPACK_IMPORTED_MODULE_17__ionic_native_app_version__["a" /* AppVersion */],
@@ -1476,14 +1482,14 @@ var AppModule = (function () {
                         { loadChildren: '../pages/informacion-comercial-detalle/informacion-comercial-detalle.module#InformacionComercialDetallePageModule', name: 'InformacionComercialDetallePage', segment: 'informacion-comercial-detalle', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/informacion-comercial/informacion-comercial.module#InformacionComercialPageModule', name: 'InformacionComercialPage', segment: 'informacion-comercial', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login-page/login-page.module#LoginPageModule', name: 'LoginPage', segment: 'login-page', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/noticia-detalle/noticia-detalle.module#NoticiaDetallePageModule', name: 'NoticiaDetallePage', segment: 'noticia-detalle', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/noticias/noticias.module#NoticiasPageModule', name: 'NoticiasPage', segment: 'noticias', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/preloader/preloader.module#PreloaderPageModule', name: 'PreloaderPage', segment: 'preloader', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/noticias/noticias.module#NoticiasPageModule', name: 'NoticiasPage', segment: 'noticias', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/noticia-detalle/noticia-detalle.module#NoticiaDetallePageModule', name: 'NoticiaDetallePage', segment: 'noticia-detalle', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/profile-detalle/profile-detalle.module#ProfileDetallePageModule', name: 'ProfileDetallePage', segment: 'profile-detalle', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/profile-page/profile-page.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile-page', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/proveedor/proveedor.module#ProveedorPageModule', name: 'ProveedorPage', segment: 'proveedor', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/proveedores/proveedores.module#ProveedoresPageModule', name: 'ProveedoresPage', segment: 'proveedores', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/welcome/welcome.module#WelcomePageModule', name: 'WelcomePage', segment: 'welcome', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/welcome/welcome.module#WelcomePageModule', name: 'WelcomePage', segment: 'welcome', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/proveedores/proveedores.module#ProveedoresPageModule', name: 'ProveedoresPage', segment: 'proveedores', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
@@ -1703,7 +1709,7 @@ var AccordionListComponent = (function () {
     ], AccordionListComponent.prototype, "elementView", void 0);
     AccordionListComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'accordion-list',template:/*ion-inline-start:"/Users/grazia/Desktop/Basti/sociosMTS/src/components/accordion-list/accordion-list.html"*/`<ion-list class="accordion-list">\n    <ion-list-header no-lines no-padding [class.headerNoDesplegable]="desplegable==\'false\'" [class.conSubtitle]="subtitle" [class.conFecha]="fecha" [class.conValorIndicador]="valorIndicador">\n        <button ion-item detail-none [style.background]="headerColor" [style.color]="textColor" (click)="toggleAccordion()" class="accordion-header" [class.active]="expanded">\n            <span class="title">{{ title }}</span>\n            <span *ngIf="fecha" class="fecha">{{ fecha }}</span>\n            <span *ngIf="subtitle" class="subtitle">{{ subtitle }}</span>\n            <span *ngIf="valorIndicador" class="valorIndicador">{{ valorIndicador }} %</span>\n            <i item-right class="fa fa-chevron-down" aria-hidden="true"></i>\n            <i item-right class="fa fa-chevron-up" aria-hidden="true"></i>\n        </button>\n        <section #accordionContent [style.background]="contentColor" [class.active]="expanded" class="accordion-content">\n            <ng-content></ng-content>\n        </section>\n    </ion-list-header>\n    <div class="text-center" *ngIf="button">\n        <button margin-bottom class="btn-primary" margin-top center ion-button large (click)="toggleAccordionButton()">\n            <span *ngIf="primerTexto">Ocultar detalles</span>\n            <span *ngIf="segundoTexto">Mostrar detalles</span>\n        </button>\n    </div>\n    <div class="text-center" *ngIf="masMeses">\n        <button id="{{masMesesButton}}" margin-bottom class="btn-primary" margin-top center ion-button large>\n            <span *ngIf="primerTexto">Mostrar más meses</span>\n        </button>\n    </div>\n</ion-list>\n`/*ion-inline-end:"/Users/grazia/Desktop/Basti/sociosMTS/src/components/accordion-list/accordion-list.html"*/
+            selector: 'accordion-list',template:/*ion-inline-start:"/Users/bassfredes/Downloads/SociotsMTS/src/components/accordion-list/accordion-list.html"*/`<ion-list class="accordion-list">\n    <ion-list-header no-lines no-padding [class.headerNoDesplegable]="desplegable==\'false\'" [class.conSubtitle]="subtitle" [class.conFecha]="fecha" [class.conValorIndicador]="valorIndicador">\n        <button ion-item detail-none [style.background]="headerColor" [style.color]="textColor" (click)="toggleAccordion()" class="accordion-header" [class.active]="expanded">\n            <span class="title">{{ title }}</span>\n            <span *ngIf="fecha" class="fecha">{{ fecha }}</span>\n            <span *ngIf="subtitle" class="subtitle">{{ subtitle }}</span>\n            <span *ngIf="valorIndicador" class="valorIndicador">{{ valorIndicador }} %</span>\n            <i item-right class="fa fa-chevron-down" aria-hidden="true"></i>\n            <i item-right class="fa fa-chevron-up" aria-hidden="true"></i>\n        </button>\n        <section #accordionContent [style.background]="contentColor" [class.active]="expanded" class="accordion-content">\n            <ng-content></ng-content>\n        </section>\n    </ion-list-header>\n    <div class="text-center" *ngIf="button">\n        <button margin-bottom class="btn-primary" margin-top center ion-button large (click)="toggleAccordionButton()">\n            <span *ngIf="primerTexto">Ocultar detalles</span>\n            <span *ngIf="segundoTexto">Mostrar detalles</span>\n        </button>\n    </div>\n    <div class="text-center" *ngIf="masMeses">\n        <button id="{{masMesesButton}}" margin-bottom class="btn-primary" margin-top center ion-button large>\n            <span *ngIf="primerTexto">Mostrar más meses</span>\n        </button>\n    </div>\n</ion-list>\n`/*ion-inline-end:"/Users/bassfredes/Downloads/SociotsMTS/src/components/accordion-list/accordion-list.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"]])
     ], AccordionListComponent);
@@ -2247,7 +2253,7 @@ var MyApp = (function () {
         var _this = this;
         this.androidFullScreen.isImmersiveModeSupported().then(function () { return _this.androidFullScreen.immersiveMode(); }).catch(function (error) { return console.log(error); });
         this.platform.ready().then(function () {
-            _this.cache.setDefaultTTL(60 * 60 * 12 * 7);
+            _this.cache.setDefaultTTL(60 * 60 * 12);
             _this.cache.setOfflineInvalidate(false);
             _this.imgcacheService.initImgCache().then(function () {
                 _this.statusBar.hide();
@@ -2291,15 +2297,23 @@ var MyApp = (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Nav */]),
-        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Nav */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Nav */]) === "function" && _a || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Nav */])
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/grazia/Desktop/Basti/sociosMTS/src/app/app.html"*/`<ion-menu id="authenticated" [content]="contenido" side="right" type="overlay" persistent="true" (ionOpen)="menuOpened()" (ionClose)="menuClosed()" >\n    <ion-content class="has-footer">\n        <ion-list inset>\n            <button ion-item *ngFor="let page of pages" (click)="openPage(page)" [class.hidden]="page.invisible" detail-push>\n    			{{page.title}}\n    		</button>\n        </ion-list>\n        <ion-list class="indicadores" *ngIf="indicadoresEco" inset>\n            <ion-item>\n                <div class="title">Indicadores económicos</div>\n            </ion-item>\n            <ion-item class="indicador">\n                <span class="title">Valor Dólar</span>\n                <span class="valor">{{indicadoresEco.valor_USD}} {{indicadoresEco.currency_name}}</span>\n            </ion-item>\n            <ion-item class="indicador">\n                <span class="title">Valor UF</span>\n                <span class="valor">{{indicadoresEco.valor_UF | number: \'1.0\' | pointReplacer}}</span>\n            </ion-item>\n        </ion-list>\n        <ion-footer class="lastUpdate">\n            <div class="version">{{versionApp}}</div>\n            <div class="date">Última descarga de datos: {{indicadoresEco_date | date : "dd \' \' MMMM \' \' yyyy"}}</div>\n        </ion-footer>\n    </ion-content>\n</ion-menu>\n<ion-nav #contenido [root]="rootPage"></ion-nav>\n`/*ion-inline-end:"/Users/grazia/Desktop/Basti/sociosMTS/src/app/app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/bassfredes/Downloads/SociotsMTS/src/app/app.html"*/`<ion-menu id="authenticated" [content]="contenido" side="right" type="overlay" persistent="true" (ionOpen)="menuOpened()" (ionClose)="menuClosed()" >\n    <ion-content class="has-footer">\n        <ion-list inset>\n            <button ion-item *ngFor="let page of pages" (click)="openPage(page)" [class.hidden]="page.invisible" detail-push>\n    			{{page.title}}\n    		</button>\n        </ion-list>\n        <ion-list class="indicadores" *ngIf="indicadoresEco" inset>\n            <ion-item>\n                <div class="title">Indicadores económicos</div>\n            </ion-item>\n            <ion-item class="indicador">\n                <span class="title">Valor Dólar</span>\n                <span class="valor">{{indicadoresEco.valor_USD}} {{indicadoresEco.currency_name}}</span>\n            </ion-item>\n            <ion-item class="indicador">\n                <span class="title">Valor UF</span>\n                <span class="valor">{{indicadoresEco.valor_UF | number: \'1.0\' | pointReplacer}}</span>\n            </ion-item>\n        </ion-list>\n        <ion-footer class="lastUpdate">\n            <div class="version">{{versionApp}}</div>\n            <div class="date">Última descarga de datos: {{indicadoresEco_date | date : "dd \' \' MMMM \' \' yyyy"}}</div>\n        </ion-footer>\n    </ion-content>\n</ion-menu>\n<ion-nav #contenido [root]="rootPage"></ion-nav>\n`/*ion-inline-end:"/Users/bassfredes/Downloads/SociotsMTS/src/app/app.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__providers_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_auth_service__["a" /* AuthService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_native_android_full_screen__["a" /* AndroidFullScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_native_android_full_screen__["a" /* AndroidFullScreen */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_native_screen_orientation__["a" /* ScreenOrientation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_native_screen_orientation__["a" /* ScreenOrientation */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_8__global_services__["a" /* ImgcacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8__global_services__["a" /* ImgcacheService */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_9__ionic_native_app_version__["a" /* AppVersion */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__ionic_native_app_version__["a" /* AppVersion */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_7_ionic_cache__["b" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7_ionic_cache__["b" /* CacheService */]) === "function" && _l || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */],
+            __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */],
+            __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */],
+            __WEBPACK_IMPORTED_MODULE_4__providers_auth_service__["a" /* AuthService */],
+            __WEBPACK_IMPORTED_MODULE_5__ionic_native_android_full_screen__["a" /* AndroidFullScreen */],
+            __WEBPACK_IMPORTED_MODULE_6__ionic_native_screen_orientation__["a" /* ScreenOrientation */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */],
+            __WEBPACK_IMPORTED_MODULE_8__global_services__["a" /* ImgcacheService */],
+            __WEBPACK_IMPORTED_MODULE_9__ionic_native_app_version__["a" /* AppVersion */],
+            __WEBPACK_IMPORTED_MODULE_7_ionic_cache__["b" /* CacheService */]])
     ], MyApp);
     return MyApp;
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
 }());
 
 //# sourceMappingURL=app.component.js.map

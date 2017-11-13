@@ -23,7 +23,7 @@ export class HomePage extends ProtectedPage {
     public ferreteria = ferreteriaModel;
     @ViewChild('slider') slider: Slides;
 
-    noticias: any;
+    noticia: any;
     noticiasImage: any = false;
 
     itemExpandHeight: number = 200;
@@ -141,9 +141,9 @@ export class HomePage extends ProtectedPage {
             }
         });
     }
-    openPage(page: string) {
+    openNoticia(page: string) {
         this.navCtrl.push(page, {
-            noticia: this.noticias
+            noticia: this.noticia
         });
     }
     onSelectChange(selectedValue: any) {
@@ -167,11 +167,11 @@ export class HomePage extends ProtectedPage {
                         ];
                         this.drawChartNPS();
                     });
-                    this.noticiasService.getLast().then(noticias => {
-                        this.noticias = noticias;
-                        if (this.noticias._attachments) {
-                            const attachments = Object.keys(this.noticias._attachments);
-                            this.noticiasImage = this.cfg.apiUrl + '/noticias/' + this.noticias._id + '/' + attachments[0];
+                    this.noticiasService.getLast().then(noticiaData => {
+                        this.noticia = noticiaData;
+                        if (this.noticia._attachments) {
+                            const attachments = Object.keys(this.noticia._attachments);
+                            this.noticiasImage = this.cfg.apiUrl + this.cfg.noticias + '/' + this.noticia._id + '/' + attachments[0];
                         }
                     });
                 });

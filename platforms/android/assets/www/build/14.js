@@ -1,6 +1,6 @@
 webpackJsonp([14],{
 
-/***/ 864:
+/***/ 862:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PreloaderPageModule", function() { return PreloaderPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__preloader__ = __webpack_require__(940);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__preloader__ = __webpack_require__(938);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_shared_module__ = __webpack_require__(494);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -44,7 +44,7 @@ var PreloaderPageModule = (function () {
 
 /***/ }),
 
-/***/ 940:
+/***/ 938:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -73,6 +73,7 @@ var PreloaderPage = (function () {
         this.connectivityService = connectivityService;
         this.mostrarContenido = false;
         this.mostrarLoader = false;
+        this.statusOnline = true;
     }
     PreloaderPage.prototype.ionViewDidLoad = function () {
         var _this = this;
@@ -81,24 +82,24 @@ var PreloaderPage = (function () {
                 _this.navCtrl.setRoot('WelcomePage');
             }
             else {
+                _this.navCtrl.setRoot('HomePage');
+                _this.mostrarContenido = true;
                 _this.startPreload();
             }
-            _this.mostrarContenido = true;
         });
     };
     PreloaderPage.prototype.startPreload = function () {
         this.mostrarLoader = true;
         if (this.connectivityService.isOnline()) {
-            console.log("online");
-            this.navCtrl.setRoot('HomePage');
+            this.statusOnline = true;
         }
         if (this.connectivityService.isOffline()) {
-            console.log("offline");
+            this.statusOnline = false;
         }
     };
     PreloaderPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-preloader',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/preloader/preloader.html"*/`<ion-content padding *ngIf="mostrarContenido">\n    <div class="connected" *ngIf="mostrarLoader">Estás Contectado</div>\n    <div class="disconnected" *ngIf="!mostrarLoader">Estás Desconectado</div>\n</ion-content>\n`/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/preloader/preloader.html"*/,
+            selector: 'page-preloader',template:/*ion-inline-start:"/Users/bassfredes/Downloads/SociotsMTS/src/pages/preloader/preloader.html"*/`<ion-content padding *ngIf="mostrarContenido">\n    <div class="connected" *ngIf="statusOnline">Estás Contectado</div>\n    <div class="disconnected" *ngIf="!statusOnline">Estás Desconectado</div>\n</ion-content>\n`/*ion-inline-end:"/Users/bassfredes/Downloads/SociotsMTS/src/pages/preloader/preloader.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],

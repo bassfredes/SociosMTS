@@ -50,7 +50,7 @@ export class MyApp {
     initializeApp() {
         this.androidFullScreen.isImmersiveModeSupported().then(() => this.androidFullScreen.immersiveMode()).catch((error: any) => console.log(error));
         this.platform.ready().then(() => {
-            this.cache.setDefaultTTL(60 * 60 * 12 * 7);
+            this.cache.setDefaultTTL(60 * 60 * 12);
             this.cache.setOfflineInvalidate(false);
             this.imgcacheService.initImgCache().then(() => {
                 this.statusBar.hide();

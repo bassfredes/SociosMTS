@@ -563,6 +563,8 @@ ion-menu {
     font-weight: $light;
     color: color($colors, dark);
     text-decoration: underline;
+    background: none !important;
+    box-shadow: none !important;
 }
 
 .inContent {

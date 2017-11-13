@@ -101,7 +101,7 @@
     <name>SociosMTS</name>
     <description>MTS La Red Materiales y Soluciones</description>
     <author email="info@mitocondria.cl" href="https://www.mitocondria.cl/">Mitocondria</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.0.18:8100" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-navigation href="http://basnakk.duckdns.org/*" />
@@ -123,6 +123,8 @@
     <edit-config file="*-Info.plist" mode="merge" target="NSContactsUsageDescription">
         <string>Save users of Ferreterias to your contacts</string>
     </edit-config>
+    <allow-navigation href="http://192.168.0.18:8101" />
+    <allow-navigation href="http://192.168.0.18:8100" />
     <allow-intent href="market:*" />
     <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
     <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />

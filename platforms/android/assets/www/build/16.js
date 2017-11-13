@@ -1,6 +1,6 @@
 webpackJsonp([16],{
 
-/***/ 857:
+/***/ 856:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ForgotPageModule", function() { return ForgotPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forgot_page__ = __webpack_require__(933);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forgot_page__ = __webpack_require__(932);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -41,7 +41,7 @@ var ForgotPageModule = (function () {
 
 /***/ }),
 
-/***/ 933:
+/***/ 932:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -85,7 +85,7 @@ var ForgotPage = (function () {
     };
     ForgotPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-forgot-page',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/forgot-page/forgot-page.html"*/`<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv1" width="71" src="assets/images/logoHeaderV1@2.png" />\n        <button ion-button menuToggle right>\n    		<ion-icon name="menu"></ion-icon>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content padding class="contentInterior">\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <div class="bloqueBlanco firstElement">\n                    <h1 margin-top class="welcome">¿Olvidaste tu contraseña?</h1>\n                    <h2 class="small">Ingresa tu email y te ayudaremos.</h2>\n                </div>\n                <form [formGroup]="forgotData" (ngSubmit)="login()">\n                    <ion-item>\n                        <ion-label floating>Mail de usuario</ion-label>\n                        <ion-input type="email" formControlName="email"></ion-input>\n                    </ion-item>\n                    <div margin-top class="text-center">\n                        <button margin-top center ion-button round large type="submit" [disabled]="!forgotData.valid">Enviar</button>\n                    </div>\n                </form>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n\n</ion-content>\n`/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/forgot-page/forgot-page.html"*/,
+            selector: 'page-forgot-page',template:/*ion-inline-start:"/Users/bassfredes/Downloads/SociotsMTS/src/pages/forgot-page/forgot-page.html"*/`<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv1" width="71" src="assets/images/logoHeaderV1@2.png" />\n        <button ion-button menuToggle right>\n    		<ion-icon name="menu"></ion-icon>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content padding class="contentInterior">\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <div class="bloqueBlanco firstElement">\n                    <h1 margin-top class="welcome">¿Olvidaste tu contraseña?</h1>\n                    <h2 class="small">Ingresa tu email y te ayudaremos.</h2>\n                </div>\n                <form [formGroup]="forgotData" (ngSubmit)="login()">\n                    <ion-item>\n                        <ion-label floating>Mail de usuario</ion-label>\n                        <ion-input type="email" formControlName="email"></ion-input>\n                    </ion-item>\n                    <div margin-top class="text-center">\n                        <button margin-top center ion-button round large type="submit" [disabled]="!forgotData.valid">Enviar</button>\n                    </div>\n                </form>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n\n</ion-content>\n`/*ion-inline-end:"/Users/bassfredes/Downloads/SociotsMTS/src/pages/forgot-page/forgot-page.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],

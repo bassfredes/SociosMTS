@@ -14641,12 +14641,12 @@ var proveedorModel = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_keyboard__ = __webpack_require__(504);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_keyboard__ = __webpack_require__(506);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__protected_page_protected_page__ = __webpack_require__(874);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_auth_service__ = __webpack_require__(161);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__models_proveedor_model__ = __webpack_require__(928);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_proveedores_service__ = __webpack_require__(498);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_productos_service__ = __webpack_require__(502);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_proveedores_service__ = __webpack_require__(499);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_productos_service__ = __webpack_require__(504);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_config__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_jquery__ = __webpack_require__(495);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_jquery__);
@@ -14737,6 +14737,7 @@ var ProveedorPage = (function (_super) {
                         _this.productosTop = datosProductos;
                     });
                     _this.drawCharts('30');
+                    _this.drawChartVentas();
                 });
             });
         }
@@ -14789,64 +14790,6 @@ var ProveedorPage = (function (_super) {
                 maintainAspectRatio: false
             }
         });
-        /*
-        const totalChart = new google.visualization.PieChart(document.getElementById('periodo_donutChart_total'));
-        var data_total = google.visualization.arrayToDataTable([
-            ['indicador', 'valor'],
-            ['Total', 0],
-            ['nulo', nulo],
-        ]);
-        var options_total = {
-            pieHole: 0.8,
-            backgroundColor: '#F5F5F5',
-            colors: ['#EF452B', '#DADBDF'],
-            chartArea: {
-                left: '0%',
-                top: '10%',
-                width: '70%',
-                height: '80%'
-            },
-            animation: {
-                startup: true,
-                duration: 1000,
-                easing: 'in',
-            },
-            enableInteractivity: false,
-            legend: {
-                position: 'none'
-            },
-            pieSliceText: 'none',
-            pieSliceBorderColor: '#F5F5F5',
-        };
-        totalChart.draw(data_total, options_total);
-        var counter = 0;
-
-        var resta;
-        var indicadorMulti;
-        var handler = setInterval(function() {
-            resta = nulo - indicador * counter;
-            indicadorMulti = indicador * counter;
-            if(resta<0){resta=0}
-            if(indicador<0){indicador=0}
-            data_total = google.visualization.arrayToDataTable([
-                ['indicador', 'valor'],
-                ['Total', indicadorMulti],
-                ['nulo', resta],
-            ]);
-            counter = counter + 0.1;
-            counter = Math.round(counter * 10) / 10
-
-            if (counter >= 1) {
-                clearInterval(handler);
-                data_total = google.visualization.arrayToDataTable([
-                    ['indicador', 'valor'],
-                    ['Total', indicador],
-                    ['nulo', nulo-indicador],
-                ]);
-            }
-            totalChart.draw(data_total, options_total);
-        }, 10);
-        */
         var indicadorNorte = this.proveedor.indicadores.cobertura.periodos[eval(month)].norte;
         this.indicadorGral.norte = indicadorNorte;
         var nuloNorte = this.proveedor.indicadores.cobertura.totales.norte;
@@ -14872,62 +14815,6 @@ var ProveedorPage = (function (_super) {
                 maintainAspectRatio: false
             }
         });
-        /*
-        const norteChart = new google.visualization.PieChart(document.getElementById('periodo_donutChart_norte'));
-        var data_norte = google.visualization.arrayToDataTable([
-            ['indicador', 'valor'],
-            ['Norte', 0],
-            ['nulo', nulo],
-        ]);
-        var options_norte = {
-            pieHole: 0.8,
-            backgroundColor: '#F5F5F5',
-            colors: ['#FFC12D', '#DADBDF'],
-            chartArea: {
-                left: '0%',
-                top: '10%',
-                width: '70%',
-                height: '80%'
-            },
-            animation: {
-                startup: true,
-                duration: 1000,
-                easing: 'in',
-            },
-            enableInteractivity: false,
-            legend: {
-                position: 'none'
-            },
-            pieSliceText: 'none',
-            pieSliceBorderColor: '#F5F5F5',
-        };
-        norteChart.draw(data_norte, options_norte);
-        var counter = 0;
-        if(nulo<0) nulo=0;
-
-        var resta;
-        var handler = setInterval(function() {
-            resta = nulo - indicador * counter;
-            if(resta<0){resta = 0};
-            data_norte = google.visualization.arrayToDataTable([
-                ['indicador', 'valor'],
-                ['Norte', indicador * counter],
-                ['nulo', nulo],
-            ]);
-            counter = counter + 0.1;
-            counter = Math.round(counter * 10) / 10
-
-            if (counter >= 1) {
-                clearInterval(handler);
-                data_norte = google.visualization.arrayToDataTable([
-                    ['indicador', 'valor'],
-                    ['Norte', indicador],
-                    ['nulo', nulo-indicador],
-                ]);
-            }
-            norteChart.draw(data_norte, options_norte);
-        }, 10);
-        */
         var indicadorCentro = this.proveedor.indicadores.cobertura.periodos[eval(month)].centro;
         this.indicadorGral.centro = indicadorCentro;
         var nuloCentro = this.proveedor.indicadores.cobertura.totales.centro;
@@ -14953,62 +14840,6 @@ var ProveedorPage = (function (_super) {
                 maintainAspectRatio: false
             }
         });
-        /*
-        const centroChart = new google.visualization.PieChart(document.getElementById('periodo_donutChart_centro'));
-        var data_centro = google.visualization.arrayToDataTable([
-            ['indicador', 'valor'],
-            ['Centro', 0],
-            ['nulo', nulo],
-        ]);
-        var options_centro = {
-            pieHole: 0.8,
-            backgroundColor: '#F5F5F5',
-            colors: ['#4A90E2', '#DADBDF'],
-            chartArea: {
-                left: '0%',
-                top: '10%',
-                width: '70%',
-                height: '80%'
-            },
-            animation: {
-                startup: true,
-                duration: 1000,
-                easing: 'in',
-            },
-            enableInteractivity: false,
-            legend: {
-                position: 'none'
-            },
-            pieSliceText: 'none',
-            pieSliceBorderColor: '#F5F5F5',
-        };
-        centroChart.draw(data_centro, options_centro);
-        var counter = 0;
-        if(nulo<0) nulo=0;
-
-        var resta;
-        var handler = setInterval(function() {
-            resta = nulo - indicador * counter;
-            if(resta<0){resta = 0};
-            data_centro = google.visualization.arrayToDataTable([
-                ['indicador', 'valor'],
-                ['Centro', indicador * counter],
-                ['nulo', resta],
-            ]);
-            counter = counter + 0.1;
-            counter = Math.round(counter * 10) / 10
-
-            if (counter > 1) {
-                clearInterval(handler);
-                data_centro = google.visualization.arrayToDataTable([
-                    ['indicador', 'valor'],
-                    ['Centro', indicador],
-                    ['nulo', nulo-indicador],
-                ]);
-            }
-            centroChart.draw(data_centro, options_centro);
-        }, 10);
-        */
         var indicadorSur = this.proveedor.indicadores.cobertura.periodos[eval(month)].sur;
         this.indicadorGral.sur = indicadorSur;
         var nuloSur = this.proveedor.indicadores.cobertura.totales.sur;
@@ -15034,62 +14865,8 @@ var ProveedorPage = (function (_super) {
                 maintainAspectRatio: false
             }
         });
-        /*
-        const surChart = new google.visualization.PieChart(document.getElementById('periodo_donutChart_sur'));
-        var data_sur = google.visualization.arrayToDataTable([
-            ['indicador', 'valor'],
-            ['Sur', 0],
-            ['nulo', nulo],
-        ]);
-        var options_sur = {
-            pieHole: 0.8,
-            backgroundColor: '#F5F5F5',
-            colors: ['#52831D', '#DADBDF'],
-            chartArea: {
-                left: '0%',
-                top: '10%',
-                width: '70%',
-                height: '80%'
-            },
-            animation: {
-                startup: true,
-                duration: 1000,
-                easing: 'in',
-            },
-            enableInteractivity: false,
-            legend: {
-                position: 'none'
-            },
-            pieSliceText: 'none',
-            pieSliceBorderColor: '#F5F5F5',
-        };
-        surChart.draw(data_sur, options_sur);
-        var counter = 0;
-        if(nulo<0) nulo=0;
-
-        var resta;
-        var handler = setInterval(function() {
-            resta = nulo - indicador;
-            if(resta<0){resta = 0};
-            data_sur = google.visualization.arrayToDataTable([
-                ['indicador', 'valor'],
-                ['Sur', indicador * counter],
-                ['nulo', resta],
-            ]);
-            counter = counter + 0.1;
-            counter = Math.round(counter * 10) / 10
-
-            if (counter > 1) {
-                clearInterval(handler);
-                data_sur = google.visualization.arrayToDataTable([
-                    ['indicador', 'valor'],
-                    ['Sur', indicador],
-                    ['nulo', nulo-indicador],
-                ]);
-            }
-            surChart.draw(data_sur, options_sur);
-        }, 10);
-        */
+    };
+    ProveedorPage.prototype.drawChartVentas = function () {
         var ventasChartCanvas = __WEBPACK_IMPORTED_MODULE_10_jquery__("page-proveedor").last().find("#ventas_barChart");
         var ventasMesesBarChart = [];
         var ventasDataLastYear = [];
@@ -15164,6 +14941,7 @@ var ProveedorPage = (function (_super) {
                     ventasChartData.labels.push(newLabels);
                     ventasChartData.datasets[0].data.push(parent.dataVentas[ventasNumMonths - 1].periodos.anterior);
                     ventasChartData.datasets[1].data.push(parent.dataVentas[ventasNumMonths - 1].periodos.actual);
+                    console.log(__WEBPACK_IMPORTED_MODULE_10_jquery__("page-proveedor").last().find("#ventas_barChart").parents(".barChart_container"));
                     var alturaActual = __WEBPACK_IMPORTED_MODULE_10_jquery__("page-proveedor").last().find("#ventas_barChart").parents(".barChart_container").outerHeight(true);
                     __WEBPACK_IMPORTED_MODULE_10_jquery__("page-proveedor").last().find("#ventas_barChart").parents(".barChart_container").animate({
                         height: alturaActual + 30
@@ -15177,105 +14955,6 @@ var ProveedorPage = (function (_super) {
                 }
             }
         });
-        /*
-        function chartVentas(){
-            var chart_ventas = new google.visualization.BarChart(document.getElementById('ventas_barChart'));
-            var data_ventas = new google.visualization.DataTable();
-            parent.dataVentas = parent.proveedor.indicadores.ventas.fechas;
-
-            data_ventas.addColumn('string', ' ');
-            data_ventas.addColumn('number', parent.lastYear);
-            data_ventas.addColumn('number', parent.thisYear);
-            var optionsVentas = {
-                backgroundColor: "#F5F5F5",
-                colors: ['#4890E2', '#E50201'],
-                chartArea: {
-                    backgroundColor: "#F5F5F5",
-                    left: '30%',
-                    top: '0%',
-                    width: '70%',
-                    height: '90%',
-                },
-                focusTarget: 'category',
-                bars: 'horizontal',
-                bar: { groupWidth: "40px" },
-                enableInteractivity: true,
-                legend: { position: 'none' },
-                tooltip: {
-                    isHtml: true,
-                },
-                textStyle: {
-                    color: '#000001',
-                    fontSize: 12,
-                    bold: true,
-                },
-                vAxis: {
-                    viewWindowMode: 'pretty',
-                    format: 'short',
-                    textStyle: {
-                        color: '#000000',
-                        fontSize: 14,
-                        bold: true,
-                    },
-                },
-                hAxis: {
-                    viewWindowMode: 'pretty',
-                    minValue: 0,
-                    baseline: 0,
-                    textStyle: {
-                        color: '#000001',
-                        fontSize: 12,
-                        bold: true,
-                    },
-                    gridlines: {
-                        count: 6,
-                        color: "#D9DADB"
-                    },
-                    minorGridlines: {
-                        count: 0
-                    }
-                },
-                animation: {
-                    startup: true,
-                    duration: 1000,
-                    easing: 'in',
-                },
-            };
-            var numMax = parent.dataVentas.length;
-            Object.keys(parent.dataVentas).forEach(function(key) {
-                let mes = parent.dataVentas[key].mes;
-                let periodoAnterior = parent.dataVentas[key].periodos.anterior;
-                let periodoActual = parent.dataVentas[key].periodos.actual;
-                if(data_ventas.getNumberOfRows()<3){
-                    data_ventas.addRow([mes, periodoAnterior, periodoActual]);
-                }
-            });
-            function drawVentas() {
-                chart_ventas.draw(data_ventas, optionsVentas);
-            }
-            drawVentas();
-            var addVentasButton = document.getElementById('ventasAdd');
-            let ableToClick = true;
-            addVentasButton.onclick = function() {
-                if(ableToClick){
-                    ableToClick = false;
-                    if(data_ventas.getNumberOfRows()<numMax){
-                        data_ventas.addRow([parent.dataVentas[data_ventas.getNumberOfRows()].mes, parent.dataVentas[data_ventas.getNumberOfRows()].periodos.anterior, parent.dataVentas[data_ventas.getNumberOfRows()].periodos.actual]);
-                        let alturaActual = $("#ventas_barChart").outerHeight(true);
-                        $("#ventas_barChart").animate({
-                            height: alturaActual+30
-                        }, 300, function() {
-                            drawVentas();
-                            ableToClick = true;
-                        });
-                    }
-                    if(data_ventas.getNumberOfRows()>=numMax){
-                        $("#ventasAdd").stop().fadeOut(300);
-                    }
-                }
-            }
-        }
-        */
     };
     ProveedorPage.prototype.openPage = function (page, proveedorData) {
         //this.navCtrl.pop({animate:false});
@@ -15298,22 +14977,22 @@ var ProveedorPage = (function (_super) {
         __WEBPACK_IMPORTED_MODULE_10_jquery__(".botonesPeriodo button.inContent").addClass("inactive");
         switch (month) {
             case '30':
-                __WEBPACK_IMPORTED_MODULE_10_jquery__("#mes30").removeClass("inactive");
-                __WEBPACK_IMPORTED_MODULE_10_jquery__("#mes30").addClass("active");
+                __WEBPACK_IMPORTED_MODULE_10_jquery__(".mes30Button").removeClass("inactive");
+                __WEBPACK_IMPORTED_MODULE_10_jquery__(".mes30Button").addClass("active");
                 break;
             case '60':
-                __WEBPACK_IMPORTED_MODULE_10_jquery__("#mes60").removeClass("inactive");
-                __WEBPACK_IMPORTED_MODULE_10_jquery__("#mes60").addClass("active");
+                __WEBPACK_IMPORTED_MODULE_10_jquery__(".mes60Button").removeClass("inactive");
+                __WEBPACK_IMPORTED_MODULE_10_jquery__(".mes60Button").addClass("active");
                 break;
             case '90':
-                __WEBPACK_IMPORTED_MODULE_10_jquery__("#mes90").removeClass("inactive");
-                __WEBPACK_IMPORTED_MODULE_10_jquery__("#mes90").addClass("active");
+                __WEBPACK_IMPORTED_MODULE_10_jquery__(".mes90Button").removeClass("inactive");
+                __WEBPACK_IMPORTED_MODULE_10_jquery__(".mes90Button").addClass("active");
                 break;
         }
     };
     ProveedorPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-proveedor',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/proveedor/proveedor.html"*/`<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />\n        <button ion-button menuToggle right>\n            <div class="navicon-button x">\n                <div class="navicon"></div>\n            </div>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content class="contentInterior" *ngIf="proveedor">\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <h1 class="text-center uppercase">Proveedores</h1>\n            </ion-col>\n        </ion-row>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <div class="text-center" *ngIf="logoProveedor">\n                    <lazy-img class="logoRounded" inputSrc="{{logoProveedor}}"></lazy-img>\n                </div>\n                <h4 class="text-center capitalize">{{proveedor.nombre}}</h4>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-row padding-right padding-left justify-content-around>\n                <ion-col col-10 col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                    <form (ngSubmit)="searchSubmit()">\n                        <ion-searchbar class="buscador" animated="true" cancelButtonText="Cancelar" showCancelButton="false" placeholder="Buscar Proveedores" type="text" (ionInput)="searchFn($event)" (search)="searchSubmit($event)"></ion-searchbar>\n                        <button class="button button-clear" type="submit">Buscar Proveedores</button>\n                    </form>\n                </ion-col>\n                <ion-col col-2 col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                    <button class="button dropdownProveedor" (click)="mostrarLista();" ion-button icon-only>\n                        <ion-icon class="icon" [class.active]="mostrarProveedores" name="ios-arrow-up"></ion-icon>\n                        <ion-icon class="icon" [class.active]="!mostrarProveedores" name="ios-arrow-down"></ion-icon>\n                    </button>\n                </ion-col>\n            </ion-row>\n        </ion-row>\n    </ion-grid>\n    <ion-scroll class="containerProveedores" [class.active]="mostrarProveedores" scrollY="true">\n        <ion-list class="proveedores" *ngFor="let proveedorList of proveedoresFiltered">\n            <ion-item class="proveedor" padding-top padding-bottom (click)="openPage(\'ProveedorPage\', proveedorList);">\n                <ion-row padding-right padding-left justify-content-around>\n                    <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                        <h2 class="titleProveedor">\n                            {{proveedorList.doc.nombre}}\n                        </h2>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n        </ion-list>\n    </ion-scroll>\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <accordion-list class="no-margin" title="IVP" subtitle=""  valor="" desplegable="true" maxHeight="2720" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">\n                    <div class="chartIndi">\n                        <div class="title text-center center">\n                            <h3 class="small capitalize normalLetter">Ranking <span class="ranking {{proveedor.indicadores.ivp.tendencia}}">{{proveedor.indicadores.ivp.ranking}}</span> <span class="separadorVertical"></span> <span class="large">{{proveedor.indicadores.ivp.puntaje}}%</span></h3>\n                        </div>\n                        <ion-list margin-top class="indicadores">\n                            <ion-item no-lines class="indicador">\n                                <div class="indicadorBullet {{proveedor.indicadores.ivp.compromiso_tendencia}}"></div>\n                                <span class="title">Compromiso</span>\n                                <span class="valor">{{proveedor.indicadores.ivp.compromiso}}</span>\n                            </ion-item>\n                            <ion-item no-lines class="indicador">\n                                <div class="indicadorBullet {{proveedor.indicadores.ivp.cobertura_tendencia}}"></div>\n                                <span class="title">Cobertura</span>\n                                <span class="valor">{{proveedor.indicadores.ivp.cobertura}}</span>\n                            </ion-item>\n                            <ion-item no-lines class="indicador">\n                                <div class="indicadorBullet {{proveedor.indicadores.ivp.dispersion_tendencia}}"></div>\n                                <span class="title">Dispersión</span>\n                                <span class="valor">{{proveedor.indicadores.ivp.dispersion}}</span>\n                            </ion-item>\n                            <ion-item no-lines class="indicador">\n                                <div class="indicadorBullet {{proveedor.indicadores.ivp.plazos_pago_tendencia}}"></div>\n                                <span class="title">Plazos de Pago</span>\n                                <span class="valor">{{proveedor.indicadores.ivp.plazos_pago}}</span>\n                            </ion-item>\n                            <ion-item no-lines class="indicador">\n                                <div class="indicadorBullet {{proveedor.indicadores.ivp.fill_rate_tendencia}}"></div>\n                                <span class="title">Fill Rate</span>\n                                <span class="valor">{{proveedor.indicadores.ivp.fill_rate}}</span>\n                            </ion-item>\n                            <ion-item no-lines class="indicador">\n                                <div class="indicadorBullet {{proveedor.indicadores.ivp.desviacion_tendencia}}"></div>\n                                <span class="title">Desviación</span>\n                                <span class="valor">{{proveedor.indicadores.ivp.desviacion}}</span>\n                            </ion-item>\n                        </ion-list>\n                    </div>\n                </accordion-list>\n            </ion-col>\n        </ion-row>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <accordion-list class="no-margin" title="Cobertura" subtitle=""  valor="" desplegable="true" maxHeight="2720" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">\n                    <div class="chartProv">\n                        <div class="title text-center center">\n                            <h3 class="small capitalize normalLetter">Período Móvil</h3>\n                        </div>\n                    </div>\n                    <ion-grid>\n                        <div class="no-padding botonesPeriodo">\n                            <ion-row padding-right padding-left justify-content-around>\n                                <ion-col col-sm-4 col-md-4 col-lg-4 col-xl-3 align-self-center>\n                                    <button id="mes30" class="inContent minPadding fullWidth active" ion-button round large (click)="changeMonth(\'30\');">30 Días</button>\n                                </ion-col>\n                                <ion-col col-sm-4 col-md-4 col-lg-4 col-xl-3 align-self-center>\n                                    <button id="mes60" class="inContent minPadding fullWidth inactive" ion-button round large (click)="changeMonth(\'60\');">60 Días</button>\n                                </ion-col>\n                                <ion-col col-sm-4 col-md-4 col-lg-4 col-xl-3 align-self-center>\n                                    <button id="mes90" class="inContent minPadding fullWidth inactive" ion-button round large (click)="changeMonth(\'90\');">90 Días</button>\n                                </ion-col>\n                            </ion-row>\n                            <ion-row padding-right padding-left justify-content-around>\n                                <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                                    <div class="chartNPS">\n                                        <div class="periodoChart">\n                                            <div class="donutChart_container">\n                                                <canvas id="periodo_donutChart_total"></canvas>\n                                            </div>\n                                            <div class="legendChart">\n                                                <div class="stadisticsChart">\n                                                    <div class="indicador">Total</div>\n                                                </div>\n                                                <div class="centeredChart">\n                                                    {{indicadorGral.total}}\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class="periodoChart">\n                                                <div class="donutChart_container">\n                                                    <canvas id="periodo_donutChart_norte"></canvas>\n                                                </div>\n                                            <div class="legendChart">\n                                                <div class="stadisticsChart">\n                                                    <div class="indicador">Zona Norte</div>\n                                                </div>\n                                                <div class="centeredChart">\n                                                    {{indicadorGral.norte}}\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class="periodoChart">\n                                                <div class="donutChart_container">\n                                                    <canvas id="periodo_donutChart_centro"></canvas>\n                                                </div>\n                                            <div class="legendChart">\n                                                <div class="stadisticsChart">\n                                                    <div class="indicador">Zona Centro</div>\n                                                </div>\n                                                <div class="centeredChart">\n                                                    {{indicadorGral.centro}}\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class="periodoChart">\n                                                <div class="donutChart_container">\n                                                    <canvas id="periodo_donutChart_sur"></canvas>\n                                                </div>\n                                            <div class="legendChart">\n                                                <div class="stadisticsChart">\n                                                    <div class="indicador">Zona Sur</div>\n                                                </div>\n                                                <div class="centeredChart">\n                                                    {{indicadorGral.sur}}\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </ion-col>\n                            </ion-row>\n                        </div>\n                    </ion-grid>\n                </accordion-list>\n            </ion-col>\n        </ion-row>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <accordion-list class="no-margin" title="Venta Acum." subtitle=""  valor="" desplegable="true" maxHeight="2720" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">\n                    <div class="chartIndi">\n                        <div class="title text-center center">\n                            <h2 class="small capitalize normalLetter">$ {{proveedor.indicadores.ventas_acumuladas}}</h2>\n                        </div>\n                    </div>\n                </accordion-list>\n            </ion-col>\n        </ion-row>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <accordion-list class="no-margin" title="Rapel y Rebate" subtitle=""  valor="" desplegable="true" maxHeight="200" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">\n                    <div class="chartIndi normalLetter">\n                        <h3 class="noTransform">{{proveedor.indicadores.rapel_rebate.title}}</h3>\n                        <h4 class="capitalize"><span class="addSpacing">Rapel:</span> MM$: {{proveedor.indicadores.rapel_rebate.rapel}} - {{proveedor.indicadores.rapel_rebate.rapel_porcentual}}%</h4>\n                        <h4 class="capitalize"><span class="addSpacing">Rebate:</span> MM$: {{proveedor.indicadores.rapel_rebate.rebate}} - {{proveedor.indicadores.rapel_rebate.rebate_porcentual}}%</h4>\n                    </div>\n                </accordion-list>\n            </ion-col>\n        </ion-row>\n        <div padding>\n            <ion-row justify-content-around>\n                <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                    <div class="bloqueBlanco">\n                        <h1 margin-top class="welcome">Más comprados por la red</h1>\n                        <ion-list margin-top class="productosTop">\n                            <ion-item no-lines class="producto no-padding" *ngFor="let producto of productosTop">\n                                <ion-row padding-right padding-left justify-content-around [class.adquirido]="producto.doc.adquirido" *ngIf="producto.doc.isActive">\n                                    <ion-col col-5 col-sm-5 col-md-4 col-lg-4 col-xl-3 align-self-center>\n                                        <div class="imagenProducto text-center center" *ngIf="producto.doc._attachments">\n                                            <div *ngFor="let attachment of producto.doc._attachments | keys; index as i">\n                                                <lazy-img inputSrc="{{cfg.apiUrl}}/productos_top/{{producto.doc._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>\n                                            </div>\n                                        </div>\n                                    </ion-col>\n                                    <ion-col col-7 col-sm-7 col-md-8 col-lg-4 col-xl-3 align-self-center>\n                                        <div class="infoProducto">\n                                            <h2>{{producto.doc.nombre}}</h2>\n                                            <h3>SKU {{producto.doc.sku}}</h3>\n                                            <p class="noAdquirido" *ngIf="!producto.doc.adquirido">Aún no lo has adquirido</p>\n                                            <p *ngIf="producto.doc.adquirido">Ya lo adquiriste</p>\n                                        </div>\n                                    </ion-col>\n                                </ion-row>\n                            </ion-item>\n                        </ion-list>\n                    </div>\n                </ion-col>\n            </ion-row>\n        </div>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <accordion-list class="no-margin" title="Ventas" subtitle="{{proveedor.indicadores.ventas.fechas[0].mes | slice : 0:3 }}. {{proveedor.indicadores.ventas.valor}} MM$" desplegable="true" masMeses="true" masMesesButton="ventasAdd" maxHeight="1200" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">\n                    <div class="chartCompras">\n                        <h2 class="small capitalize normalLetter">Ventas en MM$</h2>\n                        <div class="barChart_container">\n                            <canvas id="ventas_barChart"></canvas>\n                        </div>\n                    </div>\n                </accordion-list>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n</ion-content>\n`/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/proveedor/proveedor.html"*/,
+            selector: 'page-proveedor',template:/*ion-inline-start:"/Users/bassfredes/Downloads/SociotsMTS/src/pages/proveedor/proveedor.html"*/`<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />\n        <button ion-button menuToggle right>\n            <div class="navicon-button x">\n                <div class="navicon"></div>\n            </div>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content class="contentInterior" *ngIf="proveedor">\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <h1 class="text-center uppercase">Proveedores</h1>\n            </ion-col>\n        </ion-row>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <div class="text-center" *ngIf="logoProveedor">\n                    <lazy-img class="logoRounded" inputSrc="{{logoProveedor}}"></lazy-img>\n                </div>\n                <h4 class="text-center capitalize">{{proveedor.nombre}}</h4>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-row padding-right padding-left justify-content-around>\n                <ion-col col-10 col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                    <form (ngSubmit)="searchSubmit()">\n                        <ion-searchbar class="buscador" animated="true" cancelButtonText="Cancelar" showCancelButton="false" placeholder="Buscar Proveedores" type="text" (ionInput)="searchFn($event)" (search)="searchSubmit($event)"></ion-searchbar>\n                        <button class="button button-clear" type="submit">Buscar Proveedores</button>\n                    </form>\n                </ion-col>\n                <ion-col col-2 col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                    <button class="button dropdownProveedor" (click)="mostrarLista();" ion-button icon-only>\n                        <ion-icon class="icon" [class.active]="mostrarProveedores" name="ios-arrow-up"></ion-icon>\n                        <ion-icon class="icon" [class.active]="!mostrarProveedores" name="ios-arrow-down"></ion-icon>\n                    </button>\n                </ion-col>\n            </ion-row>\n        </ion-row>\n    </ion-grid>\n    <ion-scroll class="containerProveedores" [class.active]="mostrarProveedores" scrollY="true">\n        <ion-list class="proveedores" *ngFor="let proveedorList of proveedoresFiltered">\n            <ion-item class="proveedor" padding-top padding-bottom (click)="openPage(\'ProveedorPage\', proveedorList);">\n                <ion-row padding-right padding-left justify-content-around>\n                    <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                        <h2 class="titleProveedor">\n                            {{proveedorList.doc.nombre}}\n                        </h2>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n        </ion-list>\n    </ion-scroll>\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <accordion-list class="no-margin" title="IVP" subtitle=""  valor="" desplegable="true" maxHeight="2720" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">\n                    <div class="chartIndi">\n                        <div class="title text-center center">\n                            <h3 class="small capitalize normalLetter">Ranking <span class="ranking {{proveedor.indicadores.ivp.tendencia}}">{{proveedor.indicadores.ivp.ranking}}</span> <span class="separadorVertical"></span> <span class="large">{{proveedor.indicadores.ivp.puntaje}}%</span></h3>\n                        </div>\n                        <ion-list margin-top class="indicadores">\n                            <ion-item no-lines class="indicador">\n                                <div class="indicadorBullet {{proveedor.indicadores.ivp.compromiso_tendencia}}"></div>\n                                <span class="title">Compromiso</span>\n                                <span class="valor">{{proveedor.indicadores.ivp.compromiso}}</span>\n                            </ion-item>\n                            <ion-item no-lines class="indicador">\n                                <div class="indicadorBullet {{proveedor.indicadores.ivp.cobertura_tendencia}}"></div>\n                                <span class="title">Cobertura</span>\n                                <span class="valor">{{proveedor.indicadores.ivp.cobertura}}</span>\n                            </ion-item>\n                            <ion-item no-lines class="indicador">\n                                <div class="indicadorBullet {{proveedor.indicadores.ivp.dispersion_tendencia}}"></div>\n                                <span class="title">Dispersión</span>\n                                <span class="valor">{{proveedor.indicadores.ivp.dispersion}}</span>\n                            </ion-item>\n                            <ion-item no-lines class="indicador">\n                                <div class="indicadorBullet {{proveedor.indicadores.ivp.plazos_pago_tendencia}}"></div>\n                                <span class="title">Plazos de Pago</span>\n                                <span class="valor">{{proveedor.indicadores.ivp.plazos_pago}}</span>\n                            </ion-item>\n                            <ion-item no-lines class="indicador">\n                                <div class="indicadorBullet {{proveedor.indicadores.ivp.fill_rate_tendencia}}"></div>\n                                <span class="title">Fill Rate</span>\n                                <span class="valor">{{proveedor.indicadores.ivp.fill_rate}}</span>\n                            </ion-item>\n                            <ion-item no-lines class="indicador">\n                                <div class="indicadorBullet {{proveedor.indicadores.ivp.desviacion_tendencia}}"></div>\n                                <span class="title">Desviación</span>\n                                <span class="valor">{{proveedor.indicadores.ivp.desviacion}}</span>\n                            </ion-item>\n                        </ion-list>\n                    </div>\n                </accordion-list>\n            </ion-col>\n        </ion-row>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <accordion-list class="no-margin" title="Cobertura" subtitle=""  valor="" desplegable="true" maxHeight="2720" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">\n                    <div class="chartProv">\n                        <div class="title text-center center">\n                            <h3 class="small capitalize normalLetter">Período Móvil</h3>\n                        </div>\n                    </div>\n                    <ion-grid>\n                        <div class="no-padding botonesPeriodo">\n                            <ion-row padding-right padding-left justify-content-around>\n                                <ion-col col-sm-4 col-md-4 col-lg-4 col-xl-3 align-self-center>\n                                    <button class="mes30Button inContent minPadding fullWidth active" ion-button round large (click)="changeMonth(\'30\');">30 Días</button>\n                                </ion-col>\n                                <ion-col col-sm-4 col-md-4 col-lg-4 col-xl-3 align-self-center>\n                                    <button class="mes60Button inContent minPadding fullWidth inactive" ion-button round large (click)="changeMonth(\'60\');">60 Días</button>\n                                </ion-col>\n                                <ion-col col-sm-4 col-md-4 col-lg-4 col-xl-3 align-self-center>\n                                    <button class="mes90Button inContent minPadding fullWidth inactive" ion-button round large (click)="changeMonth(\'90\');">90 Días</button>\n                                </ion-col>\n                            </ion-row>\n                            <ion-row padding-right padding-left justify-content-around>\n                                <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                                    <div class="chartNPS">\n                                        <div class="periodoChart">\n                                            <div class="donutChart_container">\n                                                <canvas id="periodo_donutChart_total"></canvas>\n                                            </div>\n                                            <div class="legendChart">\n                                                <div class="stadisticsChart">\n                                                    <div class="indicador">Total</div>\n                                                </div>\n                                                <div class="centeredChart">\n                                                    {{indicadorGral.total}}\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class="periodoChart">\n                                                <div class="donutChart_container">\n                                                    <canvas id="periodo_donutChart_norte"></canvas>\n                                                </div>\n                                            <div class="legendChart">\n                                                <div class="stadisticsChart">\n                                                    <div class="indicador">Zona Norte</div>\n                                                </div>\n                                                <div class="centeredChart">\n                                                    {{indicadorGral.norte}}\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class="periodoChart">\n                                                <div class="donutChart_container">\n                                                    <canvas id="periodo_donutChart_centro"></canvas>\n                                                </div>\n                                            <div class="legendChart">\n                                                <div class="stadisticsChart">\n                                                    <div class="indicador">Zona Centro</div>\n                                                </div>\n                                                <div class="centeredChart">\n                                                    {{indicadorGral.centro}}\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class="periodoChart">\n                                                <div class="donutChart_container">\n                                                    <canvas id="periodo_donutChart_sur"></canvas>\n                                                </div>\n                                            <div class="legendChart">\n                                                <div class="stadisticsChart">\n                                                    <div class="indicador">Zona Sur</div>\n                                                </div>\n                                                <div class="centeredChart">\n                                                    {{indicadorGral.sur}}\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </ion-col>\n                            </ion-row>\n                        </div>\n                    </ion-grid>\n                </accordion-list>\n            </ion-col>\n        </ion-row>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <accordion-list class="no-margin" title="Venta Acum." subtitle=""  valor="" desplegable="true" maxHeight="2720" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">\n                    <div class="chartIndi">\n                        <div class="title text-center center">\n                            <h2 class="small capitalize normalLetter">$ {{proveedor.indicadores.ventas_acumuladas}}</h2>\n                        </div>\n                    </div>\n                </accordion-list>\n            </ion-col>\n        </ion-row>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <accordion-list class="no-margin" title="Rapel y Rebate" subtitle=""  valor="" desplegable="true" maxHeight="200" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">\n                    <div class="chartIndi normalLetter">\n                        <h3 class="noTransform">{{proveedor.indicadores.rapel_rebate.title}}</h3>\n                        <h4 class="capitalize"><span class="addSpacing">Rapel:</span> MM$: {{proveedor.indicadores.rapel_rebate.rapel}} - {{proveedor.indicadores.rapel_rebate.rapel_porcentual}}%</h4>\n                        <h4 class="capitalize"><span class="addSpacing">Rebate:</span> MM$: {{proveedor.indicadores.rapel_rebate.rebate}} - {{proveedor.indicadores.rapel_rebate.rebate_porcentual}}%</h4>\n                    </div>\n                </accordion-list>\n            </ion-col>\n        </ion-row>\n        <div padding>\n            <ion-row justify-content-around>\n                <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                    <div class="bloqueBlanco">\n                        <h1 margin-top class="welcome">Más comprados por la red</h1>\n                        <ion-list margin-top class="productosTop">\n                            <ion-item no-lines class="producto no-padding" *ngFor="let producto of productosTop">\n                                <ion-row padding-right padding-left justify-content-around [class.adquirido]="producto.doc.adquirido" *ngIf="producto.doc.isActive">\n                                    <ion-col col-5 col-sm-5 col-md-4 col-lg-4 col-xl-3 align-self-center>\n                                        <div class="imagenProducto text-center center" *ngIf="producto.doc._attachments">\n                                            <div *ngFor="let attachment of producto.doc._attachments | keys; index as i">\n                                                <lazy-img inputSrc="{{cfg.apiUrl}}/productos_top/{{producto.doc._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>\n                                            </div>\n                                        </div>\n                                    </ion-col>\n                                    <ion-col col-7 col-sm-7 col-md-8 col-lg-4 col-xl-3 align-self-center>\n                                        <div class="infoProducto">\n                                            <h2>{{producto.doc.nombre}}</h2>\n                                            <h3>SKU {{producto.doc.sku}}</h3>\n                                            <p class="noAdquirido" *ngIf="!producto.doc.adquirido">Aún no lo has adquirido</p>\n                                            <p *ngIf="producto.doc.adquirido">Ya lo adquiriste</p>\n                                        </div>\n                                    </ion-col>\n                                </ion-row>\n                            </ion-item>\n                        </ion-list>\n                    </div>\n                </ion-col>\n            </ion-row>\n        </div>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <accordion-list class="no-margin" title="Ventas" subtitle="{{proveedor.indicadores.ventas.fechas[0].mes | slice : 0:3 }}. {{proveedor.indicadores.ventas.valor}} MM$" desplegable="true" masMeses="true" masMesesButton="ventasAdd" maxHeight="1200" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">\n                    <div class="chartCompras">\n                        <h2 class="small capitalize normalLetter">Ventas en MM$</h2>\n                        <div class="barChart_container">\n                            <canvas id="ventas_barChart"></canvas>\n                        </div>\n                    </div>\n                </accordion-list>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n</ion-content>\n`/*ion-inline-end:"/Users/bassfredes/Downloads/SociotsMTS/src/pages/proveedor/proveedor.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],

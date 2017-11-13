@@ -1,6 +1,6 @@
 webpackJsonp([14],{
 
-/***/ 864:
+/***/ 862:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PreloaderPageModule", function() { return PreloaderPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__preloader__ = __webpack_require__(940);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__preloader__ = __webpack_require__(938);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_shared_module__ = __webpack_require__(494);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -44,7 +44,7 @@ var PreloaderPageModule = (function () {
 
 /***/ }),
 
-/***/ 940:
+/***/ 938:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82,6 +82,7 @@ var PreloaderPage = (function () {
                 _this.navCtrl.setRoot('WelcomePage');
             }
             else {
+                _this.navCtrl.setRoot('HomePage');
                 _this.mostrarContenido = true;
                 _this.startPreload();
             }
@@ -91,7 +92,6 @@ var PreloaderPage = (function () {
         this.mostrarLoader = true;
         if (this.connectivityService.isOnline()) {
             this.statusOnline = true;
-            this.navCtrl.setRoot('HomePage');
         }
         if (this.connectivityService.isOffline()) {
             this.statusOnline = false;
@@ -99,12 +99,13 @@ var PreloaderPage = (function () {
     };
     PreloaderPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-preloader',template:/*ion-inline-start:"/Users/grazia/Desktop/Basti/sociosMTS/src/pages/preloader/preloader.html"*/`<ion-content padding *ngIf="mostrarContenido">\n    <div class="connected" *ngIf="statusOnline">Estás Contectado</div>\n    <div class="disconnected" *ngIf="!statusOnline">Estás Desconectado</div>\n</ion-content>\n`/*ion-inline-end:"/Users/grazia/Desktop/Basti/sociosMTS/src/pages/preloader/preloader.html"*/,
+            selector: 'page-preloader',template:/*ion-inline-start:"/Users/bassfredes/Downloads/SociotsMTS/src/pages/preloader/preloader.html"*/`<ion-content padding *ngIf="mostrarContenido">\n    <div class="connected" *ngIf="statusOnline">Estás Contectado</div>\n    <div class="disconnected" *ngIf="!statusOnline">Estás Desconectado</div>\n</ion-content>\n`/*ion-inline-end:"/Users/bassfredes/Downloads/SociotsMTS/src/pages/preloader/preloader.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__providers_connectivity_service__["a" /* ConnectivityService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_connectivity_service__["a" /* ConnectivityService */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_connectivity_service__["a" /* ConnectivityService */]])
     ], PreloaderPage);
     return PreloaderPage;
-    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=preloader.js.map

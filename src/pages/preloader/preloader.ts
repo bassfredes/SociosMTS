@@ -24,6 +24,7 @@ export class PreloaderPage {
                 this.navCtrl.setRoot('WelcomePage');
             }
             else {
+                this.navCtrl.setRoot('HomePage');
                 this.mostrarContenido = true;
                 this.startPreload();
             }
@@ -33,7 +34,6 @@ export class PreloaderPage {
         this.mostrarLoader = true;
         if (this.connectivityService.isOnline()) {
             this.statusOnline = true;
-            this.navCtrl.setRoot('HomePage');
         }
         if (this.connectivityService.isOffline()) {
             this.statusOnline = false;

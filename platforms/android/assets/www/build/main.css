@@ -61118,8 +61118,6 @@ ion-menu ion-list.indicadores .item.indicador ion-label.label > .valor {
   font-family: 'CircularStd';
   border-radius: 5px;
   font-size: 1.8rem;
-  -webkit-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out;
   background: #e30d20;
   background: -webkit-gradient(linear, left top, left bottom, from(#e30d20), to(#9f031b));
   background: linear-gradient(to bottom, #e30d20 0%, #9f031b 100%);
@@ -62068,6 +62066,14 @@ page-agenda ion-avatar img {
   height: 100% !important;
   max-width: 60px !important;
   max-height: 60px !important;
+}
+
+page-agenda .sociosContainer {
+  display: block;
+}
+
+page-agenda .proveedoresContainer {
+  display: none;
 }
 
 page-eventos h1 {

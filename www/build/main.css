@@ -61112,6 +61112,9 @@ ion-menu ion-list.indicadores .item.indicador ion-label.label > .valor {
   font-weight: 100;
   color: #444343;
   text-decoration: underline;
+  background: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 .inContent {

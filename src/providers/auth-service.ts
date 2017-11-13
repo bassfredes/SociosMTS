@@ -57,7 +57,7 @@ export class AuthService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return new Promise(resolve => {
-            this.authHttp.get(this.cfg.apiUrl + this.cfg.user.login+'/'+credentials.email+'/'+credentials.password).subscribe(data => {
+            this.authHttp.get(this.cfg.apiUrl + this.cfg.user.login + '/' + credentials.email + '/' + credentials.password).subscribe(data => {
                 if (data) {
                     this.saveData_produccion(data);
                     let rs = data.json();
@@ -77,7 +77,7 @@ export class AuthService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
-        let url = this.cfg.apiUrl + this.cfg.indicadores+'/_all_docs?include_docs=true';
+        let url = this.cfg.apiUrl + this.cfg.indicadores + '/_all_docs?include_docs=true';
         let cacheKey = url;
 
         return new Promise(resolve => {
@@ -87,7 +87,7 @@ export class AuthService {
                     return this.cache.saveItem(cacheKey, result);
                 });
             }).then((data) => {
-                if(data.value){
+                if (data.value) {
                     resolve(JSON.parse(data.value));
                 }
                 else {
@@ -100,7 +100,7 @@ export class AuthService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return new Promise(resolve => {
-            this.authHttp.get(this.cfg.apiUrl + this.cfg.eventos+'_invitar').subscribe(data => {
+            this.authHttp.get(this.cfg.apiUrl + this.cfg.eventos + '_invitar').subscribe(data => {
                 if (data) {
                     let rs = data.json();
                     resolve(true);
@@ -158,22 +158,36 @@ export class AuthService {
             let senddata: { Token: string } = {
                 Token: thetoken
             };
-            this.authHttp.get(this.cfg.apiUrl + this.cfg.user.refresh + "&Token=" + thetoken)
-                .map(res => res.json())
-                .subscribe(res => {
-                    let documentConfig = res.rows[0].doc;
-                    // If the API returned a successful response, mark the user as logged in
-                    if (documentConfig.success == true) {
-                        this.storage.set("id_token", documentConfig.token);
-                        //this.refreshSubscription.unsubscribe();
-                        console.log("Token set");
-                    } else {
-                        console.log("The Token Black Listed");
-                        this.logout();
+            let headers = new Headers();
+            headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+            var url = this.cfg.apiUrl + this.cfg.user.refresh + "&Token=" + thetoken;
+            let cacheKey = url;
+
+            return new Promise(resolve => {
+                this.cache.getItem(cacheKey).catch(() => {
+                    return this.authHttp.get(url).toPromise().then(rs => {
+                        let result = rs.json().rows[0].doc;
+                        if (result.success == true) {
+                            console.log("Guardando Token");
+                            console.log("Token set");
+                            this.storage.set("id_token", result.token);
+                            return this.cache.saveItem(cacheKey, result);
+                            /*this.refreshSubscription.unsubscribe();*/
+                        } else {
+                            console.log("The Token Black Listed");
+                            this.logout();
+                        }
+                    });
+                }).then((data) => {
+                    if (data.value) {
+                        resolve(JSON.parse(data.value));
                     }
-                }, err => {
-                    console.error('ERROR', err);
+                    else {
+                        resolve(data);
+                    }
                 });
+            });
         });
     }
     public scheduleRefresh() {
@@ -196,19 +210,13 @@ export class AuthService {
                     delay = 1;
                 return Observable.interval(delay);
             });
-            /*
-        this.refreshSubscription = source.subscribe(() => {
-            console.log("peticion");
-            if (this.connectivityService.isOffline()) {
-                console.log("Offline");
-                //this.refreshSubscription.unsubscribe();
-                this.storage.set("id_token", "offline");
-            }
-            else {
-                this.getNewJwt();
-            }
-        });
-        */
+        this.getNewJwt();
+        /*
+    this.refreshSubscription = source.subscribe(() => {
+        console.log("peticion");
+        this.getNewJwt();
+    });
+    */
     }
     public startupTokenRefresh() {
         // If the user is authenticated, use the token stream

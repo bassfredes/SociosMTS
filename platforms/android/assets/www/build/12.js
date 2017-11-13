@@ -1,6 +1,6 @@
 webpackJsonp([12],{
 
-/***/ 854:
+/***/ 853:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AgendaPageModule", function() { return AgendaPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__agenda__ = __webpack_require__(930);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__agenda__ = __webpack_require__(929);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_shared_module__ = __webpack_require__(494);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -74,7 +74,7 @@ var ProtectedPage = (function () {
 
 /***/ }),
 
-/***/ 930:
+/***/ 929:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82,12 +82,14 @@ var ProtectedPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_contacts__ = __webpack_require__(508);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_call_number__ = __webpack_require__(505);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_email_composer__ = __webpack_require__(506);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_contacts__ = __webpack_require__(507);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_call_number__ = __webpack_require__(500);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_email_composer__ = __webpack_require__(501);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__protected_page_protected_page__ = __webpack_require__(874);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_users_service__ = __webpack_require__(499);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_users_service__ = __webpack_require__(497);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_config__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_jquery__ = __webpack_require__(495);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_jquery__);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -107,6 +109,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -143,10 +146,11 @@ var AgendaPage = (function (_super) {
         var _this = this;
         this.usersService.getAll('socios').then(function (socios) {
             _this.socios = socios;
-            _this.groupSocios(_this.socios, _this.sociosAgrupados);
+            _this.groupUsers(_this.socios, _this.sociosAgrupados);
         });
         this.usersService.getAll('proveedores').then(function (proveedores) {
             _this.proveedores = proveedores;
+            _this.groupUsers(_this.proveedores, _this.proveedoresAgrupados);
         });
     };
     AgendaPage.prototype.openPage = function (page, user) {
@@ -154,7 +158,7 @@ var AgendaPage = (function (_super) {
             user: user
         });
     };
-    AgendaPage.prototype.groupSocios = function (users, output) {
+    AgendaPage.prototype.groupUsers = function (users, output) {
         var sortedContacts = users.sort();
         var currentLetter = false;
         var currentContacts = [];
@@ -170,6 +174,31 @@ var AgendaPage = (function (_super) {
             }
             currentContacts.push(value.doc);
         });
+    };
+    AgendaPage.prototype.changeUser = function (typeUser) {
+        __WEBPACK_IMPORTED_MODULE_9_jquery__(".botonesUsers button.inContent").removeClass("active");
+        __WEBPACK_IMPORTED_MODULE_9_jquery__(".botonesUsers button.inContent").removeClass("inactive");
+        __WEBPACK_IMPORTED_MODULE_9_jquery__(".botonesUsers button.inContent").addClass("inactive");
+        switch (typeUser) {
+            case 'socios':
+                if (!__WEBPACK_IMPORTED_MODULE_9_jquery__(".sociosButton").hasClass("active")) {
+                    __WEBPACK_IMPORTED_MODULE_9_jquery__(".proveedoresContainer").stop().fadeOut(300, function () {
+                        __WEBPACK_IMPORTED_MODULE_9_jquery__(".sociosContainer").stop().fadeIn(300);
+                    });
+                    __WEBPACK_IMPORTED_MODULE_9_jquery__(".sociosButton").removeClass("inactive");
+                    __WEBPACK_IMPORTED_MODULE_9_jquery__(".sociosButton").addClass("active");
+                }
+                break;
+            case 'proveedores':
+                if (!__WEBPACK_IMPORTED_MODULE_9_jquery__(".proveedoresButton").hasClass("active")) {
+                    __WEBPACK_IMPORTED_MODULE_9_jquery__(".sociosContainer").stop().fadeOut(300, function () {
+                        __WEBPACK_IMPORTED_MODULE_9_jquery__(".proveedoresContainer").stop().fadeIn(300);
+                    });
+                    __WEBPACK_IMPORTED_MODULE_9_jquery__(".proveedoresButton").removeClass("inactive");
+                    __WEBPACK_IMPORTED_MODULE_9_jquery__(".proveedoresButton").addClass("active");
+                }
+                break;
+        }
     };
     AgendaPage.prototype.guardarContacto = function (user) {
         var success = this.toastCtrl.create({
@@ -280,7 +309,7 @@ var AgendaPage = (function (_super) {
     };
     AgendaPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-agenda',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/agenda/agenda.html"*/`<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />\n        <button ion-button menuToggle right>\n            <div class="navicon-button x">\n                <div class="navicon"></div>\n            </div>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content class="contentInterior">\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <h1 class="text-center uppercase">Agenda</h1>\n            </ion-col>\n        </ion-row>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <div class="bloqueBlancoNoPadding no-padding">\n                    <ion-list no-lines>\n                        <ion-item-group *ngFor="let socios of sociosAgrupados">\n                            <ion-item-divider color="ultralight">{{socios.letter}}</ion-item-divider>\n                            <ion-item-sliding *ngFor="let socio of socios.users">\n                                <ion-item no-lines (click)="openPage(\'ProfileDetallePage\', socio);" *ngIf="socio.isActive">\n                                    <ion-avatar item-start *ngIf="socio._attachments">\n                                        <div class="profilePhoto" *ngFor="let attachment of socio._attachments | keys; index as i">\n                                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/users_socios/{{socio._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>\n                                        </div>\n                                    </ion-avatar>\n                                    <h2>{{socio.name}}</h2>\n                                    <h3>{{socio.name_ferreteria}}</h3>\n                                </ion-item>\n                                <ion-item-options no-lines *ngIf="socio.isActive">\n                                    <button class="normalButton" ion-button icon-only (click)="saveContact(socio)" color="save">\n                                        <ion-icon name="md-download"></ion-icon>\n                                    </button>\n                                    <button class="normalButton" ion-button icon-only (click)="callToContact(socio)" color="call">\n                                        <ion-icon name="call"></ion-icon>\n                                    </button>\n                                    <button class="normalButton" ion-button icon-only (click)="mailToContact(socio)" color="mail">\n                                        <ion-icon name="mail"></ion-icon>\n                                    </button>\n                                </ion-item-options>\n                            </ion-item-sliding>\n                        </ion-item-group>\n                    </ion-list>\n                </div>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n</ion-content>\n`/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/agenda/agenda.html"*/,
+            selector: 'page-agenda',template:/*ion-inline-start:"/Users/bassfredes/Downloads/SociotsMTS/src/pages/agenda/agenda.html"*/`<ion-header>\n    <ion-navbar center>\n        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />\n        <button ion-button menuToggle right>\n            <div class="navicon-button x">\n                <div class="navicon"></div>\n            </div>\n    	</button>\n    </ion-navbar>\n</ion-header>\n<ion-content class="contentInterior">\n    <ion-grid>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <h1 class="text-center uppercase">Agenda</h1>\n            </ion-col>\n        </ion-row>\n        <ion-row class="botonesUsers" justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <button class="sociosButton inContent minPadding fullWidth active" ion-button round large (click)="changeUser(\'socios\');">Socios</button>\n            </ion-col>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <button class="proveedoresButton inContent minPadding fullWidth inactive" ion-button round large (click)="changeUser(\'proveedores\');">Proveedores</button>\n            </ion-col>\n        </ion-row>\n        <ion-row justify-content-around>\n            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>\n                <div class="bloqueBlancoNoPadding no-padding">\n                    <ion-list no-lines>\n                        <ion-item-group class="sociosContainer" *ngFor="let socios of sociosAgrupados">\n                            <ion-item-divider color="ultralight">{{socios.letter}}</ion-item-divider>\n                            <ion-item-sliding *ngFor="let socio of socios.users">\n                                <ion-item no-lines (click)="openPage(\'ProfileDetallePage\', socio);" *ngIf="socio.isActive">\n                                    <ion-avatar item-start *ngIf="socio._attachments">\n                                        <div class="profilePhoto" *ngFor="let attachment of socio._attachments | keys; index as i">\n                                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}{{cfg.user.usersSocios}}/{{socio._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>\n                                        </div>\n                                    </ion-avatar>\n                                    <h2>{{socio.name}}</h2>\n                                    <h3>{{socio.name_ferreteria}}</h3>\n                                </ion-item>\n                                <ion-item-options no-lines *ngIf="socio.isActive">\n                                    <button class="normalButton" ion-button icon-only (click)="saveContact(socio)" color="save">\n                                        <ion-icon name="md-download"></ion-icon>\n                                    </button>\n                                    <button class="normalButton" ion-button icon-only (click)="callToContact(socio)" color="call">\n                                        <ion-icon name="call"></ion-icon>\n                                    </button>\n                                    <button class="normalButton" ion-button icon-only (click)="mailToContact(socio)" color="mail">\n                                        <ion-icon name="mail"></ion-icon>\n                                    </button>\n                                </ion-item-options>\n                            </ion-item-sliding>\n                        </ion-item-group>\n                        <ion-item-group class="proveedoresContainer" *ngFor="let proveedores of proveedoresAgrupados">\n                            <ion-item-divider color="ultralight">{{proveedores.letter}}</ion-item-divider>\n                            <ion-item-sliding *ngFor="let proveedor of proveedores.users">\n                                <ion-item no-lines (click)="openPage(\'ProfileDetallePage\', proveedor);" *ngIf="proveedor.isActive">\n                                    <ion-avatar item-start *ngIf="proveedor._attachments">\n                                        <div class="profilePhoto" *ngFor="let attachment of proveedor._attachments | keys; index as i">\n                                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}{{cfg.user.usersProveedores}}/{{proveedor._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>\n                                        </div>\n                                    </ion-avatar>\n                                    <h2>{{proveedor.name}}</h2>\n                                    <h3>{{proveedor.name_ferreteria}}</h3>\n                                </ion-item>\n                                <ion-item-options no-lines *ngIf="proveedor.isActive">\n                                    <button class="normalButton" ion-button icon-only (click)="saveContact(proveedor)" color="save">\n                                        <ion-icon name="md-download"></ion-icon>\n                                    </button>\n                                    <button class="normalButton" ion-button icon-only (click)="callToContact(proveedor)" color="call">\n                                        <ion-icon name="call"></ion-icon>\n                                    </button>\n                                    <button class="normalButton" ion-button icon-only (click)="mailToContact(proveedor)" color="mail">\n                                        <ion-icon name="mail"></ion-icon>\n                                    </button>\n                                </ion-item-options>\n                            </ion-item-sliding>\n                        </ion-item-group>\n                    </ion-list>\n                </div>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n</ion-content>\n`/*ion-inline-end:"/Users/bassfredes/Downloads/SociotsMTS/src/pages/agenda/agenda.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
