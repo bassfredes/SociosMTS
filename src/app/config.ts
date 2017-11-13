@@ -7,6 +7,8 @@ export let cfg = {
         login: '/auth_login/_all_docs?limit=20&include_docs=true',
         refresh:'/auth_refresh/_all_docs?limit=20&include_docs=true',
         users: '/users',
+        usersSocios: '/users_socios',
+        usersProveedores: '/users_proveedores',
     },
     ferreterias: '/ferreterias',
     proveedores: '/proveedores',

@@ -63,7 +63,7 @@ export class MyApp {
                 this.authService.getIndicadoresEconomicos().then((indicadoresData) => {
                     this.indicadoresEco = indicadoresData;
                     this.indicadoresEco_date = new Date();
-                }).catch(e => console.log("login error", e));
+                });
             });
         });
     }

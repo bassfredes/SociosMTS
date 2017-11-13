@@ -1,4 +1,4 @@
 <ion-content padding *ngIf="mostrarContenido">
-    <div class="connected" *ngIf="mostrarLoader">Estás Contectado</div>
-    <div class="disconnected" *ngIf="!mostrarLoader">Estás Desconectado</div>
+    <div class="connected" *ngIf="statusOnline">Estás Contectado</div>
+    <div class="disconnected" *ngIf="!statusOnline">Estás Desconectado</div>
 </ion-content>

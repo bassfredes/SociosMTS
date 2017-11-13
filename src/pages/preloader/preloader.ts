@@ -12,6 +12,7 @@ import { ConnectivityService } from '../../providers/connectivity-service';
 export class PreloaderPage {
     mostrarContenido: boolean = false;
     mostrarLoader: boolean = false;
+    statusOnline: boolean = true;
     constructor(
         public navCtrl: NavController,
         public storage: Storage,
@@ -23,19 +24,19 @@ export class PreloaderPage {
                 this.navCtrl.setRoot('WelcomePage');
             }
             else {
+                this.mostrarContenido = true;
                 this.startPreload();
             }
-            this.mostrarContenido = true;
         });
     }
     startPreload() {
         this.mostrarLoader = true;
         if (this.connectivityService.isOnline()) {
-            console.log("online");
+            this.statusOnline = true;
             this.navCtrl.setRoot('HomePage');
         }
         if (this.connectivityService.isOffline()) {
-            console.log("offline");
+            this.statusOnline = false;
         }
     }
 

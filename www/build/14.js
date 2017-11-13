@@ -73,6 +73,7 @@ var PreloaderPage = (function () {
         this.connectivityService = connectivityService;
         this.mostrarContenido = false;
         this.mostrarLoader = false;
+        this.statusOnline = true;
     }
     PreloaderPage.prototype.ionViewDidLoad = function () {
         var _this = this;
@@ -81,30 +82,29 @@ var PreloaderPage = (function () {
                 _this.navCtrl.setRoot('WelcomePage');
             }
             else {
+                _this.mostrarContenido = true;
                 _this.startPreload();
             }
-            _this.mostrarContenido = true;
         });
     };
     PreloaderPage.prototype.startPreload = function () {
         this.mostrarLoader = true;
         if (this.connectivityService.isOnline()) {
-            console.log("online");
+            this.statusOnline = true;
             this.navCtrl.setRoot('HomePage');
         }
         if (this.connectivityService.isOffline()) {
-            console.log("offline");
+            this.statusOnline = false;
         }
     };
     PreloaderPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-preloader',template:/*ion-inline-start:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/preloader/preloader.html"*/`<ion-content padding *ngIf="mostrarContenido">\n    <div class="connected" *ngIf="mostrarLoader">Estás Contectado</div>\n    <div class="disconnected" *ngIf="!mostrarLoader">Estás Desconectado</div>\n</ion-content>\n`/*ion-inline-end:"/Users/bastian_fredes/Desktop/Proyectos/2017/MTS/SociosMTS/ionic/src/pages/preloader/preloader.html"*/,
+            selector: 'page-preloader',template:/*ion-inline-start:"/Users/grazia/Desktop/Basti/sociosMTS/src/pages/preloader/preloader.html"*/`<ion-content padding *ngIf="mostrarContenido">\n    <div class="connected" *ngIf="statusOnline">Estás Contectado</div>\n    <div class="disconnected" *ngIf="!statusOnline">Estás Desconectado</div>\n</ion-content>\n`/*ion-inline-end:"/Users/grazia/Desktop/Basti/sociosMTS/src/pages/preloader/preloader.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_3__providers_connectivity_service__["a" /* ConnectivityService */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__providers_connectivity_service__["a" /* ConnectivityService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_connectivity_service__["a" /* ConnectivityService */]) === "function" && _c || Object])
     ], PreloaderPage);
     return PreloaderPage;
+    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=preloader.js.map

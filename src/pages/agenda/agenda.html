@@ -33,7 +33,7 @@
                                 <ion-item no-lines (click)="openPage('ProfileDetallePage', socio);" *ngIf="socio.isActive">
                                     <ion-avatar item-start *ngIf="socio._attachments">
                                         <div class="profilePhoto" *ngFor="let attachment of socio._attachments | keys; index as i">
-                                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/users_socios/{{socio._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>
+                                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}{{cfg.user.usersSocios}}/{{socio._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>
                                         </div>
                                     </ion-avatar>
                                     <h2>{{socio.name}}</h2>
@@ -52,26 +52,26 @@
                                 </ion-item-options>
                             </ion-item-sliding>
                         </ion-item-group>
-                        <ion-item-group class="proveedoresContainer" *ngFor="let socios of sociosAgrupados">
-                            <ion-item-divider color="ultralight">{{socios.letter}}</ion-item-divider>
-                            <ion-item-sliding *ngFor="let socio of socios.users">
-                                <ion-item no-lines (click)="openPage('ProfileDetallePage', socio);" *ngIf="socio.isActive">
-                                    <ion-avatar item-start *ngIf="socio._attachments">
-                                        <div class="profilePhoto" *ngFor="let attachment of socio._attachments | keys; index as i">
-                                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/users_socios/{{socio._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>
+                        <ion-item-group class="proveedoresContainer" *ngFor="let proveedores of proveedoresAgrupados">
+                            <ion-item-divider color="ultralight">{{proveedores.letter}}</ion-item-divider>
+                            <ion-item-sliding *ngFor="let proveedor of proveedores.users">
+                                <ion-item no-lines (click)="openPage('ProfileDetallePage', proveedor);" *ngIf="proveedor.isActive">
+                                    <ion-avatar item-start *ngIf="proveedor._attachments">
+                                        <div class="profilePhoto" *ngFor="let attachment of proveedor._attachments | keys; index as i">
+                                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}{{cfg.user.usersProveedores}}/{{proveedor._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>
                                         </div>
                                     </ion-avatar>
-                                    <h2>{{socio.name}}</h2>
-                                    <h3>{{socio.name_ferreteria}}</h3>
+                                    <h2>{{proveedor.name}}</h2>
+                                    <h3>{{proveedor.name_ferreteria}}</h3>
                                 </ion-item>
-                                <ion-item-options no-lines *ngIf="socio.isActive">
-                                    <button class="normalButton" ion-button icon-only (click)="saveContact(socio)" color="save">
+                                <ion-item-options no-lines *ngIf="proveedor.isActive">
+                                    <button class="normalButton" ion-button icon-only (click)="saveContact(proveedor)" color="save">
                                         <ion-icon name="md-download"></ion-icon>
                                     </button>
-                                    <button class="normalButton" ion-button icon-only (click)="callToContact(socio)" color="call">
+                                    <button class="normalButton" ion-button icon-only (click)="callToContact(proveedor)" color="call">
                                         <ion-icon name="call"></ion-icon>
                                     </button>
-                                    <button class="normalButton" ion-button icon-only (click)="mailToContact(socio)" color="mail">
+                                    <button class="normalButton" ion-button icon-only (click)="mailToContact(proveedor)" color="mail">
                                         <ion-icon name="mail"></ion-icon>
                                     </button>
                                 </ion-item-options>
