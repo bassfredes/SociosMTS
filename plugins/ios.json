@@ -66,6 +66,9 @@
         },
         "mx.ferreyra.callnumber": {
             "PACKAGE_NAME": "com.mts.sociosmts"
+        },
+        "cordova-plugin-google-analytics": {
+            "PACKAGE_NAME": "com.mts.sociosmts"
         }
     },
     "dependent_plugins": {

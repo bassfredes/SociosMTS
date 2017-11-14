@@ -24,6 +24,7 @@ import {CallNumber} from '@ionic-native/call-number';
 import {EmailComposer} from '@ionic-native/email-composer';
 import {ScreenOrientation} from '@ionic-native/screen-orientation';
 import {ImgcacheService} from '../global/services';
+import {GoogleAnalytics} from '@ionic-native/google-analytics';
 
 import {JwtHelper} from 'angular2-jwt';
 
@@ -76,12 +77,13 @@ export const PROVIDERS = [
     AndroidFullScreen,
     GoogleMaps,
     Keyboard,
-    ImgcacheService,
     AppVersion,
     Contacts,
     CallNumber,
     EmailComposer,
-    ScreenOrientation
+    ScreenOrientation,
+    ImgcacheService,
+    GoogleAnalytics
 ];
 
 export const COMPONENTS = [

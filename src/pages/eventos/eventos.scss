@@ -2,5 +2,8 @@ page-eventos {
     h1 {
         margin-top: 0.5rem;
     }
+    .imageEvento lazy-img {
+        min-height: 200px;
+    }
 
 }

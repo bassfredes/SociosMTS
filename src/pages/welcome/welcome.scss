@@ -2,9 +2,120 @@ page-welcome {
     #mapa {
         display: block;
         width: 100%;
-        height: 250px;
+        height: 300px;
     }
+
     ion-content.contentInterior {
         background: color($fondos, light);
+    }
+
+    h2.small {
+        padding: 0 15px;
+    }
+
+    .clearfix {
+        clear: both;
+    }
+
+    .containerFerreteriaMapa {
+        max-width: 340px;
+        min-height: 130px;
+        padding: 0.5rem;
+        padding-right: 9rem;
+    }
+
+    .containerFerreteriaMapa .nombreFerreteria {
+        font-size: 1.4rem;
+        line-height: 1.5rem;
+        color: #363636;
+        font-weight: 900;
+        font-family: 'Ubuntu', sans-serif;
+    }
+
+    .containerFerreteriaMapa .logoFerreteria {
+        position: absolute;
+        right: 10px;
+        top: 18px;
+        box-shadow: 0 0 11px 1px #c5c5c5;
+        -webkit-box-shadow: 0 0 11px 1px #c5c5c5;
+        -moz-box-shadow: 0 0 11px 1px #c5c5c5;
+        -o-box-shadow: 0 0 11px 1px #c5c5c5;
+    }
+
+    .containerFerreteriaMapa .direccionFerreteria {
+        display: block;
+        text-align: left;
+        font-size: 1.2rem;
+        font-weight: 500;
+        line-height: 1.2rem;
+        color: #575757;
+        font-weight: 500;
+        margin-top: 0.2rem;
+        margin-bottom: 0.2rem;
+        min-height: 15px;
+    }
+
+    .containerFerreteriaMapa .openHourFerreteria {
+        display: block;
+        float: left;
+        font-size: 1.2rem;
+        color: #FFF;
+        padding: 5px 10px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .single-red-ferreterias-mts .containerFerreteriaMapa .openHourFerreteria {
+        font-size: 1.4rem;
+        font-weight: 500;
+    }
+
+    .containerFerreteriaMapa .openHourFerreteria.ferr_abierta {
+        background: #71b723;
+    }
+
+    .containerFerreteriaMapa .openHourFerreteria.ferr_cerrada {
+        background: #d0011b;
+    }
+
+    .gm-style-pbt {
+        text-align: center;
+    }
+
+    .gm-style-pbc {
+        z-index: 5 !important;
+        pointer-events: none;
+    }
+    .urlFerreteria {
+        display: block;
+        min-height: 15px;
+    }
+    .horariosDisponiblesFerreteria {
+        margin-top: 0.5rem;
+        margin-bottom: 0.2rem;
+        min-height: 30px;
+    }
+    .containerFerreteriaMapa .comoLlegarFerreteria,
+    .containerFerreteriaMapa a {
+        font-size: 15px;
+        line-height: 20px;
+        color: #71b723;
+        font-weight: 500;
+        text-decoration: underline;
+        transition: all 0.1s ease-out;
+        -webkit-transition: all 0.1s ease-out;
+        -moz-transition: all 0.1s ease-out;
+        -o-transition: all 0.1s ease-out;
+        cursor: pointer;
+    }
+
+    .containerFerreteriaMapa .comoLlegarFerreteria:hover,
+    .containerFerreteriaMapa a:hover {
+        color: #d0011b;
+        text-decoration: underline;
+    }
+
+    .containerFerreteriaMapa .logoFerreteria img {
+        max-width: 80px;
     }
 }

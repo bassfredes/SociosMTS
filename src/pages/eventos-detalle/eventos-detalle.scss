@@ -8,6 +8,10 @@ page-eventos-detalle {
         }
     }
 
+    .imageNoticia lazy-img {
+        min-height: 200px;
+    }
+
     .bloqueBlanco {
         padding: 0;
         margin-bottom: 10px;
@@ -51,7 +55,8 @@ page-eventos-detalle {
         }
     }
 
-    .postParticipar, .alreadyInvited {
+    .alreadyInvited,
+    .postParticipar {
         display: none;
     }
 
@@ -86,28 +91,35 @@ page-eventos-detalle {
     .input-has-focus .label-md[stacked] {
         color: #999;
     }
+
     .detallesRDN {
         font-family: 'CircularStd';
+
         .title {
             font-size: 1.7rem;
             line-height: 1.7rem;
             color: color($colors, texto);
             font-weight: $book;
         }
+
         .indicador {
             font-size: 1.7rem;
             line-height: 1.7rem;
             font-weight: $medium;
         }
+
         .positivo {
             color: color($indicadores, positivo);
         }
+
         .negativo {
             color: color($indicadores, negativo);
         }
+
         .compra {
             color: color($indicadores, compra);
         }
+
         .factura {
             color: color($indicadores, factura);
         }

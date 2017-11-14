@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
-import { GoogleMaps, GoogleMap, HtmlInfoWindow, GoogleMapsEvent, GoogleMapOptions, CameraPosition, MarkerOptions, Marker } from '@ionic-native/google-maps';
+import { GoogleMaps, GoogleMap, HtmlInfoWindow, GoogleMapsEvent, GoogleMapOptions } from '@ionic-native/google-maps';
+import {GoogleAnalytics} from '@ionic-native/google-analytics';
 
 @IonicPage()
 @Component({
@@ -13,7 +14,8 @@ export class WelcomePage {
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
-        public menuCtrl: MenuController) {
+        public menuCtrl: MenuController,
+        public ga: GoogleAnalytics) {
     }
     ionViewDidLoad() {
         this.menuCtrl.enable(false);
@@ -37,12 +39,20 @@ export class WelcomePage {
         this.map = GoogleMaps.create(this.mapElement, mapOptions);
         // Wait the MAP_READY before using any methods.
         this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
-            console.log('Map is ready!');
             // Now you can use all methods safely.
-            var content = "<div class='nombreFerreteria'>Nombre Ferreteria</div>";
+            var content = '<div class="containerFerreteriaMapa">';
+            content += '<div class="nombreFerreteria">Ferretería Punto Maestro</div>';
+            content += '<div class="logoFerreteria"><img src="http://2018.mts.cl/wp-content/uploads/2017/03/punto_maestro-80x80.jpg" class="img-responsive"></div>';
+            content += '<div class="clearfix"></div>';
+            content += '<p class="openHourFerreteria ferr_abierta">Abierto</p>';
+            content += '<div class="clearfix"></div>';
+            content += '<p class="direccionFerreteria">Manuel Antonio Matta 67,  Ñuñoa</p>';
+            content += '<p class="horariosDisponiblesFerreteria">Lunes a Viernes: 09:00 a 19:00 Hrs.<br>Sábado y Domingo: 09:00 a 14:00 Hrs.</p>';
+            content += '<a class="urlFerreteria" href="http://2018.mts.cl/red-ferreterias-mts/ferreteria-punto-maestro/">Ir a la ficha</a>';
+            content += '<div class="clearfix"></div>';
+            content += '</div>';
             var htmlInfoWindow = new HtmlInfoWindow();
             htmlInfoWindow.setContent(content);
-
             this.map.addMarker({
                 icon: 'assets/images/pinMapMTS.png',
                 animation: 'DROP',
@@ -52,7 +62,6 @@ export class WelcomePage {
                 }
             }).then(marker => {
                 marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-                    console.log(marker);
                     htmlInfoWindow.open(marker);
 
                     /*

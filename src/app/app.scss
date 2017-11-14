@@ -195,7 +195,9 @@ select:-webkit-autofill {
     margin-left: -10px;
     margin-right: -10px;
 }
-
+.noPadding {
+    padding: 0;
+}
 ion-header ion-icon.back-button-icon.icon {
     color: color($colors, blanco);
 }
@@ -876,7 +878,7 @@ page-noticias {
 /* Ferreterias */
 .logoRounded {
     display: block;
-    max-width: 12rem;
+    max-width: 120px;
     border-radius: 100%;
     margin: 0 auto;
 }
@@ -887,7 +889,7 @@ page-noticias {
 
 .logoRounded img {
     display: block;
-    max-width: 12rem;
+    max-width: 120px;
     margin: 0 auto;
     box-shadow: 0 2px 4px rgba(199,199,199,0.5);
     border-radius: 100%;

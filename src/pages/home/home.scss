@@ -23,4 +23,12 @@ page-home {
         font-family: 'CircularStd';
         color: color($colors, texto);
     }
+
+    .infocomercial .imagen lazy-img {
+        min-height: 120px;
+    }
+
+    .imageNoticia lazy-img {
+        min-height: 200px;
+    }
 }

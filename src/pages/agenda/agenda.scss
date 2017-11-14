@@ -18,6 +18,10 @@ page-agenda {
         border-radius: 100%;
         margin: 0 auto;
     }
+    .profilePhoto lazy-img {
+        min-height: 60px;
+        min-width: 60px;
+    }
 
     .profilePhoto div {
         border-radius: 100%;

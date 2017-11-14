@@ -7,6 +7,7 @@ import { ferreteriaModel } from '../../models/ferreteria.model';
 import { ProtectedPage } from '../protected-page/protected-page';
 import { UsersService } from '../../providers/users-service';
 import { FerreteriasService } from '../../providers/ferreterias-service';
+import { ProveedoresService } from '../../providers/proveedores-service';
 
 import *  as AppConfig from '../../app/config';
 @IonicPage()
@@ -17,6 +18,7 @@ import *  as AppConfig from '../../app/config';
 export class ProfileDetallePage extends ProtectedPage {
     private cfg: any;
     public ferreteria = ferreteriaModel;
+    public proveedor: any;
     user: any = [];
     userType: any;
     logoFerreteria: any;
@@ -32,7 +34,8 @@ export class ProfileDetallePage extends ProtectedPage {
         public callNumber: CallNumber,
         public emailComposer: EmailComposer,
         public usersService: UsersService,
-        public ferreteriasService: FerreteriasService) {
+        public ferreteriasService: FerreteriasService,
+        public proveedoresService: ProveedoresService) {
         super(navCtrl, navParams, storage, appCtrl);
         this.cfg = AppConfig.cfg;
         this.user = this.navParams.get('user');
@@ -42,14 +45,22 @@ export class ProfileDetallePage extends ProtectedPage {
             this.navCtrl.setRoot('AgendaPage');
         }
         else {
-            this.ferreteriasService.getOne(this.user.id_ferreteria).then(datosFerreteria => {
-                this.ferreteria = datosFerreteria
-                const attachments = Object.keys(this.ferreteria._attachments);
-                this.logoFerreteria = attachments[0];
-            });
             this.userType = this.user.type;
             if(this.userType=="corporativo"){
-                this.userType = "socio";
+                this.userType = "socios";
+                this.ferreteriasService.getOne(this.user.id_ferreteria).then(datosFerreteria => {
+                    this.ferreteria = datosFerreteria;
+                    const attachments = Object.keys(this.ferreteria._attachments);
+                    this.logoFerreteria = attachments[0];
+                });
+            }
+            if(this.userType=="proveedor"){
+                this.userType = "proveedores";
+                this.proveedoresService.getOne(this.user.id_proveedor).then(datosProveedor => {
+                    this.proveedor = datosProveedor;
+                    const attachments = Object.keys(this.proveedor._attachments);
+                    this.logoProveedor = attachments[0];
+                });
             }
         }
     }

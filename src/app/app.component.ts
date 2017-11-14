@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {Platform, Nav, MenuController} from 'ionic-angular';
+import {Platform, Nav, MenuController, App} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {AuthService} from '../providers/auth-service';
@@ -7,7 +7,7 @@ import {AndroidFullScreen} from '@ionic-native/android-full-screen';
 import {ScreenOrientation} from '@ionic-native/screen-orientation';
 import {CacheService} from "ionic-cache";
 import {ImgcacheService} from '../global/services';
-import {AppVersion} from '@ionic-native/app-version';
+import {GoogleAnalytics} from '@ionic-native/google-analytics';
 
 import * as $ from 'jquery';
 
@@ -24,6 +24,7 @@ export class MyApp {
     pages: Array<{ title: string, component: any, method?: any }>;
 
     constructor(
+        public app: App,
         public platform: Platform,
         public statusBar: StatusBar,
         public splashScreen: SplashScreen,
@@ -32,8 +33,8 @@ export class MyApp {
         public screenOrientation: ScreenOrientation,
         public menuCtrl: MenuController,
         public imgcacheService: ImgcacheService,
-        public appVersion: AppVersion,
-        public cache: CacheService) {
+        public cache: CacheService,
+        public ga: GoogleAnalytics) {
         this.pages = [
             { title: "Inicio", component: "HomePage"},
             { title: 'Indicadores', component: 'IndicadoresPage'},
@@ -52,11 +53,21 @@ export class MyApp {
         this.platform.ready().then(() => {
             this.cache.setDefaultTTL(60 * 60 * 12);
             this.cache.setOfflineInvalidate(false);
+
             this.imgcacheService.initImgCache().then(() => {
                 this.statusBar.hide();
                 this.statusBar.overlaysWebView(false);
                 this.splashScreen.hide();
                 if ((<any>window).cordova) {
+                    this.ga.startTrackerWithId('UA-10316210-2').then(() => {
+                        this.ga.setAppVersion(this.versionApp);
+                        this.ga.trackView('App');
+                        //this.ga.setUserId(id);
+                        //this.ga.trackEvent(category, action, label, value);
+                        this.app.viewDidEnter.subscribe((evt) => {
+                            this.ga.trackView(evt.id);
+                        });
+                    });
                     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
                 }
                 this.authService.startupTokenRefresh();

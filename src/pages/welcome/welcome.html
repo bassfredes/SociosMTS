@@ -6,19 +6,26 @@
     	</button>
     </ion-navbar>
 </ion-header>
-<ion-content padding class="contentInterior has-footer">
+<ion-content class="contentInterior has-footer">
 	<ion-grid>
 		<ion-row>
 			<ion-col col-12>
                 <div class="bloqueBlanco firstElement">
                     <h2 class="small">Tu ferretería más cercana es:</h2>
                 </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid class="noPadding">
+		<ion-row class="noPadding">
+			<ion-col class="noPadding" col-12>
                 <div id="mapa"></div>
-                <ion-row>
-        			<ion-col col-12>
-                        <div margin-top></div>
-                    </ion-col>
-        		</ion-row>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid>
+		<ion-row>
+			<ion-col padding margin-top col-12>
                 <h1 class="welcome">Ingresa a la app MTS</h1>
                 <div class="text-center">
                     <button margin-top center ion-button round large (click)="goToHome()">Ingresar</button>

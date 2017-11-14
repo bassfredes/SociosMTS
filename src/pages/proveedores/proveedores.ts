@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, LoadingController, App } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Keyboard } from '@ionic-native/keyboard';
 import { ProtectedPage } from '../protected-page/protected-page';
@@ -32,6 +32,7 @@ export class ProveedoresPage extends ProtectedPage {
         public menuCtrl: MenuController,
         public storage: Storage,
         public appCtrl: App,
+        public loading: LoadingController,
         public authService: AuthService,
         public proveedoresService: ProveedoresService,
         public keyboard: Keyboard) {
@@ -59,11 +60,16 @@ export class ProveedoresPage extends ProtectedPage {
         this.keyboard.close();
     }
     ionViewDidLoad() {
+        let loader = this.loading.create({
+            content: "Cargando..."
+        });
+        loader.present();
         this.storage.get('id_token').then(id_token => {
             if (id_token !== null) {
                 this.storage.get("id_ferreteria").then((theID) => {
                     this.id_ferreteria = theID;
                     this.proveedoresService.getAll(this.id_ferreteria).then(datosProveedores => {
+                        loader.dismiss().catch(() => { });
                         this.proveedores = datosProveedores;
                         this.proveedoresFiltered = this.proveedores;
                     });

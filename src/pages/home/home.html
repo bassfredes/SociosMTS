@@ -57,7 +57,7 @@
         <ion-row justify-content-around *ngIf="noticia">
             <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
                 <ion-list no-lines class="noticias">
-                    <button ion-item class="no-padding" (click)="openPage('NoticiaDetallePage',noticia);" detail-push>
+                    <button ion-item class="no-padding" (click)="openNoticia('NoticiaDetallePage',noticia);" detail-push>
                         <div class="imageNoticia" *ngIf="noticiasImage">
                             <lazy-img width="100%" inputSrc="{{noticiasImage}}"></lazy-img>
                         </div>

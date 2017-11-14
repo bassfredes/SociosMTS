@@ -169,7 +169,6 @@ export class AuthService {
                     return this.authHttp.get(url).toPromise().then(rs => {
                         let result = rs.json().rows[0].doc;
                         if (result.success == true) {
-                            console.log("Guardando Token");
                             console.log("Token set");
                             this.storage.set("id_token", result.token);
                             return this.cache.saveItem(cacheKey, result);

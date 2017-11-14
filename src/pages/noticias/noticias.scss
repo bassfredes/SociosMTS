@@ -2,5 +2,8 @@ page-noticias {
     h1 {
         margin-top: 0.5rem;
     }
+    .imageNoticia lazy-img > div {
+        min-height: 200px;
+    }
 
 }

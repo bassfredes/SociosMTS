@@ -8,6 +8,9 @@ page-indicadores {
         background: none;
         border: 1px solid color($colors, texto);
     }
+    .logoFerreteriaIndicadores lazy-img {
+        min-height: 120px;
+    }
 
     ion-item.item-select ion-select {
         padding: 6px 8px 6px 16px;

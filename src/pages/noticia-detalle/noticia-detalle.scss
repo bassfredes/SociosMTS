@@ -15,4 +15,7 @@ page-noticia-detalle {
             box-shadow: none;
         }
     }
+    .imageNoticia lazy-img {
+        min-height: 200px;
+    }
 }

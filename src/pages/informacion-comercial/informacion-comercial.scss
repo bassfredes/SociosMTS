@@ -2,4 +2,10 @@ page-informacion-comercial {
     h1 {
         margin-top: 0.5rem;
     }
+    .imageInformercial lazy-img {
+        min-height: 200px;
+    }
+    .imagenProducto lazy-img {
+        min-height: 120px;
+    }
 }

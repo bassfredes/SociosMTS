@@ -40,4 +40,8 @@ page-informacion-comercial-detalle {
     .prevParticipar {
         display: block;
     }
+
+    .imageNoticia lazy-img {
+        min-height: 200px;
+    }
 }
