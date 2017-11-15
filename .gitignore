@@ -11,5 +11,4 @@ package-lock.json
 .sourcemaps/
 www/
 platforms/
-plugins/ios.json
-plugins/android.json
+plugins/
