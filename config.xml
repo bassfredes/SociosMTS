@@ -7,8 +7,6 @@
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-navigation href="http://basnakk.duckdns.org/*" />
-    <allow-navigation href="http://192.168.1.143:8101" />
-    <allow-navigation href="http://192.168.1.143:8100" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -100,8 +98,6 @@
     <edit-config file="*-Info.plist" mode="merge" target="NSContactsUsageDescription">
         <string>Save users of Ferreterias to your contacts</string>
     </edit-config>
-    <allow-navigation href="http://192.168.0.18:8101" />
-    <allow-navigation href="http://192.168.0.18:8100" />
     <engine name="android" spec="^6.2.3" />
     <engine name="ios" spec="^4.4.0" />
     <plugin name="com-sarriaroman-photoviewer" spec="^1.1.10" />
