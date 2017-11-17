@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, App } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { ferreteriaModel } from '../../models/ferreteria.model';
 import { ProtectedPage } from '../protected-page/protected-page';
 import { UsersService } from '../../providers/users-service';
 import { FerreteriasService } from '../../providers/ferreterias-service';

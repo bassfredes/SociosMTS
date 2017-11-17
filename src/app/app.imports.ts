@@ -10,21 +10,22 @@ import {ProveedoresService} from '../providers/proveedores-service';
 import {UsersService} from '../providers/users-service';
 
 // Ionic native providers
-import {PhotoViewer} from '@ionic-native/photo-viewer';
-import {Camera} from '@ionic-native/camera';
-import {StatusBar} from '@ionic-native/status-bar';
-import {SplashScreen} from '@ionic-native/splash-screen';
-import {AndroidFullScreen} from '@ionic-native/android-full-screen';
-import {Network} from '@ionic-native/network';
-import {GoogleMaps} from '@ionic-native/google-maps';
-import {Keyboard} from '@ionic-native/keyboard';
-import {AppVersion} from '@ionic-native/app-version';
-import {Contacts} from '@ionic-native/contacts';
-import {CallNumber} from '@ionic-native/call-number';
-import {EmailComposer} from '@ionic-native/email-composer';
-import {ScreenOrientation} from '@ionic-native/screen-orientation';
-import {ImgcacheService} from '../global/services';
-import {GoogleAnalytics} from '@ionic-native/google-analytics';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { Camera } from '@ionic-native/camera';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { AndroidFullScreen } from '@ionic-native/android-full-screen';
+import { Network } from '@ionic-native/network';
+import { GoogleMaps } from '@ionic-native/google-maps';
+import { Keyboard } from '@ionic-native/keyboard';
+import { AppVersion } from '@ionic-native/app-version';
+import { Contacts } from '@ionic-native/contacts';
+import { CallNumber } from '@ionic-native/call-number';
+import { EmailComposer } from '@ionic-native/email-composer';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
+import { Geolocation } from '@ionic-native/geolocation';
+import { ImgcacheService } from '../global/services';
 
 import {JwtHelper} from 'angular2-jwt';
 
@@ -83,7 +84,8 @@ export const PROVIDERS = [
     EmailComposer,
     ScreenOrientation,
     ImgcacheService,
-    GoogleAnalytics
+    GoogleAnalytics,
+    Geolocation
 ];
 
 export const COMPONENTS = [

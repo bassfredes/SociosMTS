@@ -9,7 +9,6 @@ import { proveedorModel } from '../../models/proveedor.model';
 import { ProveedoresService } from '../../providers/proveedores-service';
 
 import *  as AppConfig from '../../app/config';
-import * as $ from 'jquery';
 
 @IonicPage()
 @Component({

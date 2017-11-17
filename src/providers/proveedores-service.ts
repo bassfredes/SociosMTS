@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {AuthHttp} from 'angular2-jwt';
-import {Storage} from '@ionic/storage';
+import { Injectable } from '@angular/core';
+import { AuthHttp } from 'angular2-jwt';
+import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import *  as AppConfig from '../app/config';
-import {CacheService} from "ionic-cache";
+import { CacheService } from "ionic-cache";
 
 @Injectable()
 export class ProveedoresService {
@@ -19,8 +19,6 @@ export class ProveedoresService {
     getAll(id: string) {
         let url = this.cfg.apiUrl + this.cfg.proveedores + '/_all_docs?include_docs=true';
         let cacheKey = url;
-        let request = this.authHttp.get(url);
-
         return new Promise(resolve => {
             this.cache.getItem(cacheKey).catch(() => {
                 return this.authHttp.get(url).toPromise().then(rs => {
@@ -40,8 +38,6 @@ export class ProveedoresService {
     getOne(id: string) {
         let url = this.cfg.apiUrl + this.cfg.proveedores + '/' + id;
         let cacheKey = url;
-        let request = this.authHttp.get(url);
-
         return new Promise(resolve => {
             this.cache.getItem(cacheKey).catch(() => {
                 return this.authHttp.get(url).toPromise().then(rs => {

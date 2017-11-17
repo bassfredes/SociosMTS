@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {AuthHttp} from 'angular2-jwt';
-import {Storage} from '@ionic/storage';
+import { Injectable } from '@angular/core';
+import { AuthHttp } from 'angular2-jwt';
+import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import *  as AppConfig from '../app/config';
-import {CacheService} from "ionic-cache";
+import { CacheService } from "ionic-cache";
 
 @Injectable()
 export class ProductosService {
@@ -57,7 +57,6 @@ export class ProductosService {
     getOne(id: string) {
         let url = this.cfg.apiUrl + this.cfg.productos + '/' + id;
         let cacheKey = url;
-
         return new Promise(resolve => {
             this.cache.getItem(cacheKey).catch(() => {
                 return this.authHttp.get(url).toPromise().then(rs => {

@@ -4,84 +4,72 @@ page-welcome {
         width: 100%;
         height: 300px;
     }
-
     ion-content.contentInterior {
         background: color($fondos, light);
     }
-
+    .backgroundWhite {
+        background: color($colors, blanco);
+    }
     h2.small {
         padding: 0 15px;
     }
-
     .clearfix {
         clear: both;
     }
-
     .containerFerreteriaMapa {
+        width: 340px;
         max-width: 340px;
         min-height: 130px;
-        padding: 0.5rem;
-        padding-right: 9rem;
+        padding: 5px;
+        padding-right: 90px;
+        background: color($colors, blanco);
     }
-
     .containerFerreteriaMapa .nombreFerreteria {
-        font-size: 1.4rem;
-        line-height: 1.5rem;
+        font-size: 18px;
+        line-height: 20px;
         color: #363636;
         font-weight: 900;
         font-family: 'Ubuntu', sans-serif;
     }
-
     .containerFerreteriaMapa .logoFerreteria {
         position: absolute;
         right: 10px;
-        top: 18px;
-        box-shadow: 0 0 11px 1px #c5c5c5;
-        -webkit-box-shadow: 0 0 11px 1px #c5c5c5;
-        -moz-box-shadow: 0 0 11px 1px #c5c5c5;
-        -o-box-shadow: 0 0 11px 1px #c5c5c5;
+        top: 10px;
     }
-
     .containerFerreteriaMapa .direccionFerreteria {
         display: block;
         text-align: left;
-        font-size: 1.2rem;
-        font-weight: 500;
-        line-height: 1.2rem;
+        font-size: 16px;
+        font-weight: $medium;
+        line-height: 15px;
         color: #575757;
-        font-weight: 500;
-        margin-top: 0.2rem;
-        margin-bottom: 0.2rem;
+        font-weight: $medium;
+        margin-top: 3px;
+        margin-bottom: 3px;
         min-height: 15px;
     }
-
     .containerFerreteriaMapa .openHourFerreteria {
         display: block;
         float: left;
-        font-size: 1.2rem;
+        font-size: 14px;
         color: #FFF;
         padding: 5px 10px;
         margin-top: 5px;
         margin-bottom: 5px;
     }
-
     .single-red-ferreterias-mts .containerFerreteriaMapa .openHourFerreteria {
-        font-size: 1.4rem;
-        font-weight: 500;
+        font-size: 14px;
+        font-weight: $medium;
     }
-
     .containerFerreteriaMapa .openHourFerreteria.ferr_abierta {
         background: #71b723;
     }
-
     .containerFerreteriaMapa .openHourFerreteria.ferr_cerrada {
         background: #d0011b;
     }
-
     .gm-style-pbt {
         text-align: center;
     }
-
     .gm-style-pbc {
         z-index: 5 !important;
         pointer-events: none;
@@ -96,11 +84,12 @@ page-welcome {
         min-height: 30px;
     }
     .containerFerreteriaMapa .comoLlegarFerreteria,
+    .containerFerreteriaMapa .comoLlegarFerreteria a,
     .containerFerreteriaMapa a {
         font-size: 15px;
         line-height: 20px;
         color: #71b723;
-        font-weight: 500;
+        font-weight: $medium;
         text-decoration: underline;
         transition: all 0.1s ease-out;
         -webkit-transition: all 0.1s ease-out;
@@ -108,13 +97,11 @@ page-welcome {
         -o-transition: all 0.1s ease-out;
         cursor: pointer;
     }
-
     .containerFerreteriaMapa .comoLlegarFerreteria:hover,
     .containerFerreteriaMapa a:hover {
         color: #d0011b;
         text-decoration: underline;
     }
-
     .containerFerreteriaMapa .logoFerreteria img {
         max-width: 80px;
     }

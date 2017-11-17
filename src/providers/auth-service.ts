@@ -1,16 +1,14 @@
-import {App} from 'ionic-angular';
-import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
-import {Storage} from '@ionic/storage';
+import { App } from 'ionic-angular';
+import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
-import {UserModel} from '../models/user.model';
-import {CredentialsModel} from '../models/credentials.model';
-import {InvitadosModel} from '../models/invitados.model';
-import {AuthHttp, JwtHelper, tokenNotExpired} from 'angular2-jwt';
-import {Observable} from 'rxjs/Rx';
+import { AuthHttp, JwtHelper, tokenNotExpired } from 'angular2-jwt';
+import { Observable } from 'rxjs/Rx';
 
-import {ConnectivityService} from './connectivity-service';
-import {CacheService} from "ionic-cache";
+import { CredentialsModel } from '../models/credentials.model';
+import { InvitadosModel } from '../models/invitados.model';
+import { ConnectivityService } from './connectivity-service';
+import { CacheService } from "ionic-cache";
 
 import *  as AppConfig from '../app/config';
 
@@ -21,7 +19,6 @@ export class AuthService {
     refreshSubscription: any;
     constructor(
         private storage: Storage,
-        private http: Http,
         private jwtHelper: JwtHelper,
         private authHttp: AuthHttp,
         private app: App,
@@ -63,13 +60,10 @@ export class AuthService {
                     let rs = data.json();
                     this.idToken = rs.token;
                     this.scheduleRefresh();
-                    resolve(true);
-                }
-                else {
-                    resolve(false);
+                    resolve(rs);
                 }
             }, function errorCallback(response) {
-                resolve(false);
+                resolve(response);
             });
         });
     }

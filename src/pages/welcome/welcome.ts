@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
-import { GoogleMaps, GoogleMap, HtmlInfoWindow, GoogleMapsEvent, GoogleMapOptions } from '@ionic-native/google-maps';
-import {GoogleAnalytics} from '@ionic-native/google-analytics';
+import { IonicPage, Platform, NavController, NavParams, MenuController, ToastController, LoadingController } from 'ionic-angular';
+import { GoogleMaps, GoogleMap, HtmlInfoWindow, GoogleMapsEvent, GoogleMapOptions, LatLng, CameraPosition } from '@ionic-native/google-maps';
+import { AuthHttp } from 'angular2-jwt';
+import { ConnectivityService } from '../../providers/connectivity-service';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @IonicPage()
 @Component({
@@ -9,90 +11,158 @@ import {GoogleAnalytics} from '@ionic-native/google-analytics';
     templateUrl: 'welcome.html',
 })
 export class WelcomePage {
+    statusOnline: boolean = true;
     map: GoogleMap;
     mapElement: HTMLElement;
+    latUser: any;
+    lngUser: any;
     constructor(
+        public plt: Platform,
         public navCtrl: NavController,
         public navParams: NavParams,
         public menuCtrl: MenuController,
-        public ga: GoogleAnalytics) {
+        public toastCtrl: ToastController,
+        private authHttp: AuthHttp,
+        public connectivityService: ConnectivityService,
+        public loading: LoadingController,
+        public geolocation: Geolocation) {
     }
     ionViewDidLoad() {
         this.menuCtrl.enable(false);
-        this.loadMap();
+        this.evalConnection();
     }
     goToHome() {
         this.navCtrl.push("LoginPage");
     }
-    loadMap() {
+    evalConnection() {
+        let errorToast = this.toastCtrl.create({
+            message: 'Ha ocurrido un problema, intenta nuevamente.',
+            duration: 4000,
+            position: 'bottom',
+            closeButtonText: "OK"
+        });
+        let loader = this.loading.create({
+            content: "Cargando Ubicación..."
+        });
+        loader.present();
+        if (this.connectivityService.isOnline()) {
+            this.geolocation.getCurrentPosition().then((resp) => {
+                this.latUser = resp.coords.latitude;
+                this.lngUser = resp.coords.longitude;
+                this.authHttp.get('http://2018.mts.cl/serviciosweb/' + resp.coords.latitude + '/' + resp.coords.longitude).toPromise().then(result => {
+                    var rs = result.json();
+                    if (rs.success) {
+                        loader.dismiss().catch(() => { });
+                        this.loadMap(rs);
+                    }
+                }).catch((e) => {
+                    loader.dismiss().catch(() => { });
+                    errorToast.present();
+                });
+            }).catch((e) => {
+                this.authHttp.get('http://2018.mts.cl/serviciosweb/-33.4369248/-70.6345017').toPromise().then(result => {
+                    var rs = result.json();
+                    if (rs.success) {
+                        loader.dismiss().catch(() => { });
+                        this.loadMap(rs);
+                    }
+                }).catch((e) => {
+                    loader.dismiss().catch(() => { });
+                    errorToast.present();
+                });
+            });
+            
+        }
+        if (this.connectivityService.isOffline()) {
+            errorToast.present();
+        }
+    }
+    loadMap(resultVar: any) {
+        let rslat = resultVar.lat;
+        let rslng = resultVar.lng;
+
+        let rsferreteria = resultVar.ferreteria;
+        let rslogo = resultVar.logo;
+        let rsurlFerreteria = resultVar.urlFerreteria;
+        let rsdireccion = resultVar.direccion;
+
+        let rsisOpen = resultVar.isOpen;
+
+        let rsatiendeFinde = resultVar.atiendeFinde;
+        let rshorarioApertura = resultVar.horarioApertura.substring(0, 5);
+        let rshorarioCierre = resultVar.horarioCierre.substring(0, 5);
+        let rshorarioAperturaFinde = resultVar.horarioAperturaFinde.substring(0, 5);
+        let rshorarioCierreFinde = resultVar.horarioCierreFinde.substring(0, 5);
+        
         var mapOptions: GoogleMapOptions = {
             camera: {
                 target: {
-                    lat: -33.44662,
-                    lng: -70.630674
+                    lat: rslat,
+                    lng: rslng
                 },
-                zoom: 13,
-                tilt: 30
+                zoom: 13
             }
         };
+        let loader = this.loading.create({
+            content: "Cargando Mapa..."
+        });
+        loader.present();
         this.mapElement = document.getElementById('mapa');
         this.map = GoogleMaps.create(this.mapElement, mapOptions);
-        // Wait the MAP_READY before using any methods.
         this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
-            // Now you can use all methods safely.
+            loader.dismiss().catch(() => { });
             var content = '<div class="containerFerreteriaMapa">';
-            content += '<div class="nombreFerreteria">Ferretería Punto Maestro</div>';
-            content += '<div class="logoFerreteria"><img src="http://2018.mts.cl/wp-content/uploads/2017/03/punto_maestro-80x80.jpg" class="img-responsive"></div>';
+            content += '<div class="nombreFerreteria">' + rsferreteria + '</div>';
+            content += '<div class="logoFerreteria"><img src="' + rslogo +'" class="img-responsive"></div>';
             content += '<div class="clearfix"></div>';
-            content += '<p class="openHourFerreteria ferr_abierta">Abierto</p>';
+            if (rsisOpen) {
+                content += "<p class='openHourFerreteria ferr_abierta'>Abierto</p>";
+            }
+            else {
+                content += "<p class='openHourFerreteria ferr_cerrada'>Cerrado</p>";
+            }
             content += '<div class="clearfix"></div>';
-            content += '<p class="direccionFerreteria">Manuel Antonio Matta 67,  Ñuñoa</p>';
-            content += '<p class="horariosDisponiblesFerreteria">Lunes a Viernes: 09:00 a 19:00 Hrs.<br>Sábado y Domingo: 09:00 a 14:00 Hrs.</p>';
-            content += '<a class="urlFerreteria" href="http://2018.mts.cl/red-ferreterias-mts/ferreteria-punto-maestro/">Ir a la ficha</a>';
+            content += '<p class="direccionFerreteria">' + rsdireccion + '</p>';
+            content += '<p class="horariosDisponiblesFerreteria">Lunes a Viernes: ' + rshorarioApertura + ' a ' + rshorarioCierre + ' Hrs.';
+            if (rsatiendeFinde) {
+                content += "<br />Sábado y Domingo: " + rshorarioAperturaFinde + " a " + rshorarioCierreFinde + " Hrs.";
+            }
+            content += '</p>';
+            if (this.plt.is('ios')) {
+                content += '<div class="comoLlegarFerreteria pull-left"><a href="http://maps.apple.com/?saddr=' + this.latUser + ',' + this.lngUser + '&daddr=' + rslat + ',' + rslng + '(' + rsferreteria +')" target="_system">Cómo llegar</a></div>';
+            }
+            else {
+                content += '<div class="comoLlegarFerreteria pull-left"><a href="geo:0,0?q=' + rslat + ',' + rslng +'('+ rsferreteria +')" target="_system">Cómo llegar</a></div>';
+            }
+            content += '<div class="urlFerreteria pull-right"><a class="urlFerreteria" href="' + rsurlFerreteria + '">Ir a la ficha</a></div>';
             content += '<div class="clearfix"></div>';
             content += '</div>';
             var htmlInfoWindow = new HtmlInfoWindow();
             htmlInfoWindow.setContent(content);
+            
             this.map.addMarker({
                 icon: 'assets/images/pinMapMTS.png',
                 animation: 'DROP',
                 position: {
-                    lat: -33.44662,
-                    lng: -70.630674
+                    lat: rslat,
+                    lng: rslng
                 }
             }).then(marker => {
                 marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
                     htmlInfoWindow.open(marker);
-
-                    /*
-                    var content = "<div class='containerFerreteriaMapa'>";
-					content += "<div class='nombreFerreteria'>" + locations[i][0] + "</div>";
-					content += "<div class='logoFerreteria'><img src='" + locations[i][1] + "' class='img-responsive' /></div>";
-					content += "<div class='clearfix'></div>";
-					if(locations[i][11]==1){
-						content += "<p class='openHourFerreteria ferr_abierta'>Abierto</p>";
-					}
-					else {
-						content += "<p class='openHourFerreteria ferr_cerrada'>Cerrado</p>";
-					}
-					content += "<div class='clearfix'></div>";
-					content += "<p class='direccionFerreteria'>" + locations[i][3] + "</p>";
-					content += "<p class='horariosDisponiblesFerreteria'>Lunes a Viernes: " + locations[i][6] + " a " + locations[i][7] + " Hrs.";
-					if(locations[i][8]=="si"){
-						content += "<br /> Sábado y Domingo: " + locations[i][9] + " a " + locations[i][10] + " Hrs.</p>";
-					}
-					if(disabledPosition){
-						//content += "<div class='urlFerreteria'><a href='" + locations[i][2] + "'>Ir a la ficha</a></div>";
-						content += "<div id='comoLlegarFerreteria_"+ i +"' class='comoLlegarFerreteria pull-left'>Cómo llegar</div>";
-						content += "<div class='urlFerreteria pull-right'><a href='" + locations[i][2] + "'>Ir a la ficha</a></div>";
-					}
-					else {
-						content += "<div id='comoLlegarFerreteria_"+ i +"' class='comoLlegarFerreteria pull-left'>Cómo llegar</div>";
-						content += "<div class='urlFerreteria pull-right'><a href='" + locations[i][2] + "'>Ir a la ficha</a></div>";
-					}
-					content += "<div class='clearfix'></div>";
-					content += "</div>";
-                    */
+                    var newrslat;
+                    if (this.plt.is('ios')) {
+                        newrslat = (rslat * 1 + 0.011);
+                    }
+                    else {
+                        newrslat = (rslat * 1 + 0.007);
+                    }
+                    
+                    let cameraPos: CameraPosition<any> = {
+                        target: new LatLng(newrslat, rslng),
+                        zoom: 13
+                    }
+                    this.map.moveCamera(cameraPos);
                 });
             });
         });

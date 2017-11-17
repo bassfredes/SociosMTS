@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {AuthHttp} from 'angular2-jwt';
+import { Injectable } from '@angular/core';
+import { AuthHttp } from 'angular2-jwt';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import *  as AppConfig from '../app/config';
-import {CacheService} from "ionic-cache";
+import { CacheService } from "ionic-cache";
 
 @Injectable()
 export class NoticiasService {
@@ -14,9 +14,8 @@ export class NoticiasService {
         this.cfg = AppConfig.cfg;
     }
     getLast() {
-        let url = this.cfg.apiUrl + this.cfg.noticias + '/_all_docs?limit=1&include_docs=true';
+        let url = this.cfg.apiUrl + this.cfg.noticias + '/_all_docs?descending=true&limit=1&include_docs=true';
         let cacheKey = url;
-        let request = this.authHttp.get(url);
 
         return new Promise(resolve => {
             this.cache.getItem(cacheKey).catch(() => {
@@ -37,7 +36,6 @@ export class NoticiasService {
     getRows() {
         let url = this.cfg.apiUrl + this.cfg.noticias + '/_all_docs?include_docs=true';
         let cacheKey = url;
-        let request = this.authHttp.get(url);
 
         return new Promise(resolve => {
             this.cache.getItem(cacheKey).catch(() => {
@@ -58,7 +56,6 @@ export class NoticiasService {
     getAll(offset, limit) {
         let url = this.cfg.apiUrl + this.cfg.noticias + '/_all_docs?limit='+limit+'&skip='+offset+'&include_docs=true';
         let cacheKey = url;
-        let request = this.authHttp.get(url);
 
         return new Promise(resolve => {
             this.cache.getItem(cacheKey).catch(() => {
@@ -79,7 +76,6 @@ export class NoticiasService {
     getOne(id: string) {
         let url = this.cfg.apiUrl + this.cfg.noticias + '/' + id;
         let cacheKey = url;
-        let request = this.authHttp.get(url);
 
         return new Promise(resolve => {
             this.cache.getItem(cacheKey).catch(() => {

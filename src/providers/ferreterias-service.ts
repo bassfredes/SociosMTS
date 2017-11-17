@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {AuthHttp} from 'angular2-jwt';
-import {Storage} from '@ionic/storage';
+import { Injectable } from '@angular/core';
+import { AuthHttp } from 'angular2-jwt';
+import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import *  as AppConfig from '../app/config';
-import {CacheService} from "ionic-cache";
+import { CacheService } from "ionic-cache";
 
 @Injectable()
 export class FerreteriasService {
@@ -22,8 +22,6 @@ export class FerreteriasService {
     getAll() {
         let url = this.cfg.apiUrl + this.cfg.ferreterias + '/_all_docs?limit=20&include_docs=true';
         let cacheKey = url;
-        let request = this.authHttp.get(url);
-
         return new Promise(resolve => {
             this.cache.getItem(cacheKey).catch(() => {
                 return this.authHttp.get(url).toPromise().then(rs => {
@@ -43,8 +41,6 @@ export class FerreteriasService {
     getOne(id: string) {
         let url = this.cfg.apiUrl + this.cfg.ferreterias + '/' + id;
         let cacheKey = url;
-        let request = this.authHttp.get(url);
-
         return new Promise(resolve => {
             this.cache.getItem(cacheKey).catch(() => {
                 return this.authHttp.get(url).toPromise().then(rs => {

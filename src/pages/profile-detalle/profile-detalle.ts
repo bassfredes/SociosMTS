@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, App, ToastController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, App, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { CallNumber } from '@ionic-native/call-number';
 import { EmailComposer } from '@ionic-native/email-composer';
@@ -30,7 +30,6 @@ export class ProfileDetallePage extends ProtectedPage {
         public storage: Storage,
         public appCtrl: App,
         public toastCtrl: ToastController,
-        public alertCtrl: AlertController,
         public callNumber: CallNumber,
         public emailComposer: EmailComposer,
         public usersService: UsersService,

@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {AuthHttp} from 'angular2-jwt';
+import { Injectable } from '@angular/core';
+import { AuthHttp } from 'angular2-jwt';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import *  as AppConfig from '../app/config';
-import {CacheService} from "ionic-cache";
+import { CacheService } from "ionic-cache";
 
 @Injectable()
 export class EventosService {
@@ -14,7 +14,7 @@ export class EventosService {
         this.cfg = AppConfig.cfg;
     }
     getLast() {
-        let url = this.cfg.apiUrl + this.cfg.eventos + '/_all_docs?limit=1&include_docs=true';
+        let url = this.cfg.apiUrl + this.cfg.eventos + '/_all_docs?descending=true&limit=1&include_docs=true';
         let cacheKey = url;
         return new Promise(resolve => {
             this.cache.getItem(cacheKey).catch(() => {

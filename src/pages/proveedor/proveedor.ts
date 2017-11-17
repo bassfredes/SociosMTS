@@ -8,7 +8,6 @@ import { AuthService } from '../../providers/auth-service';
 import { proveedorModel } from '../../models/proveedor.model';
 import { ProveedoresService } from '../../providers/proveedores-service';
 import { ProductosService } from '../../providers/productos-service';
-import { CacheService } from "ionic-cache";
 
 import *  as AppConfig from '../../app/config';
 import * as $ from 'jquery';
@@ -138,6 +137,8 @@ export class ProveedorPage extends ProtectedPage {
                 maintainAspectRatio: false
             }
         });
+        myChartTotal.update();
+
         var indicadorNorte = this.proveedor.indicadores.cobertura.periodos[eval(month)].norte;
         this.indicadorGral.norte = indicadorNorte;
         var nuloNorte = this.proveedor.indicadores.cobertura.totales.norte;
@@ -163,6 +164,8 @@ export class ProveedorPage extends ProtectedPage {
                 maintainAspectRatio: false
             }
         });
+        myChartNorte.update();
+
         var indicadorCentro = this.proveedor.indicadores.cobertura.periodos[eval(month)].centro;
         this.indicadorGral.centro = indicadorCentro;
         var nuloCentro = this.proveedor.indicadores.cobertura.totales.centro;
@@ -188,6 +191,8 @@ export class ProveedorPage extends ProtectedPage {
                 maintainAspectRatio: false
             }
         });
+        myChartCentro.update();
+        
         var indicadorSur = this.proveedor.indicadores.cobertura.periodos[eval(month)].sur;
         this.indicadorGral.sur = indicadorSur;
         var nuloSur = this.proveedor.indicadores.cobertura.totales.sur;
@@ -213,6 +218,7 @@ export class ProveedorPage extends ProtectedPage {
                 maintainAspectRatio: false
             }
         });
+        myChartSur.update();
     }
     drawChartVentas() {
         var ventasChartCanvas = $("page-proveedor").last().find("#ventas_barChart");
@@ -280,6 +286,7 @@ export class ProveedorPage extends ProtectedPage {
                 }
             }
         });
+        ventasBarChart.update();
         let ableToClickVentas = true;
         $("page-proveedor").last().find("#ventasAdd").click(function(){
             if (ableToClickVentas) {

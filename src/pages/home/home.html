@@ -42,10 +42,10 @@
         <ion-row justify-content-around>
             <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
                 <div class="bloqueBlancoNoPadding no-padding">
-                    <div class="infocomercial" *ngIf="slides">
+                    <div class="infocomercial" *ngIf="loaded">
                         <ion-slides #slider pager="true" autoplay="6000" (ionSlideWillChange)="onSlideChanged()">
                             <ion-slide *ngFor="let slide of slides" class="slide-background">
-                                <div class="imagen" *ngIf="slide">
+                                <div class="imagen" *ngIf="slide" (click)="openSlide(slide)">
                                     <lazy-img width="100%" inputSrc="{{slide.imageUrl}}"></lazy-img>
                                 </div>
                             </ion-slide>
@@ -57,7 +57,7 @@
         <ion-row justify-content-around *ngIf="noticia">
             <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
                 <ion-list no-lines class="noticias">
-                    <button ion-item class="no-padding" (click)="openNoticia('NoticiaDetallePage',noticia);" detail-push>
+                    <button ion-item class="no-padding" (click)="openNoticia();" detail-push>
                         <div class="imageNoticia" *ngIf="noticiasImage">
                             <lazy-img width="100%" inputSrc="{{noticiasImage}}"></lazy-img>
                         </div>

@@ -12,14 +12,18 @@ export class ConnectivityService {
     }
     isOnline(): boolean {
         if (this.onDevice && this.network.type) {
-            return this.network.type !== Connection.NONE;
+            if (Connection) {
+                return this.network.type !== Connection.NONE;
+            }
         } else {
             return navigator.onLine;
         }
     }
     isOffline(): boolean {
         if (this.onDevice && this.network.type) {
-            return this.network.type === Connection.NONE;
+            if (Connection) {
+                return this.network.type === Connection.NONE;
+            }
         } else {
             return !navigator.onLine;
         }

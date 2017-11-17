@@ -1,5 +1,4 @@
 import { Component, ElementRef, Input, Renderer, ViewChild } from '@angular/core';
-import * as $ from 'jquery';
 
 @Component({
     selector: 'accordion-list',

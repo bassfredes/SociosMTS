@@ -183,7 +183,7 @@ export class EventosDetallePage extends ProtectedPage {
         var RDNChartData = {
             labels: ["Meta", "Acuerdo", "Avance"],
             datasets: [{
-                data: [100, 200, 400],
+                data: [meta, acuerdo, avance],
                 backgroundColor: [
                     '#4990E2',
                     '#52831D',
@@ -233,75 +233,7 @@ export class EventosDetallePage extends ProtectedPage {
                 }
             }
         });
-        /*
-        google.charts.setOnLoadCallback(chartRDN);
-        const optionsRDN = {
-            backgroundColor: "#FFF",
-            chartArea: {
-                backgroundColor: "#FFF",
-                left: '30%',
-                top: '0%',
-                width: '70%',
-                height: '80%',
-            },
-            bars: 'horizontal',
-            bar: { groupWidth: "50%" },
-            enableInteractivity: true,
-            legend: { position: 'none' },
-            tooltip: {
-                isHtml: true,
-            },
-            textStyle: {
-                color: '#000001',
-                fontSize: 12,
-                bold: true,
-            },
-            vAxis: {
-                viewWindowMode: 'pretty',
-                format: 'short',
-                textStyle: {
-                    color: '#000000',
-                    fontSize: 14,
-                    bold: true,
-                },
-            },
-            hAxis: {
-                viewWindowMode: 'pretty',
-                minValue: 0,
-                baseline: 0,
-                textStyle: {
-                    color: '#000001',
-                    fontSize: 12,
-                    bold: true,
-                },
-                gridlines: {
-                    count: 3,
-                    color: "#D9DADB"
-                },
-                minorGridlines: {
-                    count: 0
-                }
-            },
-            animation: {
-                startup: true,
-                duration: 1000,
-                easing: 'in',
-            },
-        };
-        function chartRDN() {
-            var chartRDNBar = new google.visualization.BarChart(document.getElementById('RDN'));
-            let meta = parent.varsRDN.meta;
-            let acuerdo = parent.varsRDN.acuerdo;
-            let avance = parent.varsRDN.avance;
-            var dataRDN = google.visualization.arrayToDataTable([
-                ['Indicador', String(parent.thisYear), { role: 'style' }],
-                ['Meta', 400, '#4990E2'],
-                ['Acuerdo', 500, '#52831D'],
-                ['Avance', 12, '#D0011B'],
-            ]);
-            chartRDNBar.draw(dataRDN, optionsRDN);
-        }
-        */
+        RDNBarChart.update();
     }
     openPage(page: string, proveedorData) {
         this.navCtrl.push(page, {

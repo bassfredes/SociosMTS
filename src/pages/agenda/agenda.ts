@@ -18,11 +18,13 @@ import * as $ from 'jquery';
 export class AgendaPage extends ProtectedPage {
     private cfg: any;
     socios: any = [];
+    sociosFiltered: any = [];
     sociosAgrupados: any = [];
     proveedores: any = [];
+    proveedoresFiltered: any = [];
     proveedoresAgrupados: any = [];
 
-    alreadySaved: boolean = false;
+    alreadySaved: any = [];
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
@@ -97,6 +99,7 @@ export class AgendaPage extends ProtectedPage {
         }
     }
     guardarContacto(user) {
+        this.alreadySaved.push(user._id);
         let success = this.toastCtrl.create({
             message: 'El contacto se ha guardado con éxito',
             duration: 4000,
@@ -110,7 +113,7 @@ export class AgendaPage extends ProtectedPage {
             closeButtonText: "OK"
         });
         if ((<any>window).cordova) {
-            this.alreadySaved = true;
+            this.alreadySaved.push(user._id);
             let contact: Contact = this.contacts.create();
             let nombreUser = user.name.split(" ");
             if (contact) {
@@ -135,7 +138,7 @@ export class AgendaPage extends ProtectedPage {
     saveContact(user: any) {
         'use strict';
         if (user.phonenum) {
-            if (!this.alreadySaved) {
+            if (this.alreadySaved.indexOf(user._id) < 0) {
                 this.guardarContacto(user);
             }
             else {
@@ -159,6 +162,15 @@ export class AgendaPage extends ProtectedPage {
                 alert.present();
             }
         }
+        else {
+            let failed = this.toastCtrl.create({
+                message: 'No se ha podido guardar el contacto, el usuario no tiene ningún número.',
+                duration: 4000,
+                position: 'bottom',
+                closeButtonText: "OK"
+            });
+            failed.present();
+        }
     }
     callToContact(user: any) {
         if (user.phonenum) {
@@ -178,7 +190,7 @@ export class AgendaPage extends ProtectedPage {
                 success.present()
             ).catch(() =>
                 failed.present()
-                );
+            );
         }
     }
     mailToContact(user: any) {

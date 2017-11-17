@@ -46,132 +46,13 @@ export class IndicadoresPage extends ProtectedPage {
     }
     drawCharts() {
         var parent = this;
-        /*
-        let parent = this;
-        const options_nps = {
-            pieHole: 0.5,
-            backgroundColor: '#F5F5F5',
-            colors: ['#009987', '#0084B1', '#9C5895', '#F5F5F5'],
-            chartArea: {
-                left: '0%',
-                top: '10%',
-                width: '80%',
-                height: '80%'
-            },
-            animation: {
-                startup: true,
-                duration: 1000,
-                easing: 'in',
-            },
-            enableInteractivity: false,
-            legend: {
-                position: 'none'
-            },
-            pieSliceText: 'none',
-            pieSliceBorderColor: '#F5F5F5',
-        };
 
-        const options_variacion = {
-            backgroundColor: "#F5F5F5",
-            colors: ['#4890E2', '#E50201'],
-            chartArea: {
-                backgroundColor: "#F5F5F5",
-                left: '30%',
-                top: '0%',
-                width: '70%',
-                height: '90%',
-            },
-            focusTarget: 'category',
-            bars: 'horizontal',
-            bar: { groupWidth: "40px" },
-            enableInteractivity: true,
-            legend: { position: 'none' },
-            tooltip: {
-                isHtml: true,
-            },
-            textStyle: {
-                color: '#000001',
-                fontSize: 12,
-                bold: true,
-            },
-            vAxis: {
-                viewWindowMode: 'pretty',
-                format: 'short',
-                textStyle: {
-                    color: '#000000',
-                    fontSize: 14,
-                    bold: true,
-                },
-            },
-            hAxis: {
-                viewWindowMode: 'pretty',
-                minValue: 0,
-                baseline: 0,
-                textStyle: {
-                    color: '#000001',
-                    fontSize: 12,
-                    bold: true,
-                },
-                gridlines: {
-                    count: 6,
-                    color: "#D9DADB"
-                },
-                minorGridlines: {
-                    count: 0
-                }
-            },
-            animation: {
-                startup: true,
-                duration: 1000,
-                easing: 'in',
-            },
-        };
-        */
-        let full = 100;
         let total = this.ferreteria.indicadores.nps.locales[this.localSelected].total;
         this.npsValue = total;
         let p = this.ferreteria.indicadores.nps.locales[this.localSelected].p;
         let d = this.ferreteria.indicadores.nps.locales[this.localSelected].d;
         let n = this.ferreteria.indicadores.nps.locales[this.localSelected].n;
-        /*
-        var chart_nps = new google.visualization.PieChart(document.getElementById('indicadores_donutChart'));
-        var data_nps = google.visualization.arrayToDataTable([
-            ['indicador', 'valor'],
-            ['P', 0],
-            ['D', 0],
-            ['n', 0],
-            ['nulo', full],
-        ]);
-        chart_nps.draw(data_nps, options_nps);
-        var counter = 0;
-        var counterNeg = 0;
-        var handler = setInterval(function(){
-            var resta = full-counterNeg;
-            if(resta<0){resta=0};
-            data_nps = google.visualization.arrayToDataTable([
-                ['indicador', 'valor'],
-                ['P', p*counter],
-                ['D', d*counter],
-                ['n', n*counter],
-                ['nulo', resta],
-            ]);
-            counter = counter + 0.1;
-            counterNeg = counterNeg + 10;
-            counter = Math.round( counter * 10 ) / 10
-
-            if (counter > 1){
-                clearInterval(handler);
-                data_nps = google.visualization.arrayToDataTable([
-                    ['indicador', 'valor'],
-                    ['P', p],
-                    ['D', d],
-                    ['n', n],
-                    ['nulo', 0],
-                ]);
-            }
-            chart_nps.draw(data_nps, options_nps);
-        }, 10);
-        */
+        
         var indicadoresCanvas = $("page-indicadores").last().find("#indicadores_donutChart");
         var indicadoresChart = new Chart(indicadoresCanvas, {
             type: 'pie',
@@ -194,6 +75,7 @@ export class IndicadoresPage extends ProtectedPage {
                 maintainAspectRatio: false
             }
         });
+        indicadoresChart.update();
 
         var variacionChartCanvas = $("page-indicadores").last().find("#variacion_barChart");
         var variacionMesesBarChart = [];
@@ -259,6 +141,7 @@ export class IndicadoresPage extends ProtectedPage {
                 }
             }
         });
+        variacionBarChart.update();
         let ableToClickVariacion = true;
         $("page-indicadores").last().find("#variacionAdd").click(function(){
             if (ableToClickVariacion) {
@@ -282,51 +165,6 @@ export class IndicadoresPage extends ProtectedPage {
                 }
             }
         });
-        /*
-        function chartVariacion() {
-            var chart_variacion = new google.visualization.BarChart(document.getElementById('variacion_barChart'));
-            var data_variacion = new google.visualization.DataTable();
-            parent.dataVariacion = parent.ferreteria.indicadores.compras.fechas;
-
-            data_variacion.addColumn('string', ' ');
-            data_variacion.addColumn('number', parent.lastYear);
-            data_variacion.addColumn('number', parent.thisYear);
-
-            var numMax = parent.dataVariacion.length;
-            Object.keys(parent.dataVariacion).forEach(function(key) {
-                let mes = parent.dataVariacion[key].mes;
-                let periodoAnterior = parent.dataVariacion[key].periodos.anterior;
-                let periodoActual = parent.dataVariacion[key].periodos.actual;
-                if (data_variacion.getNumberOfRows() < 3) {
-                    data_variacion.addRow([mes, periodoAnterior, periodoActual]);
-                }
-            });
-            function drawVariacion() {
-                chart_variacion.draw(data_variacion, options_variacion);
-            }
-            drawVariacion();
-            var addButton = document.getElementById('variacionAdd');
-            let ableToClick = true;
-            addButton.onclick = function() {
-                if (ableToClick) {
-                    ableToClick = false;
-                    if (data_variacion.getNumberOfRows() < numMax) {
-                        data_variacion.addRow([parent.dataVariacion[data_variacion.getNumberOfRows()].mes, parent.dataVariacion[data_variacion.getNumberOfRows()].periodos.anterior, parent.dataVariacion[data_variacion.getNumberOfRows()].periodos.actual]);
-                        let alturaActual = $("#variacion_barChart").outerHeight(true);
-                        $("#variacion_barChart").animate({
-                            height: alturaActual + 30
-                        }, 300, function() {
-                            drawVariacion();
-                            ableToClick = true;
-                        });
-                    }
-                    if (data_variacion.getNumberOfRows() >= numMax) {
-                        $("#variacionAdd").stop().fadeOut(300);
-                    }
-                }
-            }
-        }
-        */
         var ventasChartCanvas = $("page-indicadores").last().find("#ventas_barChart");
         var ventasMesesBarChart = [];
         var ventasDataLastYear = [];
@@ -335,7 +173,6 @@ export class IndicadoresPage extends ProtectedPage {
         this.dataVentas = this.ferreteria.indicadores.compras.fechas;
         var ventasNumMax = this.dataVentas.length;
 
-        var parent = this;
         Object.keys(this.dataVentas).forEach(function(key) {
             if (Number(key) < 3) {
                 ventasNumMonths++;
@@ -392,6 +229,7 @@ export class IndicadoresPage extends ProtectedPage {
                 }
             }
         });
+        ventasBarChart.update();
 
         let ableToClickVentas = true;
         $("page-indicadores").last().find("#ventasAdd").click(function(){
@@ -416,58 +254,15 @@ export class IndicadoresPage extends ProtectedPage {
                 }
             }
         });
-        /*
-        function chartVentas() {
-            var chart_ventas = new google.visualization.BarChart(document.getElementById('ventas_barChart'));
-            var data_ventas = new google.visualization.DataTable();
-            parent.dataVentas = parent.ferreteria.indicadores.ventas.fechas;
-
-            data_ventas.addColumn('string', ' ');
-            data_ventas.addColumn('number', parent.lastYear);
-            data_ventas.addColumn('number', parent.thisYear);
-
-            var numMax = parent.dataVentas.length;
-            Object.keys(parent.dataVentas).forEach(function(key) {
-                let mes = parent.dataVentas[key].mes;
-                let periodoAnterior = parent.dataVentas[key].periodos.anterior;
-                let periodoActual = parent.dataVentas[key].periodos.actual;
-                if (data_ventas.getNumberOfRows() < 3) {
-                    data_ventas.addRow([mes, periodoAnterior, periodoActual]);
-                }
-            });
-            function drawVentas() {
-                chart_ventas.draw(data_ventas, options_variacion);
-            }
-            drawVentas();
-            var addVentasButton = document.getElementById('ventasAdd');
-            let ableToClick = true;
-            addVentasButton.onclick = function() {
-                if (ableToClick) {
-                    ableToClick = false;
-                    if (data_ventas.getNumberOfRows() < numMax) {
-                        data_ventas.addRow([parent.dataVentas[data_ventas.getNumberOfRows()].mes, parent.dataVentas[data_ventas.getNumberOfRows()].periodos.anterior, parent.dataVentas[data_ventas.getNumberOfRows()].periodos.actual]);
-                        let alturaActual = $("#ventas_barChart").outerHeight(true);
-                        $("#ventas_barChart").animate({
-                            height: alturaActual + 30
-                        }, 300, function() {
-                            drawVentas();
-                            ableToClick = true;
-                        });
-                    }
-                    if (data_ventas.getNumberOfRows() >= numMax) {
-                        $("#ventasAdd").stop().fadeOut(300);
-                    }
-                }
-            }
-        }
-        */
     }
-
     onSelectChange(selectedValue: any) {
         this.localSelected = selectedValue;
         this.drawCharts();
     }
     ionViewDidLoad() {
+        this.updateContent();
+    }
+    updateContent(){
         this.storage.get('id_token').then(id_token => {
             if (id_token !== null) {
                 this.storage.get("id_ferreteria").then((theID) => {
