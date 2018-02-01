@@ -29,7 +29,7 @@ export class WelcomePage {
         public loading: LoadingController,
         public geolocation: Geolocation) {
     }
-    ionViewDidEnter() {
+    ionViewDidLoad() {
         this.menuCtrl.enable(false);
         this.evalConnection();
     }
