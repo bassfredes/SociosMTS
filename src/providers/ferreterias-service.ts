@@ -25,11 +25,11 @@ export class FerreteriasService {
         return new Promise(resolve => {
             this.cache.getItem(cacheKey).catch(() => {
                 return this.authHttp.get(url).toPromise().then(rs => {
-                    let result = rs.json();
+                    let result = rs.json().rows;
                     return this.cache.saveItem(cacheKey, result);
                 });
             }).then((data) => {
-                if(data.value){
+                if (typeof (data) !== 'undefined' && data.value) {
                     resolve(JSON.parse(data.value));
                 }
                 else {
@@ -48,7 +48,7 @@ export class FerreteriasService {
                     return this.cache.saveItem(cacheKey, result);
                 });
             }).then((data) => {
-                if(data.value){
+                if (typeof (data) !== 'undefined' && data.value) {
                     resolve(JSON.parse(data.value));
                 }
                 else {

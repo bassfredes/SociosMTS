@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mts.sociosmts" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.mts.sociosmts" version="1.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>SociosMTS</name>
     <description>MTS La Red Materiales y Soluciones</description>
     <author email="info@mitocondria.cl" href="https://www.mitocondria.cl/">Mitocondria</author>
@@ -101,7 +101,7 @@
         <string>Save users of Ferreterias and Proveedores to your contacts</string>
     </edit-config>
     <engine name="android" spec="6.3.0" />
-    <engine name="ios" spec="4.5.3" />
+    <engine name="ios" spec="4.5.4" />
     <plugin name="cordova-plugin-sqlite-2" spec="^1.0.4" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1" />
     <plugin name="cordova-plugin-device" spec="^1.1.7" />

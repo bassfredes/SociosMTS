@@ -1,13 +1,13 @@
 // Providers
-import {AuthService} from '../providers/auth-service';
-import {ConnectivityService} from '../providers/connectivity-service';
-import {EventosService} from '../providers/eventos-service';
-import {FerreteriasService} from '../providers/ferreterias-service';
-import {InformercialService} from '../providers/informercial-service';
-import {NoticiasService} from '../providers/noticias-service';
-import {ProductosService} from '../providers/productos-service';
-import {ProveedoresService} from '../providers/proveedores-service';
-import {UsersService} from '../providers/users-service';
+import { AuthService } from '../providers/auth-service';
+import { ConnectivityService } from '../providers/connectivity-service';
+import { EventosService } from '../providers/eventos-service';
+import { FerreteriasService } from '../providers/ferreterias-service';
+import { InformercialService } from '../providers/informercial-service';
+import { NoticiasService } from '../providers/noticias-service';
+import { ProductosService } from '../providers/productos-service';
+import { ProveedoresService } from '../providers/proveedores-service';
+import { UsersService } from '../providers/users-service';
 
 // Ionic native providers
 import { PhotoViewer } from '@ionic-native/photo-viewer';
@@ -27,24 +27,26 @@ import { GoogleAnalytics } from '@ionic-native/google-analytics';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ImgcacheService } from '../global/services';
 
-import {JwtHelper} from 'angular2-jwt';
+import { JwtHelper } from 'angular2-jwt';
 
 // Components
-import {AccordionListComponent} from '../components/accordion-list/accordion-list';
-import {LazyImgComponent} from '../global/components/';
+import { AccordionListComponent } from '../components/accordion-list/accordion-list';
+import { LazyImgComponent } from '../global/components/';
 
 // Pipes
-import {KeysPipe} from '../pipes/keys/keys';
-import {PointReplacerPipe} from '../pipes/point-replacer/point-replacer';
+import { KeysPipe } from '../pipes/keys/keys';
+import { PointReplacerPipe } from '../pipes/point-replacer/point-replacer';
 
 // Modules
-import {BrowserModule} from '@angular/platform-browser';
-import {HttpModule} from '@angular/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
+import { EventoModalPageModule } from '../pages/evento-modal/evento-modal.module';
 
 // DIRECTIVES
-import {LazyLoadDirective} from '../global/directives/';
+import { LazyLoadDirective } from '../global/directives/';
 
 export const MODULES = [
+    EventoModalPageModule,
     BrowserModule,
     HttpModule
 ];

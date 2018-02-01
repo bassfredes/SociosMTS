@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, App, ToastController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, App, AlertController, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../providers/auth-service';
@@ -7,6 +7,8 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { ProtectedPage } from '../protected-page/protected-page';
 import { EventosService } from '../../providers/eventos-service';
 import { ProveedoresService } from '../../providers/proveedores-service';
+
+import { EventoModalPage } from '../evento-modal/evento-modal';
 
 import *  as AppConfig from '../../app/config';
 import * as $ from 'jquery';
@@ -34,7 +36,6 @@ export class EventosDetallePage extends ProtectedPage {
     participarB: boolean = false;
     imagenPrincipal: any;
     attachments: any;
-    clickParticipar: boolean = false;
     varsRDN: any;
 
     dateUpdate: any;
@@ -46,6 +47,7 @@ export class EventosDetallePage extends ProtectedPage {
     nombreInvitado: string = "";
 
     alreadyExpanded: boolean = false;
+    mensajeExito: string = "";
 
     constructor(
         public navCtrl: NavController,
@@ -56,9 +58,9 @@ export class EventosDetallePage extends ProtectedPage {
         public eventosService: EventosService,
         public photoViewer: PhotoViewer,
         public appCtrl: App,
-        public toastCtrl: ToastController,
         public alertCtrl: AlertController,
         public proveedoresService: ProveedoresService,
+        public modalCtrl: ModalController,
         public authService: AuthService) {
         super(navCtrl, navParams, storage, appCtrl);
         this.cfg = AppConfig.cfg;
@@ -68,31 +70,6 @@ export class EventosDetallePage extends ProtectedPage {
             name: ['', Validators.compose([Validators.required])],
             rut: ['', Validators.compose([Validators.required, Validators.minLength(7), Validators.pattern('^[0-9]+-[0-9kK]{1}$')])],
         });
-    }
-    invite() {
-        if (!this.clickInvitar) {
-            this.clickInvitar = true;
-            const parent = this;
-            this.nombreInvitado = this.inviteData.value.name;
-            $(".toInvite").stop().fadeOut(300, function() {
-                $(".alreadyInvited").fadeIn(300);
-                parent.authService.invitarEvento(parent.inviteData.value).then(() => {
-                    parent.clickInvitar = false;
-                }).catch(e => console.log("login error", e));
-            });
-        }
-    }
-    invitarOtro() {
-        if (!this.clickInvitar) {
-            this.clickInvitar = true;
-            const parent = this;
-            this.inviteData.reset()
-            $(".alreadyInvited").stop().fadeOut(300, function() {
-                parent.nombreInvitado = "";
-                parent.clickInvitar = false;
-                $(".toInvite").stop().fadeIn(300);
-            });
-        }
     }
     ionViewDidLoad() {
         if (this.evento === undefined || this.evento === null) {
@@ -138,30 +115,46 @@ export class EventosDetallePage extends ProtectedPage {
         }
     }
     participar() {
-        if (!this.clickParticipar) {
-            let alert = this.alertCtrl.create({
-                title: 'Confirmar Inscripción',
-                message: '¿Estás seguro que quieres inscribirte en el evento?',
-                buttons: [
-                    {
-                        text: 'Cancelar',
-                        role: 'cancel',
-                        handler: () => { }
-                    },
-                    {
-                        text: 'Aceptar',
-                        handler: () => {
-                            this.clickParticipar = true;
-                            const parent = this;
-                            $(".prevParticipar").stop().fadeOut(300, function() {
-                                $(".postParticipar").fadeIn(300);
-                                parent.evento.participando = true;
-                            });
-                        }
-                    }
-                ]
+        let eventoModal = this.modalCtrl.create(EventoModalPage, {
+            eventoData: this.evento,
+            dataNombre: false,
+            dataRut: false
+        });
+        eventoModal.present();
+        eventoModal.onDidDismiss(data => {
+            if (data) {
+                this.evento.participando = true;
+                this.mensajeExito = data.doc.message;
+            }
+        });
+    }
+    invitarPersona() {
+        let nombreInvitado = this.inviteData.value.name;
+        let rutInvitado = this.inviteData.value.rut;
+        let eventoModal = this.modalCtrl.create(EventoModalPage, {
+            eventoData: this.evento,
+            dataNombre: nombreInvitado,
+            dataRut: rutInvitado
+        });
+        eventoModal.present();
+        eventoModal.onDidDismiss(data => {
+            if (data)  {
+                $(".toInvite").stop().fadeOut(300, function () {
+                    $(".alreadyInvited").fadeIn(300);
+                });
+            }
+        });
+    }
+    invitarOtro() {
+        if (!this.clickInvitar) {
+            this.clickInvitar = true;
+            const parent = this;
+            this.inviteData.reset()
+            $(".alreadyInvited").stop().fadeOut(300, function () {
+                parent.nombreInvitado = "";
+                parent.clickInvitar = false;
+                $(".toInvite").stop().fadeIn(300);
             });
-            alert.present();
         }
     }
     cargarProveedores() {
@@ -176,18 +169,20 @@ export class EventosDetallePage extends ProtectedPage {
     }
     drawCharts() {
         var RDNChartCanvas = $("page-eventos-detalle").last().find("#RDN");
-        const meta = this.varsRDN.meta;
-        const acuerdo = this.varsRDN.acuerdo;
-        const avance = this.varsRDN.avance;
+        const potencial = this.varsRDN.potencial;
+        const rdn = this.varsRDN.rdn;
+        const ordenCompra = this.varsRDN.orden_compra;
+        const facturado = this.varsRDN.facturado;
 
         var RDNChartData = {
-            labels: ["Meta", "Acuerdo", "Avance"],
+            labels: ["Potencial", "RDN", "Orden de Compra", "Facturado"],
             datasets: [{
-                data: [meta, acuerdo, avance],
+                data: [potencial, rdn, ordenCompra, facturado],
                 backgroundColor: [
-                    '#4990E2',
-                    '#52831D',
-                    '#D0011B'
+                    '#53831E',
+                    '#D0011B',
+                    '#212FC2',
+                    '#30C0A2'
                 ],
                 borderWidth: 0
             }]

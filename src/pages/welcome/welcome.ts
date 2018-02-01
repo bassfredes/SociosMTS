@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, Platform, NavController, NavParams, MenuController, ToastController, LoadingController } from 'ionic-angular';
 import { GoogleMaps, GoogleMap, HtmlInfoWindow, GoogleMapsEvent, GoogleMapOptions, LatLng, CameraPosition } from '@ionic-native/google-maps';
 import { AuthHttp } from 'angular2-jwt';
+import { Http, Headers } from '@angular/http';
 import { ConnectivityService } from '../../providers/connectivity-service';
 import { Geolocation } from '@ionic-native/geolocation';
 
@@ -22,12 +23,13 @@ export class WelcomePage {
         public navParams: NavParams,
         public menuCtrl: MenuController,
         public toastCtrl: ToastController,
+        private http: Http,
         private authHttp: AuthHttp,
         public connectivityService: ConnectivityService,
         public loading: LoadingController,
         public geolocation: Geolocation) {
     }
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         this.menuCtrl.enable(false);
         this.evalConnection();
     }
@@ -49,32 +51,36 @@ export class WelcomePage {
             this.geolocation.getCurrentPosition().then((resp) => {
                 this.latUser = resp.coords.latitude;
                 this.lngUser = resp.coords.longitude;
-                this.authHttp.get('http://2018.mts.cl/serviciosweb/' + resp.coords.latitude + '/' + resp.coords.longitude).toPromise().then(result => {
+                this.http.get('https://mts.cl/serviciosweb/' + resp.coords.latitude + '/' + resp.coords.longitude).toPromise().then(result => {
                     var rs = result.json();
                     if (rs.success) {
                         loader.dismiss().catch(() => { });
-                        this.loadMap(rs);
+                        if ((<any>window).cordova) {
+                            this.loadMap(rs);
+                        }
                     }
                 }).catch((e) => {
                     loader.dismiss().catch(() => { });
                     errorToast.present();
                 });
             }).catch((e) => {
-                this.authHttp.get('http://2018.mts.cl/serviciosweb/-33.4369248/-70.6345017').toPromise().then(result => {
+                this.http.get('https://mts.cl/serviciosweb/-33.4369248/-70.6345017').toPromise().then(result => {
                     var rs = result.json();
                     if (rs.success) {
                         loader.dismiss().catch(() => { });
-                        this.loadMap(rs);
+                        if ((<any>window).cordova) {
+                            this.loadMap(rs);
+                        }
                     }
                 }).catch((e) => {
                     loader.dismiss().catch(() => { });
                     errorToast.present();
                 });
             });
-            
         }
         if (this.connectivityService.isOffline()) {
             errorToast.present();
+            loader.dismiss().catch(() => { });
         }
     }
     loadMap(resultVar: any) {
@@ -109,62 +115,68 @@ export class WelcomePage {
         loader.present();
         this.mapElement = document.getElementById('mapa');
         this.map = GoogleMaps.create(this.mapElement, mapOptions);
-        this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
-            loader.dismiss().catch(() => { });
-            var content = '<div class="containerFerreteriaMapa">';
-            content += '<div class="nombreFerreteria">' + rsferreteria + '</div>';
-            content += '<div class="logoFerreteria"><img src="' + rslogo +'" class="img-responsive"></div>';
-            content += '<div class="clearfix"></div>';
-            if (rsisOpen) {
-                content += "<p class='openHourFerreteria ferr_abierta'>Abierto</p>";
-            }
-            else {
-                content += "<p class='openHourFerreteria ferr_cerrada'>Cerrado</p>";
-            }
-            content += '<div class="clearfix"></div>';
-            content += '<p class="direccionFerreteria">' + rsdireccion + '</p>';
-            content += '<p class="horariosDisponiblesFerreteria">Lunes a Viernes: ' + rshorarioApertura + ' a ' + rshorarioCierre + ' Hrs.';
-            if (rsatiendeFinde) {
-                content += "<br />Sábado y Domingo: " + rshorarioAperturaFinde + " a " + rshorarioCierreFinde + " Hrs.";
-            }
-            content += '</p>';
-            if (this.plt.is('ios')) {
-                content += '<div class="comoLlegarFerreteria pull-left"><a href="http://maps.apple.com/?saddr=' + this.latUser + ',' + this.lngUser + '&daddr=' + rslat + ',' + rslng + '(' + rsferreteria +')" target="_system">Cómo llegar</a></div>';
-            }
-            else {
-                content += '<div class="comoLlegarFerreteria pull-left"><a href="geo:0,0?q=' + rslat + ',' + rslng +'('+ rsferreteria +')" target="_system">Cómo llegar</a></div>';
-            }
-            content += '<div class="urlFerreteria pull-right"><a class="urlFerreteria" href="' + rsurlFerreteria + '">Ir a la ficha</a></div>';
-            content += '<div class="clearfix"></div>';
-            content += '</div>';
-            var htmlInfoWindow = new HtmlInfoWindow();
-            htmlInfoWindow.setContent(content);
-            
-            this.map.addMarker({
-                icon: 'assets/images/pinMapMTS.png',
-                animation: 'DROP',
-                position: {
-                    lat: rslat,
-                    lng: rslng
+
+        if ((<any>window).cordova) {
+            this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+                loader.dismiss().catch(() => { });
+                var content = '<div class="containerFerreteriaMapa">';
+                content += '<div class="nombreFerreteria">' + rsferreteria + '</div>';
+                content += '<div class="logoFerreteria"><img src="' + rslogo + '" class="img-responsive"></div>';
+                content += '<div class="clearfix"></div>';
+                if (rsisOpen) {
+                    content += "<p class='openHourFerreteria ferr_abierta'>Abierto</p>";
                 }
-            }).then(marker => {
-                marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-                    htmlInfoWindow.open(marker);
-                    var newrslat;
-                    if (this.plt.is('ios')) {
-                        newrslat = (rslat * 1 + 0.011);
+                else {
+                    content += "<p class='openHourFerreteria ferr_cerrada'>Cerrado</p>";
+                }
+                content += '<div class="clearfix"></div>';
+                content += '<p class="direccionFerreteria">' + rsdireccion + '</p>';
+                content += '<p class="horariosDisponiblesFerreteria">Lunes a Viernes: ' + rshorarioApertura + ' a ' + rshorarioCierre + ' Hrs.';
+                if (rsatiendeFinde) {
+                    content += "<br />Sábado y Domingo: " + rshorarioAperturaFinde + " a " + rshorarioCierreFinde + " Hrs.";
+                }
+                content += '</p>';
+                if (this.plt.is('ios')) {
+                    content += '<div class="comoLlegarFerreteria pull-left"><a href="http://maps.apple.com/?saddr=' + this.latUser + ',' + this.lngUser + '&daddr=' + rslat + ',' + rslng + '(' + rsferreteria + ')" target="_system">Cómo llegar</a></div>';
+                }
+                else {
+                    content += '<div class="comoLlegarFerreteria pull-left"><a href="geo:0,0?q=' + rslat + ',' + rslng + '(' + rsferreteria + ')" target="_system">Cómo llegar</a></div>';
+                }
+                content += '<div class="urlFerreteria pull-right"><a class="urlFerreteria" href="' + rsurlFerreteria + '">Ir a la ficha</a></div>';
+                content += '<div class="clearfix"></div>';
+                content += '</div>';
+                var htmlInfoWindow = new HtmlInfoWindow();
+                htmlInfoWindow.setContent(content);
+
+                this.map.addMarker({
+                    icon: 'assets/images/pinMapMTS.png',
+                    animation: 'DROP',
+                    position: {
+                        lat: rslat,
+                        lng: rslng
                     }
-                    else {
-                        newrslat = (rslat * 1 + 0.007);
-                    }
-                    
-                    let cameraPos: CameraPosition<any> = {
-                        target: new LatLng(newrslat, rslng),
-                        zoom: 13
-                    }
-                    this.map.moveCamera(cameraPos);
+                }).then(marker => {
+                    marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+                        htmlInfoWindow.open(marker);
+                        var newrslat;
+                        if (this.plt.is('ios')) {
+                            newrslat = (rslat * 1 + 0.011);
+                        }
+                        else {
+                            newrslat = (rslat * 1 + 0.007);
+                        }
+
+                        let cameraPos: CameraPosition<any> = {
+                            target: new LatLng(newrslat, rslng),
+                            zoom: 13
+                        }
+                        this.map.moveCamera(cameraPos);
+                    });
                 });
             });
-        });
+        }
+        else {
+            loader.dismiss().catch(() => { });
+        }
     }
 }

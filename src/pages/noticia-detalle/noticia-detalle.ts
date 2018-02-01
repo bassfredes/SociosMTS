@@ -13,9 +13,8 @@ import *  as AppConfig from '../../app/config';
 })
 export class NoticiaDetallePage extends ProtectedPage {
     private cfg: any;
-    noticia: any = [];
-    attachments: any = [];
-    noticiaImagenPrincipal: string = "";
+    noticia: any = false;
+    attachments: any;
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
@@ -26,26 +25,15 @@ export class NoticiaDetallePage extends ProtectedPage {
         public appCtrl: App) {
         super(navCtrl, navParams, storage, appCtrl);
         this.cfg = AppConfig.cfg;
-        this.noticia = this.navParams.get('noticia');
     }
     ionViewDidLoad() {
+        this.noticia = this.navParams.get('noticia');
         if (this.noticia === undefined || this.noticia === null) {
             this.navCtrl.setRoot('HomePage');
         }
-        else {
-            this.noticiasService.getOne(this.noticia._id).then(noticia => {
-                this.noticia = noticia;
-                if (this.noticia._attachments) {
-                    this.attachments = Object.keys(this.noticia._attachments);
-                    this.noticiaImagenPrincipal = this.cfg.apiUrl + '/noticias/' + this.noticia._id + '/' + this.attachments[0];
-                    this.attachments.shift();
-                }
-            });
-        }
     }
     zoomPhoto(urlPhoto: string) {
-        console.log(this.cfg.apiUrl+'/noticias/'+this.noticia._id+'/'+urlPhoto);
-        this.photoViewer.show(this.cfg.apiUrl+'/noticias/'+this.noticia._id+'/'+urlPhoto);
+        //this.photoViewer.show(this.cfg.apiUrl+'/noticias/'+this.noticia._id+'/'+urlPhoto);
     }
 
 }

@@ -5,7 +5,7 @@ import { EventosDetallePage } from './eventos-detalle';
 
 @NgModule({
     declarations: [
-        EventosDetallePage
+        EventosDetallePage        
     ],
     imports: [
         IonicPageModule.forChild(EventosDetallePage),

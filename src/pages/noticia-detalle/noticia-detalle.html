@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar center>
-        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />
+        <img class="logoHeaderv2" width="130" src="assets/images/logoHeaderV2@2.png" />
         <button ion-button menuToggle right>
             <div class="navicon-button x">
                 <div class="navicon"></div>
@@ -13,27 +13,25 @@
         <ion-row justify-content-around *ngIf="noticia">
             <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
                 <div class="bloqueBlanco firstElement">
-                    <div class="imageNoticia" *ngIf="noticiaImagenPrincipal">
-                        <lazy-img width="100%" inputSrc="{{noticiaImagenPrincipal}}"></lazy-img>
+                    <div class="imageNoticia" *ngIf="noticia._embedded['wp:featuredmedia']['0'].media_details">
+                        <lazy-img width="100%" inputSrc="{{noticia._embedded['wp:featuredmedia']['0'].media_details.sizes.thumbNoticia.source_url}}"></lazy-img>
                     </div>
                 </div>
                 <div class="noticias">
                     <div class="detalles">
-                        <h2>{{noticia.title}}</h2>
+                        <h2 text-wrap [innerHTML]="noticia.title.rendered"></h2>
                         <div class="dates">
-                            <span class="since">{{noticia.updated_at | amLocale:'es' | amTimeAgo}}</span><span class="date">{{noticia.updated_at | date : "dd ' ' MMMM ' ' yyyy"}}</span>
+                            <span class="since">{{noticia.modified | amLocale:'es' | amTimeAgo}}</span><span class="date">{{noticia.modified | date : "dd ' ' MMMM ' ' yyyy"}}</span>
                         </div>
-                        <div class="bajada" text-wrap>
-                            <p>{{noticia.body}}</p>
-                        </div>
+                        <div class="bajada" text-wrap [innerHTML]="noticia.content.rendered"></div>
                     </div>
-                    <div class="attachments">
+                    <!--div class="attachments">
                         <ion-list no-lines no-padding>
                             <ion-item  no-padding *ngFor="let attachment of attachments">
                                 <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/noticias/{{noticia._id}}/{{attachment}}" (click)="zoomPhoto(attachment);"></lazy-img>
                             </ion-item>
                         </ion-list>
-                    </div>
+                    </div-->
                 </div>
             </ion-col>
         </ion-row>

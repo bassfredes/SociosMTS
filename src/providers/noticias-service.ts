@@ -14,17 +14,17 @@ export class NoticiasService {
         this.cfg = AppConfig.cfg;
     }
     getLast() {
-        let url = this.cfg.apiUrl + this.cfg.noticias + '/_all_docs?descending=true&limit=1&include_docs=true';
+        let url = this.cfg.apiUrlWp + this.cfg.noticias + '?categories=1&_embed&per_page=1&order=desc&status=publish';
         let cacheKey = url;
 
         return new Promise(resolve => {
             this.cache.getItem(cacheKey).catch(() => {
                 return this.authHttp.get(url).toPromise().then(rs => {
-                    let result = rs.json().rows[0].doc;
+                    let result = rs.json();
                     return this.cache.saveItem(cacheKey, result);
                 });
             }).then((data) => {
-                if(data.value){
+                if (typeof (data) !== 'undefined' && data.value) {
                     resolve(JSON.parse(data.value));
                 }
                 else {
@@ -33,18 +33,45 @@ export class NoticiasService {
             });
         });
     }
+    getAttachment(noticiaSchema){
+        if (noticiaSchema.length && noticiaSchema.length > 0) {
+            let featuredMedia = noticiaSchema[0].featured_media;
+            let url = this.cfg.apiUrlWp + this.cfg.media + '/' + featuredMedia;
+            let cacheKey = url;
+            return new Promise(resolve => {
+                this.cache.getItem(cacheKey).catch(() => {
+                    return this.authHttp.get(url).toPromise().then(rs => {
+                        let result = rs.json();
+                        return this.cache.saveItem(cacheKey, result);
+                    });
+                }).then((data) => {
+                    if (typeof (data) !== 'undefined' && data.value) {
+                        resolve(JSON.parse(data.value));
+                    }
+                    else {
+                        resolve(data);
+                    }
+                });
+            });
+        }
+        else {
+            return new Promise(resolve => {
+                resolve(false);
+            });
+        }
+    }
     getRows() {
-        let url = this.cfg.apiUrl + this.cfg.noticias + '/_all_docs?include_docs=true';
+        let url = this.cfg.apiUrlWp + this.cfg.noticias + '?categories=1&order=desc&status=publish';
         let cacheKey = url;
 
         return new Promise(resolve => {
             this.cache.getItem(cacheKey).catch(() => {
                 return this.authHttp.get(url).toPromise().then(rs => {
-                    let result = rs.json().total_rows;
+                    let result = rs.headers.get('X-WP-Total');
                     return this.cache.saveItem(cacheKey, result);
                 });
             }).then((data) => {
-                if(data.value){
+                if (typeof (data) !== 'undefined' && data.value) {
                     resolve(JSON.parse(data.value));
                 }
                 else {
@@ -54,13 +81,19 @@ export class NoticiasService {
         });
     }
     getAll(offset, limit) {
-        let url = this.cfg.apiUrl + this.cfg.noticias + '/_all_docs?limit='+limit+'&skip='+offset+'&include_docs=true';
+        let url;
+        if (limit) {
+            url = this.cfg.apiUrlWp + this.cfg.noticias + '?categories=1&_embed&per_page=' + limit + '&offset=' + offset + '&order=desc&status=publish';
+        }
+        else {
+            url = this.cfg.apiUrlWp + this.cfg.noticias + '?categories=1&_embed&order=desc&status=publish';
+        }
         let cacheKey = url;
 
         return new Promise(resolve => {
             this.cache.getItem(cacheKey).catch(() => {
                 return this.authHttp.get(url).toPromise().then(rs => {
-                    let result = rs.json().rows;
+                    let result = rs.json();
                     return this.cache.saveItem(cacheKey, result);
                 });
             }).then((data) => {
@@ -74,7 +107,8 @@ export class NoticiasService {
         });
     }
     getOne(id: string) {
-        let url = this.cfg.apiUrl + this.cfg.noticias + '/' + id;
+        let url = this.cfg.apiUrlWp + this.cfg.noticias + '/' + id;
+        console.log(url);
         let cacheKey = url;
 
         return new Promise(resolve => {

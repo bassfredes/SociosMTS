@@ -1,11 +1,11 @@
 <ion-header>
     <ion-navbar center>
-        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />
+        <img class="logoHeaderv2" width="130" src="assets/images/logoHeaderV2@2.png" />
         <button ion-button menuToggle right>
             <div class="navicon-button x">
                 <div class="navicon"></div>
             </div>
-    	</button>
+        </button>
     </ion-navbar>
 </ion-header>
 <ion-content class="contentInterior">
@@ -18,29 +18,30 @@
         <ion-row padding-right padding-left justify-content-around>
             <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
                 <form (ngSubmit)="searchSubmit()">
-                    <ion-searchbar class="buscador" animated="true" cancelButtonText="Cancelar" showCancelButton="false" placeholder="Buscar Proveedores" type="text" (ionInput)="searchFn($event)" (search)="searchSubmit($event)"></ion-searchbar>
+                    <ion-searchbar class="buscador" animated="true" cancelButtonText="Cancelar" showCancelButton="false" placeholder="Buscar Proveedores"
+                        type="text" (ionInput)="searchFn($event)" (search)="searchSubmit($event)"></ion-searchbar>
                     <button class="button button-clear" type="submit">Buscar Proveedores</button>
                 </form>
             </ion-col>
         </ion-row>
-        <div class="bloqueBlancoNoPadding no-padding">
+        <div class="bloqueBlancoNoPadding no-padding botonesLista">
             <ion-row padding-right padding-left justify-content-around>
                 <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
-                    <button class="inContent minPadding fullWidth" ion-button round large>Mi Lista</button>
+                    <button class="miListaButton inContent minPadding fullWidth active" ion-button round large>Mi Lista</button>
                 </ion-col>
                 <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
-                    <button class="inContent minPadding fullWidth" ion-button round large [disabled]="!revisados">Últimos revisados</button>
+                    <button class="visitadosButton inContent minPadding fullWidth inactive" ion-button round large [disabled]="!revisados" (click)="changeLista();">Últimos revisados</button>
                 </ion-col>
             </ion-row>
         </div>
     </ion-grid>
-    <ion-list [virtualScroll]="proveedoresFiltered" [approxItemHeight]=" '152px' " class="proveedores">
+    <ion-list [virtualScroll]="proveedoresFiltered" [approxItemHeight]=" '152px' " class="proveedores listaCompleta">
         <ion-item *virtualItem="let proveedor" class="proveedor" padding-top padding-bottom>
             <ion-row padding-right padding-left justify-content-around (click)="openPage('ProveedorPage', proveedor);">
                 <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
                     <div class="logoProveedor text-center center" *ngIf="proveedor.doc._attachments">
                         <div *ngFor="let attachment of proveedor.doc._attachments | keys; index as i">
-                            <lazy-img  width="100%" inputSrc="{{cfg.apiUrl}}/proveedores/{{proveedor.doc._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>
+                            <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/proveedores/{{proveedor.doc._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>
                         </div>
                     </div>
                 </ion-col>

@@ -26,7 +26,7 @@ export class ProductosService {
                     return this.cache.saveItem(cacheKey, result);
                 });
             }).then((data) => {
-                if(data.value){
+                if (typeof (data) !== 'undefined' && data.value) {
                     resolve(JSON.parse(data.value));
                 }
                 else {
@@ -45,7 +45,7 @@ export class ProductosService {
                     return this.cache.saveItem(cacheKey, result);
                 });
             }).then((data) => {
-                if(data.value){
+                if (typeof (data) !== 'undefined' && data.value) {
                     resolve(JSON.parse(data.value));
                 }
                 else {
@@ -64,7 +64,7 @@ export class ProductosService {
                     return this.cache.saveItem(cacheKey, result);
                 });
             }).then((data) => {
-                if(data.value){
+                if (typeof (data) !== 'undefined' && data.value) {
                     resolve(JSON.parse(data.value));
                 }
                 else {

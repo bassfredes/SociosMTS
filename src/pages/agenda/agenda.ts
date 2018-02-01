@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
 import { CallNumber } from '@ionic-native/call-number';
 import { EmailComposer } from '@ionic-native/email-composer';
+import { Keyboard } from '@ionic-native/keyboard';
 import { ProtectedPage } from '../protected-page/protected-page';
 import { UsersService } from '../../providers/users-service';
 
@@ -25,6 +26,7 @@ export class AgendaPage extends ProtectedPage {
     proveedoresAgrupados: any = [];
 
     alreadySaved: any = [];
+    term: string = '';
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
@@ -36,11 +38,11 @@ export class AgendaPage extends ProtectedPage {
         public contacts: Contacts,
         public callNumber: CallNumber,
         public emailComposer: EmailComposer,
-        public appCtrl: App) {
+        public appCtrl: App,
+        public keyboard: Keyboard) {
         super(navCtrl, navParams, storage, appCtrl);
         this.cfg = AppConfig.cfg;
     }
-
     ionViewDidLoad() {
         this.usersService.getAll('socios').then(socios => {
             this.socios = socios;
@@ -50,6 +52,34 @@ export class AgendaPage extends ProtectedPage {
             this.proveedores = proveedores;
             this.groupUsers(this.proveedores, this.proveedoresAgrupados);
         });
+    }
+    searchFn(ev: any) {
+        this.term = ev.target.value;
+        if (this.term) {
+            this.sociosFiltered = this.socios.filter((socio) => {
+                return (socio.doc.name.toLowerCase().indexOf(this.term.toLowerCase()) > -1);
+            });
+            this.proveedoresFiltered = this.proveedores.filter((proveedor) => {
+                return (proveedor.doc.name.toLowerCase().indexOf(this.term.toLowerCase()) > -1);
+            });
+        }
+        else {
+            this.sociosFiltered = this.socios;
+            this.proveedoresFiltered = this.proveedores;
+        }
+        this.sociosAgrupados = [];
+        this.proveedoresAgrupados = [];
+        this.groupUsers(this.sociosFiltered, this.sociosAgrupados);
+        this.groupUsers(this.proveedoresFiltered, this.proveedoresAgrupados);
+    }
+    searchSubmit() {
+        let ev: any = {
+            "target": {
+                "value": this.term
+            }
+        };
+        this.searchFn(ev);
+        this.keyboard.close();
     }
     openPage(page: string, user) {
         this.navCtrl.push(page, {

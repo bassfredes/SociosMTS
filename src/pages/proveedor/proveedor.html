@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar center>
-        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />
+        <img class="logoHeaderv2" width="130" src="assets/images/logoHeaderV2@2.png" />
         <button ion-button menuToggle right>
             <div class="navicon-button x">
                 <div class="navicon"></div>
@@ -185,10 +185,45 @@
         </ion-row>
         <ion-row justify-content-around>
             <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <accordion-list class="no-margin" title="Orden de Compra" subtitle="{{proveedor.indicadores.ventas_acumuladas.variacion.mes}} {{thisYear}}" desplegable="true" maxHeight="200" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">
+                    <h2 class="large">MM$ {{proveedor.indicadores.orden_compra.valor}}</h2>
+                    <div class="chartOrdenCompras">
+                        <ion-list class="indicadores">
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet {{proveedor.indicadores.orden_compra.moda_mts_tendencia}}"></div>
+                                <span class="title">Moda MTS</span>
+                                <span class="valor">{{proveedor.indicadores.orden_compra.moda_mts}}</span>
+                            </ion-item>
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet {{proveedor.indicadores.orden_compra.dispersion_tendencia}}"></div>
+                                <span class="title">Dispersión</span>
+                                <span class="valor">{{proveedor.indicadores.orden_compra.dispersion}}</span>
+                            </ion-item>
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet {{proveedor.indicadores.orden_compra.stock_mts_tendencia}}"></div>
+                                <span class="title">Stock MTS</span>
+                                <span class="valor">{{proveedor.indicadores.orden_compra.stock_mts}}</span>
+                            </ion-item>
+                        </ion-list>
+                    </div>
+                </accordion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
                 <accordion-list class="no-margin" title="Venta Acum." subtitle=""  valor="" desplegable="true" maxHeight="2720" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">
+                    <div class="variaciones text-center">
+                        <div class="title">Variación {{thisYear}} v/s {{lastYear}}:</div>
+                        <div class="variacion capitalize positivo">
+                            <span class="texto">
+                                A {{proveedor.indicadores.ventas_acumuladas.variacion.mes}} =
+                                <strong>{{proveedor.indicadores.ventas_acumuladas.variacion.mes_indicador}}</strong> %
+                            </span>
+                        </div>
+                    </div>
                     <div class="chartIndi">
                         <div class="title text-center center">
-                            <h2 class="small capitalize normalLetter">$ {{proveedor.indicadores.ventas_acumuladas}}</h2>
+                            <h2 class="capitalize normalLetter large">$ {{proveedor.indicadores.ventas_acumuladas.valor | number:'1.2-2':'es-CL'}}</h2>
                         </div>
                     </div>
                 </accordion-list>

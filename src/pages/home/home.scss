@@ -2,18 +2,19 @@ page-home {
     .expandableButton {
         align-items: baseline;
     }
-
     .infocomercial {
         height: 212px;
         margin-top: 0.5rem;
+        margin-bottom: 2rem;
     }
-
     ion-item.item-select {
         min-height: 3.2rem;
         background: none;
         border: 1px solid color($colors, texto);
     }
-
+    .logoFerreteriaIndicadores lazy-img {
+        min-height: 120px;
+    }
     ion-item.item-select ion-select {
         padding: 6px 8px 6px 16px;
         letter-spacing: normal;
@@ -23,12 +24,53 @@ page-home {
         font-family: 'CircularStd';
         color: color($colors, texto);
     }
-
     .infocomercial .imagen lazy-img {
         min-height: 120px;
     }
-
     .imageNoticia lazy-img {
-        min-height: 200px;
+        min-height: 150px;
+    }
+    .dropdownSocio.button[icon-only] {
+        height: 2.3em;
+        padding: 0 !important;
+        background: none;
+        color: color($colors, dark);
+        box-shadow: none;
+        .icon {
+            display: none;
+        }
+        .icon.active {
+            display: block;
+        }
+    }
+    .containerSocios {
+        background: color($colors, ultralight);
+        max-height: 220px;
+        min-height: 220px;
+        display: none;
+    }
+    .containerSocios.active {
+        display: block;
+    }
+    ion-list.socios {
+        margin-bottom: 0;
+        ion-item {
+            border: none !important;
+            padding: 0 16px !important;
+            background: none;
+            letter-spacing: normal;
+            .item-inner {
+                padding: 0 !important;
+            }
+            h2 {
+                font-size: 1.6rem;
+                font-family: 'Montserrat';
+                font-weight: $light;
+                color: color($colors, dark);
+            }
+            ion-label {
+                margin: 0;
+            }
+        }
     }
 }

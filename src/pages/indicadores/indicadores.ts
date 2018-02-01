@@ -33,6 +33,14 @@ export class IndicadoresPage extends ProtectedPage {
     thisYear: any;
     lastYear: any;
 
+    hasNPS: boolean = false;
+    pValue = 0;
+    dValue = 0;
+    nValue = 0;
+    primeraFecha = "";
+    segundaFecha = "";
+    firstTimeOnly = 0;
+
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
@@ -46,36 +54,54 @@ export class IndicadoresPage extends ProtectedPage {
     }
     drawCharts() {
         var parent = this;
-
-        let total = this.ferreteria.indicadores.nps.locales[this.localSelected].total;
-        this.npsValue = total;
-        let p = this.ferreteria.indicadores.nps.locales[this.localSelected].p;
-        let d = this.ferreteria.indicadores.nps.locales[this.localSelected].d;
-        let n = this.ferreteria.indicadores.nps.locales[this.localSelected].n;
-        
-        var indicadoresCanvas = $("page-indicadores").last().find("#indicadores_donutChart");
-        var indicadoresChart = new Chart(indicadoresCanvas, {
-            type: 'pie',
-            data: {
-                labels: ["P", "D", "n"],
-                datasets: [{
-                    data: [p, d, n],
-                    backgroundColor: [
-                        '#009987',
-                        '#0084B1',
-                        '#9C5895',
-                    ]
-                }]
-            },
-            options: {
-                cutoutPercentage: 50,
-                legend: {
-                    display: false
-                },
-                maintainAspectRatio: false
+        let total, p, d, n;
+        if (this.ferreteria.indicadores.nps.locales.length >= 1) {
+            if (this.firstTimeOnly!=0){
+                $(".containerNPS").stop().slideDown(300);
             }
-        });
-        indicadoresChart.update();
+            this.hasNPS = true;
+            total = this.ferreteria.indicadores.nps.locales[this.localSelected].total;
+            this.npsValue = total;
+            p = this.ferreteria.indicadores.nps.locales[this.localSelected].p;
+            this.pValue = p;
+            d = this.ferreteria.indicadores.nps.locales[this.localSelected].d;
+            this.dValue = d;
+            n = this.ferreteria.indicadores.nps.locales[this.localSelected].n;
+            this.nValue = n;
+            this.primeraFecha = this.ferreteria.indicadores.nps.locales[this.localSelected].rango_fecha.primera;
+            this.segundaFecha = this.ferreteria.indicadores.nps.locales[this.localSelected].rango_fecha.segunda;
+
+            var indicadoresCanvas = $("page-indicadores").last().find("#indicadores_donutChart");
+            if (indicadoresCanvas.length) {
+                var indicadoresChart = new Chart(indicadoresCanvas, {
+                    type: 'pie',
+                    data: {
+                        labels: ["P", "D", "n"],
+                        datasets: [{
+                            data: [p, d, n],
+                            backgroundColor: [
+                                '#009987',
+                                '#0084B1',
+                                '#9C5895',
+                            ]
+                        }]
+                    },
+                    options: {
+                        cutoutPercentage: 50,
+                        legend: {
+                            display: false
+                        },
+                        maintainAspectRatio: false
+                    }
+                });
+                indicadoresChart.update();
+            }
+            this.firstTimeOnly++;
+        }
+        else {
+            $(".containerNPS").stop().hide();
+            this.hasNPS = false;
+        }
 
         var variacionChartCanvas = $("page-indicadores").last().find("#variacion_barChart");
         var variacionMesesBarChart = [];
@@ -209,7 +235,7 @@ export class IndicadoresPage extends ProtectedPage {
                             maxTicksLimit: 6,
                             fontColor: '#000000',
                             fontFamily: 'CircularStd',
-                            fontSize: 12
+                            fontSize: 11
                         }
                     }],
                     yAxes: [{
@@ -219,7 +245,7 @@ export class IndicadoresPage extends ProtectedPage {
                         ticks: {
                             fontColor: '#000000',
                             fontFamily: 'CircularStd',
-                            fontSize: 14
+                            fontSize: 12
                         }
                     }]
                 },
@@ -269,8 +295,19 @@ export class IndicadoresPage extends ProtectedPage {
                     this.id_ferreteria = theID;
                     this.ferreteriasService.getOne(this.id_ferreteria).then(datosFerreteria => {
                         this.ferreteria = datosFerreteria;
-                        const attachments = Object.keys(this.ferreteria._attachments);
+                        let attachments = ["logo_default.png"];
+                        if (this.ferreteria._attachments != "" && this.ferreteria._attachments !== undefined && this.ferreteria._attachments !== null) {
+                            attachments = Object.keys(this.ferreteria._attachments);
+                        }
                         this.logoFerreteria = attachments[0];
+                        let urlLogo;
+                        if (this.logoFerreteria == "logo_default.png") {
+                            urlLogo = this.cfg.apiUrl + this.cfg.urlLogoFallback + this.logoFerreteria;
+                        }
+                        else {
+
+                            urlLogo = this.cfg.apiUrl + '/ferreterias/' + this.ferreteria._id + '/' + this.logoFerreteria;
+                        }
                         this.dateUpdate = new Date(this.ferreteria.indicadores.info.date);
                         this.thisYear = this.dateUpdate.getFullYear();
                         this.lastYear = this.dateUpdate.getFullYear() - 1;

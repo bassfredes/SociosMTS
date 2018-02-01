@@ -16,6 +16,10 @@ page-noticia-detalle {
         }
     }
     .imageNoticia lazy-img {
-        min-height: 200px;
+        min-height: 130px;
+    }
+    .bajada img {
+        max-width: 100% !important;
+        height: auto !important;
     }
 }

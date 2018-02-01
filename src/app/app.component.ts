@@ -1,13 +1,13 @@
-import {Component, ViewChild} from '@angular/core';
-import {Platform, Nav, MenuController, App} from 'ionic-angular';
-import {StatusBar} from '@ionic-native/status-bar';
-import {SplashScreen} from '@ionic-native/splash-screen';
-import {AuthService} from '../providers/auth-service';
-import {AndroidFullScreen} from '@ionic-native/android-full-screen';
-import {ScreenOrientation} from '@ionic-native/screen-orientation';
-import {CacheService} from "ionic-cache";
-import {ImgcacheService} from '../global/services';
-import {GoogleAnalytics} from '@ionic-native/google-analytics';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, Nav, MenuController, App, IonicApp } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { AuthService } from '../providers/auth-service';
+import { AndroidFullScreen } from '@ionic-native/android-full-screen';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { CacheService } from "ionic-cache";
+import { ImgcacheService } from '../global/services';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 import * as $ from 'jquery';
 
@@ -17,14 +17,13 @@ import * as $ from 'jquery';
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
     rootPage: any = 'PreloaderPage';
-    versionApp: any = "1.0.1";
     indicadoresEco: any;
-    indicadoresEco_date: any;
 
     pages: Array<{ title: string, component: any, method?: any }>;
 
     constructor(
         public app: App,
+        public ioApp: IonicApp,
         public platform: Platform,
         public statusBar: StatusBar,
         public splashScreen: SplashScreen,
@@ -36,31 +35,49 @@ export class MyApp {
         public cache: CacheService,
         public ga: GoogleAnalytics) {
         this.pages = [
-            { title: "Inicio", component: "HomePage"},
-            { title: 'Indicadores', component: 'IndicadoresPage'},
-            { title: 'Proveedores', component: 'ProveedoresPage'},
-            { title: 'Información Comercial', component: 'InformacionComercialPage'},
-            { title: 'Noticias', component: 'NoticiasPage'},
-            { title: 'Agenda', component: 'AgendaPage'},
-            { title: 'Eventos', component: 'EventosPage'},
-            { title: 'Mi Perfil', component: 'ProfilePage'},
-            { title: 'Cerrar Sesión', component: 'LoginPage', method: 'logout'}
+            { title: "Inicio", component: "HomePage" },
+            { title: 'Indicadores', component: 'IndicadoresPage' },
+            { title: 'Proveedores', component: 'ProveedoresPage' },
+            { title: 'Información Comercial', component: 'InformacionComercialPage' },
+            { title: 'Noticias', component: 'NoticiasPage' },
+            { title: 'Agenda', component: 'AgendaPage' },
+            { title: 'Eventos', component: 'EventosPage' },
+            { title: 'Mi Perfil', component: 'ProfilePage' },
+            { title: 'Cerrar Sesión', component: 'LoginPage', method: 'logout' }
         ];
         this.initializeApp();
+    }
+    private setupBackButtonBehavior() {
+        if (window.location.protocol !== "file:") {
+            window.onpopstate = (evt) => {
+                if (this.menuCtrl.isOpen()) {
+                    this.menuCtrl.close();
+                    return;
+                }
+                let activePortal = this.ioApp._loadingPortal.getActive() ||
+                    this.ioApp._modalPortal.getActive() ||
+                    this.ioApp._toastPortal.getActive() ||
+                    this.ioApp._overlayPortal.getActive();
+                if (activePortal) {
+                    activePortal.dismiss().catch(() => { });
+                    return;
+                }
+            };
+        }
     }
     initializeApp() {
         this.androidFullScreen.isImmersiveModeSupported().then(() => this.androidFullScreen.immersiveMode()).catch((error: any) => console.log(error));
         this.platform.ready().then(() => {
-            this.cache.setDefaultTTL(60 * 60 * 12);
+            this.cache.setDefaultTTL(60 * 60 * 12 * 7); // Puesto a una semana por defecto
             this.cache.setOfflineInvalidate(false);
 
             this.imgcacheService.initImgCache().then(() => {
                 this.statusBar.hide();
                 this.statusBar.overlaysWebView(false);
                 this.splashScreen.hide();
+                this.setupBackButtonBehavior();
                 if ((<any>window).cordova) {
                     this.ga.startTrackerWithId('UA-10316210-2').then(() => {
-                        this.ga.setAppVersion(this.versionApp);
                         this.ga.trackView('App');
                         //this.ga.setUserId(id);
                         //this.ga.trackEvent(category, action, label, value);
@@ -73,7 +90,6 @@ export class MyApp {
                 this.authService.startupTokenRefresh();
                 this.authService.getIndicadoresEconomicos().then((indicadoresData) => {
                     this.indicadoresEco = indicadoresData;
-                    this.indicadoresEco_date = new Date();
                 });
             });
         });
@@ -82,10 +98,10 @@ export class MyApp {
         var pageActual = this.nav.getActive().name;
         this.menuCtrl.close();
         if (pageActual != page.component) {
-            if(page.component == "HomePage") {
+            if (page.component == "HomePage") {
                 this.nav.setRoot(page.component);
             }
-            else if(page.component == "LoginPage") {
+            else if (page.component == "LoginPage") {
                 this.nav.setRoot(page.component);
             }
             else {

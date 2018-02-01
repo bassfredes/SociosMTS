@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-navbar center class="force-back-button">
+        <img class="logoHeaderv2" width="130" src="assets/images/logoHeaderV2@2.png" />
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding class="contentInterior">
+    <ion-grid>
+        <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <div class="bloqueBlanco firstElement">
+                    <h1 margin-top class="welcome">{{titleMensaje}}</h1>
+                    <h2 class="small" *ngIf="evento">{{evento.title}}</h2>
+                </div>
+                <form [formGroup]="eventFormData" (ngSubmit)="checkForm()" *ngIf="evento">
+                    <ion-item>
+                        <ion-label floating>Tipo</ion-label>
+                        <ion-select formControlName="tipo" okText="Aceptar" cancelText="Cancelar" (ionChange)="onSelectChange($event)">
+                            <ion-option value="socio">Socio</ion-option>
+                            <ion-option value="comprador">Comprador</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <div class="preguntasSocio" *ngIf="tipoSelected=='socio'">
+                        <ion-item *ngFor="let preguntaObj of evento.invitacion.preguntas.socio; let i = index">
+                            <ion-label text-wrap>{{preguntaObj.pregunta}}</ion-label>
+                            <ion-toggle (ionChange)="updatePreguntaSocio(i)" checked="false" color="secondary"></ion-toggle>
+                        </ion-item>
+                    </div>
+                    <div class="preguntasComprador" *ngIf="tipoSelected=='comprador'">
+                        <ion-item *ngFor="let preguntaObj of evento.invitacion.preguntas.comprador; let i = index">
+                            <ion-label text-wrap>{{preguntaObj.pregunta}}</ion-label>
+                            <ion-toggle (ionChange)="updatePreguntaComprador(i)" checked="false" color="secondary"></ion-toggle>
+                        </ion-item>
+                    </div>
+                    <div margin-top class="text-center">
+                        <button margin-top center ion-button round large type="submit" [disabled]="!eventFormData.valid">{{enviarButtonText}}</button>
+                    </div>
+                </form>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar center>
-        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />
+        <img class="logoHeaderv2" width="130" src="assets/images/logoHeaderV2@2.png" />
         <button ion-button menuToggle right>
             <div class="navicon-button x">
                 <div class="navicon"></div>
@@ -9,8 +9,52 @@
     </ion-navbar>
 </ion-header>
 <ion-content class="contentInterior">
-    <ion-grid>
+    <ion-grid *ngIf="tipoUsuario=='corporativo'">
         <ion-row justify-content-around>
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-6 align-self-center class="no-padding">
+                <ion-row justify-content-around>
+                    <ion-col col-10 align-self-center>
+                        <form (ngSubmit)="searchSubmit()">
+                            <ion-searchbar class="buscador" animated="true" cancelButtonText="Cancelar" showCancelButton="false" placeholder="Buscar Socios"
+                                type="text" (ionInput)="searchFn($event)" (search)="searchSubmit($event)"></ion-searchbar>
+                            <button class="button button-clear" type="submit">Buscar Socios</button>
+                        </form>
+                    </ion-col>
+                    <ion-col col-2 align-self-center>
+                        <button class="button dropdownSocio" (click)="mostrarLista();" ion-button icon-only>
+                            <ion-icon class="icon" [class.active]="mostrarSocios" name="ios-arrow-up"></ion-icon>
+                            <ion-icon class="icon" [class.active]="!mostrarSocios" name="ios-arrow-down"></ion-icon>
+                        </button>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+        <div class="bloqueBlancoNoPadding no-padding">
+            <ion-row justify-content-around>
+                <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                    <ion-scroll class="containerSocios" [class.active]="mostrarSocios" scrollY="true">
+                        <ion-list class="socios" *ngFor="let socio of listaSociosFiltered">
+                            <ion-item class="socio" (click)="changeSocio(socio);">
+                                <h2 class="titleProveedor">
+                                    {{socio.doc.nombre}}
+                                </h2>
+                            </ion-item>
+                        </ion-list>
+                    </ion-scroll>
+                </ion-col>
+            </ion-row>
+        </div>
+    </ion-grid>
+    <ion-grid>
+        <ion-row justify-content-around *ngIf="ferreteria">
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <div id="logoHome" class="logoFerreteriaIndicadores text-center">
+                    <lazy-img class="logoRounded" inputSrc="{{cfg.apiUrl}}/ferreterias/{{ferreteria._id}}/{{logoFerreteria}}" *ngIf="logoFerreteria"></lazy-img>
+                </div>
+                <h4 class="text-center capitalize">{{ferreteria.nombre}}</h4>
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-around class="containerNPS">
             <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
                 <accordion-list class="no-margin" title="NPS" desplegable="false" subtitle="" maxHeight="350" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">
                     <div class="chartNPS">
@@ -22,19 +66,54 @@
                             </ion-select>
                         </ion-item>
                         <div class="donutChart_container">
-                            <canvas id="home_donutChart"></canvas>
+                            <canvas id="home_npsChart"></canvas>
                         </div>
                         <div class="legendChart">
                             <div class="stadisticsChart">
-                                <div class="p">P = {{ferreteria.indicadores.nps.locales[localSelected].p}}</div>
-                                <div class="d">D = {{ferreteria.indicadores.nps.locales[localSelected].d}}</div>
-                                <div class="n">N = {{ferreteria.indicadores.nps.locales[localSelected].n}}</div>
+                                <div class="p">P = {{pValue | number:'2.2-2':'es-CL'}}</div>
+                                <div class="d">D = {{dValue | number:'2.2-2':'es-CL'}}</div>
+                                <div class="n">N = {{nValue | number:'2.2-2':'es-CL'}}</div>
                             </div>
                             <div class="centeredChart">
                                 {{npsValue}}
                             </div>
                         </div>
-                        <div class="text-center rangoFecha capitalize">Desde {{ferreteria.indicadores.nps.locales[0].rango_fecha.primera}} Hasta {{ferreteria.indicadores.nps.locales[localSelected].rango_fecha.segunda}}</div>
+                        <div class="text-center rangoFecha capitalize">Desde {{primeraFecha}} Hasta {{segundaFecha}}</div>
+                    </div>
+                </accordion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-around *ngIf="hasNPS==false">
+            <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+                <accordion-list class="no-margin {{ferreteria.indicadores.ivs.tendencia}}" title="IVS" subtitle="" fecha="{{ferreteria.indicadores.compras.variacion.mes | slice : 0:3 }}. {{thisYear}}" valorIndicador="{{ferreteria.indicadores.ivs.puntaje}}" valor="" desplegable="false" button="true" maxHeight="200" contentColor="#F5F5F5" hasMargin="false">
+                    <div class="chartIndi">
+                        <ion-list class="indicadores">
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet {{ferreteria.indicadores.ivs.tamano_tendencia}}"></div>
+                                <span class="title">Tamaño</span>
+                                <span class="valor">{{ferreteria.indicadores.ivs.tamano}}</span>
+                            </ion-item>
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet {{ferreteria.indicadores.ivs.penetracion_tendencia}}"></div>
+                                <span class="title">Penetración</span>
+                                <span class="valor">{{ferreteria.indicadores.ivs.penetracion}}</span>
+                            </ion-item>
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet {{ferreteria.indicadores.ivs.crecimiento_tendencia}}"></div>
+                                <span class="title">Crecimiento</span>
+                                <span class="valor">{{ferreteria.indicadores.ivs.crecimiento}}</span>
+                            </ion-item>
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet {{ferreteria.indicadores.ivs.credito_tendencia}}"></div>
+                                <span class="title">Crédito</span>
+                                <span class="valor">{{ferreteria.indicadores.ivs.credito}}</span>
+                            </ion-item>
+                            <ion-item no-lines class="indicador">
+                                <div class="indicadorBullet {{ferreteria.indicadores.ivs.participacion_tendencia}}"></div>
+                                <span class="title">Participación</span>
+                                <span class="valor">{{ferreteria.indicadores.ivs.participacion}}</span>
+                            </ion-item>
+                        </ion-list>
                     </div>
                 </accordion-list>
             </ion-col>
@@ -61,13 +140,13 @@
                         <div class="imageNoticia" *ngIf="noticiasImage">
                             <lazy-img width="100%" inputSrc="{{noticiasImage}}"></lazy-img>
                         </div>
-                        <div class="detalles">
-                            <h2 text-wrap>{{noticia.title}}</h2>
+                        <div class="detalles" *ngIf="noticia.title">
+                            <h2 text-wrap [innerHTML]="noticia.title.rendered | words : 12"></h2>
                             <div class="dates">
-                                <span class="since">{{noticia.updated_at | amLocale:'es' | amTimeAgo}}</span><span class="date">{{noticia.updated_at | date : "dd ' ' MMMM ' ' yyyy"}}</span>
+                                <span class="since">{{noticia.modified | amLocale:'es' | amTimeAgo}}</span><span class="date">{{noticia.modified | date : "dd ' ' MMMM ' ' yyyy"}}</span>
                             </div>
                             <div class="bajada" text-wrap>
-                                <p>{{noticia.body | words : 15 }}</p>
+                                <p [innerHTML]="noticia.excerpt.rendered | words : 18"></p>
                                 <a class="more" href="#">Leer más</a>
                             </div>
                         </div>

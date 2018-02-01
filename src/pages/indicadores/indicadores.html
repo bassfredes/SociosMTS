@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar center>
-        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />
+        <img class="logoHeaderv2" width="130" src="assets/images/logoHeaderV2@2.png" />
         <button ion-button menuToggle right>
             <div class="navicon-button x">
                 <div class="navicon"></div>
@@ -23,7 +23,7 @@
                 <h4 class="text-center capitalize">{{ferreteria.nombre}}</h4>
             </ion-col>
         </ion-row>
-        <ion-row justify-content-around>
+        <ion-row justify-content-around class="containerNPS">
             <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
                 <accordion-list class="no-margin" title="NPS" desplegable="false" subtitle="" maxHeight="350" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">
                     <div class="chartNPS">
@@ -39,15 +39,15 @@
                         </div>
                         <div class="legendChart">
                             <div class="stadisticsChart">
-                                <div class="p">P = {{ferreteria.indicadores.nps.locales[localSelected].p}}</div>
-                                <div class="d">D = {{ferreteria.indicadores.nps.locales[localSelected].d}}</div>
-                                <div class="n">N = {{ferreteria.indicadores.nps.locales[localSelected].n}}</div>
+                                <div class="p">P = {{pValue | number:'2.2-2':'es-CL'}}</div>
+                                <div class="d">D = {{dValue | number:'2.2-2':'es-CL'}}</div>
+                                <div class="n">N = {{nValue | number:'2.2-2':'es-CL'}}</div>
                             </div>
                             <div class="centeredChart">
                                 {{npsValue}}
                             </div>
                         </div>
-                        <div class="text-center rangoFecha capitalize">Desde {{ferreteria.indicadores.nps.locales[0].rango_fecha.primera}} Hasta {{ferreteria.indicadores.nps.locales[localSelected].rango_fecha.segunda}}</div>
+                        <div class="text-center rangoFecha capitalize">Desde {{primeraFecha}} Hasta {{segundaFecha}}</div>
                     </div>
                 </accordion-list>
             </ion-col>
@@ -89,7 +89,7 @@
         </ion-row>
         <ion-row justify-content-around>
             <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
-                <accordion-list class="no-margin" title="Orden de Compra" subtitle="" desplegable="true" maxHeight="175" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">
+                <accordion-list class="no-margin" title="Orden de Compra" subtitle="{{ferreteria.indicadores.compras.variacion.mes}} {{thisYear}}" desplegable="true" maxHeight="175" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">
                     <h2 class="large">MM$ {{ferreteria.indicadores.orden_compra.valor}}</h2>
                     <div class="chartOrdenCompras">
                         <ion-list class="indicadores">
@@ -135,7 +135,7 @@
         </ion-row>
         <ion-row justify-content-around>
             <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
-                <accordion-list class="no-margin" title="Facturación MTS" subtitle=""  valor="" desplegable="true" maxHeight="200" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">
+                <accordion-list class="no-margin" title="Facturación MTS" subtitle="{{ferreteria.indicadores.compras.variacion.mes}} {{thisYear}}"  valor="" desplegable="true" maxHeight="200" contentColor="#F5F5F5" textColor="#000000" hasMargin="false">
                     <div class="chartIndi">
                         <h2 class="small capitalize normalLetter">MM$ {{ferreteria.indicadores.facturacion.valor}}</h2>
                         <ion-list margin-top class="indicadores">

@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar center>
-        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />
+        <img class="logoHeaderv2" width="130" src="assets/images/logoHeaderV2@2.png" />
         <button ion-button menuToggle right>
             <div class="navicon-button x">
                 <div class="navicon"></div>
@@ -14,42 +14,47 @@
             <h1 class="text-center uppercase">Eventos</h1>
         </ion-col>
     </ion-row>
-    <ion-list no-lines class="eventos">
-        <ion-item *ngFor="let evento of eventos" class="no-padding" detail-push>
-            <div class="evento" *ngIf="evento.doc.isActive">
-                <div class="detalles" (click)="openPage('EventosDetallePage', evento, false);">
-                    <h2 text-wrap>{{evento.doc.title}}</h2>
-                </div>
-                <div class="imageEvento" *ngIf="evento.doc._attachments" (click)="openPage('EventosDetallePage', evento, false);">
-                    <div *ngFor="let attachment of evento.doc._attachments | keys; index as i">
-                        <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/eventos/{{evento.doc._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>
-                    </div>
-                </div>
-                <div class="detalles">
-                    <div class="text-center" *ngIf="!evento.doc.participando">
-                        <button class="btn-primary btn-large" center ion-button large (click)="openPage('EventosDetallePage', evento, true);">
-                            <span>Inscribirse</span>
-                        </button>
-                    </div>
-                    <div class="text-center" *ngIf="evento.doc.participando">
-                        <ion-row justify-content-around>
-                            <ion-col col-7 align-self-center>
-                                <button class="btn-participando btn-participandoSmall notEffect btn-large" center ion-button large>
-                                    <span><ion-icon class="icon" name="md-checkmark"></ion-icon>Ya estás Inscrito</span>
+    <ion-row justify-content-around>
+        <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>
+            <ion-list no-lines class="eventos">
+                <ion-item *ngFor="let evento of eventos" class="no-padding" detail-push>
+                    <div class="evento" *ngIf="evento.doc.isActive">
+                        <div class="detalles" (click)="openPage('EventosDetallePage', evento, false);">
+                            <h2 text-wrap>{{evento.doc.title}}</h2>
+                        </div>
+                        <div class="imageEvento" *ngIf="evento.doc._attachments" (click)="openPage('EventosDetallePage', evento, false);">
+                            <div *ngFor="let attachment of evento.doc._attachments | keys; index as i">
+                                <lazy-img width="100%" inputSrc="{{cfg.apiUrl}}/eventos/{{evento.doc._id}}/{{attachment.key}}" *ngIf="i==0"></lazy-img>
+                            </div>
+                        </div>
+                        <div class="detalles">
+                            <div class="text-center" *ngIf="!evento.doc.participando">
+                                <button class="btn-primary btn-large" center ion-button large (click)="openPage('EventosDetallePage', evento, true);">
+                                    <span>Inscribirse</span>
                                 </button>
-                            </ion-col>
-                            <ion-col col-5 align-self-center>
-                                <button class="btn-primary btn-large" center ion-button large (click)="openPage('EventosDetallePage', evento);">
-                                    <span>Ver Detalle</span>
-                                </button>
-                            </ion-col>
-                        </ion-row>
+                            </div>
+                            <div class="text-center" *ngIf="evento.doc.participando">
+                                <ion-row justify-content-around>
+                                    <ion-col col-7 align-self-center>
+                                        <button class="btn-participando btn-participandoSmall notEffect btn-large" center ion-button large>
+                                            <span>
+                                                <ion-icon class="icon" name="md-checkmark"></ion-icon>Ya estás Inscrito</span>
+                                        </button>
+                                    </ion-col>
+                                    <ion-col col-5 align-self-center>
+                                        <button class="btn-primary btn-large" center ion-button large (click)="openPage('EventosDetallePage', evento);">
+                                            <span>Ver Detalle</span>
+                                        </button>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </ion-item>
-    </ion-list>
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-        <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+                </ion-item>
+            </ion-list>
+            <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+                <ion-infinite-scroll-content></ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+        </ion-col>
+    </ion-row>
 </ion-content>

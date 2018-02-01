@@ -4,7 +4,6 @@ import { Storage } from '@ionic/storage';
 import { Keyboard } from '@ionic-native/keyboard';
 import { ProtectedPage } from '../protected-page/protected-page';
 
-import { AuthService } from '../../providers/auth-service';
 import { proveedorModel } from '../../models/proveedor.model';
 import { ProveedoresService } from '../../providers/proveedores-service';
 
@@ -20,6 +19,7 @@ export class ProveedoresPage extends ProtectedPage {
     private cfg: any;
     public proveedor = proveedorModel;
     proveedores: any = [];
+    proveedoresRevisados: any = [];
     proveedoresFiltered: any = [];
     id_ferreteria: string = "1";
 
@@ -32,7 +32,6 @@ export class ProveedoresPage extends ProtectedPage {
         public storage: Storage,
         public appCtrl: App,
         public loading: LoadingController,
-        public authService: AuthService,
         public proveedoresService: ProveedoresService,
         public keyboard: Keyboard) {
         super(navCtrl, navParams, storage, appCtrl);
@@ -58,27 +57,66 @@ export class ProveedoresPage extends ProtectedPage {
         this.searchFn(ev);
         this.keyboard.close();
     }
+    ionViewDidEnter() {
+        this.storage.get("proveedores_revisados").then((proveedoresSaved) => {
+            if (proveedoresSaved) {
+                this.revisados = true;
+            }
+            else {
+                this.revisados = false;
+            }
+            if (proveedoresSaved) {
+                this.checkRevisados(proveedoresSaved);
+            }
+        });
+    }
     ionViewDidLoad() {
         let loader = this.loading.create({
             content: "Cargando..."
         });
         loader.present();
-        this.storage.get('id_token').then(id_token => {
-            if (id_token !== null) {
-                this.storage.get("id_ferreteria").then((theID) => {
-                    this.id_ferreteria = theID;
-                    this.proveedoresService.getAll(this.id_ferreteria).then(datosProveedores => {
-                        loader.dismiss().catch(() => { });
-                        this.proveedores = datosProveedores;
-                        this.proveedoresFiltered = this.proveedores;
-                    });
-                });
+        this.storage.get("proveedores_revisados").then((proveedoresSaved) => {
+            if (proveedoresSaved) {
+                this.revisados = true;
             }
+            else {
+                this.revisados = false;
+            }
+            this.storage.get('id_token').then(id_token => {
+                if (id_token !== null) {
+                    this.storage.get("id_ferreteria").then((theID) => {
+                        this.id_ferreteria = theID;
+                        this.proveedoresService.getAll(this.id_ferreteria).then(datosProveedores => {
+                            this.proveedores = datosProveedores;
+                            this.proveedoresFiltered = this.proveedores;
+                            if (proveedoresSaved) {
+                                this.checkRevisados(proveedoresSaved);
+                            }
+                            loader.dismiss().catch(() => { });
+                        });
+                    });
+                }
+            });
+        });
+    }
+    checkRevisados(saved) {
+        this.proveedoresRevisados = [];
+        saved.forEach((index) => {
+            this.proveedoresService.getOneWithDocs(index).then(datoProveedorUnico => {
+                this.proveedoresRevisados.push(datoProveedorUnico);
+            });
         });
     }
     openPage(page: string, proveedorData) {
         this.navCtrl.push(page, {
             proveedor: proveedorData.doc
         });
+    }
+    changeLista() {
+        if (this.revisados) {
+            this.navCtrl.push('ProveedoresRevisadosPage', {
+                proveedores: this.proveedoresRevisados
+            });
+        }
     }
 }

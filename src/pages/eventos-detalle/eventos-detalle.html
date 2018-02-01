@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar center>
-        <img class="logoHeaderv2" width="120" src="assets/images/logoHeaderV2@2.png" />
+        <img class="logoHeaderv2" width="130" src="assets/images/logoHeaderV2@2.png" />
         <button ion-button menuToggle right>
             <div class="navicon-button x">
                 <div class="navicon"></div>
@@ -27,7 +27,7 @@
                     <div class="detalles">
                         <div class="prevParticipar">
                             <div class="text-center" *ngIf="!evento.participando">
-                                <button class="btn-primary btn-large" margin-bottom margin-top center ion-button large (click)="participar()">
+                                <button class="btn-primary btn-large" margin-bottom margin-top center ion-button large (click)="participar(evento)">
                                     <span>Inscribirse</span>
                                 </button>
                             </div>
@@ -36,16 +36,16 @@
                                     <span><ion-icon class="icon" name="md-checkmark"></ion-icon>Ya estás Inscrito</span>
                                 </button>
                             </div>
-                            <h2>{{evento.title}}</h2>
-                            <div class="dates">
+                            <h2 *ngIf="!evento.participando">{{evento.title}}</h2>
+                            <div class="dates" *ngIf="!evento.participando">
                                 <span class="since">{{evento.updated_at | amLocale:'es' | amTimeAgo}}</span><span class="date">{{evento.updated_at | date : "dd ' ' MMMM ' ' yyyy"}}</span>
                             </div>
-                            <div class="bajada" text-wrap>
+                            <div class="bajada" text-wrap *ngIf="!evento.participando">
                                 <p>{{evento.body}}</p>
                             </div>
                         </div>
-                        <div class="postParticipar">
-                            <h2><strong>Pedro,</strong> te has incrito con éxito.</h2>
+                        <div class="postParticipar" *ngIf="evento.participando">
+                            <h2>{{mensajeExito}}</h2>
                             <div class="able" *ngIf="evento.able_to_invite">
                                 <h3 margin-top margin-bottom class="text-center">¿Deseas invitar a alguien?</h3>
                                 <div class="alreadyInvited">
@@ -57,7 +57,7 @@
                                     </div>
                                 </div>
                                 <div class="toInvite">
-                                    <form [formGroup]="inviteData" (ngSubmit)="invite()">
+                                    <form [formGroup]="inviteData" (ngSubmit)="invitarPersona()">
                                         <ion-item>
                                             <ion-label floating>Nombre y Apellido</ion-label>
                                             <ion-input type="text" formControlName="name" autocomplete="false" spellcheck="false"></ion-input>
@@ -74,7 +74,7 @@
                             </div>
                         </div>
                         <div class="rdnDetails" *ngIf="evento.isRdn">
-                            <div class="detallesRDN">
+                            <!--div class="detallesRDN">
                                 <ion-row margin-bottom justify-content-around>
                                     <ion-col col-6 align-self-center>
                                         <div class="title text-right">
@@ -141,7 +141,7 @@
                                         </div>
                                     </ion-col>
                                 </ion-row>
-                            </div>
+                            </div-->
                             <div class="proveedores" *ngIf="proveedores">
                                 <ion-row justify-content-around>
                                     <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center>

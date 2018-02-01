@@ -64,6 +64,7 @@ export class ProveedorPage extends ProtectedPage {
         else {
             this.proveedoresService.getOne(this.proveedor._id).then(proveedor => {
                 this.proveedor = proveedor;
+                this.proveedoresService.saveProveedorVisto(this.proveedor._id);
                 if (this.proveedor._attachments) {
                     this.attachments = Object.keys(this.proveedor._attachments);
                     this.logoProveedor = this.cfg.apiUrl + '/proveedores/' + this.proveedor._id + '/' + this.attachments[0];
@@ -113,7 +114,7 @@ export class ProveedorPage extends ProtectedPage {
     drawCharts(month: string) {
         var indicadorTotal = this.proveedor.indicadores.cobertura.periodos[eval(month)].total;
         this.indicadorGral.total = indicadorTotal;
-        var nuloTotal = this.proveedor.indicadores.cobertura.totales.total;
+        var nuloTotal = this.proveedor.indicadores.cobertura.periodos[eval(month)].total_full;
 
         var ctxTotal = $("page-proveedor").last().find("#periodo_donutChart_total");
         var myChartTotal = new Chart(ctxTotal, {
@@ -141,7 +142,7 @@ export class ProveedorPage extends ProtectedPage {
 
         var indicadorNorte = this.proveedor.indicadores.cobertura.periodos[eval(month)].norte;
         this.indicadorGral.norte = indicadorNorte;
-        var nuloNorte = this.proveedor.indicadores.cobertura.totales.norte;
+        var nuloNorte = this.proveedor.indicadores.cobertura.periodos[eval(month)].norte_full;
         var ctxNorte = $("page-proveedor").last().find("#periodo_donutChart_norte");
         var myChartNorte = new Chart(ctxNorte, {
             type: 'pie',
@@ -168,7 +169,7 @@ export class ProveedorPage extends ProtectedPage {
 
         var indicadorCentro = this.proveedor.indicadores.cobertura.periodos[eval(month)].centro;
         this.indicadorGral.centro = indicadorCentro;
-        var nuloCentro = this.proveedor.indicadores.cobertura.totales.centro;
+        var nuloCentro = this.proveedor.indicadores.cobertura.periodos[eval(month)].centro_full;
         var ctxCentro = $("page-proveedor").last().find("#periodo_donutChart_centro");
         var myChartCentro = new Chart(ctxCentro, {
             type: 'pie',
@@ -195,7 +196,7 @@ export class ProveedorPage extends ProtectedPage {
         
         var indicadorSur = this.proveedor.indicadores.cobertura.periodos[eval(month)].sur;
         this.indicadorGral.sur = indicadorSur;
-        var nuloSur = this.proveedor.indicadores.cobertura.totales.sur;
+        var nuloSur = this.proveedor.indicadores.cobertura.periodos[eval(month)].sur_full;
         var ctxSur = $("page-proveedor").last().find("#periodo_donutChart_sur");
         var myChartSur = new Chart(ctxSur, {
             type: 'pie',
@@ -297,7 +298,6 @@ export class ProveedorPage extends ProtectedPage {
                     ventasChartData.labels.push(newLabels);
                     ventasChartData.datasets[0].data.push(parent.dataVentas[ventasNumMonths-1].periodos.anterior);
                     ventasChartData.datasets[1].data.push(parent.dataVentas[ventasNumMonths-1].periodos.actual);
-                    console.log($("page-proveedor").last().find("#ventas_barChart").parents(".barChart_container"));
                     let alturaActual = $("page-proveedor").last().find("#ventas_barChart").parents(".barChart_container").outerHeight(true);
                     $("page-proveedor").last().find("#ventas_barChart").parents(".barChart_container").animate({
                         height: alturaActual + 30
@@ -313,7 +313,6 @@ export class ProveedorPage extends ProtectedPage {
         });
     }
     openPage(page: string, proveedorData) {
-        //this.navCtrl.pop({animate:false});
         this.navCtrl.push(page, {
             proveedor: proveedorData.doc
         });

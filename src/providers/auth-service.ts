@@ -1,4 +1,4 @@
-import { App } from 'ionic-angular';
+import { App, ToastController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
@@ -6,12 +6,10 @@ import { AuthHttp, JwtHelper, tokenNotExpired } from 'angular2-jwt';
 import { Observable } from 'rxjs/Rx';
 
 import { CredentialsModel } from '../models/credentials.model';
-import { InvitadosModel } from '../models/invitados.model';
 import { ConnectivityService } from './connectivity-service';
 import { CacheService } from "ionic-cache";
 
 import *  as AppConfig from '../app/config';
-
 @Injectable()
 export class AuthService {
     private cfg: any;
@@ -22,6 +20,7 @@ export class AuthService {
         private jwtHelper: JwtHelper,
         private authHttp: AuthHttp,
         private app: App,
+        public toastCtrl: ToastController,
         private connectivityService: ConnectivityService,
         private cache: CacheService) {
         this.cfg = AppConfig.cfg;
@@ -29,10 +28,15 @@ export class AuthService {
             this.idToken = token;
         });
         this.decodeJwt();
+
+        let errorToast = this.toastCtrl.create({
+            message: 'Ha ocurrido un problema, intenta nuevamente.',
+            duration: 4000,
+            position: 'bottom',
+            closeButtonText: "OK"
+        });
     }
     login(credentials: CredentialsModel) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return new Promise(resolve => {
             this.authHttp.post(this.cfg.apiUrl + this.cfg.user.login, credentials).subscribe(data => {
                 if (data) {
@@ -51,10 +55,8 @@ export class AuthService {
         });
     }
     login_produccion(credentials: CredentialsModel) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return new Promise(resolve => {
-            this.authHttp.get(this.cfg.apiUrl + this.cfg.user.login + '/' + credentials.email + '/' + credentials.password).subscribe(data => {
+            this.authHttp.post(this.cfg.apiUrl + this.cfg.user.login, 'user=' + credentials.user + '&pass=' + credentials.pass).subscribe(data => {
                 if (data) {
                     this.saveData_produccion(data);
                     let rs = data.json();
@@ -68,9 +70,11 @@ export class AuthService {
         });
     }
     getIndicadoresEconomicos() {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-
+        /*
+        return new Promise(resolve => {
+            resolve();
+        });
+        */
         let url = this.cfg.apiUrl + this.cfg.indicadores + '/_all_docs?include_docs=true';
         let cacheKey = url;
 
@@ -81,29 +85,12 @@ export class AuthService {
                     return this.cache.saveItem(cacheKey, result);
                 });
             }).then((data) => {
-                if (data.value) {
+                if (typeof (data) !== 'undefined' && data.value) {
                     resolve(JSON.parse(data.value));
                 }
                 else {
                     resolve(data);
                 }
-            });
-        });
-    }
-    invitarEvento(invitadoM: InvitadosModel) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        return new Promise(resolve => {
-            this.authHttp.get(this.cfg.apiUrl + this.cfg.eventos + '_invitar').subscribe(data => {
-                if (data) {
-                    let rs = data.json();
-                    resolve(true);
-                }
-                else {
-                    resolve(false);
-                }
-            }, function errorCallback(response) {
-                resolve(false);
             });
         });
     }
@@ -121,18 +108,19 @@ export class AuthService {
             base64UrlEncode(payload),
             "SociosMTS"
         )*/ // lNAOVJV02JtBbgPqeiIogvB01OKyzq4EY5arpr-0UoA
-        //console.log(verify);
     }
     saveData(data: any) {
         let rs = data.json();
         let documentConfig = rs.rows[0].doc;
         this.storage.set("user", documentConfig.user_id);
         this.storage.set("id_token", documentConfig.token);
+        this.storage.set("user_type", documentConfig.type);
     }
     saveData_produccion(data: any) {
         let rs = data.json();
         this.storage.set("user", rs.user_id);
         this.storage.set("id_token", rs.token);
+        this.storage.set("user_type", rs.type);
     }
     logout() {
         // stop function of auto refesh
@@ -141,6 +129,7 @@ export class AuthService {
         this.storage.remove('user');
         this.storage.remove('id_token');
         this.storage.remove('id_ferreteria');
+        this.storage.remove('user_type');
     }
     isValid() {
         return tokenNotExpired();
@@ -149,31 +138,28 @@ export class AuthService {
         // Get a new JWT from Auth0 using the refresh token saved
         // in local storage
         this.storage.get("id_token").then((thetoken) => {
-            let senddata: { Token: string } = {
-                Token: thetoken
+            //let senddata = 'token=' + thetoken;
+            let senddata = {
+                token: thetoken
             };
-            let headers = new Headers();
-            headers.append('Content-Type', 'application/x-www-form-urlencoded');
-
-            var url = this.cfg.apiUrl + this.cfg.user.refresh + "&Token=" + thetoken;
+            var url = this.cfg.apiUrl + this.cfg.user.refresh;
             let cacheKey = url;
 
             return new Promise(resolve => {
                 this.cache.getItem(cacheKey).catch(() => {
-                    return this.authHttp.get(url).toPromise().then(rs => {
+                    return this.authHttp.post(url, senddata).subscribe(rs => {
+                        // let result = rs.json();
                         let result = rs.json().rows[0].doc;
                         if (result.success == true) {
-                            console.log("Token set");
                             this.storage.set("id_token", result.token);
                             return this.cache.saveItem(cacheKey, result);
                             /*this.refreshSubscription.unsubscribe();*/
                         } else {
-                            console.log("The Token Black Listed");
                             this.logout();
                         }
                     });
                 }).then((data) => {
-                    if (data.value) {
+                    if (typeof (data) !== 'undefined' && data.value) {
                         resolve(JSON.parse(data.value));
                     }
                     else {
@@ -194,7 +180,8 @@ export class AuthService {
                 const now = new Date;
                 jwtIat = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
                 let jwtExp = this.jwtHelper.decodeToken(token).exp;
-                jwtExp = new Date(Date.UTC(2017, 11, 1, 0, 0, 0));
+                jwtExp = new Date(Date.UTC(2018, 11, 1, 0, 0, 0));
+                console.log(jwtExp);
                 let iat = new Date(0);
                 let exp = new Date(0);
                 let delay = (exp.setUTCSeconds(jwtExp) - iat.setUTCSeconds(jwtIat));

@@ -14,23 +14,24 @@ $font-path: "../assets/fonts";
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
-$colors: ( primary: #D0011B, secondary: #32db64, danger: #f53d3d, light: #C7C7C7, midlight: #B6B6B6, dark: #444343, blanco: #FFF, negro: #000, texto: #606060, titles: #777777, variacion: #333333, ultralight: #F5F5F5, save: #52831D, call: #7ED321, mail: #191919 );
-$indicadores: ( title: #7ED321, neutro: #FFC12D, positivo: #7ED321, negativo: #D0011B, compra: #212FC2, factura: #30C0A2 );
-$fondos: ( light: #F2F2F2, border: #DBDBDB ); // breakpoint mixin
+$colors: ( primary: #D0011B, secondary: #7ED321, danger: #f53d3d, light: #C7C7C7, midlight: #B6B6B6, dark: #444343, blanco: #FFF, negro: #000, texto: #606060, titles: #777777, variacion: #333333, ultralight: #F5F5F5, save: #52831D, call: #7ED321, mail: #191919);
+$indicadores: ( title: #7ED321, neutro: #FFC12D, positivo: #7ED321, negativo: #D0011B, compra: #212FC2, factura: #30C0A2);
+$fondos: ( light: #F2F2F2, border: #DBDBDB); // breakpoint mixin
 $color-grey: #666;
 $font-icons: 'Ionicons';
 @mixin breakpoint($mq01: 0, $mq2: false, $maxmin: max-width) {
-     @if $mq2 == false{
+    @if $mq2==false {
         @media ($maxmin: $mq01) {
-             @content;
+            @content;
         }
     }
     @else {
-         @media (min-width: $mq01) and (max-width: $mq2){
+        @media (min-width: $mq01) and (max-width: $mq2) {
             @content;
         }
     }
 }
+
 // breakpoint variables
 $lg: 480px;
 $md: 413px;
@@ -38,17 +39,19 @@ $sm: 400px;
 $xs: 325px;
 // responsive font size mixin
 @mixin font-size-map($font-size-map) {
-     @each $breakpoint, $font-size in $font-size-map{
-        @if $breakpoint == null {
+    @each $breakpoint,
+    $font-size in $font-size-map {
+        @if $breakpoint==null {
             font-size: $font-size;
         }
         @else {
-             @include breakpoint($breakpoint){
+            @include breakpoint($breakpoint) {
                 font-size: $font-size;
             }
         }
     }
 }
+
 // font sizes
 $html-font-size: (null: 62.5%, $lg: 62.5%, $md: 80%, $sm: 62.5%, $xs: 55%);
 $paragraph-font-size: (null: 17px, $lg: 17px, $md: 16px, $sm: 15px, $xs: 15px); // App iOS Variables

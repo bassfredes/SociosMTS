@@ -21,8 +21,8 @@ export class LoginPage {
         public alertCtrl: AlertController,
         public authService: AuthService) {
         this.loginData = this.formBuilder.group({
-            email: ['', Validators.compose([Validators.required])],
-            password: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+            user: ['', Validators.compose([Validators.required])],
+            pass: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
         });
     }
     ionViewDidLoad() {
@@ -36,16 +36,21 @@ export class LoginPage {
             closeButtonText: "OK"
         });
         this.authService.login(this.loginData.value).then((data:any) => {
-            if (data.Error) {
-                let alert = this.alertCtrl.create({
-                    title: data.Error,
-                    message: 'Por favor, revisa los datos ingresados',
-                    buttons: ['Aceptar']
-                });
-                alert.present();
+            if (data){
+                if (data.Error) {
+                    let alert = this.alertCtrl.create({
+                        title: data.Error,
+                        message: 'Por favor, revisa los datos ingresados',
+                        buttons: ['Aceptar']
+                    });
+                    alert.present();
+                }
+                else {
+                    this.redirectToHome()
+                }
             }
             else {
-                this.redirectToHome()
+                errorToast.present();
             }
         }).catch((e) => {
             errorToast.present();
