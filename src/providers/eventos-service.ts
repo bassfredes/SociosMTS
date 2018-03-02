@@ -71,11 +71,11 @@ export class EventosService {
         });
     }
     inscribirse(eventoID, tipo, respuestas) {
-        //let datauser = "evento_id=" + eventoID + "&tipo=" + tipo + respuestas;
         let datauser = {};
-        console.log(datauser);
+        let datauser2 = "evento_id=" + eventoID + "&tipo=" + tipo + respuestas;
+        console.log(datauser2);
         return new Promise(resolve => {
-            this.authHttp.post(this.cfg.apiUrl + this.cfg.eventos + '_participar/_all_docs?include_docs=true', datauser).subscribe(data => {
+            this.authHttp.post(this.cfg.apiUrl + this.cfg.eventos + '_participar/_all_docs?include_docs=true', datauser2).subscribe(data => {
                 if (data) {
                     let result = data.json().rows[0];
                     resolve(result);
@@ -89,11 +89,11 @@ export class EventosService {
         });
     }
     invitarEvento(eventoID, tipo, datosInvitado, respuestas) {
-        //let datauser = datosInvitado + "&evento_id=" + eventoID + "&tipo=" + tipo + respuestas;
         let datauser = {};
-        console.log(datauser);
+        let datauser2 = datosInvitado + "&evento_id=" + eventoID + "&tipo=" + tipo + respuestas;
+        console.log(datauser2);
         return new Promise(resolve => {
-                this.authHttp.post(this.cfg.apiUrl + this.cfg.eventos + '_invitar/_all_docs?include_docs=true', datauser).subscribe(data => {
+                this.authHttp.post(this.cfg.apiUrl + this.cfg.eventos + '_invitar/_all_docs?include_docs=true', datauser2).subscribe(data => {
                 if (data) {
                     let result = data.json().rows[0];
                     resolve(result);
