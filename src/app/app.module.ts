@@ -18,8 +18,8 @@ registerLocaleData(localeEsCL, 'es-CL');
 export function getAuthHttp(http, options: RequestOptions) {
     return new AuthHttp(new AuthConfig({
         noJwtError: true,
-        /* globalHeaders: [{ 'Content-Type': 'application/x-www-form-urlencoded' }, { 'Accept': 'application/json' }], // Produccion*/
-        globalHeaders: [{ 'Accept': 'application/json' }], // Local
+        globalHeaders: [{ 'Content-Type': 'application/x-www-form-urlencoded' }, { 'Accept': 'application/json' }], // Produccion
+        /* globalHeaders: [{ 'Accept': 'application/json' }], // Local */
         tokenGetter: (() => storage.get('id_token')),
     }), http, options);
 }

@@ -41,7 +41,8 @@ page-noticias {
         }
         border-bottom: 1px solid #C7C7C7;
         margin-bottom: 8px;
-        .searchbar-ios.searchbar-left-aligned .searchbar-input {
+        .searchbar-ios.searchbar-left-aligned .searchbar-input,
+        .searchbar-md .searchbar-input {
             padding-left: 0px;
         }
     }
