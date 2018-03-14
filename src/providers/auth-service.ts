@@ -57,23 +57,23 @@ export class AuthService {
                 let tokenPost;
                 if (thetoken != null){
                     tokenPost = 'token=' + thetoken;
+                    this.cache.getItem(cacheKey).catch(() => {
+                        return this.authHttp.post(url, tokenPost).toPromise().then(rs => {
+                            let result = rs.json();
+                            return this.cache.saveItem(cacheKey, result);
+                        });
+                    }).then((data) => {
+                        if (typeof (data) !== 'undefined' && data.value) {
+                            resolve(JSON.parse(data.value));
+                        }
+                        else {
+                            resolve(data);
+                        }
+                    });
                 }
                 else {
-                    tokenPost = '';
+                    resolve(true);
                 }
-                this.cache.getItem(cacheKey).catch(() => {
-                    return this.authHttp.post(url, tokenPost).toPromise().then(rs => {
-                        let result = rs.json();
-                        return this.cache.saveItem(cacheKey, result);
-                    });
-                }).then((data) => {
-                    if (typeof (data) !== 'undefined' && data.value) {
-                        resolve(JSON.parse(data.value));
-                    }
-                    else {
-                        resolve(data);
-                    }
-                });
             });
         });
     }
